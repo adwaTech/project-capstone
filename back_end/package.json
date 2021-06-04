@@ -1,0 +1,22 @@
+{
+  "name": "back_end",
+  "version": "1.0.0",
+  "description": "\"project capstone\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adwaTech/project-capstone.git"
+  },
+  "author": "\"Kirubel_Adamu_Meseret_kifle_Mengistu_Berhe_Michael_Mamaye\"",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adwaTech/project-capstone/issues"
+  },
+  "homepage": "https://github.com/adwaTech/project-capstone#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
