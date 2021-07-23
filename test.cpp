@@ -11,6 +11,6 @@ int main(){
   cin>>x;
   cout<<"You will be famous after "<<x%10<<" years! Congrats!!!"<<endl;
   cout<<"Thank you for having faith in me!"<<endl;
-  cout<<"Good bye!!!";
+  cout<<"Good bye!!!;
   return 0;
 }
