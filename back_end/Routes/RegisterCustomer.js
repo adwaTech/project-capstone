@@ -1,4 +1,4 @@
-const UserModel=require('../models/Users');
+const Users=require('../models/Users');
 
 module.exports=RegisterRoute= async (req,res)=>{
     const username=req.body.username
@@ -60,13 +60,13 @@ module.exports=RegisterRoute= async (req,res)=>{
         if(req.file!=null){
             profileImage=req.files[0].originalname;
 
-            await UserModel.find({username:username}).then(
+            await Users.find({username:username}).then(
                 response=>{
                     if(response.length!==0){
                         error.push("this username is taken by other");
                         res.json({success:false,usertype:'',error:''});
                     }else{
-                        new UserModel({
+                        new Users({
                             username,
                             firstname,
                             lastName,
@@ -89,13 +89,13 @@ module.exports=RegisterRoute= async (req,res)=>{
             ).catch(error=>console.log(error));
         }
         else{
-            await UserModel.find({username:username}).then(
+            await Users.find({username:username}).then(
                 response=>{
                     if(response.length!==0){
                         error.push("this username is taken by other");
                         res.json({success:false,usertype:'',error:''});
                     }else{
-                        new UserModel({
+                        new Users({
                             username,
                             firstname,
                             lastName,
@@ -117,8 +117,5 @@ module.exports=RegisterRoute= async (req,res)=>{
             ).catch(error=>console.log(error));
         }
         
-    }
-    if(error.length>0){
-        res.json(error);
     }
 }

@@ -5,7 +5,7 @@ const path=require('path');
 
 
 const LoginRoute =require('./LoginRoute');
-const RegisterRoute=require('./RegisterCustomer');
+// const RegisterRoute=require('./RegisterCustomer');
 
 const storage=multer.diskStorage({
     destination:function(req,file,cb){
@@ -18,7 +18,7 @@ const storage=multer.diskStorage({
 
 const upload=multer({storage:storage,limits:{fieldSize:24*1024*1024*1024}});
 
-router.post("/registerCustomer",RegisterRoute)
-router.get("/login/:userName/:password/:type",LoginRoute);
+// router.post("/registerCustomer",upload.single("Image"),RegisterRoute)
+router.get("/login/:username/:password/:usertype",LoginRoute);
 
 module.exports=router;
