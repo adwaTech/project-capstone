@@ -1,11 +1,13 @@
-const UserModel=require('../model/UserModel');
-
+// const UserModel=require('../models/Users');
+const UserModel=require('../models/Users')
 module.exports=LoginRoute= async (req,res)=>{
-    const userName=req.params.userName;
+    console.log("hello mesi");
+    console.log(req.params)
+    const username=req.params.username;
     const password=req.params.password;
-    const usertype=req.params.type;
+    const usertype=req.params.usertype;
     let error=[];
-    if(!userName){
+    if(!username){
         error.push("username must be provide");
     }
     if(!password){
@@ -15,7 +17,7 @@ module.exports=LoginRoute= async (req,res)=>{
         error.push("user type must be porvided")
     }  
     if(error.length==0){
-        await UserModel.findOne({userName:userName,password:password,typeOfUser:typeOfUser}).then(
+        await UserModel.findOne({username:username,password:password,usertype:usertype}).then(
             response=>{
                 if(response){
                     res.json({success:true,usertype:response.usertype,error:[],username:response.username});
@@ -27,6 +29,6 @@ module.exports=LoginRoute= async (req,res)=>{
         ).catch(error=>console.log(error));
     }
     else{
-        res.json({success:false,typeOfUser:'',error:error,userName:''});
+        res.json({success:false,typeOfUser:'',error:error,username:''});
     }
 }

@@ -1,7 +1,7 @@
 const  express =require('express');
 const mongoose =require('mongoose');
 const cors =require('cors');
-const router=require('./routes/index')
+const router=require('./Routes/index')
 const app=express();
 
 
@@ -10,7 +10,7 @@ app.use(express.json())
 app.use('',router);
 app.use(express.static("uploads"));
 
-mongoose.connect("mongodb://localhost:27017/pension_managment",{useUnifiedTopology: true,useNewUrlParser: true})
+mongoose.connect("mongodb://localhost:27017/cc",{useUnifiedTopology: true,useNewUrlParser: true})
     .then(res=>{
         console.log("our database is running on port 27017");
     })
