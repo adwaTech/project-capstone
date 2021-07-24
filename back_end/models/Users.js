@@ -8,7 +8,8 @@ const User=mongoose.Schema({
     },
     usertype:{
         type:String,
-        require:true
+        require:true,
+        default:"customer"
     },
     password:{
         type:String,
@@ -35,10 +36,6 @@ const User=mongoose.Schema({
         type:String,
         require:true
     },
-    type:{
-        type:String,
-        require:true,
-    },
     insurance:{
         type:Boolean,
         require:true,
@@ -54,6 +51,9 @@ const User=mongoose.Schema({
     location:{
         type:Array,
         
+    },
+    profileImage:{
+        type:String,
     }
 
 });
