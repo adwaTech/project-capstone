@@ -1,8 +1,10 @@
-// const UserModel=require('../models/Users');
+
 const UserModel=require('../models/Users')
+
+const bcrypt = require('bcrypt');
+
 module.exports=LoginRoute= async (req,res)=>{
-    console.log("hello mesi");
-    console.log(req.params)
+
     const username=req.params.username;
     const password=req.params.password;
     const usertype=req.params.usertype;
@@ -17,12 +19,27 @@ module.exports=LoginRoute= async (req,res)=>{
         error.push("user type must be porvided")
     }  
     if(error.length==0){
-        await UserModel.findOne({username:username,password:password,usertype:usertype}).then(
+        await UserModel.findOne({username:username,usertype:usertype}).then(
             response=>{
+                
                 if(response){
-                    res.json({success:true,usertype:response.usertype,error:[],username:response.username});
+                    if(bcrypt.compareSync(myPlaintextPassword, hash)){
+                        res.json({success:true,usertype:response.usertype,error:[],username:response.username});
+                    }else{
+                        error.push("incorrect user name or password");
+                        res.json({success:false,usertype:'',error:error,username:''});
+                    }
+                    // bcrypt.compareSync(myPlaintextPassword, hash);
+                    // bcrypt.compare(password, response.password ).then(function(result) {
+                    //     if(result){
+                    //         res.json({success:true,usertype:response.usertype,error:[],username:response.username});
+                    //     }else{
+                    //         error.push("incorrect user name or password");
+                    //         res.json({success:false,usertype:'',error:error,username:''});
+                    //     }
+                    // });
                 }else{
-                    error.push("incorrect username,password or type of user");
+                    error.push("incorrect username or user type");
                     res.json({success:false,usertype:'',error:error,username:''});
                 }
             }
@@ -31,4 +48,5 @@ module.exports=LoginRoute= async (req,res)=>{
     else{
         res.json({success:false,typeOfUser:'',error:error,username:''});
     }
+
 }
