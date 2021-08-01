@@ -1,3 +1,4 @@
+import 'package:auction_mobile/product_preview.dart';
 import 'package:flutter/material.dart';
 
 import 'category_card.dart';
@@ -51,58 +52,45 @@ class ProductBrowser extends StatelessWidget {
                     Tab(
                       child: Container(
                         height: 200,
-                        child: ListView(
+                        child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          children: [
-                            Product(),
-                            Product(),
-                            Product(),
-                            Product(),
-                            Product(),
-                            Product(),
-                          ],
-                        ),
+                          itemCount: 7,
+                          itemBuilder: (context,index)=>Hero(tag:'latestproduct$index',child:Product((){
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ProductPreview('latestproduct$index')));
+                          })))
                       ),
                     ),
                     Tab(
                       child: Container(
                         height: 200,
-                        child: ListView(
+                        child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          children: [
-                            Product(),
-                            Product(),
-                            Product(),
-                            Product(),
-                            Product(),
-                            Product(),
-                          ],
-                        ),
+                          itemCount: 7,
+                          itemBuilder: (context,index)=>Hero(tag:'popularproduct$index',child:Product((){
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ProductPreview('popularproduct$index')));
+                          })))
                       ),
                     ),
                     Tab(
                       child: Container(
                         height: 200,
-                        child: ListView(
+                        child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          children: [
-                            Product(),
-                            Product(),
-                            Product(),
-                            Product(),
-                            Product(),
-                            Product(),
-                          ],
-                        ),
+                          itemCount: 7,
+                          itemBuilder: (context,index)=>Hero(tag:'recommendedproduct$index',child:Product((){
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ProductPreview('recommendedproduct$index')));
+                          })))
                       ),
                     ),
                   ],
                 ),
               ),
-              Align(
+              Padding(
+                padding: EdgeInsets.all(8),
+                child:Align(
                   alignment: Alignment.bottomRight,
                   child: ElevatedButton(
-                      onPressed: () {}, child: Text('Show all ')))
+                      onPressed: () {}, child: Text('Show all '))))
             ],
           ),
         ));
