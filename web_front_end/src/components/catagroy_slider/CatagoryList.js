@@ -13,22 +13,24 @@ import Image14 from '../../assets/images/bird-wallpaper-1366x768-013.jpg';
 
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    justifyContent: 'space-around',
-   
-    backgroundColor: theme.palette.background.paper,
-  },
+
   imageList1: {
     width: "60%",
     height: "40%",
   },
   root: {
+    width:"80%",
+    height:"300px",
     display: 'flex',
     flexWrap: 'wrap',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
+    marginLeft:"10%",
+    marginRight:"10%",
+    alignContent:"center",
+    alignItems:"center",
     overflow: 'hidden',
     backgroundColor: theme.palette.background.paper,
+
   },
   imageList: {
     flexWrap: 'nowrap',
@@ -101,16 +103,6 @@ export default function BasicImageList() {
 
   return (
     <div>
-        {/* <div className={classes.root}>
-        <ImageList rowHeight={60} rowWidth={80} className={classes.imageList1} cols={3}>
-            {itemData.map((item) => (
-            <ImageListItem key={item.img} cols={item.cols || 1}>
-                <img src={item.img} alt={item.title} />
-            </ImageListItem>
-            ))}
-        </ImageList>
-
-        </div> */}
         <div className={classes.root}>
         <ImageList className={classes.imageList} cols={2.5}>
         {itemData.map((item) => (

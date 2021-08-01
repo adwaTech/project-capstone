@@ -6,12 +6,10 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
-import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import AddressForm from './Register';
-import PaymentForm from './PaymentForm';
+import Form2 from './Form2';
 import Review from './Review';
-
 
 
 
@@ -20,6 +18,10 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
   },
   layout: {
+    marginTop:theme.spacing(0),
+    marginBottom:theme.spacing(100),
+    position:"relative",
+    top:"150px",
     width: 'auto',
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
@@ -30,11 +32,11 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   paper: {
-    marginTop: theme.spacing(3),
-    marginBottom: theme.spacing(3),
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(20),
     padding: theme.spacing(2),
     [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
-      marginTop: theme.spacing(6),
+      marginTop: theme.spacing(0),
       marginBottom: theme.spacing(6),
       padding: theme.spacing(3),
     },
@@ -52,14 +54,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const steps = ['Shipping address', 'Payment details', 'Review your order'];
+const steps = ['Personal information', 'detail', 'security'];
 
 function getStepContent(step) {
   switch (step) {
     case 0:
       return <AddressForm />;
     case 1:
-      return <PaymentForm />;
+      return <Form2 />;
     case 2:
       return <Review />;
     default:
@@ -82,10 +84,12 @@ export default function Checkout() {
   return (
     <React.Fragment>
       <CssBaseline />
+
       <main className={classes.layout}>
+        
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">
-            Register
+            SignUp
           </Typography>
           <Stepper activeStep={activeStep} className={classes.stepper}>
             {steps.map((label) => (
@@ -101,8 +105,7 @@ export default function Checkout() {
                   Thank you for being part of us.
                 </Typography>
                 <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order confirmation, and will
-                  send you an update when your order has shipped.
+                  please varify your accont by checking your email .we have send you an email.
                 </Typography>
                 
               </React.Fragment>
@@ -121,7 +124,7 @@ export default function Checkout() {
                     onClick={handleNext}
                     className={classes.button}
                   >
-                    {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+                    {activeStep === steps.length - 1 ? 'Register' : 'Next'}
                   </Button>
                 </div>
               </React.Fragment>

@@ -1,17 +1,15 @@
 import React from 'react'
 import './header.css'
 import {NavLink,useLocation} from 'react-router-dom';
-import {Button,makeStyles,Typography,withStyles} from '@material-ui/core';
+import {Button,makeStyles,withStyles} from '@material-ui/core';
 import PhoneIcon from '@material-ui/icons/Phone'
 import LangIcon from '@material-ui/icons/Language';
 import PersonIcon from '@material-ui/icons/Person';
 
-import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputBase from '@material-ui/core/InputBase';
-import MenuButton from '@material-ui/icons/Menu';
 import Appbar from './Appbar';
 
 const BootstrapInput = withStyles((theme) => ({
@@ -66,7 +64,7 @@ export default function Header() {
     React.useEffect(()=>{
         setLoc(location.pathname);
         window.addEventListener('scroll',function(){
-            var header=document.getElementsByClassName("header");
+            var header=document.getElementsByClassName("nav-header");
             header[0].classList.toggle('sticky',window.scrollY>0);
         });
     })
@@ -76,7 +74,7 @@ export default function Header() {
         setLang(event.target.value);
     };
     return (
-        <div>
+        <div className="nav-header">
             <div className="smoll-screen">
                  <Appbar/>
             </div>
@@ -91,12 +89,12 @@ export default function Header() {
                         <div className={loc=='/'?"right-top-header":"right-top-header2"}>
                             <span>
                             <a>
-                                <PhoneIcon style={{color:"#ffffff"}}/>
+                                <PhoneIcon style={{color:"#000"}}/>
                                 <p>Customer Support</p>
                             </a>
                             </span>
                             <div>
-                                <LangIcon style={{color:"#ffffff"}}/>
+                                <span><LangIcon style={{color:"#000"}}/></span>
                                 <FormControl >
                                     <Select
                                     labelId="demo-customized-select-label"
@@ -115,7 +113,7 @@ export default function Header() {
                                     </Select>
                                 </FormControl>
                             </div>
-                            <PersonIcon className="personIcon" style={{color:"#ffffff"}}/>
+                            <PersonIcon className="personIcon" style={{color:"#000"}}/>
                         </div>
                     </div>
                     <div className="bottom-header">
@@ -145,10 +143,6 @@ export default function Header() {
                             </Button>
                         </div>
                     </div>
-                </div>
-                <div class="banner-title">
-                    <h1> be part of e-Auction
-                        <span><br/> enjoy your time with the service that you get. </span></h1>
                 </div>
             </div>
         </div>

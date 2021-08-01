@@ -14,24 +14,14 @@ import { makeStyles } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
+import Google from '../../assets/assets/google.svg';
+import Facebook from '../../assets/assets/facebook.svg'
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(3),
-    
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -48,12 +38,11 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
   container:{
-    marginBottom:60,
     padding:10,
     backgroundColor:"white",
-    marginTop:50,
     borderRadius:'25px',
-    boxShadow:"2px 2px 2px rgba(0,0,0,0.3)"
+    paddingTop:170,
+    marginBottom:100
   },
   donthaveaccounte:{
     cursor:"pointer",
@@ -66,9 +55,17 @@ export default function SignIn() {
   const classes = useStyles();
 
   return (
-    <div style={{width:"100%",height:"100%",backgroundColor:"#eeeeee"}}>
-      <Header/>
-      <Container component="main" maxWidth="xs" className={classes.container} >
+    <div>
+    <Header/>
+    <Login/>
+    <Footer/>
+    </div>
+  );
+}
+function Login(){
+  const classes = useStyles();
+  return(
+    <Container component="main" maxWidth="xs" className={classes.container} >
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -104,15 +101,22 @@ export default function SignIn() {
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
+          <label>sign in with 
+            <img src={Facebook} alt="Facebook" style={{cursor:"pointer",marginTop:"5px"}} width="80" height="40"/>
+            <img src={Google} alt="Google" style={{cursor:"pointer"}} width="40" height="40"/>
+          </label>
+          <Link to="admin">
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
+            
           >
             Sign In
           </Button>
+          </Link>
           <Grid container>
             <Grid item xs>
               <Link to="/forgetpassword" className={classes.donthaveaccount}  variant="body2">
@@ -128,7 +132,5 @@ export default function SignIn() {
         </form>
       </div>
     </Container>
-    <Footer/>
-    </div>
-  );
+  )
 }

@@ -16,8 +16,10 @@ body{
 	display: flex;
 	flex-wrap: wrap;
 }
-ul{
+.footer ul{
 	list-style: none;
+	display: flex;
+	flex-direction: column;
 }
 .footer{
 	background-color: #24262b;
@@ -26,6 +28,7 @@ ul{
 .footer-col{
    width: 25%;
    padding: 0 15px;
+   
 }
 .footer-col h4{
 	font-size: 18px;
@@ -56,6 +59,7 @@ ul{
 	color: #bbbbbb;
 	display: block;
 	transition: all 0.3s ease;
+	
 }
 .footer-col ul li a:hover{
 	color: #ffffff;

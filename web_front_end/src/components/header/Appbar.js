@@ -7,10 +7,12 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ShowContext from '../../Context';
+import Fab from '@material-ui/core/Fab';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    zIndex:2000
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -28,14 +30,17 @@ export default function ButtonAppBar() {
     <div className={classes.root}>
       <AppBar position="fixed">
         <Toolbar>
+        <Fab color="primary" aria-label="add">
           <IconButton
-          onClick={()=>{
-            setIsOpen(true);
-            showContext.setSideToggle(!showContext.sideToggle)
-          }}
-          edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
+            onClick={()=>{
+              setIsOpen(true);
+              showContext.setSideToggle(!showContext.sideToggle)
+            }}
+            edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+              <MenuIcon />
+            </IconButton>
+        </Fab>
+          
           <Typography variant="h6" className={classes.title}>
             M3K Auction
           </Typography>

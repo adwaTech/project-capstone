@@ -3,7 +3,11 @@
 .contact{
   margin: 0;
   padding: 0;
-  background-color: #fafafa;
+  background-color: #eee;
+  position: relative;
+  top: 150px;
+  margin-bottom: 100px;
+  z-index: 1;
 }
 
 

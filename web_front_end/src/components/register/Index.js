@@ -6,9 +6,11 @@ import Checkout from './Checkout';
 export default function Index() {
     return (
         <div>
-            <Header/>
+            <Header/>   
             <Checkout/>
-            <Footer/>
+            <div style={{marginTop:"100px"}}>
+                <Footer/>
+            </div>
         </div>
     )
 }
