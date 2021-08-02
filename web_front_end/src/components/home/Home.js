@@ -12,6 +12,12 @@ import Image7 from '../../assets/images/PngItem_3204975.png';
 import ProductCatagory from '../catagroy_slider/ProductCatagory';
 import Product2 from '../catagroy_slider/Product2';
 import HomeInfo  from './HomeInfo';
+import Image0 from '../../assets/images/paul-einerhand-uyDHQc128DA-unsplash.jpg';
+import Image11 from '../../assets/images/samantha-borges-EeS69TTPQ18-unsplash.jpg';
+import Image2 from '../../assets/images/lode-lagrainge-45cr4wHWTIw-unsplash.jpg';
+import Image3 from '../../assets/images/annie-spratt-JMjNnQ2xFoY-unsplash.jpg';
+import Image4 from '../../assets/images/adele-payman-2oYMwuFgnTg-unsplash.jpg';
+
 import {
     Send,
 } from '@material-ui/icons'
@@ -32,6 +38,26 @@ const useStyles=makeStyles({
         borderColor:"#5C7795"
     },
 })
+let list=[
+    {
+        image:Image0,
+
+    },
+    {
+        image:Image11
+    },
+    {
+        image:Image2,
+
+    },
+    {
+        image:Image3
+    },
+    {
+        image:Image4,
+
+    },
+];
 export default function Home() {
     const classes=useStyles();
     const handleMouseDownPassword = (event) => {
@@ -42,7 +68,8 @@ export default function Home() {
             <Header/>
             <div className="front-image">
                 <div className="banner-title">
-                    <h3>Every election is a sort of advance auction sale of stolen goods.</h3>
+                    <h3>Online Auction is where everyone goes to shop, sell,
+                        and give, while discovering variety and affordability.</h3>
                     <Button variant="outlined" color="primary">
                         <Link to="/register">Create Account</Link>
                     </Button>
@@ -56,14 +83,19 @@ export default function Home() {
             {/* <Grid1/>
             <Grid2/>
             <CatagoryList/>  */}
-            <Product2/>
+            {
+                list.map((data)=>(
+                    <Product2 image={data}/>
+                ))
+            }
+            {/* <Product2/>
             
             <Product2/>
             <Product2/>
             <Product2/>
             <Product2/>
             <Product2/>
-            <HomeInfo/>
+            <HomeInfo/> */}
             <div>
             <div className="description">
                 <img src={Image7} alt=""/>
@@ -73,7 +105,7 @@ export default function Home() {
                         <h4>subscribe for news</h4>
                     </div>
                     <FormControl variant="outlined" fullWidth>
-                        <InputLabel htmlFor="outlined-adornment-search">search</InputLabel>
+                        <InputLabel htmlFor="outlined-adornment-search">subscribe</InputLabel>
                         <OutlinedInput
                             id="outlined-adornment-search"
                             type="text"

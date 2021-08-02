@@ -5,11 +5,10 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import SkipNextIcon from '@material-ui/icons/SkipNext';
-import Image7 from '../../assets/images/dan-gold-N7RiDzfF2iw-unsplash.jpg';
+
+
 import {
+  Add,
     NotificationsActive,
     
 } from  '@material-ui/icons'
@@ -32,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     flex: '1 0 auto',
   },
   cover: {
-    width: 151,
+    width: "40%",
   },
   controls: {
     display: 'flex',
@@ -46,7 +45,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MediaControlCard() {
+export default function MediaControlCard(props) {
+  console.log(props.image)
   const classes = useStyles();
   const theme = useTheme();
 
@@ -62,19 +62,28 @@ export default function MediaControlCard() {
             addis abeba bole
           </Typography>
           <Typography variant="subtitle1" color="textSecondary">
-            24/27/12
+            description :house house house house
+          </Typography>
+          <Typography variant="subtitle1" color="textSecondary">
+            start date :24/27/12
+          </Typography>
+          <Typography variant="subtitle1" color="textSecondary">
+            end date :24/27/12
+          </Typography>
+          <Typography variant="subtitle1" color="textSecondary">
+            end Time :24/27/12
           </Typography>
         </CardContent>
         <div className={classes.controls}>
           <IconButton aria-label="previous">
-            {theme.direction === 'rtl' ? <NotificationsActive/> : <NotificationsActive />}
+            {theme.direction === 'rtl' ? <Add/> : <Add />}
           </IconButton>
         </div>
       </div>
       <CardMedia
         className={classes.cover}
-        image={Image7}
-        title="Live from space album cover"
+        image={props.image}
+        title="Live Auction"
       />
     </Card>
     <Divider className={ classes.root}/>

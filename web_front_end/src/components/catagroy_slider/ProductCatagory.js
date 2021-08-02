@@ -5,6 +5,12 @@ import {Button,makeStyles} from '@material-ui/core';
 import Image1 from '../../assets/images/undraw_services_5tv9.svg'
 import Image8 from '../../assets/images/PngItem_3205063.png';
 import Image7 from '../../assets/images/PngItem_3204975.png';
+import Image11 from '../../assets/images/webaliser-_TPTXZd9mOo-unsplash.jpg';
+import Image12 from '../../assets/images/abhinav-raina-cyQiSGGDThQ-unsplash.jpg';
+import Image13 from '../../assets/images/naomi-hebert-MP0bgaS_d1c-unsplash.jpg';
+import Image14 from '../../assets/images/sieuwert-otterloo-aren8nutd1Q-unsplash.jpg'
+import Image9 from '../../assets/images/max-O_TVsaeZNlE-unsplash.jpg';
+import Image15 from '../../assets/images/webaliser-_TPTXZd9mOo-unsplash.jpg';
 
 const useStyles=makeStyles({
     addCartBtn:{
@@ -25,42 +31,42 @@ export default function Products() {
     var product =[
         {
             _id:1,
-            imageUrl:Image1,
+            imageUrl:Image14,
             title:"title",
             selling_price:"$200",
             description:"this is mesi this is mesi this is mesi"
         },
         {
             _id:1,
-            imageUrl:Image1,
+            imageUrl:Image13,
             title:"title",
             selling_price:"$200",
             description:"this is mesi this is mesi this is mesi"
         },
         {
             _id:1,
-            imageUrl:Image1,
+            imageUrl:Image15,
             title:"title",
             selling_price:"$200",
             description:"this is mesi this is mesi this is mesi"
         },
         {
             _id:1,
-            imageUrl:Image1,
+            imageUrl:Image9,
             title:"title",
             selling_price:"$200",
             description:"this is mesi this is mesi this is mesi"
         },
         {
             _id:1,
-            imageUrl:Image1,
+            imageUrl:Image11,
             title:"title",
             selling_price:"$200",
             description:"this is mesi this is mesi this is mesi"
         },
         {
             _id:1,
-            imageUrl:Image1,
+            imageUrl:Image12,
             title:"title",
             selling_price:"$200",
             description:"this is mesi this is mesi this is mesi"
