@@ -2,34 +2,19 @@ import React from 'react';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
 import ImageSlider from '../catagroy_slider/Slider';
-import CatagoryList from '../catagroy_slider/CatagoryList';
-import Grid1 from '../catagroy_slider/catagory_card/Grid1';
 import './home.css';
-import Grid2 from '../catagroy_slider/catagory_card/Grid2';
 import Image1 from '../../assets/images/homeimage.svg'
-import Image8 from '../../assets/images/PngItem_3205063.png';
-import Image7 from '../../assets/images/PngItem_3204975.png';
 import ProductCatagory from '../catagroy_slider/ProductCatagory';
 import Product2 from '../catagroy_slider/Product2';
 import HomeInfo  from './HomeInfo';
 import {Fab} from '@material-ui/core';
 import { ArrowUpward,ArrowDownward } from '@material-ui/icons';
 import WaveImage from '../../assets/images/wave6.svg';
-import Image11 from '../../assets/images/PngItem_29995.png';
-import Image12 from '../../assets/images/PngItem_3204917.png'
 import SignIn from '../../assets/images/signin.svg';
 import win from '../../assets/images/win.svg';
 import bid from '../../assets/images/bid.svg';
 
 import {
-    Send,
-} from '@material-ui/icons'
-import {
-    Button,
-    IconButton,InputAdornment,
-    FormControl,
-    InputLabel,
-    OutlinedInput,
     makeStyles
     
 } from '@material-ui/core';
@@ -43,10 +28,6 @@ const useStyles=makeStyles({
 })
 
 export default function Home() {
-    const classes=useStyles();
-    const handleMouseDownPassword = (event) => {
-        event.preventDefault();
-    };
     return (
         <div className="home">
             <Header/>
@@ -118,7 +99,7 @@ export default function Home() {
             <Product2/>
             <HomeInfo/> 
             <div>
-            <div className="description">
+            {/* <div className="description">
                 <img src={Image11} alt=""/>
                 <div className="news-subscribe">
                     <div>
@@ -148,6 +129,7 @@ export default function Home() {
                 </div>
                 <img src={Image12} alt=""/>
             </div>
+             */}
             </div>
             <Link onClick={()=>{
                 window.scrollTo(0,0);

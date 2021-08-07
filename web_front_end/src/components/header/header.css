@@ -11,7 +11,7 @@
     
     background-image: url(../../assets/images/undraw_business_deal_cpi9.svg);
     z-index: 2000;
-    transition: 1s;
+    transition: 0.3s;
 }  
 .nav-header.sticky .header-front{
   height: 60px;
@@ -25,7 +25,7 @@
     height: 130px;
     background-image: url(../../assets/images/undraw_business_deal_cpi9.svg);
     z-index: 2000;
-    transition: 1s;
+    transition: 0.3s;
 }
 .nav-header.sticky .main-header{
   height: 60px;
@@ -49,7 +49,7 @@
     position: fixed;
     width: 100%;
     z-index: 1000;
-    transition: 1s;
+    transition: 0.3s;
 }
 .nav-header.sticky{
     background-color: #eee;
@@ -60,12 +60,14 @@
 .nav-header.sticky ul li a{
     color: #174636;;
 }
-.logo{
+.logo div{
     color: #174636;
+    font-size: 40px;
     font-family: paragraphfont;
 }
-.logo2{
+.logo2 div{
     color: #174636;
+    font-size: 40px;
     font-family: paragraphfont;
 }
 .left-top-header h1{
@@ -82,7 +84,7 @@
     padding-top: 40px;
     padding-bottom: 20px;
     border-bottom: 1px solid rgba(233, 233, 233, 0.5);
-    transition: 1s;
+    transition: 0.3s;
 }
 .right-top-header{
     display: flex;
@@ -168,13 +170,13 @@
     margin-top: 20px;
     justify-content: center;
     align-items: center;
-    transition: 1s;
+    transition: 0.3s;
 }
-.scoll-view-header{
-  display: none;
+.bottom-header .scoll-screen{
+  visibility: hidden;
 }
-.nav-header.sticky .scoll-view-header{
-  display: flex;
+.nav-header.sticky .scoll-screen{
+  visibility: visible;
 }
 
 .nav-bar{
@@ -238,7 +240,7 @@
     background: #174636;
     display: block;
     margin: auto;
-    transition: 0.5s;
+    transition: 0.3s;
     cursor: pointer;
 }
 .nav-links2 ul li::after{
@@ -248,7 +250,7 @@
     background: #174636;
     display: block;
     margin: auto;
-    transition: 0.5s;
+    transition: 0.3s;
     cursor: pointer;
 }
 .nav-links ul li:hover::after{
@@ -552,7 +554,7 @@
     padding-left: 0;
     left: 0;
     display: none;
-    transition: 1s;
+    transition: 0.3s;
     background: white;
   }
   .nav-links2 ul li ul {

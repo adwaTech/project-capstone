@@ -77,9 +77,8 @@ export default function Products() {
         <div>
             <div className="description1" style={{marginTop:"300px"}}>
                 <img src={Image8} alt=""/>
-                <div>
+                <div className="description1-area">
                     <h3>Find The Best Product </h3>
-                    <h4>" this is mesi this is mesi."<span>Traditional Proverb</span></h4>
                     <Button className={classes.shopNow} variant="contained" color="primary">Shop Now</Button>
                 </div>
                 <img src={Image7} alt="" width="40px" height="40px"/>

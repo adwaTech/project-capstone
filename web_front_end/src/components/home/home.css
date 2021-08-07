@@ -43,17 +43,27 @@
   }
   .description1{
     width: 80%;
-    height: 400px;
+    height: 250px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    background: #e6f542;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.35);
+    background-color: #fafafa;
     margin: 140px;
   }
   .description1 img{
-    width: 50%;
-    height: 160%;
-    margin-top: -15%;
+    width: 30%;
+  }
+  .description1 .description1-area{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    align-items: center;
+    color: rgba(0,0,0,0.7);
+  }
+  .description1 .description1-area h3{
+    margin-right: 30px;
   }
 
 /* product catagory */
@@ -212,7 +222,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        background: #e6f542;
+        background: #ffffff;
         margin: 140px;
         margin-bottom: 500px;
       }

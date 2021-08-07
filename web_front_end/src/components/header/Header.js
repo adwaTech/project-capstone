@@ -89,7 +89,7 @@ export default function Header() {
                     <div className="top-header">
                         <div className="left-top-header">
                             <div className={loc=='/'?"logo":"logo2"}>
-                                <h1>M3K Auction</h1>
+                                <div>M3K Auction</div>
                             </div>
                         </div>
                         <div className={loc=='/'?"right-top-header":"right-top-header2"}>
@@ -119,7 +119,11 @@ export default function Header() {
                                     </Select>
                                 </FormControl>
                             </div>
-                            <PersonIcon className="personIcon" style={{color:"#000"}}/>
+                            <Link to="/profile">
+                            <PersonIcon color="primary"
+                            
+                            className="personIcon" style={{color:"#000"}}/>
+                            </Link>
                             <div style={{marginRight:"50px"}}>
                             <NavLink className="loginbtn" to="/login">
                                 <p>Login</p>
@@ -158,7 +162,33 @@ export default function Header() {
                                         <li><Link to="/thisyear" >This year</Link></li>
                                     </ul>
                                 </li>
-                                
+                                <li className="scoll-screen">
+                                <Link to="/profile">
+                                <PersonIcon className="personIcon" style={{color:"#000"}}/>
+                                </Link>
+                                </li>
+                                <li className="scoll-screen">
+                                <FormControl >
+                                    <Select
+                                    labelId="demo-customized-select-label"
+                                    id="demo-customized-select"
+                                    value={Lang}
+                                    color="primary"
+                                    onChange={handleChange}
+                                    input={<BootstrapInput />}
+                                    >
+                                    <MenuItem disabled>Language</MenuItem>
+                                    <MenuItem value="Eng">Eng</MenuItem>
+                                    <MenuItem value="Amh">Amh</MenuItem>
+                                    <MenuItem value="Oro">Oro</MenuItem>
+                                    <MenuItem value="Tig">Tig</MenuItem>
+                                    <MenuItem value="sum">Sum</MenuItem>
+                                    </Select>
+                                </FormControl>
+                                </li>
+                                <li className="scoll-screen">
+                                    <NavLink to="/login"><Button color="primary" variant="outlined">Login</Button></NavLink>
+                                </li>
                             </ul>
                         </div>
                         

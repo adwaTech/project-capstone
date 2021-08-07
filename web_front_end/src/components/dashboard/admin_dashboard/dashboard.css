@@ -47,14 +47,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  /* body {
-    background-color: #eeeeee;
-    color: #3c4858;
-    margin: 0;
-    font-family: Roboto, Helvetica, Arial, sans-serif;
-    font-weight: 300;
-    line-height: 1.5em;
-  } */
+
   
   blockquote footer:before,
   blockquote small:before {
@@ -98,7 +91,7 @@
   }
   
   body {
-    background-color: #eeeeee;
+    background-color: #cecece;
     color: #3c4858;
   }
   

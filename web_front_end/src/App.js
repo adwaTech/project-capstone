@@ -19,6 +19,7 @@ import House from './components/Auctions/AuctionCatagories/House';
 import Government from './components/Auctions/AuctionCatagories/Governments';
 import Service from './components/Auctions/AuctionCatagories/Service';
 import Catagoryindex from './components/Auctions/AuctionCatagories/CatagoryIndex'
+import User from './components/customer/User';
 
 function App() {
   const [sideToggle,setSideToggle]=React.useState(false)
@@ -39,6 +40,7 @@ function App() {
               <Route exact path="/admin" component={DashBoardIndex}/>
               <Route exact path="/house" component={Catagoryindex}/>
               <Route exact path="/car" component={Car}/>
+              <Route exact path="/profile" component={User}/>
               <Route exact path="/service" component={Service}/>
               <Route exact path="/government" component={Government}/>
               {/* <ProtectedRoute exact path="/dashboard/customer/:username"  component={CustomerDashBoard}/>

@@ -1,9 +1,8 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import Detail from './Detail';
-import {Search} from '@material-ui/icons';
 import Car from './Car';
 import Header from '../../header/Header';
+import Footer from '../../footer/Footer';
 const useStyles = makeStyles((theme) => ({
     root: {
       padding: '2px 4px',
@@ -30,22 +29,9 @@ export default function CatagoryIndex() {
     return (
         <div>
           <Header/>
-              <div className="catagoryindex">
-                <div className="catagoryindex-sidebar">
-                <div class="search-container">
-                    <input type="text" name="search" placeholder="Search..." class="search-input"/>
-                    <a href="#" class="search-btn">
-                            <Search/>    
-                    </a>
-                </div>
-              </div>
-              <div className="catagoryindex-mainmain">
-                  <Car/>
-              </div>
-              <div className="catagoryindex-rightside">
-                      <Detail/>
-              </div>
-              
+          <Car/>
+          <div style={{position:"relative",}}>
+          <Footer/>
           </div>
         </div>
     )
