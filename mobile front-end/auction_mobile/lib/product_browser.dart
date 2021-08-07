@@ -1,8 +1,8 @@
 import 'package:auction_mobile/product_preview.dart';
 import 'package:flutter/material.dart';
 
-import 'category_card.dart';
-import 'product_card.dart';
+import 'components/category_card.dart';
+import 'components/product_card.dart';
 
 class ProductBrowser extends StatelessWidget {
   const ProductBrowser({

@@ -1,11 +1,14 @@
-import 'package:auction_mobile/category_card.dart';
+import 'package:auction_mobile/components/category_card.dart';
+import 'package:auction_mobile/components/drawer.dart';
 import 'package:auction_mobile/live_auctions_view.dart';
 import 'package:auction_mobile/product_browser.dart';
-import 'package:auction_mobile/product_card.dart';
+import 'package:auction_mobile/components/product_card.dart';
+import 'package:auction_mobile/your_auctions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 import 'category_browser.dart';
+import 'notifications.dart';
 
 void main() {
   runApp(AuctionApp());
@@ -17,6 +20,7 @@ class AuctionApp extends StatefulWidget {
 
 class _AuctionAppState extends State<AuctionApp> with TickerProviderStateMixin {
   TabController _categoryTabController, _productsTabController;
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   void initState() {
     super.initState();
     _categoryTabController =
@@ -30,48 +34,8 @@ class _AuctionAppState extends State<AuctionApp> with TickerProviderStateMixin {
       title: 'M3K Auction',
       theme: ThemeData(primarySwatch: Colors.teal),
       home: Scaffold(
-          drawer: Drawer(
-            child: ListView(
-              children: [
-                SizedBox(
-                  height: 300,
-                  child: Center(
-                    child: Text('M3K Auctions'),
-                  ),
-                ),
-                Divider(),
-                ListTile(
-                  leading: Icon(Icons.home),
-                  title: Text(
-                      'Home'), // home, auction, categories, aobut, contact, FAQ, help and support'
-                ),
-                ListTile(
-                  leading: Icon(Icons.shop),
-                  title: Text('Auctions'),
-                ),
-                ListTile(
-                  leading: Icon(Icons.category),
-                  title: Text('Categories'),
-                ),
-                ListTile(
-                  leading: Icon(Icons.info),
-                  title: Text('About'),
-                ),
-                ListTile(
-                  leading: Icon(Icons.contact_phone),
-                  title: Text('Contact'),
-                ),
-                ListTile(
-                  leading: Icon(Icons.question_answer),
-                  title: Text('FAQ'),
-                ),
-                ListTile(
-                  leading: Icon(Icons.help_center),
-                  title: Text('Help and support'),
-                )
-              ],
-            ),
-          ),
+          key: _scaffoldKey,
+          drawer: DrawerComponent(),
           body: CustomScrollView(
             physics: BouncingScrollPhysics(),
             slivers: [
@@ -84,12 +48,16 @@ class _AuctionAppState extends State<AuctionApp> with TickerProviderStateMixin {
                 actions: [
                   Padding(
                       padding: EdgeInsets.all(8),
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.face,
-                          size: 30,
-                        ),
-                        onPressed: () {},
+                      child: PopupMenuButton(
+                        icon: Icon(Icons.face, size: 30),
+                        itemBuilder: (context) => <PopupMenuItem>[
+                          PopupMenuItem(child: Text('Your profile')),
+                          PopupMenuItem(child: Text('Dashboard')),
+                          PopupMenuItem(child: Text('Contact Us')),
+                          PopupMenuItem(
+                            child: Text('About Us'),
+                          )
+                        ],
                       ))
                 ],
                 title: Text('Auction App'),
@@ -127,14 +95,24 @@ class _AuctionAppState extends State<AuctionApp> with TickerProviderStateMixin {
                                   ),
                                 ),
                                 ListTile(
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.of(_scaffoldKey.currentContext)
+                                        .push(MaterialPageRoute(
+                                            builder: (context) =>
+                                                YourAuctions()));
+                                  },
                                   leading:
                                       Icon(Icons.history, color: Colors.white),
                                   title: Text('See your Auctions',
                                       style: TextStyle(color: Colors.white)),
                                 ),
                                 ListTile(
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.of(_scaffoldKey.currentContext)
+                                        .push(MaterialPageRoute(
+                                            builder: (context) =>
+                                                Notifications()));
+                                  },
                                   leading: Icon(Icons.notifications,
                                       color: Colors.white),
                                   title: Text('See your notifications',

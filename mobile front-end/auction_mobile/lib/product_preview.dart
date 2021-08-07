@@ -6,7 +6,9 @@ class ProductPreview extends StatelessWidget {
   ProductPreview(this.heroTag);
   Widget build(BuildContext context) => Hero(
         tag: heroTag,
-        child: CustomScrollView(
+        child: Stack(
+          children:[
+            CustomScrollView(
           physics: BouncingScrollPhysics(),
           slivers: [
             SliverAppBar(
@@ -124,5 +126,31 @@ class ProductPreview extends StatelessWidget {
             )
           ],
         ),
+        Padding(
+          padding:EdgeInsets.all(10),
+          child:Align(
+          alignment:Alignment.bottomRight,
+          child:Material(
+            elevation: 10,
+            borderRadius: BorderRadius.circular(50),
+            color: Colors.teal,
+            child:InkWell(
+              
+              borderRadius: BorderRadius.circular(50),
+              onTap: (){
+
+              },
+            child: Container(
+            
+              width: 100,
+              height: 50,
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+                borderRadius: BorderRadius.circular(50)
+              ),
+              child:Center(child:Text('Bid Now',style:TextStyle(color: Colors.white)))
+            )),
+          )))
+          ])
       );
 }
