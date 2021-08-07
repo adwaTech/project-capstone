@@ -1,4 +1,6 @@
 const Users=require('../models/Users');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 module.exports=RegisterRoute= async (req,res)=>{
     const username=req.body.username
@@ -66,6 +68,8 @@ module.exports=RegisterRoute= async (req,res)=>{
                         error.push("this username is taken by other");
                         res.json({success:false,usertype:'',error:''});
                     }else{
+                        const salt = bcrypt.genSaltSync(saltRounds);
+                        const hash = bcrypt.hashSync(password, salt);
                         new Users({
                             username,
                             firstname,
@@ -106,7 +110,7 @@ module.exports=RegisterRoute= async (req,res)=>{
                             location,
                             idNumber,
                             email,
-                            password
+                            hash
                          }).save().then(response=>{
                              res.json({success:true,usertype:response.usertype,error:[]});
                          }).catch(error=>{
