@@ -2,9 +2,9 @@ import React from 'react'
 import Image1 from '../../assets/images/undraw_services_5tv9.svg'
 import Image8 from '../../assets/images/PngItem_3205063.png';
 import Image7 from '../../assets/images/PngItem_3204975.png';
-import app1 from './app1.png';
-import app2 from './app2.png';
-import Mobile from './balazs-ketyi-6ba_vdgx_go-unsplash.jpg';
+import app1 from '../../assets/images/app1.png';
+import app2 from '../../assets/images/app2.png';
+import Mobile from '../../assets/images/balazs-ketyi-6ba_vdgx_go-unsplash.jpg';
 import './info.css';
 
 export default function HomeInfo() {

@@ -120,26 +120,26 @@ export default function Notifications() {
   };
   return (
     <Card>
-      <CardHeader color="primary">
+      <CardHeader color="info">
         <h4 className={classes.cardTitleWhite}>Notifications</h4>
         <p className={classes.cardCategoryWhite}>
-          Handcrafted by our friends from{" "}
+          M3K Auction{" "}
           <a
             target="_blank"
             href="#"
           >
-            Material UI
+            M3K Auction
           </a>{" "}
-          and styled by{" "}
+          m3K Auction{" "}
           <a
             target="_blank"
             href="#"
           >
-            Creative Tim
+            m3K Auction
           </a>
-          . Please checkout the{" "}
+          . be part of us{" "}
           <a href="#pablo" target="_blank">
-            full documentation
+            be part of us
           </a>
           .
         </p>
@@ -147,7 +147,7 @@ export default function Notifications() {
       <CardBody>
         <GridContainer>
           <GridItem xs={12} sm={12} md={6}>
-            <h5>Notifications Style</h5>
+            <h5>User Notifications</h5>
             <br />
             <SnackbarContent message={"This is a plain notification"} />
             <SnackbarContent
@@ -233,7 +233,7 @@ export default function Notifications() {
                   place="tl"
                   color="info"
                   icon={AddAlert}
-                  message="Welcome to MATERIAL DASHBOARD React - a beautiful freebie for every web developer."
+                  message="Welcome to M3K Auctions."
                   open={tl}
                   closeNotification={() => setTL(false)}
                   close

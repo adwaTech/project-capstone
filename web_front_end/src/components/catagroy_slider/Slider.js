@@ -12,6 +12,8 @@ import Image11 from '../../assets/images/webaliser-_TPTXZd9mOo-unsplash.jpg';
 import Image12 from '../../assets/images/abhinav-raina-cyQiSGGDThQ-unsplash.jpg';
 import Image13 from '../../assets/images/naomi-hebert-MP0bgaS_d1c-unsplash.jpg';
 import Image14 from '../../assets/images/sieuwert-otterloo-aren8nutd1Q-unsplash.jpg';
+import LeftBack from '../../assets/images/left_back.png';
+import RightBack from '../../assets/images/right_back.png';
 import BackIcon from '@material-ui/icons/ArrowBackIos';
 import ForwardIcon from '@material-ui/icons/ArrowForwardIos';
 import { Star } from '@material-ui/icons';
@@ -24,13 +26,13 @@ export default function Slider() {
         let product = document.getElementsByClassName('product')
         let product_page = Math.ceil(product.length/4);
         let l = 0;
-        let movePer = 25.34;
+        let movePer = 33;
         let maxMove = 203;
         // mobile_view	
         let mob_view = window.matchMedia("(max-width: 768px)");
         if (mob_view.matches)
         {
-            movePer = 50.36;
+            movePer = 66;
             maxMove = 504;
         }
 
@@ -48,13 +50,13 @@ export default function Slider() {
         let product = document.getElementsByClassName('product')
         let product_page = Math.ceil(product.length/4);
         let l = 0;
-        let movePer = 25.34;
+        let movePer = 33;
         let maxMove = 203;
         // mobile_view	
         let mob_view = window.matchMedia("(max-width: 768px)");
         if (mob_view.matches)
         {
-            movePer = 50.36;
+            movePer = 66;
             maxMove = 504;
         }
 
@@ -133,21 +135,14 @@ export default function Slider() {
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam non atque adipisci est, recusandae aperiam, ullam minima quos nostrum animi voluptas sequi. At repellendus fuga reiciendis accusantium, dolor suscipit repellat?
                     </p>
                 </div>
-                <header>
-                    <h1>Well Known Catagries</h1>
-                    <p>
-                        <span onClick={
+                <div className="slider-catagory">
+                    <span>
+                        <img src={LeftBack} alt=""onClick={
                             ()=>{
                                 left_mover();
                             }
-                        }
-                        ><BackIcon /></span>
-                        <span onClick={()=>{
-                            right_mover();
-                        }}
-                        ><ForwardIcon/></span>
-                    </p>
-                </header>
+                        }/>
+                    </span>
                 <section>
                     {
                         data.map((newindex,i)=>(
@@ -180,6 +175,13 @@ export default function Slider() {
                     }
                     
                 </section>
+                <span>
+                    <img src={RightBack} alt=""
+                    onClick={()=>{
+                        right_mover();
+                    }}/>
+                </span>
+                </div>
             </main>
         </div>
     )

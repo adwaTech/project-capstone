@@ -59,36 +59,20 @@ export default function TypographyPage() {
   const classes = useStyles();
   return (
     <Card>
-      <CardHeader color="primary">
-        <h4 className={classes.cardTitleWhite}>Material Dashboard Heading</h4>
+      <CardHeader color="info">
+        <h4 className={classes.cardTitleWhite}>m3K customer service management</h4>
         <p className={classes.cardCategoryWhite}>
-          Created using Roboto Font Family
+          Ethiopian online auction
         </p>
       </CardHeader>
       <CardBody>
         <div className={classes.typo}>
-          <div className={classes.note}>Header 1</div>
-          <h1>The Life of Material Dashboard</h1>
-        </div>
-        <div className={classes.typo}>
           <div className={classes.note}>Header 2</div>
-          <h2>The Life of Material Dashboard</h2>
+          <h3>ONline auction</h3>
         </div>
         <div className={classes.typo}>
           <div className={classes.note}>Header 3</div>
-          <h3>The Life of Material Dashboard</h3>
-        </div>
-        <div className={classes.typo}>
-          <div className={classes.note}>Header 4</div>
-          <h4>The Life of Material Dashboard</h4>
-        </div>
-        <div className={classes.typo}>
-          <div className={classes.note}>Header 5</div>
-          <h5>The Life of Material Dashboard</h5>
-        </div>
-        <div className={classes.typo}>
-          <div className={classes.note}>Header 6</div>
-          <h6>The Life of Material Dashboard</h6>
+          <h3>ONline auction</h3>
         </div>
         <div className={classes.typo}>
           <div className={classes.note}>Paragraph</div>
