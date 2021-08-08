@@ -1,5 +1,4 @@
 import './App.css';
-<<<<<<< HEAD
 import React from 'react'
 import {BrowserRouter as Router,Switch,Route,Redirect, Link} from 'react-router-dom';
 import Store from './redux-state-managment/Store';
@@ -9,7 +8,7 @@ import Register from './components/register/Index';
 import Login from './components/login/Login';
 import ErrorRoute from './components/error-route/ErrorRoute';
 import Contact from './components/contact/Contact';
-import About from './components/about/About';
+// import About from './components/about/About';
 import ShowContext from './Context';
 import Drawer from './components/drawer/Drawer';
 import Home from './components/home/Home'
@@ -21,23 +20,11 @@ import Government from './components/Auctions/AuctionCatagories/Governments';
 import Service from './components/Auctions/AuctionCatagories/Service';
 import Catagoryindex from './components/Auctions/AuctionCatagories/CatagoryIndex'
 import User from './components/customer/User';
-=======
-import {BrowserRouter as Router,Switch,Route} from 'react-router-dom';
-import Store from './redux-state-managment/Store';
-import {Provider} from 'react-redux';
-import ProtectedRoute from './components/protected-route/ProtectedRoute';
-import Register from './components/register/Register';
-import Login from './components/login/Login';
-import Home from './components/home/Home';
-import DashBoard from './components/DashBoard/DashBoard';
-import ErrorRoute from './components/error-route/ErrorRoute';
->>>>>>> main
 
 function App() {
   const [sideToggle,setSideToggle]=React.useState(false)
   return (
     <Provider store={Store}>
-<<<<<<< HEAD
       <ShowContext.Provider value={{sideToggle,setSideToggle}}>
       
       <Router>
@@ -47,7 +34,7 @@ function App() {
               <Route exact  path="/home" component={Home}/>
               <Route exact path="/contact" component={Contact}/>
               <Route exact path="/register" component={Register}/>
-              <Route exact path="/about" component={About}/>
+              {/* <Route exact path="/about" component={About}/> */}
               <Route exact path="/login" component={Login}/>
               <Route exact path="/autions" component={Auctions}/>
               <Route exact path="/admin" component={DashBoardIndex}/>
@@ -62,17 +49,6 @@ function App() {
           </Switch>
       </Router>
       </ShowContext.Provider>
-=======
-      <Router>
-          <Switch>
-              <Route exact path="/" component={Home}/>
-              <Route exact path="/register" component={Register}/>
-              <Route exact path="/login" component={Login}/>
-              <ProtectedRoute exact path="/dashBoard/:userName"  component={DashBoard}/>
-              <Route path="*" component={ErrorRoute}/>
-          </Switch>
-      </Router>
->>>>>>> main
     </Provider>
   );
 }

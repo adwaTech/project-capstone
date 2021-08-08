@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
 
-<<<<<<< HEAD
 .contact{
   margin: 0;
   padding: 0;
@@ -19,37 +18,12 @@
   min-height: 100vh;
   padding: 2rem;
   margin-left: 150px;
-=======
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body,
-input,
-textarea {
-  font-family: "Poppins", sans-serif;
-}
-
-.container {
-  position: relative;
-  width: 100%;
-  min-height: 100vh;
-  padding: 2rem;
-  background-color: #fafafa;
-  overflow: hidden;
->>>>>>> main
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-<<<<<<< HEAD
 .contact .form {
-=======
-.form {
->>>>>>> main
   width: 100%;
   max-width: 820px;
   background-color: #fff;
@@ -61,52 +35,32 @@ textarea {
   grid-template-columns: repeat(2, 1fr);
 }
 
-<<<<<<< HEAD
 .contact .contact-form {
-=======
-.contact-form {
->>>>>>> main
   background-color: #1abc9c;
   position: relative;
 }
 
-<<<<<<< HEAD
 .contact .circle {
-=======
-.circle {
->>>>>>> main
   border-radius: 50%;
   background: linear-gradient(135deg, transparent 20%, #149279);
   position: absolute;
 }
 
-<<<<<<< HEAD
 .contact .circle.one {
-=======
-.circle.one {
->>>>>>> main
   width: 130px;
   height: 130px;
   top: 130px;
   right: -40px;
 }
 
-<<<<<<< HEAD
 .contact .circle.two {
-=======
-.circle.two {
->>>>>>> main
   width: 80px;
   height: 80px;
   top: 10px;
   right: 30px;
 }
 
-<<<<<<< HEAD
 .contact .contact-form:before {
-=======
-.contact-form:before {
->>>>>>> main
   content: "";
   position: absolute;
   width: 26px;
@@ -117,22 +71,14 @@ textarea {
   left: -13px;
 }
 
-<<<<<<< HEAD
 .contact form {
-=======
-form {
->>>>>>> main
   padding: 2.3rem 2.2rem;
   z-index: 10;
   overflow: hidden;
   position: relative;
 }
 
-<<<<<<< HEAD
 .contact .title {
-=======
-.title {
->>>>>>> main
   color: #fff;
   font-weight: 500;
   font-size: 1.5rem;
@@ -140,20 +86,12 @@ form {
   margin-bottom: 0.7rem;
 }
 
-<<<<<<< HEAD
 .contact .input-container {
-=======
-.input-container {
->>>>>>> main
   position: relative;
   margin: 1rem 0;
 }
 
-<<<<<<< HEAD
 .contact .input {
-=======
-.input {
->>>>>>> main
   width: 100%;
   outline: none;
   border: 2px solid #fafafa;
@@ -167,11 +105,7 @@ form {
   transition: 0.3s;
 }
 
-<<<<<<< HEAD
 .contact textarea.input {
-=======
-textarea.input {
->>>>>>> main
   padding: 0.8rem 1.2rem;
   min-height: 150px;
   border-radius: 22px;
@@ -179,11 +113,7 @@ textarea.input {
   overflow-y: auto;
 }
 
-<<<<<<< HEAD
 .contact .input-container label {
-=======
-.input-container label {
->>>>>>> main
   position: absolute;
   top: 50%;
   left: 15px;
@@ -197,20 +127,12 @@ textarea.input {
   transition: 0.5s;
 }
 
-<<<<<<< HEAD
 .contact .input-container.textarea label {
-=======
-.input-container.textarea label {
->>>>>>> main
   top: 1rem;
   transform: translateY(0);
 }
 
-<<<<<<< HEAD
 .contact .btn {
-=======
-.btn {
->>>>>>> main
   padding: 0.6rem 1.3rem;
   background-color: #fff;
   border: 2px solid #fafafa;
@@ -224,20 +146,12 @@ textarea.input {
   margin: 0;
 }
 
-<<<<<<< HEAD
 .contact .btn:hover {
-=======
-.btn:hover {
->>>>>>> main
   background-color: transparent;
   color: #fff;
 }
 
-<<<<<<< HEAD
 .contact .input-container span {
-=======
-.input-container span {
->>>>>>> main
   position: absolute;
   top: 0;
   left: 25px;
@@ -249,13 +163,8 @@ textarea.input {
   z-index: 500;
 }
 
-<<<<<<< HEAD
 .contact .input-container span:before,
 .contact .input-container span:after {
-=======
-.input-container span:before,
-.input-container span:after {
->>>>>>> main
   content: "";
   position: absolute;
   width: 10%;
@@ -267,7 +176,6 @@ textarea.input {
   transform: translateY(-50%);
 }
 
-<<<<<<< HEAD
 .contact .input-container span:before {
   left: 50%;
 }
@@ -277,39 +185,19 @@ textarea.input {
 }
 
 .contact .input-container.focus label {
-=======
-.input-container span:before {
-  left: 50%;
-}
-
-.input-container span:after {
-  right: 50%;
-}
-
-.input-container.focus label {
->>>>>>> main
   top: 0;
   transform: translateY(-50%);
   left: 25px;
   font-size: 0.8rem;
 }
 
-<<<<<<< HEAD
 .contact .input-container.focus span:before,
 .contact .input-container.focus span:after {
-=======
-.input-container.focus span:before,
-.input-container.focus span:after {
->>>>>>> main
   width: 50%;
   opacity: 1;
 }
 
-<<<<<<< HEAD
 .contact .contact-info {
-=======
-.contact-info {
->>>>>>> main
   padding: 2.3rem 2.2rem;
   position: relative;
 }
@@ -323,11 +211,7 @@ textarea.input {
   margin: 1.5rem 0 2rem 0;
 }
 
-<<<<<<< HEAD
 .contact .information {
-=======
-.information {
->>>>>>> main
   display: flex;
   color: #555;
   margin: 0.7rem 0;
@@ -335,16 +219,11 @@ textarea.input {
   font-size: 0.95rem;
 }
 
-<<<<<<< HEAD
 .contact .icon {
-=======
-.icon {
->>>>>>> main
   width: 28px;
   margin-right: 0.7rem;
 }
 
-<<<<<<< HEAD
 .contact .social-media {
   padding: 2rem 0 0 0;
 }
@@ -354,26 +233,11 @@ textarea.input {
 }
 
 .contact .social-icons {
-=======
-.social-media {
-  padding: 2rem 0 0 0;
-}
-
-.social-media p {
-  color: #333;
-}
-
-.social-icons {
->>>>>>> main
   display: flex;
   margin-top: 0.5rem;
 }
 
-<<<<<<< HEAD
 .contact .social-icons a {
-=======
-.social-icons a {
->>>>>>> main
   width: 35px;
   height: 35px;
   border-radius: 5px;
@@ -385,19 +249,11 @@ textarea.input {
   transition: 0.3s;
 }
 
-<<<<<<< HEAD
 .contact .social-icons a:hover {
   transform: scale(1.05);
 }
 
 .contact .contact-info:before {
-=======
-.social-icons a:hover {
-  transform: scale(1.05);
-}
-
-.contact-info:before {
->>>>>>> main
   content: "";
   position: absolute;
   width: 110px;
@@ -409,11 +265,7 @@ textarea.input {
   opacity: 0.3;
 }
 
-<<<<<<< HEAD
 .contact .big-circle {
-=======
-.big-circle {
->>>>>>> main
   position: absolute;
   width: 500px;
   height: 500px;
@@ -424,11 +276,7 @@ textarea.input {
   transform: translate(-40%, 38%);
 }
 
-<<<<<<< HEAD
 .contact .big-circle:after {
-=======
-.big-circle:after {
->>>>>>> main
   content: "";
   position: absolute;
   width: 360px;
@@ -439,11 +287,7 @@ textarea.input {
   left: calc(50% - 180px);
 }
 
-<<<<<<< HEAD
 .contact .square {
-=======
-.square {
->>>>>>> main
   position: absolute;
   height: 400px;
   top: 50%;
@@ -453,73 +297,44 @@ textarea.input {
 }
 
 @media (max-width: 850px) {
-<<<<<<< HEAD
   .contact .form {
     grid-template-columns: 1fr;
   }
 
   .contact .contact-info:before {
-=======
-  .form {
-    grid-template-columns: 1fr;
-  }
-
-  .contact-info:before {
->>>>>>> main
     bottom: initial;
     top: -75px;
     right: 65px;
     transform: scale(0.95);
   }
 
-<<<<<<< HEAD
   .contact .contact-form:before {
-=======
-  .contact-form:before {
->>>>>>> main
     top: -13px;
     left: initial;
     right: 70px;
   }
 
-<<<<<<< HEAD
   .contact .square {
-=======
-  .square {
->>>>>>> main
     transform: translate(140%, 43%);
     height: 350px;
   }
 
-<<<<<<< HEAD
   .contact .big-circle {
-=======
-  .big-circle {
->>>>>>> main
     bottom: 75%;
     transform: scale(0.9) translate(-40%, 30%);
     right: 50%;
   }
 
-<<<<<<< HEAD
   .contact .text {
     margin: 1rem 0 1.5rem 0;
   }
 
   .contact .social-media {
-=======
-  .text {
-    margin: 1rem 0 1.5rem 0;
-  }
-
-  .social-media {
->>>>>>> main
     padding: 1.5rem 0 0 0;
   }
 }
 
 @media (max-width: 480px) {
-<<<<<<< HEAD
   .contact .container {
     padding: 1.5rem;
   }
@@ -549,43 +364,11 @@ textarea.input {
   }
 
   .contact .social-icons a {
-=======
-  .container {
-    padding: 1.5rem;
-  }
-
-  .contact-info:before {
-    display: none;
-  }
-
-  .square,
-  .big-circle {
-    display: none;
-  }
-
-  form,
-  .contact-info {
-    padding: 1.7rem 1.6rem;
-  }
-
-  .text,
-  .information,
-  .social-media p {
-    font-size: 0.8rem;
-  }
-
-  .title {
-    font-size: 1.15rem;
-  }
-
-  .social-icons a {
->>>>>>> main
     width: 30px;
     height: 30px;
     line-height: 30px;
   }
 
-<<<<<<< HEAD
   .contact .icon {
     width: 23px;
   }
@@ -595,17 +378,6 @@ textarea.input {
   }
 
   .contact .btn {
-=======
-  .icon {
-    width: 23px;
-  }
-
-  .input {
-    padding: 0.45rem 1.2rem;
-  }
-
-  .btn {
->>>>>>> main
     padding: 0.45rem 1.2rem;
   }
 }
