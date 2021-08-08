@@ -20,12 +20,12 @@ export default function Icons() {
     <GridContainer>
       <GridItem xs={12} sm={12} md={12}>
         <Card plain>
-          <CardHeader plain color="primary">
+          <CardHeader plain color="info">
             <h4 className={classes.cardTitleWhite}>Material Design Icons</h4>
             <p className={classes.cardCategoryWhite}>
               Handcrafted by our friends from{" "}
               <a
-                href="https://design.google.com/icons/?ref=creativetime"
+                href="#"
                 target="_blank"
               >
                 Google
@@ -36,7 +36,7 @@ export default function Icons() {
             <Hidden only={["sm", "xs"]}>
               <iframe
                 className={classes.iframe}
-                src="https://material.io/icons/"
+                src="#"
                 title="Icons iframe"
               >
                 <p>Your browser does not support iframes.</p>
@@ -45,11 +45,9 @@ export default function Icons() {
             <Hidden only={["lg", "md"]}>
               <GridItem xs={12} sm={12} md={6}>
                 <h5>
-                  The icons are visible on Desktop mode inside an iframe. Since
-                  the iframe is not working on Mobile and Tablets please visit
-                  the icons on their original page on Google. Check the
+                  The icons are visib
                   <a
-                    href="https://design.google.com/icons/?ref=creativetime"
+                    href="#"
                     target="_blank"
                   >
                     Material Icons

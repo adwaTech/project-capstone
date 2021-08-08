@@ -1,22 +1,23 @@
 import React from 'react';
 import './slider.css'
-import Image1 from '../../assets/images/best_hd_scenery-1366x768.jpg';
-import Image2 from '../../assets/images/bird-wallpaper-1366x768-001.jpg';
-import Image3 from '../../assets/images/bird-wallpaper-1366x768-001.jpg';
-import Image4 from '../../assets/images/bird-wallpaper-1366x768-002.jpg';
-import Image5 from '../../assets/images/bird-wallpaper-1366x768-003.jpg';
-import Image6 from '../../assets/images/bird-wallpaper-1366x768-004.jpg';
-import Image7 from '../../assets/images/bird-wallpaper-1366x768-005.jpg';
-import Image9 from '../../assets/images/bird-wallpaper-1366x768-007.jpg';
-import Image10 from '../../assets/images/bird-wallpaper-1366x768-008.jpg';
-import Image11 from '../../assets/images/bird-wallpaper-1366x768-009.jpg';
-import Image12 from '../../assets/images/bird-wallpaper-1366x768-010.jpg';
-import Image13 from '../../assets/images/bird-wallpaper-1366x768-012.jpg';
-import Image14 from '../../assets/images/bird-wallpaper-1366x768-013.jpg';
+import Image2 from '../../assets/images/federico-respini-sYffw0LNr7s-unsplash.jpg';
+import Image3 from '../../assets/images/paul-einerhand-uyDHQc128DA-unsplash.jpg';
+import Image4 from '../../assets/images/samantha-borges-EeS69TTPQ18-unsplash.jpg';
+import Image5 from '../../assets/images/lode-lagrainge-45cr4wHWTIw-unsplash.jpg';
+import Image6 from '../../assets/images/annie-spratt-JMjNnQ2xFoY-unsplash.jpg';
+import Image7 from '../../assets/images/adele-payman-2oYMwuFgnTg-unsplash.jpg';
+import Image9 from '../../assets/images/max-O_TVsaeZNlE-unsplash.jpg';
+import Image10 from '../../assets/images/yuriy-bogdanov-W51VK3Obcj0-unsplash.jpg';
+import Image11 from '../../assets/images/webaliser-_TPTXZd9mOo-unsplash.jpg';
+import Image12 from '../../assets/images/abhinav-raina-cyQiSGGDThQ-unsplash.jpg';
+import Image13 from '../../assets/images/naomi-hebert-MP0bgaS_d1c-unsplash.jpg';
+import Image14 from '../../assets/images/sieuwert-otterloo-aren8nutd1Q-unsplash.jpg';
+import LeftBack from '../../assets/images/left_back.png';
+import RightBack from '../../assets/images/right_back.png';
 import BackIcon from '@material-ui/icons/ArrowBackIos';
 import ForwardIcon from '@material-ui/icons/ArrowForwardIos';
 import { Star } from '@material-ui/icons';
-
+import moment from 'moment';
 
 export default function Slider() {
 
@@ -25,13 +26,13 @@ export default function Slider() {
         let product = document.getElementsByClassName('product')
         let product_page = Math.ceil(product.length/4);
         let l = 0;
-        let movePer = 25.34;
+        let movePer = 33;
         let maxMove = 203;
         // mobile_view	
         let mob_view = window.matchMedia("(max-width: 768px)");
         if (mob_view.matches)
         {
-            movePer = 50.36;
+            movePer = 66;
             maxMove = 504;
         }
 
@@ -49,13 +50,13 @@ export default function Slider() {
         let product = document.getElementsByClassName('product')
         let product_page = Math.ceil(product.length/4);
         let l = 0;
-        let movePer = 25.34;
+        let movePer = 33;
         let maxMove = 203;
         // mobile_view	
         let mob_view = window.matchMedia("(max-width: 768px)");
         if (mob_view.matches)
         {
-            movePer = 50.36;
+            movePer = 66;
             maxMove = 504;
         }
 
@@ -67,261 +68,120 @@ export default function Slider() {
             }
         }
     }
+    var data=[
+        {
+            title:"title",
+            date1:moment(Date.now()).format("YYYY/MM/DD"),
+            discription:"this is mesi this is mesi this is mesi",
+            date2:moment(Date.now()).format("YYYY/MM/DD"),
+            location:"addis abeba bole",
+            image:Image2,
+        },
+        {
+            title:"title",
+            date1:moment(Date.now()).format("YYYY/MM/DD"),
+            discription:"this is mesi this is mesi this is mesi",
+            date2:moment(Date.now()).format("YYYY/MM/DD"),
+            location:"addis abeba bole",
+            image:Image3
+        },
+        {
+            title:"title",
+            date1:moment(Date.now()).format("YYYY/MM/DD"),
+            discription:"this is mesi this is mesi this is mesi",
+            date2:moment(Date.now()).format("YYYY/MM/DD"),
+            location:"addis abeba bole",
+            image:Image4
+        },
+        {
+            title:"title",
+            date1:moment(Date.now()).format("YYYY/MM/DD"),
+            discription:"this is mesi this is mesi this is mesi",
+            date2:moment(Date.now()).format("YYYY/MM/DD"),
+            location:"addis abeba bole",
+            image:Image5
+        },
+        {
+            title:"title",
+            date1:moment(Date.now()).format("YYYY/MM/DD"),
+            discription:"this is mesi this is mesi this is mesi",
+            date2:moment(Date.now()).format("YYYY/MM/DD"),
+            location:"addis abeba bole",
+            image:Image6
+        },
+        {
+            title:"title",
+            date1:moment(Date.now()).format("YYYY/MM/DD"),
+            discription:"this is mesi this is mesi this is mesi",
+            date2:moment(Date.now()).format("YYYY/MM/DD"),
+            location:"addis abeba bole",
+            image:Image7
+        },
+        {
+            title:"title",
+            date1:moment(Date.now()).format("YYYY/MM/DD"),
+            discription:"this is mesi this is mesi this is mesi",
+            date2:moment(Date.now()).format("YYYY/MM/DD"),
+            location:"addis abeba bole",
+            image:Image10
+        },
+    ]
     return (
         <div className="slider">
             <main>
-                <div class="text">
+                <div className="text">
                     <h1>Catagories</h1>
                     <p>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam non atque adipisci est, recusandae aperiam, ullam minima quos nostrum animi voluptas sequi. At repellendus fuga reiciendis accusantium, dolor suscipit repellat?
                     </p>
                 </div>
-                <header>
-                    <h1>Catagories</h1>
-                    <p>
-                        <span onClick={
+                <div className="slider-catagory">
+                    <span>
+                        <img src={LeftBack} alt=""onClick={
                             ()=>{
                                 left_mover();
                             }
-                        }
-                        ><BackIcon /></span>
-                        <span onClick={()=>{
-                            right_mover();
-                        }}
-                        ><ForwardIcon/></span>
-                    </p>
-                </header>
+                        }/>
+                    </span>
                 <section>
+                    {
+                        data.map((newindex,i)=>(
+                            <div className="product" key={i}>
+                                <picture>
+                                    <img src={newindex.image} alt=""/>
+                                </picture>
+                                <div classNameName="information">
+                                <div className="detail">
+                                    <p>
+                                        <b>{newindex.title}</b><br/>
+                                        <small>{newindex.discription}</small>
+                                    </p>
+                                    <p>start{newindex.date1}</p>
+                                    <p>end{newindex.date2}</p>
+                                </div>
+                                    <div className="btn">
+                                        <p className="star">
+                                            <Star/>
+                                            <Star/>
+                                            <Star/>
+                                            <Star/>
+                                        </p>
+                                        <a href="#">Sea More</a>
+                                    </div>
+                                </div>
+                            </div>
                     
-                    <div class="product">
-                        <picture>
-                            <img src={Image14} alt=""/>
-                        </picture>
-                        <div class="detail">
-                            <p>
-                                <b>Catagory 1</b><br/>
-                                <small>Name :</small>
-                            </p>
-                            <samp>New</samp>
-                        </div>
-                        <div class="button">
-                            <p class="star">
-                                <Star/>
-                                <Star/>
-                            </p>
-                            <a href="#">Sea More</a>
-                        </div>
-                    </div>
-                    <div class="product">
-                        <picture>
-                            <img src={Image1} alt=""/>
-                        </picture>
-                        <div class="detail">
-                            <p>
-                                <b>Product Two</b><br/>
-                                <small>New arrival</small>
-                            </p>
-                            <samp>New</samp>
-                        </div>
-                        <div class="button">
-                            <p class="star">
-                                <Star/>
-                                <Star/>
-                            </p>
-                            <a href="#">Sea More</a>
-                        </div>
-                    </div>
-                    <div class="product">
-                        <picture>
-                            <img src={Image2} alt=""/>
-                        </picture>
-                        <div class="detail">
-                            <p>
-                                <b>Product Three</b><br/>
-                                <small>New arrival</small>
-                            </p>
-                                                        <samp>New</samp>
-                        </div>
-                        <div class="button">
-                            <p class="star">
-                                <Star/>
-                                <Star/>
-                            </p>
-                            <a href="#">Sea More</a>
-                        </div>
-                    </div>
-                    <div class="product">
-                        <picture>
-                            <img src={Image3} alt=""/>
-                        </picture>
-                        <div class="detail">
-                            <p>
-                                <b>Product Four</b><br/>
-                                <small>New arrival</small>
-                            </p>
-                                                        <samp>New</samp>
-                        </div>
-                        <div class="button">
-                            <p class="star">
-                                <Star/>
-                                <Star/>
-                            </p>
-                            <a href="#">Sea More</a>
-                        </div>
-                    </div>
-                    <div class="product">
-                        <picture>
-                            <img src={Image4} alt=""/>
-                        </picture>
-                        <div class="detail">
-                            <p>
-                                <b>Product Five</b><br/>
-                                <small>New arrival</small>
-                            </p>
-                                                        <samp>New</samp>
-                        </div>
-                        <div class="button">
-                            <p class="star">
-                                <Star/>
-                                <Star/>
-                            </p>
-                            <a href="#">Sea More</a>
-                        </div>
-                    </div>
-                    <div class="product">
-                        <picture>
-                        <img src={Image5} alt=""/>
-                        </picture>
-                        <div class="detail">
-                            <p>
-                                <b>Product Six</b><br/>
-                                <small>New arrival</small>
-                            </p>
-                                                        <samp>New</samp>
-                        </div>
-                        <div class="button">
-                            <p class="star">
-                                <Star/>
-                                <Star/>
-                            </p>
-                            <a href="#">Sea More</a>
-                        </div>
-                    </div>
-                    <div class="product">
-                        <picture>
-                            <img src={Image7} alt=""/>
-                        </picture>
-                        <div class="detail">
-                            <p>
-                                <b>Product Seven</b><br/>
-                                <small>New arrival</small>
-                            </p>
-                                                        <samp>New</samp>
-                        </div>
-                        <div class="button">
-                            <p class="star">
-                                <Star/>
-                                <Star/>
-                            </p>
-                            <a href="#">Sea More</a>
-                        </div>
-                    </div>
-                    <div class="product">
-                        <picture>
-                            <img src={Image6} alt=""/>
-                        </picture>
-                        <div class="detail">
-                            <p>
-                                <b>Product Eight</b><br/>
-                                <small>New arrival</small>
-                            </p>
-                                                        <samp>New</samp>
-                        </div>
-                        <div class="button">
-                            <p class="star">
-                                <Star/>
-                                <Star/>
-                            </p>
-                            <a href="#">Sea More</a>
-                        </div>
-                    </div>
-                    <div class="product">
-                        <picture>
-                            <img src={Image9} alt=""/>
-                        </picture>
-                        <div class="detail">
-                            <p>
-                                <b>Product Nine</b><br/>
-                                <small>New arrival</small>
-                            </p>
-                                                        <samp>New</samp>
-                        </div>
-                        <div class="button">
-                            <p class="star">
-                                <Star/>
-                                <Star/>
-                            </p>
-                            <a href="#">Sea More</a>
-                        </div>
-                    </div>
-                    <div class="product">
-                        <picture>
-                            <img src={Image13} alt=""/>
-                        </picture>
-                        <div class="detail">
-                            <p>
-                                <b>Product Ten</b><br/>
-                                <small>New arrival</small>
-                            </p>
-                                                        <samp>New</samp>
-                        </div>
-                        <div class="button">
-                            <p class="star">
-                                <Star/>
-                                <Star/>
-                            </p>
-                            <a href="#">Sea More</a>
-                        </div>
-                    </div>
-                    <div class="product">
-                        <picture>
-                            <img src={Image10} alt=""/>
-                        </picture>
-                        <div class="detail">
-                            <p>
-                                <b>Product Eleven</b><br/>
-                                <small>New arrival</small>
-                            </p>
-                                                        <samp>New</samp>
-                        </div>
-                        <div class="button">
-                            <p class="star">
-                                <Star/>
-                                <Star/>
-                            </p>
-                            <a href="#">Sea More</a>
-                        </div>
-                    </div>
-                    <div class="product">
-                        <picture>
-                            <img src={Image11} alt=""/>
-                        </picture>
-                        <div class="detail">
-                            <p>
-                                <b>Product Twelve</b><br/>
-                                <small>New arrival</small>
-                            </p>
-                                                        <samp>New</samp>
-                        </div>
-                        <div class="button">
-                            <p class="star">
-                                <Star/>
-                                <Star/>
-                            </p>
-                            <a href="#">Sea More</a>
-                        </div>
-                    </div>
+                        ))
+                    }
+                    
                 </section>
+                <span>
+                    <img src={RightBack} alt=""
+                    onClick={()=>{
+                        right_mover();
+                    }}/>
+                </span>
+                </div>
             </main>
         </div>
     )

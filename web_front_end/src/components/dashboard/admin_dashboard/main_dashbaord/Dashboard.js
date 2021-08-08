@@ -53,8 +53,8 @@ export default function Dashboard() {
       <GridContainer>
         <GridItem xs={12} sm={6} md={3}>
           <Card>
-            <CardHeader color="warning" stats icon>
-              <CardIcon color="warning">
+            <CardHeader color="info" stats icon>
+              <CardIcon color="info">
                 <Today/>
               </CardIcon>
               <p className={classes.cardCategory}>Number of customer</p>
@@ -76,8 +76,8 @@ export default function Dashboard() {
         </GridItem>
         <GridItem xs={12} sm={6} md={3}>
           <Card>
-            <CardHeader color="success" stats icon>
-              <CardIcon color="success">
+            <CardHeader color="info" stats icon>
+              <CardIcon color="info">
                 <Store />
               </CardIcon>
               <p className={classes.cardCategory}>Revenue</p>
@@ -93,8 +93,8 @@ export default function Dashboard() {
         </GridItem>
         <GridItem xs={12} sm={6} md={3}>
           <Card>
-            <CardHeader color="danger" stats icon>
-              <CardIcon color="danger">
+            <CardHeader color="info" stats icon>
+              <CardIcon color="info">
                 <Money/>
               </CardIcon>
               <p className={classes.cardCategory}>Fixed Issues</p>
@@ -129,7 +129,7 @@ export default function Dashboard() {
       <GridContainer>
         <GridItem xs={12} sm={12} md={4}>
           <Card chart>
-            <CardHeader color="success">
+            <CardHeader color="info">
               <ChartistGraph
                 className="ct-chart"
                 data={dailySalesChart.data}
@@ -156,7 +156,7 @@ export default function Dashboard() {
         </GridItem>
         <GridItem xs={12} sm={12} md={4}>
           <Card chart>
-            <CardHeader color="warning">
+            <CardHeader color="info">
               <ChartistGraph
                 className="ct-chart"
                 data={emailsSubscriptionChart.data}
@@ -179,7 +179,7 @@ export default function Dashboard() {
         </GridItem>
         <GridItem xs={12} sm={12} md={4}>
           <Card chart>
-            <CardHeader color="danger">
+            <CardHeader color="info">
               <ChartistGraph
                 className="ct-chart"
                 data={completedTasksChart.data}
@@ -204,7 +204,7 @@ export default function Dashboard() {
         <GridItem xs={12} sm={12} md={6}>
           <CustomTabs
             title="Tasks:"
-            headerColor="primary"
+            headerColor="info"
             tabs={[
               {
                 tabName: "Feed backs",
@@ -244,7 +244,7 @@ export default function Dashboard() {
         </GridItem>
         <GridItem xs={12} sm={12} md={6}>
           <Card>
-            <CardHeader color="warning">
+            <CardHeader color="info">
               <h4 className={classes.cardTitleWhite}>New Bids</h4>
               <p className={classes.cardCategoryWhite}>
                 Todays Bid Info 
@@ -252,7 +252,7 @@ export default function Dashboard() {
             </CardHeader>
             <CardBody>
               <Table
-                tableHeaderColor="warning"
+                tableHeaderColor="info"
                 tableHead={["ID", "Type", "Min Bid", "Date"]}
                 tableData={[
                   ["1", "Open", "$36,738", "1/1/1"],

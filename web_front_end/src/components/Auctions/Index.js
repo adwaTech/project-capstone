@@ -5,7 +5,7 @@ import Auctions from './Auctions';
 
 export default function Index() {
     return (
-        <div>
+        <div style={{background:"#eee"}}>
             <Auctions/>
         </div>
     )

@@ -1,0 +1,544 @@
+.profile-page .card {
+    position: relative;
+
+    top: -80px;
+    right: 0;
+    bottom: 0;
+    left: 100px;
+    width: 250px;
+    height: 400px;
+    margin-right: 100px;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px 5px rgba(0, 0, 0, 0.2);
+    background: rgb(38, 39, 39);
+    overflow: hidden;
+  }
+  .profile-page .card .ds-top {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    left: 0;
+    width: 300px;
+    height: 80px;
+    background: #ffffff;
+    animation: dsTop 1.5s;
+  }
+  .profile-page .card .avatar-holder {
+    position: absolute;
+    margin: auto;
+    top: 40px;
+    right: 0;
+    left: 0;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    box-shadow: 0 0 0 5px #151515, inset 0 0 0 5px #000000, inset 0 0 0 5px #000000, inset 0 0 0 5px #000000, inset 0 0 0 5px #000000;
+    background: white;
+    overflow: hidden;
+    animation: mvTop 1.5s;
+  }
+  .profile-page .card .avatar-holder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .profile-page .card .name {
+    position: absolute;
+    margin: auto;
+    top: -60px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: inherit;
+    height: 40px;
+    text-align: center;
+    animation: fadeIn 2s ease-in;
+  }
+  .profile-page .card .name a {
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 18px;
+  }
+  .profile-page .card .name a:hover {
+    text-decoration: underline;
+    color: rgba(0, 0, 0, 0.6);
+  }
+  .profile-page .card .name h6 {
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    color: white;
+    width: 40px;
+  }
+  .profile-page  .card .button {
+    position: absolute;
+    margin: auto;
+    padding: 8px;
+    top: 20px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: inherit;
+    height: 40px;
+    text-align: center;
+    animation: fadeIn 2s ease-in;
+    outline: none;
+  }
+  .profile-page .card .button a {
+    padding: 5px 20px;
+    border-radius: 10px;
+    color: white;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    font-size: 10px;
+    transition: all 1s;
+  }
+  .profile-page .card .button a:hover {
+    color: white;
+    background: #00B0FF;
+  }
+  .profile-page  .card .ds-info {
+    position: absolute;
+    margin: auto;
+    top: 120px;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: inherit;
+    height: 40px;
+    display: flex;
+  }
+  .profile-page .card .ds-info .pens,.profile-page  .card .ds-info .projects,.profile-page  .card .ds-info .posts {
+    position: relative;
+    left: -300px;
+    width: calc(250px / 3);
+    text-align: center;
+    color: white;
+    animation: fadeInMove 2s;
+    animation-fill-mode: forwards;
+  }
+  .profile-page .card .ds-info .pens h6, .profile-page .card .ds-info .projects h6, .profile-page .card .ds-info .posts h6 {
+    text-transform: uppercase;
+    color: #00B0FF;
+  }
+  .profile-page .card .ds-info .pens p,.profile-page  .card .ds-info .projects p,.profile-page  .card .ds-info .posts p {
+    font-size: 12px;
+  }
+  .profile-page .card .ds-info .ds:nth-of-type(2) {
+    animation-delay: 0.5s;
+  }
+  .profile-page .card .ds-info .ds:nth-of-type(1) {
+    animation-delay: 1s;
+  }
+  .profile-page .card .ds-skill {
+    position: absolute;
+    margin: auto;
+    bottom: 10px;
+    right: 0;
+    left: 0;
+    width: 200px;
+    height: 100px;
+    animation: mvBottom 1.5s;
+  }
+  .profile-page .card .ds-skill h6 {
+    margin-bottom: 5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #00B0FF;
+  }
+  .profile-page .card .ds-skill .skill h6 {
+    font-weight: 400;
+    font-size: 8px;
+    letter-spacing: 0.05em;
+    margin: 4px 0;
+    color: white;
+  }
+  .profile-page .card .ds-skill .skill .fab {
+    color: #00B0FF;
+    font-size: 14px;
+  }
+  .profile-page  .card .ds-skill .skill .bar {
+    height: 5px;
+    background: #00B0FF;
+    text-align: right;
+  }
+  .profile-page .card .ds-skill .skill .bar p {
+    color: white;
+    font-size: 8px;
+    padding-top: 5px;
+    animation: fadeIn 5s;
+  }
+  .profile-page .card .ds-skill .skill .bar:hover {
+    background: white;
+  }
+  .profile-page  .card .ds-skill .skill .bar-html {
+    width: 95%;
+    animation: htmlSkill 1s;
+    animation-delay: 0.4s;
+  }
+  .profile-page .card .ds-skill .skill .bar-css {
+    width: 90%;
+    animation: cssSkill 2s;
+    animation-delay: 0.4s;
+  }
+  .profile-page  .card .ds-skill .skill .bar-js {
+    width: 75%;
+    animation: jsSkill 3s;
+    animation-delay: 0.4s;
+  }
+  
+  @keyframes fadeInMove {
+    0% {
+      opacity: 0;
+      left: -300px;
+    }
+    100% {
+      opacity: 1;
+      left: 0;
+    }
+  }
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes htmlSkill {
+    0% {
+      width: 0;
+    }
+    100% {
+      width: 95%;
+    }
+  }
+  @keyframes cssSkill {
+    0% {
+      width: 0;
+    }
+    100% {
+      width: 90%;
+    }
+  }
+  @keyframes jsSkill {
+    0% {
+      width: 0;
+    }
+    100% {
+      width: 75%;
+    }
+  }
+  @keyframes mvBottom {
+    0% {
+      bottom: -150px;
+    }
+    100% {
+      bottom: 10px;
+    }
+  }
+  @keyframes mvTop {
+    0% {
+      top: -150px;
+    }
+    100% {
+      top: 40px;
+    }
+  }
+  @keyframes dsTop {
+    0% {
+      top: -150px;
+    }
+    100% {
+      top: 0;
+    }
+  }
+  .profile-page  .following {
+    color: white;
+    background: crimson;
+  }
+  .profile-page {
+      margin-bottom: 300px;
+      position: relative;
+      width: 80%;
+      top: 140px;
+      left: 60px;
+      height: 120vh;
+      /* background-color: #fff; */
+      border-radius: 50px;
+      display: flex;
+      flex-direction: column;
+      /* box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.35); */
+  }
+
+
+  /* nav bar */
+
+  .profile-page   nav {
+    position: relative;
+    white-space: nowrap;
+    background: white;
+    padding: var(--underline-height) 0;
+    width: 50%;
+    left: 40%;
+    margin: 2em 0;
+    box-shadow: 0 1em 2em rgba(0, 0, 0, 0.2);
+  }
+  
+  .profile-page  .underline {
+    display: block;
+    position: absolute;
+    z-index: 0;
+    bottom: 0;
+    left: 0;
+    height: var(--underline-height);
+    width: 20%;
+    background: #ffffff;
+    pointer-events: none;
+    mix-blend-mode: multiply;
+    transition: transform var(--transition-duration) ease-in-out;
+  }
+
+  
+  .profile-page a {
+    display: inline-block;
+    z-index: 10;
+    width: 20%;
+    padding: 1em 0;
+    text-align: center;
+    cursor: pointer;
+  }
+  
+
+  .profile-page nav.full {
+    font-weight: bold;
+    background: #eee;
+    color: rgba(0, 0, 0, 0.35);
+  }
+  .profile-page nav.full .underline {
+    height: 100%;
+    background: rgb(162, 216, 162);
+  }
+  
+  .profile-page nav.retro .underline {
+    border-radius: 100% 100% 0 0;
+  }
+  .profile-page nav.retro .underline:nth-child(1) {
+    background: gold;
+  }
+  .profile-page nav.retro .underline:nth-child(2) {
+    background: dodgerblue;
+  }
+  .profile-page nav.retro .underline:nth-child(3) {
+    background: tomato;
+  }
+
+
+
+  /* bid table */
+
+  .bidTable .table {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    margin-bottom: 400px;
+    padding: 2rem 0rem 0rem 0rem;
+    max-width: 700px;
+    margin-left: 150px;
+    
+  }
+  
+  .bidTable .table-cell {
+    flex-grow: 1;
+    width: 100%;
+    padding: 0.8em 1.2em;
+    overflow: hidden;
+    list-style-type: none;
+    outline: 1px solid rgba(0, 0, 0, 0.2);
+    text-align: center;
+    font-weight: 300;
+    margin-top: 1px;
+    margin-left: 1px;
+  }
+  .bidTable .table-cell:first-child {
+    outline: 1px solid rgba(0, 0, 0, 0);
+    background: transparent;
+  }
+  @media only screen and (max-width: 768px) {
+    .table-cell:first-child {
+      display: none;
+    }
+  }
+  .bidTable .table-cell:nth-child(3) {
+    outline: 1px solid #30305b;
+  }
+  .bidTable  .table-cell:nth-child(-n+3) {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+  .bidTable .table-cell > h3 {
+    font-size: 26px;
+    margin-top: 0;
+    margin-bottom: 3rem;
+  }
+  .bidTable  .table-cell.cell-feature {
+    text-align: left;
+    font-size: 18px;
+  }
+  .bidTable .table-cell.plattform {
+    color: limegreen;
+  }
+  .bidTable .table-cell.plattform a.btn {
+    color: limegreen;
+  }
+  .bidTable .table-cell.plattform a.btn:hover {
+    background-color: limegreen;
+    border-color: limegreen;
+    color: white;
+  }
+  .bidTable .table-cell.enterprise {
+    background-color: #30305b;
+    color: #85bafc;
+  }
+  .bidTable  .table-cell.enterprise a.btn {
+    color: #85bafc;
+  }
+  .bidTable  .table-cell.enterprise a.btn:hover {
+    background-color: #85bafc;
+    border-color: #85bafc;
+    color: #30305b;
+  }
+  
+  /* Table columns
+  ================================== */
+  .bidTable .table-cell {
+    width: calc(33.33% - 1px);
+  }
+  @media only screen and (max-width: 768px) {
+    .table-cell.cell-feature {
+      width: 100%;
+      text-align: center;
+    }
+  }
+  
+  .bidTable svg.enterprise-check path {
+    fill: #30305b !important;
+  }
+  
+  .bidTable  a.btn {
+    border: 2px solid;
+    padding: 0.6rem 0.9rem 0.6rem 0.9rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    text-decoration: none;
+    -webkit-transition: 0.2s ease-in-out;
+    -moz-transition: 0.2s ease-in-out;
+    -ms-transition: 0.2s ease-in-out;
+    -o-transition: 0.2s ease-in-out;
+    transition: 0.2s ease-in-out;
+    -webkit-border-radius: 0.3rem;
+    -moz-border-radius: 0.3rem;
+    -ms-border-radius: 0.3rem;
+    border-radius: 0.3rem;
+  }
+
+  .bidTable{
+      
+  }
+
+  /* auction  */
+  .auctionTable h1{
+    font-size: 30px;
+    color: rgba(0,0,0,0.3);
+    text-transform: uppercase;
+    font-weight: 300;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  .auctionTable  table{
+    width:100%;
+    table-layout: fixed;
+  }
+  .auctionTable .tbl-header{
+    background-color: rgb(226, 222, 222);
+   }
+   .auctionTable .tbl-content{
+    height:300px;
+    overflow-x:auto;
+    margin-top: 0px;
+    border: 1px solid rgba(238, 238, 238, 0.3);
+  }
+  .auctionTable th{
+    padding: 20px 15px;
+    text-align: left;
+    font-weight: 500;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.6);
+    text-transform: uppercase;
+  }
+  .auctionTable td{
+    padding: 15px;
+    text-align: left;
+    vertical-align:middle;
+    font-weight: 300;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.6);
+    border-bottom: solid 1px rgba(255,255,255,0.1);
+  }
+  
+  
+  /* demo styles */
+  
+
+  .auctionTable section{
+    margin: 50px;
+  }
+  
+  
+  /* follow me template */
+  .auctionTable .made-with-love {
+    margin-top: 40px;
+    padding: 10px;
+    clear: left;
+    text-align: center;
+    font-size: 10px;
+    font-family: arial;
+    color: rgba(0, 0, 0, 0.6);
+  }
+  .auctionTable .made-with-love i {
+    font-style: normal;
+    color: #F50057;
+    font-size: 14px;
+    position: relative;
+    top: 2px;
+  }
+  .auctionTable  .made-with-love a {
+    color: rgba(0, 0, 0, 0.6);
+    text-decoration: none;
+  }
+  .auctionTable .made-with-love a:hover {
+    text-decoration: underline;
+  }
+  
+  
+  /* for custom scrollbar for webkit browser*/
+  
+  ::-webkit-scrollbar {
+      width: 6px;
+  } 
+  ::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+  } 
+  ::-webkit-scrollbar-thumb {
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+  }
+
+
+
+  /* Notification */
+

@@ -33,21 +33,21 @@ export default function AddressForm() {
             autoComplete="family-name"
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} sm={6}>
           <TextField
             required
             id="address1"
             name="address1"
-            label="Address line 1"
+            label="age"
             fullWidth
-            autoComplete="shipping address-line1"
+            autoComplete="age"
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} sm={6}>
           <TextField
             id="address2"
             name="address2"
-            label="Address line 2"
+            label="ID"
             fullWidth
             autoComplete="shipping address-line2"
           />
@@ -57,7 +57,7 @@ export default function AddressForm() {
             required
             id="city"
             name="city"
-            label="City"
+            label="Location Info"
             fullWidth
             autoComplete="shipping address-level2"
           />
@@ -70,22 +70,19 @@ export default function AddressForm() {
             required
             id="zip"
             name="zip"
-            label="Zip / Postal code"
+            label="email"
             fullWidth
             autoComplete="shipping postal-code"
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="country"
-            name="country"
-            label="Country"
-            fullWidth
-            autoComplete="shipping country"
-          />
+            <TextField fullWidth
+                label="phone Number"
+                required
+                i
+                />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} sm={6}>
           <div>
               <Typography>Register with </Typography>
               <div>Google</div>

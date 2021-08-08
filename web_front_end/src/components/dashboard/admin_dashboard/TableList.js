@@ -50,15 +50,15 @@ export default function TableList() {
     <GridContainer>
       <GridItem xs={12} sm={12} md={12}>
         <Card>
-          <CardHeader color="primary">
+          <CardHeader color="info">
             <h4 className={classes.cardTitleWhite}>Simple Table</h4>
             <p className={classes.cardCategoryWhite}>
-              Here is a subtitle for this table
+              Bid information
             </p>
           </CardHeader>
           <CardBody>
             <Table
-              tableHeaderColor="primary"
+              tableHeaderColor="infoy"
               tableHead={["Name", "Country", "City", "Salary"]}
               tableData={[
                 ["Dakota Rice", "Niger", "Oud-Turnhout", "$36,738"],
@@ -74,7 +74,7 @@ export default function TableList() {
       </GridItem>
       <GridItem xs={12} sm={12} md={12}>
         <Card plain>
-          <CardHeader plain color="primary">
+          <CardHeader plain color="info">
             <h4 className={classes.cardTitleWhite}>
               Table on Plain Background
             </h4>
@@ -84,7 +84,7 @@ export default function TableList() {
           </CardHeader>
           <CardBody>
             <Table
-              tableHeaderColor="primary"
+              tableHeaderColor="info"
               tableHead={["ID", "Name", "Country", "City", "Salary"]}
               tableData={[
                 ["1", "Dakota Rice", "$36,738", "Niger", "Oud-Turnhout"],

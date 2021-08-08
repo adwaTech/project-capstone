@@ -11,6 +11,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import ShowContext from '../../Context';
+import {Link} from 'react-router-dom';
 
 
 const useStyles = makeStyles({
@@ -50,20 +51,24 @@ export default function Drawer(props) {
       
     >
       <List>
-        {['Home', 'Auction', 'Catagory', 'About'].map((text, index) => (
-          <ListItem button key={text}>
+        {['Home', 'Autions', 'About'].map((text, index) => (
+          <Link key={text} to={text.toLowerCase()}>
+            <ListItem button >
             <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
             <ListItemText primary={text} />
           </ListItem>
+          </Link>
         ))}
       </List>
       <Divider />
       <List>
         {['Contact', 'FAQ', 'Help and support'].map((text, index) => (
-          <ListItem button key={text}>
+          <Link key={text} to={text.toLowerCase()}>
+            <ListItem button >
             <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
             <ListItemText primary={text} />
           </ListItem>
+          </Link>
         ))}
       </List>
     </div>
