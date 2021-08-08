@@ -115,17 +115,17 @@ export default function UpgradeToPro() {
                     <td className={classes.center}>200</td>
                   </tr>
                   <tr>
-                    <td>Plugins</td>
+                    <td>type</td>
                     <td className={classes.center}>2</td>
                     <td className={classes.center}>10</td>
                   </tr>
                   <tr>
-                    <td>Example Pages</td>
+                    <td>close</td>
                     <td className={classes.center}>7</td>
                     <td className={classes.center}>28</td>
                   </tr>
                   <tr>
-                    <td>Login, Register, Pricing, Lock Pages</td>
+                    <td>some thing here</td>
                     <td className={classes.center}>
                       <Danger>
                         <Close />
