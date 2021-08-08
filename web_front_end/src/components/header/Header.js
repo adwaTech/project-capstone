@@ -95,7 +95,7 @@ export default function Header() {
                         <div className={loc=='/'?"right-top-header":"right-top-header2"}>
                             <span>
                             <a>
-                                <PhoneIcon style={{color:"#000"}}/>
+                                <PhoneIcon />
                                 <p>Customer Support</p>
                             </a>
                             </span>
@@ -136,16 +136,16 @@ export default function Header() {
                         <div   className={"nav-links"}>
                             <ul>
                                 <li>
-                                    <NavLink to="/">Home</NavLink>
+                                    <NavLink className="a" to="/">Home</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/about">About</NavLink>
+                                    <NavLink className="a" to="/about">About</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/contact">Contact</NavLink>
+                                    <NavLink className="a" to="/contact">Contact</NavLink>
                                 </li>
                                 <li >
-                                    <NavLink to="/catagory/house">Auction Catagory <ArrowDownward
+                                    <NavLink className="a" to="/catagory/house">Auction Catagory <ArrowDownward
                                      style={{marginTop:"4px"}}/></NavLink>
                                     <ul class="dropdown">
                                         <li><Link to="/house" >House</Link></li>
@@ -164,7 +164,7 @@ export default function Header() {
                                 </li>
                                 <li className="scoll-screen">
                                 <Link to="/profile">
-                                <PersonIcon className="personIcon" style={{color:"#000"}}/>
+                                <PersonIcon color="primary" className="personIcon" />
                                 </Link>
                                 </li>
                                 <li className="scoll-screen">

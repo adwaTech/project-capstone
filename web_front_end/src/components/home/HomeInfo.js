@@ -91,7 +91,7 @@ export default function HomeInfo() {
                             46.6405 18.816 45.964 18.3989 45.5466Z"/>
                         </svg>
                         <h3 class="services__title">Excellent Service</h3>
-                        <p class="services__description">We offer our clients excellent quality services for many years, with the best and delicious food in the city.</p>
+                        <p class="services__description">We offer our clients excellent quality services for many years, with the best and secure service in the city.</p>
                     </div>
 
                     <div class="services__content">
@@ -304,7 +304,7 @@ export default function HomeInfo() {
                                 </defs>
                         </svg>
                         <h3 class="services__title">Security</h3>
-                        <p class="services__description">We offer our clients excellent quality services for many years, with the best and delicious food in the city.</p>
+                        <p class="services__description">We offer our clients excellent quality services for many years, with the best and secure service in the city.</p>
                     </div>
                 </div>
             </section>

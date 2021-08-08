@@ -18,6 +18,7 @@ import Google from '../../assets/assets/google.svg';
 import Facebook from '../../assets/assets/facebook.svg';
 import {useDispatch} from 'react-redux';
 import {LoginAction} from '../../redux-state-managment/Actions';
+import {Route} from 'react-router-dom'
 
 
 
@@ -59,7 +60,7 @@ export default function SignIn() {
   return (
     <div>
     <Header/>
-    <Login/>
+      <Route path="/" component={Login}/> 
     <Footer/>
     </div>
   );
@@ -79,9 +80,9 @@ function Login({ match, history }){
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Sign in     
         </Typography>
-        <form className={classes.form} noValidate>
+        <div className={classes.form} noValidate>
           <TextField
             variant="outlined"
             margin="normal"
@@ -92,8 +93,9 @@ function Login({ match, history }){
             name="email"
             autoComplete="email"
             autoFocus
+            value={state.username}
             onChange={(e)=>{
-              setState({username:e.target.value});
+              setState({...state,username:e.target.value});
             }}
           />
           <TextField
@@ -106,8 +108,9 @@ function Login({ match, history }){
             type="password"
             id="password"
             autoComplete="current-password"
+            value={state.password}
             onChange={(e)=>{
-              setState({password:e.target.value});
+              setState({...state,password:e.target.value});
             }}
           />
           <FormControlLabel
@@ -115,11 +118,10 @@ function Login({ match, history }){
             label="Remember me"
           />
           <label>sign in with 
-            <img src={Facebook} alt="Facebook" style={{cursor:"pointer",marginTop:"5px"}} width="80" height="40"/>
-            <img src={Google} alt="Google" style={{cursor:"pointer"}} width="40" height="40"/>
+            <img src={Facebook} alt="Facebook" style={{cursor:"pointer"}} width="50" height="40"/>
+            <img src={Google} alt="Google" style={{cursor:"pointer",}} width="30" height="20"/>
           </label>
           <Button
-              type="submit"
               fullWidth
               variant="contained"
               color="primary"
@@ -146,7 +148,7 @@ function Login({ match, history }){
               </Link>
             </Grid>
           </Grid>
-        </form>
+        </div>
       </div>
     </Container>
   )

@@ -219,7 +219,7 @@
     padding: 8px 25px;
     cursor: pointer;
 }
-.nav-links ul li a{
+.nav-links ul li .a{
     color: #174636;
     text-decoration: none;
     font-size: 15px;
@@ -233,7 +233,7 @@
     cursor: pointer;
 
 }
-.nav-links ul li::after{
+.nav-links ul li .a::after{
     content: '';
     width: 0;
     height: 2px;
@@ -243,7 +243,7 @@
     transition: 0.3s;
     cursor: pointer;
 }
-.nav-links2 ul li::after{
+.nav-links2 ul li .a::after{
     content: '';
     width: 0;
     height: 2px;
@@ -253,11 +253,11 @@
     transition: 0.3s;
     cursor: pointer;
 }
-.nav-links ul li:hover::after{
+.nav-links ul li .a:hover::after{
     width: 100%;
     cursor: pointer;
 }
-.nav-links2 ul li:hover::after{
+.nav-links2 ul li .a:hover::after{
     width: 100%;
     cursor: pointer;
 }
@@ -556,6 +556,7 @@
     display: none;
     transition: 0.3s;
     background: white;
+    width: 800px;
   }
   .nav-links2 ul li ul {
     visibility: hidden;
@@ -599,6 +600,12 @@
     text-align: left;
     margin-bottom: 10px;
     border-style: none;
+  }
+  .nav-links ul li ul li a{
+    color: #174636;
+  }
+  .nav-links2 ul li ul li a{
+    color: #174636;
   }
  .nav-links ul li ul li a:hover {
     padding-left: 10px;

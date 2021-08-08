@@ -2,11 +2,12 @@ import * as Constant from './Constants';
 import axios from 'axios';
 
 export const LoginAction=(userData)=>async (dispatch)=>{
+    console.log(userData);
     try{
-        const {data}=axios.get(`http://localhost:5000/login/${userData.userName}/${userData.password}/${userData.type}`)
+        // const {data}=axios.get(`http://localhost:5000/login/${userData.userName}/${userData.password}/${userData.type}`)
         dispatch({
             type:Constant.LOGIN,
-            payload:data.data,
+            // payload:data.data,
         })
 
     }
