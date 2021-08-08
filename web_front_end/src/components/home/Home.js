@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from '../header/Header';
+<<<<<<< HEAD
 import Footer from '../footer/Footer';
 import ImageSlider from '../catagroy_slider/Slider';
 import './home.css';
@@ -26,11 +27,14 @@ const useStyles=makeStyles({
         borderColor:"#5C7795"
     },
 })
+=======
+>>>>>>> main
 
 export default function Home() {
     return (
         <div className="home">
             <Header/>
+<<<<<<< HEAD
             <div className="svgimage">
                 <img src={WaveImage} alt=""/>
             </div>
@@ -140,6 +144,8 @@ export default function Home() {
             }}
             id="#footer" className="floating-btn2"><Fab variant="outlined" color="primary"><ArrowDownward/></Fab></Link>
             <Footer className="footer"/>
+=======
+>>>>>>> main
         </div>
     )
 }

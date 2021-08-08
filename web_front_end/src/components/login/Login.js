@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -153,3 +154,14 @@ function Login({ match, history }){
     </Container>
   )
 }
+=======
+import React from 'react'
+
+export default function Login() {
+    return (
+        <div>
+            Login
+        </div>
+    )
+}
+>>>>>>> main

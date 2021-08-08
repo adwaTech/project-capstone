@@ -1,5 +1,6 @@
 @font-face {
     font-family: paragraphfont;
+<<<<<<< HEAD
     src: url("../../assets/fonts/DancingScript-Bold.ttf");
 }
 
@@ -73,6 +74,27 @@
 .left-top-header h1{
     font-family: 'Roboto', sans-serif;
 }
+=======
+    src: url("../../assets/fonts/OpenSansCondensed-LightItalic.ttf");
+}
+
+.header-front{
+    height: 100vh;
+    background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.6)),url(../../assets/images/bird-wallpaper-1366x768-005.jpg);
+    background-position: center;
+    background-size: cover;
+    overflow-x: hidden;
+    position: relative;
+}
+.header{
+    width: 100%;
+    height: 100px;
+}
+.logo{
+    color: #fff;
+    font-family: paragraphfont;
+}
+>>>>>>> main
 .top-header{
     width: 80%;
     height: 30%;
@@ -84,22 +106,30 @@
     padding-top: 40px;
     padding-bottom: 20px;
     border-bottom: 1px solid rgba(233, 233, 233, 0.5);
+<<<<<<< HEAD
     transition: 0.3s;
+=======
+>>>>>>> main
 }
 .right-top-header{
     display: flex;
     flex-direction: row;
+<<<<<<< HEAD
     
 }
 .right-top-header2{
     display: flex;
     flex-direction: row;
+=======
+    justify-content: space-between;
+>>>>>>> main
 }
 .right-top-header span a{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+<<<<<<< HEAD
     margin-right: 5px;
     text-decoration: none;
     cursor: pointer;
@@ -114,19 +144,28 @@
     text-decoration: none;
     cursor: pointer;
     font-family: 'Roboto', sans-serif;
+=======
+    margin-right: 40px;
+    text-decoration: none;
+    cursor: pointer;
+>>>>>>> main
 }
 .right-top-header span a:hover{
     color:rgba(39, 110, 110, 0.5)
 }
+<<<<<<< HEAD
 .right-top-header2 span a:hover{
     color:rgba(39, 110, 110, 0.5)
 }
+=======
+>>>>>>> main
 .right-top-header div{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     margin-left: 40px;
+<<<<<<< HEAD
     
 }
 .right-top-header2 div{
@@ -147,6 +186,14 @@
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     margin-left: 10px;
     color: #174636;;
+=======
+}
+.right-top-header span p{
+    font-size: 20px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    margin-left: 10px;
+    color: #fff;
+>>>>>>> main
 }
 .personIcon{
     margin-left: 40px;
@@ -158,6 +205,7 @@
     justify-content: center;
     margin-right: 40px;
 }
+<<<<<<< HEAD
 .right-top-header2 span{
     display: flex;
     flex-direction: row;
@@ -165,11 +213,14 @@
     justify-content: center;
     margin-right: 40px;
 }
+=======
+>>>>>>> main
 .bottom-header{
     display: flex;
     margin-top: 20px;
     justify-content: center;
     align-items: center;
+<<<<<<< HEAD
     transition: 0.3s;
 }
 .bottom-header .scoll-screen{
@@ -179,38 +230,54 @@
   visibility: visible;
 }
 
+=======
+}
+
+
+>>>>>>> main
 .nav-bar{
     display: flex;
     padding: 40px 120px;
 
 }
 .nav-logo img{
+<<<<<<< HEAD
     width: 40px;
+=======
+    width: 50px;
+>>>>>>> main
     border-radius: 20%;
 }
 .nav-links{
     flex: 1;
 
 }
+<<<<<<< HEAD
 .nav-links2{
     flex: 1;
 
 }
+=======
+>>>>>>> main
 .nav-links ul{
     margin-left: 50px;
     display: inline;
     
 }
+<<<<<<< HEAD
 .nav-links2 ul{
     margin-left: 50px;
     display: inline;
     cursor: pointer;
     
 }
+=======
+>>>>>>> main
 .nav-links ul li{
     list-style: none;
     display: inline-block;
     padding: 8px 25px;
+<<<<<<< HEAD
     cursor: pointer;
 }
 .nav-links2 ul li{
@@ -756,3 +823,23 @@
     transition: all 500ms cubic-bezier(0, 0.110, 0.35, 2);
   }
   
+=======
+}
+.nav-links ul li a{
+    color: #fff;
+    text-decoration: none;
+    font-size: 13px;
+}
+.nav-links ul li::after{
+    content: '';
+    width: 0;
+    height: 2px;
+    background: yellow;
+    display: block;
+    margin: auto;
+    transition: 0.5s;
+}
+.nav-links ul li:hover::after{
+    width: 100%;
+}
+>>>>>>> main

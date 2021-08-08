@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -99,3 +100,14 @@ export default function AddressForm() {
     </React.Fragment>
   );
 }
+=======
+import React from 'react'
+
+export default function Register() {
+    return (
+        <div>
+            Register
+        </div>
+    )
+}
+>>>>>>> main

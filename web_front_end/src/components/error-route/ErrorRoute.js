@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react';
 import image from '../../assets/images/undraw_page_not_found_su7k.svg';
 import './error-route.css';
@@ -38,4 +39,14 @@ export default function ErrorRoute() {
                 <h4>Move ur mouse <br/> left or Right :)</h4>
         </div>
     );
+=======
+import React from 'react'
+
+export default function ErrorRoute() {
+    return (
+        <div className="errorlog">
+            <h1>404 Page Not Found</h1>
+        </div>
+    )
+>>>>>>> main
 }
