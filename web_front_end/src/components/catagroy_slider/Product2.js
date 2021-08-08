@@ -5,11 +5,14 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import SkipNextIcon from '@material-ui/icons/SkipNext';
-import Image7 from '../../assets/images/dan-gold-N7RiDzfF2iw-unsplash.jpg';
+import Image0 from '../../assets/images/paul-einerhand-uyDHQc128DA-unsplash.jpg';
+import Image11 from '../../assets/images/samantha-borges-EeS69TTPQ18-unsplash.jpg';
+import Image2 from '../../assets/images/lode-lagrainge-45cr4wHWTIw-unsplash.jpg';
+import Image3 from '../../assets/images/annie-spratt-JMjNnQ2xFoY-unsplash.jpg';
+import Image4 from '../../assets/images/adele-payman-2oYMwuFgnTg-unsplash.jpg';
+
 import {
+  Add,
     NotificationsActive,
     
 } from  '@material-ui/icons'
@@ -32,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     flex: '1 0 auto',
   },
   cover: {
-    width: 151,
+    width: "40%",
   },
   controls: {
     display: 'flex',
@@ -45,39 +48,75 @@ const useStyles = makeStyles((theme) => ({
     width: 38,
   },
 }));
+let list=[
+  {
+      image:Image0,
 
-export default function MediaControlCard() {
+  },
+  {
+      image:Image11
+  },
+  {
+      image:Image2,
+
+  },
+  {
+      image:Image3
+  },
+  {
+      image:Image4,
+
+  },
+];
+
+export default function MediaControlCard(props) {
+  console.log(props.image)
   const classes = useStyles();
   const theme = useTheme();
 
   return (
     <div>
-        <Card className={classes.root}>
-      <div className={classes.details}>
-        <CardContent className={classes.content}>
-          <Typography component="h5" variant="h5">
-            House
-          </Typography>
-          <Typography variant="subtitle1" color="textSecondary">
-            addis abeba bole
-          </Typography>
-          <Typography variant="subtitle1" color="textSecondary">
-            24/27/12
-          </Typography>
-        </CardContent>
-        <div className={classes.controls}>
-          <IconButton aria-label="previous">
-            {theme.direction === 'rtl' ? <NotificationsActive/> : <NotificationsActive />}
-          </IconButton>
-        </div>
-      </div>
-      <CardMedia
-        className={classes.cover}
-        image={Image7}
-        title="Live from space album cover"
-      />
-    </Card>
-    <Divider className={ classes.root}/>
+        {
+          list.map(data=>(
+            <div>
+               <Card className={classes.root}>
+                <div className={classes.details}>
+              <CardContent className={classes.content}>
+                <Typography component="h5" variant="h5">
+                  House
+                </Typography>
+                <Typography variant="subtitle1" color="textSecondary">
+                  addis abeba bole
+                </Typography>
+                <Typography variant="subtitle1" color="textSecondary">
+                  description :house house house house
+                </Typography>
+                <Typography variant="subtitle1" color="textSecondary">
+                  start date :24/27/12
+                </Typography>
+                <Typography variant="subtitle1" color="textSecondary">
+                  end date :24/27/12
+                </Typography>
+                <Typography variant="subtitle1" color="textSecondary">
+                  end Time :24/27/12
+                </Typography>
+              </CardContent>
+              <div className={classes.controls}>
+                <IconButton aria-label="previous">
+                  {theme.direction === 'rtl' ? <Add/> : <Add />}
+                </IconButton>
+              </div>
+            </div>
+            <CardMedia
+              className={classes.cover}
+              image={data.image}
+              title="Live Auction"
+            />
+          </Card>
+          <Divider className={ classes.root}/>
+            </div>
+          ))
+        }
     </div>
   );
 }

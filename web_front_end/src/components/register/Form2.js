@@ -19,7 +19,7 @@ export default function PaymentForm() {
           <TextField
             required
             id="cardNumber"
-            label="Card number"
+            label="password"
             fullWidth
             autoComplete="cc-number"
           />

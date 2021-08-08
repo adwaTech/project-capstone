@@ -16,6 +16,7 @@ import Header from '../header/Header';
 import House from '../Auctions/AuctionCatagories/House';
 import Car from '../Auctions/AuctionCatagories/Car';
 import Governments from '../Auctions/AuctionCatagories/Governments';
+import Land from '../Auctions/AuctionCatagories/Land'
 import {
     Route,
 } from 'react-router-dom'
@@ -25,6 +26,7 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    backgroundColor:"#eee"
   },
   appBar: {
     width: `calc(100% - ${drawerWidth}px)`,
@@ -59,6 +61,11 @@ export default function PermanentDrawerLeft() {
             return <House/>;
         case "Car":
             return <Car/>;
+        case "Government":
+            return <Governments/>;
+        case "Land":
+            return <Land/>;
+          
       }
   }
   return (

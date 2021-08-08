@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const  express =require('express');
 const mongoose =require('mongoose');
 const cors =require('cors');
@@ -70,3 +71,22 @@ mongoose.connect("mongodb://localhost:27017/cc",{useUnifiedTopology: true,useNew
     .catch(error=>console.log(error));
 
 app.listen(port,()=>console.log("our server is running on port 5000"));
+=======
+const express =require( 'express');
+const mongoose =require( 'mongoose');
+const cors =require( 'cors');
+
+const PORT=6000;
+
+const app=express();
+app.use(cors());
+app.use(express.json());
+
+mongoose.connect('mongodb://localhost:27017/capston-project',{ useNewUrlParser: true,useUnifiedTopology: true  }).then(res=>{
+    console.log('our database is running on port 27017')
+})
+
+app.listen(PORT,console.log('server is running on port 6000'))
+
+
+>>>>>>> main

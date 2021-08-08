@@ -15,7 +15,10 @@ import Container from '@material-ui/core/Container';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
 import Google from '../../assets/assets/google.svg';
-import Facebook from '../../assets/assets/facebook.svg'
+import Facebook from '../../assets/assets/facebook.svg';
+import {useDispatch} from 'react-redux';
+import {LoginAction} from '../../redux-state-managment/Actions';
+import {Route} from 'react-router-dom'
 
 
 
@@ -57,13 +60,18 @@ export default function SignIn() {
   return (
     <div>
     <Header/>
-    <Login/>
+      <Route path="/" component={Login}/> 
     <Footer/>
     </div>
   );
 }
-function Login(){
+function Login({ match, history }){
+  const dispatch=useDispatch();
   const classes = useStyles();
+  const [state,setState]=React.useState({
+    username:'',
+    password:'',
+  })
   return(
     <Container component="main" maxWidth="xs" className={classes.container} >
       <CssBaseline />
@@ -72,9 +80,9 @@ function Login(){
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Sign in     
         </Typography>
-        <form className={classes.form} noValidate>
+        <div className={classes.form} noValidate>
           <TextField
             variant="outlined"
             margin="normal"
@@ -85,6 +93,10 @@ function Login(){
             name="email"
             autoComplete="email"
             autoFocus
+            value={state.username}
+            onChange={(e)=>{
+              setState({...state,username:e.target.value});
+            }}
           />
           <TextField
             variant="outlined"
@@ -96,27 +108,34 @@ function Login(){
             type="password"
             id="password"
             autoComplete="current-password"
+            value={state.password}
+            onChange={(e)=>{
+              setState({...state,password:e.target.value});
+            }}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
           <label>sign in with 
-            <img src={Facebook} alt="Facebook" style={{cursor:"pointer",marginTop:"5px"}} width="80" height="40"/>
-            <img src={Google} alt="Google" style={{cursor:"pointer"}} width="40" height="40"/>
+            <img src={Facebook} alt="Facebook" style={{cursor:"pointer"}} width="50" height="40"/>
+            <img src={Google} alt="Google" style={{cursor:"pointer",}} width="30" height="20"/>
           </label>
-          <Link to="admin">
           <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            
-          >
-            Sign In
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              onClick={
+                async () => {
+                    await dispatch(LoginAction(state));
+                    await history.push(`/admin`);
+                    // await dispatch(getProfile(userInfo.userName,userInfo.type));
+                }
+              }
+            >
+              Sign In
           </Button>
-          </Link>
           <Grid container>
             <Grid item xs>
               <Link to="/forgetpassword" className={classes.donthaveaccount}  variant="body2">
@@ -129,7 +148,7 @@ function Login(){
               </Link>
             </Grid>
           </Grid>
-        </form>
+        </div>
       </div>
     </Container>
   )
