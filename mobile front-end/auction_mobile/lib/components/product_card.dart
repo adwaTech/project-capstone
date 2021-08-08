@@ -1,4 +1,3 @@
-import 'package:auction_mobile/product_preview.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

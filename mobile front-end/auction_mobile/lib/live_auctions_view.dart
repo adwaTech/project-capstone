@@ -2,10 +2,12 @@ import 'package:auction_mobile/components/product_card.dart';
 import 'package:auction_mobile/product_preview.dart';
 import 'package:flutter/material.dart';
 
+import 'components/category_viewer.dart';
+
 class LiveAuctionsBrowser extends StatelessWidget {
   Widget build(BuildContext context) => Center(
       child: Container(
-          height: 360,
+          height: 370,
           margin: EdgeInsets.all(8),
           child: Card(
               elevation: 10,
@@ -35,7 +37,10 @@ class LiveAuctionsBrowser extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.bottomRight,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => CategoryViewer()));
+                      },
                       child: Text('Show all'),
                     ),
                   ),

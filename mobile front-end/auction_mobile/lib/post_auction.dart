@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:auction_mobile/components/post_auction_form.dart';
 import 'package:flutter/material.dart';
 

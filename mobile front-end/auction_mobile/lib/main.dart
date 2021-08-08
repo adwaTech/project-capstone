@@ -1,9 +1,7 @@
-import 'package:auction_mobile/components/category_card.dart';
 import 'package:auction_mobile/components/drawer.dart';
 import 'package:auction_mobile/live_auctions_view.dart';
 import 'package:auction_mobile/post_auction.dart';
 import 'package:auction_mobile/product_browser.dart';
-import 'package:auction_mobile/components/product_card.dart';
 import 'package:auction_mobile/your_auctions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
