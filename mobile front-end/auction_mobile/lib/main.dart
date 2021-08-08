@@ -1,3 +1,4 @@
+import 'package:auction_mobile/components/contact_us.dart';
 import 'package:auction_mobile/components/drawer.dart';
 import 'package:auction_mobile/live_auctions_view.dart';
 import 'package:auction_mobile/post_auction.dart';
@@ -75,10 +76,11 @@ class _AuctionAppState extends State<AuctionApp> with TickerProviderStateMixin {
                                       builder: (context) => ProfilePage()));
                               break;
                             case 'contact':
-                              // TODO: navigate to contact us page
+                              Navigator.of(_scaffoldKey.currentContext).push(
+                                  MaterialPageRoute(
+                                      builder: (context) => ContactUsPage()));
                               break;
                             case 'about':
-                              // TODO: navigate to about us page
                               Navigator.of(_scaffoldKey.currentContext).push(
                                   MaterialPageRoute(
                                       builder: (context) => AboutPage()));
