@@ -2,12 +2,14 @@ import 'package:auction_mobile/components/drawer.dart';
 import 'package:auction_mobile/live_auctions_view.dart';
 import 'package:auction_mobile/post_auction.dart';
 import 'package:auction_mobile/product_browser.dart';
+import 'package:auction_mobile/profile.dart';
 import 'package:auction_mobile/search_view.dart';
 import 'package:auction_mobile/your_auctions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 import 'category_browser.dart';
+import 'components/about.dart';
 import 'notifications.dart';
 
 void main() {
@@ -47,9 +49,13 @@ class _AuctionAppState extends State<AuctionApp> with TickerProviderStateMixin {
                 backgroundColor: Colors.teal[800],
                 actions: [
                   Padding(
-                    padding: EdgeInsets.all(8),
+                    padding: EdgeInsets.all(0),
                     child: IconButton(
-                      icon: Icon(Icons.search),
+                      alignment: Alignment.bottomCenter,
+                      icon: Icon(
+                        Icons.search,
+                        size: 30,
+                      ),
                       onPressed: () {
                         Navigator.of(_scaffoldKey.currentContext).push(
                             MaterialPageRoute(
@@ -61,11 +67,30 @@ class _AuctionAppState extends State<AuctionApp> with TickerProviderStateMixin {
                       padding: EdgeInsets.all(8),
                       child: PopupMenuButton(
                         icon: Icon(Icons.face, size: 30),
+                        onSelected: (value) {
+                          switch (value) {
+                            case 'profile':
+                              Navigator.of(_scaffoldKey.currentContext).push(
+                                  MaterialPageRoute(
+                                      builder: (context) => ProfilePage()));
+                              break;
+                            case 'contact':
+                              // TODO: navigate to contact us page
+                              break;
+                            case 'about':
+                              // TODO: navigate to about us page
+                              Navigator.of(_scaffoldKey.currentContext).push(
+                                  MaterialPageRoute(
+                                      builder: (context) => AboutPage()));
+                          }
+                        },
                         itemBuilder: (context) => <PopupMenuItem>[
-                          PopupMenuItem(child: Text('Your profile')),
-                          PopupMenuItem(child: Text('Dashboard')),
-                          PopupMenuItem(child: Text('Contact Us')),
                           PopupMenuItem(
+                              value: 'profile', child: Text('Your profile')),
+                          PopupMenuItem(
+                              value: 'contact', child: Text('Contact Us')),
+                          PopupMenuItem(
+                            value: 'about',
                             child: Text('About Us'),
                           )
                         ],
