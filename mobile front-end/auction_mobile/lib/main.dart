@@ -2,6 +2,7 @@ import 'package:auction_mobile/components/drawer.dart';
 import 'package:auction_mobile/live_auctions_view.dart';
 import 'package:auction_mobile/post_auction.dart';
 import 'package:auction_mobile/product_browser.dart';
+import 'package:auction_mobile/search_view.dart';
 import 'package:auction_mobile/your_auctions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -45,6 +46,17 @@ class _AuctionAppState extends State<AuctionApp> with TickerProviderStateMixin {
                 expandedHeight: 250,
                 backgroundColor: Colors.teal[800],
                 actions: [
+                  Padding(
+                    padding: EdgeInsets.all(8),
+                    child: IconButton(
+                      icon: Icon(Icons.search),
+                      onPressed: () {
+                        Navigator.of(_scaffoldKey.currentContext).push(
+                            MaterialPageRoute(
+                                builder: (context) => SearchView()));
+                      },
+                    ),
+                  ),
                   Padding(
                       padding: EdgeInsets.all(8),
                       child: PopupMenuButton(
