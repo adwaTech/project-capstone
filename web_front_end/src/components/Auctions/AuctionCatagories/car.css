@@ -1,0 +1,29 @@
+.carsName
+{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+
+}
+.carsDescription
+{
+    font-family:'Arial Narrow', Arial, sans-serif;
+    font-weight: bold;
+    margin-top: 5px;
+    font-size: 18px;
+}
+.carsDetail
+{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin-left: 10px;
+    font-size: 16px;
+    box-shadow: 1px 1px 1px rgb(0,0,0,0.1);
+    padding-top: 5px;
+    
+}
+.bidtypes
+{
+    font-style: italic;
+    font-size: 14px;
+    margin-left: 80px;
+}
