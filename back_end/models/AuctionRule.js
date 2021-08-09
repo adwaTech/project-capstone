@@ -2,32 +2,20 @@ const mongoose =require('mongoose');
 
 
 const auctionrule=mongoose.Schema({
-    auctionrulename:{
-        type:String,
-        require:true,
-    },
-    allpay:{
+    allPay:{
         type:Boolean,
         require:true,
     },
-    minamount:{
+    bidFee:{
         type:Number,
+        required:true
     },
-    maxamount:{
+    minAmount:{
         type:Number,
+        required:true
     },
     minCPO:{
         type:Number
-    },
-    bidamount:{
-        type:Number
-    },
-    description:{
-        type:String,
-        require:true
-    },
-    other:{
-        type:Array,
     }
 });
-module.exports=auctionruleModel=mongoose.Schema('auctionrule',auctionrule);
+module.exports=auctionruleModel=mongoose.nodel('auctionrule',auctionrule);

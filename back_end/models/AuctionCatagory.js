@@ -4,11 +4,11 @@ const mongoose =require('mongoose');
 const catagory=mongoose.Schema({
     catagoryname:{
         type:String,
-        require:true,
+        required:true,
     },
     description:{
         type:String,
-        require:true
+        required:true
     },
 });
-module.exports=catagoryModel=mongoose.Schema('catagory',catagory);
+module.exports=catagoryModel=mongoose.model('catagory',catagory);

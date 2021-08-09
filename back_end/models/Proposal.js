@@ -2,29 +2,31 @@ const mongoose =require('mongoose');
 
 
 const proposal=mongoose.Schema({
-    proposalname:{
+    proposalType:{
         type:String,
-        require:true,
+        required:true
+    },
+    description:{
+        type:String
     },
     amount:{
         type:Number,
-        require:true,
+        required:true,
     },
     cpo:{
         type:Number,
-        require:true,
+        required:true,
     },
-    awner:{
+    owner:{
         type:String,
-        require:true,
+        required:true,
     },
     auction:{
         type:String,
-        require:true,
+        required:true,
     },
-    description:{
-        type:String,
-        require:true
-    },
+    proposalDocument:{
+        type:Buffer
+    }
 });
-module.exports=proposalModel=mongoose.Schema('proposal',proposal);
+module.exports=proposalModel=mongoose.model('proposal',proposal);

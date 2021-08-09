@@ -1,32 +1,37 @@
 const mongoose =require('mongoose');
-
+const auctionRule = require('./AuctionRule');
+const user = require('./Users');
+const auctionCategory = require('./AuctionCatagory');
 
 const auction=mongoose.Schema({
     auctionname:{
         type:String,
-        require:true,
+        required:true,
+    },
+    briefDescription:{
+        type:String,
+        required:true
     },
     rule:{
-        type:Array,
+        type:auctionRule,
+        required:true
     },
-    ownner:{
-        type:String,
-        require:true
-    },
+    owner:user,
     auctionType:{
         type:String,
-        require:true,
+        required:true,
     },
+    auctionCategory:auctionCategory,
     image:{
         type:String,
-        require:true
+        required:true
     },
     condition:{
         type:String,
-        require:true
+        required:true
     },
-    description:{
+    extendedDescription:{
         type:String,
     },
 });
-module.exports=auctionModel=mongoose.Schema('auction',auction);
+module.exports=auctionModel=mongoose.model('auction',auction);
