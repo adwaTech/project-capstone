@@ -66,7 +66,7 @@ module.exports=RegisterRoute= async (req,res)=>{
                 response=>{
                     if(response.length!==0){
                         error.push("this username is taken by other");
-                        res.json({success:false,usertype:'',error:''});
+                        res.json({success:false,usertype:'',error:[]});
                     }else{
                         const salt = bcrypt.genSaltSync(saltRounds);
                         const hash = bcrypt.hashSync(password, salt);
@@ -97,7 +97,7 @@ module.exports=RegisterRoute= async (req,res)=>{
                 response=>{
                     if(response.length!==0){
                         error.push("this username is taken by other");
-                        res.json({success:false,usertype:'',error:''});
+                        res.json({success:false,usertype:'',error:[]});
                     }else{
                         new Users({
                             username,
