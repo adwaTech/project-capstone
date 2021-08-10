@@ -3,10 +3,12 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 module.exports = async (req, res) => {
     let err = '';
-    if (req.files['idPhoto'])
-        req.body.idPhoto = req.files['idPhoto'][0].filename;
-    if (req.files['profileImage'])
-        req.body.profileImage = req.files['profileImage'][0].filename;
+    if (req.files) {
+        if (req.files['idPhoto'])
+            req.body.idPhoto = req.files['idPhoto'][0].filename;
+        if (req.files['profileImage'])
+            req.body.profileImage = req.files['profileImage'][0].filename;
+    }
     Object.keys(req.body).map(key => err += !(req.body[key]) ? `#${key} cannot be empty` : '');
     Object.keys(UserSchema.tree).map(key => {
         err += (UserSchema.tree[key].required && !(Object.keys(req.body).includes(key)))
@@ -24,10 +26,7 @@ module.exports = async (req, res) => {
         user[key] = req.body[key];
     })
     user.save().then(result => {
-        res.send({
-            status: 'ok',
-            user: result
-        })
+        res.redirect(307, '/login');
     }).catch((err) => {
         if (err.name === 'MongoError' && err.code === 11000)
             res.status(400).send({

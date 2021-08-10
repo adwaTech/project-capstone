@@ -23,13 +23,12 @@ passport.use(new LocalStrategy(
         },
             (err, user) => {
                 if (err) {
-                    console.log(err);
                     return done(err);
                 }
                 if (!user)
-                    return done(null, false, { message: 'Incorrect Email' });
+                    return done(null, false, { error: 'Incorrect Email' });
                 if (!bcrypt.compareSync(password, user.password))
-                    return done(null, false, { message: 'Incorrect password' });
+                    return done(null, false, { error: 'Incorrect password' });
                 return done(null, user);
             }
         )
