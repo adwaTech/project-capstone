@@ -2,7 +2,12 @@ const { User, UserSchema } = require('../models/Users');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 module.exports = async (req, res) => {
+    console.log(req.body);
     let err = '';
+    if (req.files['idPhoto'])
+        req.body.idPhoto = req.files['idPhoto'][0].filename;
+    if (req.files['profileImage'])
+        req.body.profileImage = req.files['profileImage'][0].filename;
     Object.keys(req.body).map(key => err += !(req.body[key]) ? `#${key} cannot be empty` : '');
     Object.keys(UserSchema.tree).map(key => {
         err += (UserSchema.tree[key].required && !(Object.keys(req.body).includes(key)))
@@ -10,7 +15,7 @@ module.exports = async (req, res) => {
     });
     if (err !== '')
         return res.status(400).send({
-            error: err
+            mesi:'fuck you'
         });
     let user = User();
     const salt = bcrypt.genSaltSync(saltRounds);
@@ -19,14 +24,12 @@ module.exports = async (req, res) => {
     Object.keys(req.body).map(key => {
         user[key] = req.body[key];
     })
-    if (req.file) {
-        user.profileImage = req.file.filename;
-    }
     user.save().then(result => {
-        res.send({
-            status: 'ok',
-            user: result
-        })
+        // res.send({
+        //     status: 'ok',
+        //     user: result
+        // })
+        res.redirect(307,'/login');
     }).catch((err) => {
         if (err.name === 'MongoError' && err.code === 11000)
             res.status(400).send({

@@ -119,7 +119,7 @@ export default function Checkout() {
     firstname:'',
     lastname:'',
     idNumber:'',
-    idImage:'',
+    idPhoto:'',
     sex:'male',
     phone:'',
     email:'',
@@ -349,7 +349,7 @@ export default function Checkout() {
             id="raised-button-file"
               onChange={(e)=>{
                   console.log(e.target.files[0])
-                  setState({...state,Image:e.target.files[0]});
+                  setState({...state,idPhoto:e.target.files[0]});
               }} 
               type="file"  name="image" placeholder="image" required="required"/>
             {/* <input
@@ -463,8 +463,8 @@ export default function Checkout() {
                     className={classes.button}
                     onClick={()=>{
                       const formData=new FormData();
-                      formData.append('firstname',state.firstname);
-                      formData.append('lastname',state.lastname);
+                      formData.append('firstName',state.firstname);
+                      formData.append('lastName',state.lastname);
                       formData.append('sex',state.sex);
                       formData.append('profileImage',state.profileImage);
                       formData.append('latitute',state.latitute);
@@ -474,14 +474,13 @@ export default function Checkout() {
                       formData.append('email',state.email);
                       formData.append('password',state.password);
                       formData.append('city',state.city);
-                      formData.append('idImage',state.idImage);
-                      formData.append('idNumber',state.idNumber);
+                      formData.append('idPhoto',state.idPhoto);
+                      formData.append('idNo',state.idNumber);
                       console.log(formData);
                       console.log(state);
-                      // dispatch(RegisterAction(formData));
+                      dispatch(RegisterAction(formData));
                       setState({
-                          title:'',
-                          description:'',
+                          
                       })
                   }}
                   >

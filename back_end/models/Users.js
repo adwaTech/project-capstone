@@ -16,21 +16,24 @@ const User = mongoose.Schema({
     profileImage:{
         type:String,
     },
-    location:{
-        type:String,
-        required:true
-    },
-    locationLatitude: {
+    latitude: {
         type: Number
     },
-    locationLongtude: {
+    longtude: {
         type: Number
     },
     city: {
         type: String,
         required: true
     },
-    insurance: String,
+    idNo: {
+        type: String,
+        required: true
+    },
+    idPhoto: {
+        type: String,
+        required: true
+    },
     userType: {
         type: String,
         required: true,

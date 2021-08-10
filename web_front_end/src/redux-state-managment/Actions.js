@@ -16,15 +16,22 @@ export const LoginAction=(userData)=>async (dispatch)=>{
     }
 }
 export const RegisterAction=(userData)=>async (dispatch)=>{
-    try{
-        const {data}=axios.post(`http://localhost:5000/register/`,userData);
-        dispatch({
-            type:Constant.REGISTER,
-            payload:data.data,
-        })
+    
+       const {data} = await axios.post(`http://localhost:5000/register`,userData,{
+           validateStatus:function (status){
+               return status<500
+           }
+       })
+       
+       console.log(data);
+    //    .then(response=>console.log('response',response))
+    //    .catch(err=>console.log('error is ',err))
+       //console.log(data);
+       //.catch(error=>console.log(`myerror :${error}`));
+        // console.log(data);
+        // dispatch({
+        //     type:Constant.REGISTER,
+        //     payload:data.data,
+        // })
 
-    }
-    catch(error){
-        console.log(error);
-    }
 }
