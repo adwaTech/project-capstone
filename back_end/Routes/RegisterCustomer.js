@@ -1,125 +1,43 @@
-const Users=require('../models/Users');
+const { User, UserSchema } = require('../models/Users');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-
-module.exports=RegisterRoute= async (req,res)=>{
-    const username=req.body.username
-    const usertype=req.body.usertype
-    const password=req.body.password
-    const conpassword=req.body.conpassword
-    const firstname=req.body.firstname
-    const lastName=req.body.lastName  
-    // const createdat=req.body.createdat
-    const idNumber=req.body.idNumber
-    const sex=req.body.sex
-    const insurance=req.body.insurance
-    const phone=req.body.insurance
-    const email =req.body.insurance
-    const location=req.body.location
-    const profileImage=req.body.profileImage;
-
-    let error=[];
-    if(!username){
-        error.push("username is required");
+module.exports = async (req, res) => {
+    let err = '';
+    Object.keys(req.body).map(key => err += !(req.body[key]) ? `#${key} cannot be empty` : '');
+    Object.keys(UserSchema.tree).map(key => {
+        err += (UserSchema.tree[key].required && !(Object.keys(req.body).includes(key)))
+            ? `#${key} is required` : '';
+    });
+    if (err !== '')
+        return res.status(400).send({
+            error: err
+        });
+    let user = User();
+    const salt = bcrypt.genSaltSync(saltRounds);
+    const hash = bcrypt.hashSync(req.body.password, salt);
+    req.body.password = hash;
+    Object.keys(req.body).map(key => {
+        user[key] = req.body[key];
+    })
+    if (req.file) {
+        user.profileImage = req.file.filename;
     }
-    if(!firstname){
-        error.push("first name is required");
-    }
-    if(!lastname){
-        error.push("lastname is required");
-    }
-    if(!idNumber){
-        error.push("uid number is required");
-    }
-    if(!email){
-        error.push("email is required");
-    }
-    if(!sex){
-        error.push("sex is required");
-    }
-    if(!insurance){
-        error.push("insurance is required");
-    }
-    if(!phone){
-        error.push("phone is required");
-    }
-    if(!location){
-        error.push("location is required");
-    }
-    if(!usertype){
-        error.push("user type is required");
-    }
-    if(!conpassword){
-        error.push('confirm password must be provided');
-    }
-    if(conpassword!==password){
-        error.push('password and confirm password must be the same');
-    }
-    if(error.length==0){
-        res.json({success:false,usertype:'',error:''});
-    }
-    else{
-        if(req.file!=null){
-            profileImage=req.files[0].originalname;
-
-            await Users.find({username:username}).then(
-                response=>{
-                    if(response.length!==0){
-                        error.push("this username is taken by other");
-                        res.json({success:false,usertype:'',error:[]});
-                    }else{
-                        const salt = bcrypt.genSaltSync(saltRounds);
-                        const hash = bcrypt.hashSync(password, salt);
-                        new Users({
-                            username,
-                            firstname,
-                            lastName,
-                            usertype,
-                            profileImage,
-                            insurance,
-                            sex,
-                            phone,
-                            location,
-                            idNumber,
-                            email,
-                            password
-                         }).save().then(response=>{
-                             res.json({success:true,usertype:response.usertype,error:[]});
-                         }).catch(error=>{
-                             console.log(error);
-                         })
-                    }
-                }
-            ).catch(error=>console.log(error));
+    user.save().then(result => {
+        res.send({
+            status: 'ok',
+            user: result
+        })
+    }).catch((err) => {
+        if (err.name === 'MongoError' && err.code === 11000)
+            res.status(400).send({
+                error: 'duplicate',
+                errorMessage: "Duplicated unique key was detected. This is because you have send a duplicated value for a uniqe attribute"
+            });
+        else {
+            console.log(err);
+            res.status(500).send({
+                error: 'Internal Server Error'
+            })
         }
-        else{
-            await Users.find({username:username}).then(
-                response=>{
-                    if(response.length!==0){
-                        error.push("this username is taken by other");
-                        res.json({success:false,usertype:'',error:[]});
-                    }else{
-                        new Users({
-                            username,
-                            firstname,
-                            lastName,
-                            usertype,
-                            insurance,
-                            sex,
-                            phone,
-                            location,
-                            idNumber,
-                            email,
-                            hash
-                         }).save().then(response=>{
-                             res.json({success:true,usertype:response.usertype,error:[]});
-                         }).catch(error=>{
-                             console.log(error);
-                         })
-                    }
-                }
-            ).catch(error=>console.log(error));
-        }
-        
-    }
+    });
 }

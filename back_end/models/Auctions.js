@@ -33,5 +33,11 @@ const auction=mongoose.Schema({
     extendedDescription:{
         type:String,
     },
+    status:{
+        type:String // ended, open, inactive
+    },
+    approval:{ // for administrator purposes
+        type:Boolean
+    }
 });
 module.exports=auctionModel=mongoose.model('auction',auction);

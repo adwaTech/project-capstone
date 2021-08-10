@@ -1,34 +1,54 @@
-const express=require('express');
-const router=express();
-const multer=require('multer');
-const path=require('path');
-const LoginRoute =require('./LoginRoute');
-const RegisterRoute=require('./RegisterCustomer');
-const updateCustomerRoute= require('./UpdateCustomer');
+const express = require('express');
+const router = express();
+const multer = require('multer');
+const path = require('path');
+const LoginRoute = require('./LoginRoute');
+const RegisterRoute = require('./RegisterCustomer');
+const updateCustomerRoute = require('./UpdateCustomer');
 const deleteCustomerRoute = require('./DeleteCustomer');
 const bidForAuctionRoute = require('./bidForAuction');
 const getAuctionsRoute = require('./getAuctions');
 const payRoute = require('./pay');
 const postAuctionRoute = require('./postAuction');
-
-const storage=multer.diskStorage({
-    destination:function(req,file,cb){
-        cb(null,'./uploads/');
+const sendFeedbackRoute = require('./send_feedback');
+const getFeedbacks = require('./getFeedbacks');
+const approveAuction = require('./approveAuction');
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './uploads/');
     },
-    filename:function(req,file,cb){
-        cb(null,file.originalname);
+    filename: function (req, file, cb) {
+        cb(null, Date.now().toFixed()+file.originalname); // hello.jpg hello.jgp
     },
-})
+});
+const upload = multer({
+    storage: storage,
+    limits: {
+        fileSize: 1024 * 1024 * 5
+    }
+});
 
-const upload=multer({storage:storage,limits:{fieldSize:24*1024*1024*1024}});
+// Customer routes
+router.post("/register", (req, res, next) => {
+    upload.single('profileImage')(req, res, (err) => {
+        if (err) return res.send({
+            error: 'Invalid file'
+        })
+        next();
+    })
+}, RegisterRoute);
+router.get("/login", LoginRoute);
+router.put("/updateCustomer", updateCustomerRoute);
+router.post('/bid', bidForAuctionRoute);
+router.get('/getAuctions', getAuctionsRoute);
+router.post('/pay', payRoute);
+router.post('/postAuction', upload.any('auctionImages'), postAuctionRoute);
+router.post('/sendFeedback', sendFeedbackRoute);
 
-router.post("/registerCustomer",upload.single("Image"),RegisterRoute)
-router.get("/login/:username/:password/:usertype",LoginRoute);
-router.put("/updateCustomer",updateCustomerRoute);
-router.delete("/deleteCustomer",deleteCustomerRoute);
-router.post('/bid',bidForAuctionRoute);
-router.get('/getAuctions',getAuctionsRoute);
-router.post('/pay',payRoute);
-router.post('/postAuction',postAuctionRoute);
+// Admin routes
+router.get("/getFeedbacks", getFeedbacks);
+router.put("/approveAuction", approveAuction);
 
-module.exports=router;
+// Common routes
+router.delete("/deleteCustomer", deleteCustomerRoute);
+module.exports = router;
