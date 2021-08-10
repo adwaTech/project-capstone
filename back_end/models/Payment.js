@@ -26,7 +26,7 @@ const payment=mongoose.Schema({
     proposal:{
         type:proposal,
         required:true
-    }
+    },
     description:{
         type:String,
         required:true

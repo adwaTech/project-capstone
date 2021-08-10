@@ -17,16 +17,21 @@ const proposal=mongoose.Schema({
         type:Number,
         required:true,
     },
-    owner:{
+    ownerId:{
         type:String,
         required:true,
     },
-    auction:{
+    auctionId:{
         type:String,
         required:true,
     },
     proposalDocument:{
-        type:Buffer
+        type:String
+    },
+    submittedOn:{
+        type:Date,
+        required:true,
+        default:Date.now()
     }
 });
 module.exports=proposalModel=mongoose.model('proposal',proposal);

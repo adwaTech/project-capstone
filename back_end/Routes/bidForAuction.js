@@ -1,5 +1,8 @@
 module.exports = (req,res)=>{
-    res.send({
-        Hello:'HEllo'
-    })
+    // create new proposal
+    // auction reference
+    // userReference
+    // based on auction type encrypt amount
+        // OPEN OR CLOSED
+    
 }
