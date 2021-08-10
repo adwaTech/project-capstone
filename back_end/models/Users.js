@@ -23,13 +23,13 @@ const User = mongoose.Schema({
         type: String,
         required: true
     },
-    idNo:{
-        type:String,
-        required:true
+    idNo: {
+        type: String,
+        required: true
     },
-    idPhoto:{
-        type:String,
-        required:true
+    idPhoto: {
+        type: String,
+        required: true
     },
     userType: {
         type: String,

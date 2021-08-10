@@ -1,3 +1,5 @@
-module.exports = (req,res)=>{
-    
+module.exports = (req, res) => {
+    res.send({
+        status: 'payed'
+    })
 }
