@@ -23,7 +23,14 @@ const User = mongoose.Schema({
         type: String,
         required: true
     },
-    insurance: String,
+    idNo:{
+        type:String,
+        required:true
+    },
+    idPhoto:{
+        type:String,
+        required:true
+    },
     userType: {
         type: String,
         required: true,

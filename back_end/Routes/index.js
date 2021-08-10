@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express();
 const multer = require('multer');
-const path = require('path');
+const passport = require('passport'),LocalStrategy = require('passport-local').Strategy;
 const LoginRoute = require('./LoginRoute');
 const RegisterRoute = require('./RegisterCustomer');
 const updateCustomerRoute = require('./UpdateCustomer');
@@ -13,6 +13,7 @@ const postAuctionRoute = require('./postAuction');
 const sendFeedbackRoute = require('./send_feedback');
 const getFeedbacks = require('./getFeedbacks');
 const approveAuction = require('./approveAuction');
+
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './uploads/');
@@ -25,12 +26,26 @@ const upload = multer({
     storage: storage,
     limits: {
         fileSize: 1024 * 1024 * 5
+    },
+    fileFilter: (req,file,cb)=>{
+        if(file.mimetype.match(/^image\//i))
+        return cb(null,true)
+        cb(Error('Incorrect File Format'),false);
     }
 });
 
 // Customer routes
 router.post("/register", (req, res, next) => {
-    upload.single('profileImage')(req, res, (err) => {
+    upload.fields(
+        [{
+            name:'profileImage',
+            maxCount:1
+        },
+        {
+            name:'idPhoto',
+            maxCount:1
+        }]
+    )(req, res, (err) => {
         if (err) return res.send({
             error: 'Invalid file'
         })

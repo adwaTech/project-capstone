@@ -1,7 +1,7 @@
 const mongoose =require('mongoose');
 const insurance = mongoose.Schema({
     document:{
-        type:String,
+        type:String, // file name
         required:true
     },
     documentType:{

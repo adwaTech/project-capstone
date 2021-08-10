@@ -3,6 +3,10 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 module.exports = async (req, res) => {
     let err = '';
+    if (req.files['idPhoto'])
+        req.body.idPhoto = req.files['idPhoto'][0].filename;
+    if (req.files['profileImage'])
+        req.body.profileImage = req.files['profileImage'][0].filename;
     Object.keys(req.body).map(key => err += !(req.body[key]) ? `#${key} cannot be empty` : '');
     Object.keys(UserSchema.tree).map(key => {
         err += (UserSchema.tree[key].required && !(Object.keys(req.body).includes(key)))
@@ -19,9 +23,6 @@ module.exports = async (req, res) => {
     Object.keys(req.body).map(key => {
         user[key] = req.body[key];
     })
-    if (req.file) {
-        user.profileImage = req.file.filename;
-    }
     user.save().then(result => {
         res.send({
             status: 'ok',
