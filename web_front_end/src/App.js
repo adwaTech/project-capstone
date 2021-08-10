@@ -8,7 +8,7 @@ import Register from './components/register/Index';
 import Login from './components/login/Login';
 import ErrorRoute from './components/error-route/ErrorRoute';
 import Contact from './components/contact/Contact';
-// import About from './components/about/About';
+import About from './components/about/About';
 import ShowContext from './Context';
 import Drawer from './components/drawer/Drawer';
 import Home from './components/home/Home'
@@ -34,7 +34,7 @@ function App() {
               <Route exact  path="/home" component={Home}/>
               <Route exact path="/contact" component={Contact}/>
               <Route exact path="/register" component={Register}/>
-              {/* <Route exact path="/about" component={About}/> */}
+              <Route exact path="/about" component={About}/>
               <Route exact path="/login" component={Login}/>
               <Route exact path="/autions" component={Auctions}/>
               <Route exact path="/admin" component={DashBoardIndex}/>

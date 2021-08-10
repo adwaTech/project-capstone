@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import './contact.css';
 import LocationImage from '../../assets/images/location.png';
 import EmailImage from '../../assets/images/email.png';
@@ -11,6 +11,45 @@ import Header from '../header/Header';
 import Footer from '../footer/Footer'
 
 export default function Contact() {
+    const [values,setValues]=useState({
+        username:'',
+        email:'',
+        phone:'',
+        message:'',
+    })
+    const [err, setErr]=useState({})
+    const handleChange=e=>{
+        const {name,value}=e.target;
+        setValues({...values,[name]:value})
+    }
+    const handleClick= e =>{
+          e.preventDefault();
+          let errors={}
+          if(!values.username.trim())
+          {
+              errors.username="username is empty"
+          }
+          if(!values.email.trim())
+          {
+              errors.email="email is empty"
+          }
+          else if(!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email))
+          {
+              errors.email="email is invalid"
+          }
+          if(!values.phone.trim())
+          {
+              errors.phone="phone is empty"
+          }
+          if(!values.message.trim())
+          {
+              errors.message="message is empty"
+          }
+
+          setErr(errors);
+    }
+
+
     return (
     <div>
         <Header/>
@@ -75,26 +114,31 @@ export default function Contact() {
                 <form action="index.html" autocomplete="off">
                     <h3 class="title">Contact us</h3>
                     <div class="input-container">
-                    <input type="text" name="name" class="input" />
-                    <label for="">Username</label>
-                    <span>Username</span>
+                        <input type="text" value={values.username} placeholder='username' onChange={(e)=>{handleChange(e)}}name="username" class="input" />
+                        {/* <label htmlFor="usernameinput">Username</label> */}
+                        {/* <span>Username</span> */}
+                        {err.username && <p className='contactErrorMessages'>{err.username}</p>}
                     </div>
                     <div class="input-container">
-                    <input type="email" name="email" class="input" />
-                    <label for="">Email</label>
-                    <span>Email</span>
+                        <input type="email" value={values.email}  name="email"  placeholder='email'onChange={(e)=>{handleChange(e)}} class="input" />
+                        {/* <label for="input">Email</label>
+                        <span>Email</span> */}
+                        {err.email && <p className='contactErrorMessages'>{err.email}</p>}
                     </div>
                     <div class="input-container">
-                    <input type="tel" name="phone" class="input" />
-                    <label for="">Phone</label>
-                    <span>Phone</span>
+                        <input type="tel" name="phone" value={values.phone}  placeholder='phone' onChange={(e)=>{handleChange(e)}} class="input" />
+                        {/* <label for="">Phone</label>
+                        <span>Phone</span> */}
+                        {err.phone && <p className='contactErrorMessages'>{err.phone}</p>}
+
                     </div>
                     <div class="input-container textarea">
-                    <textarea name="message" class="input"></textarea>
-                    <label for="">Message</label>
-                    <span>Message</span>
+                        <textarea name="message" value={values.message}  placeholder='message' onChange={(e)=>{handleChange(e)}} class="input"></textarea>
+                        {/* <label for="">Message</label>
+                        <span>Message</span> */}
+                        {err.message && <p className='contactErrorMessages'>{err.message}</p>}
                     </div>
-                    <input type="submit" value="Send" class="btn" />
+                    <input type="submit" onClick={(e)=>{handleClick(e)}} value="Send" class="btn" />
                 </form>
                 </div>
             </div>
