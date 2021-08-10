@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express();
+// router.use(express.json());
+router.use(express.urlencoded({ extended: true, }))
 const multer = require('multer');
-const LoginRoute = require('./LoginRoute');
 require('./passport')
+const LoginRoute = require('./LoginRoute');
 const RegisterRoute = require('./RegisterCustomer');
 const updateCustomerRoute = require('./UpdateCustomer');
 const deleteCustomerRoute = require('./DeleteCustomer');
@@ -46,13 +48,13 @@ router.post("/register", (req, res, next) => {
             maxCount: 1
         }]
     )(req, res, (err) => {
-        if (err) return res.send({
+        if (err) return res.status(400).send({
             error: 'Invalid file'
         })
         next();
     })
 }, RegisterRoute);
-router.post("/login", LoginRoute);
+router.post("/login", upload.any(), LoginRoute);
 router.put("/updateCustomer", passport.authenticate('jwt', { session: false }), updateCustomerRoute);
 router.post('/bid', passport.authenticate('jwt', { session: false }), bidForAuctionRoute);
 router.get('/getAuctions', getAuctionsRoute);
