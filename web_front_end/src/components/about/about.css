@@ -5,6 +5,7 @@
     flex-direction: row;
     align-items: center;
     align-self: center;
+    
 }
 .backgroundDiv
 {
@@ -67,7 +68,7 @@
     align-self: center;
     padding:10px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    margin-bottom: 50px;
+    margin-bottom: 100px;
 }
 .grids
 {
@@ -102,17 +103,14 @@
     display: flex;
     flex-direction: row;
 }
-.lists
+.visionParagraph
 {
     margin-top: 30px;
     font-family: Tahoma;
     margin-bottom: 30px;
     list-style-type: disc;
     padding: 12px;
-}
-.lists li{
-    padding: 12px;
-
+    max-width: 500px;
 }
 .spaceProvider
 {
@@ -124,4 +122,31 @@
         display: flex;
         flex-direction: column;
     }
+}
+.visionDiv
+{
+    margin-top: 50px;
+    margin-bottom: 100px;
+    display: flex;
+    flex-direction: row;
+}
+.vision_mission
+{
+    text-align: center;
+    font-size: 30px;
+    border-bottom: solid 3px #497C54;
+    font-weight: bold;
+    width: 200px;
+    padding-bottom: 10px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+}
+.ourteamDiv{
+    margin-top: 100px;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.8),rgb(73,124,84)),url(../../assets/images/alan-king-1R63taCoSnM-unsplash.jpg);
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

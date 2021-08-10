@@ -20,6 +20,7 @@ export default function About() {
                 <div className="spaceProvider">
 
                 </div>
+            <div style={{color: 'rgb(30,51,34,0.9)'}}>
                 <div className="aboutus">
                     <div className="backgroundDiv">
                         <img src={Backgorundd} height="300px" width='300px'/>
@@ -34,53 +35,61 @@ export default function About() {
                     </div>
                 </div>
                 <div className="whole">
-                    <div className="teamDiv">
-                        <p className="headers team">Team</p>
-                         <div className="grids">
-                            <div className='twogrids'>
-                                <div data-aos='fade-up' className="gridItems">
-                                    <img className="image" src={Theman}/>
-                                    <p className="nameof">Meseret Kifle</p>
-                                    <p className="expertize">Software Engineer (AASTU)</p>
-                                </div> 
-                                <div data-aos='fade-up' className="gridItems">
-                                    <img className="image" src={Theman}/>
-                                    <p className="nameof">Michael Mamaye</p>
-                                    <p className="expertize">Software Engineer (AASTU)</p>
-                                </div> 
+                   
+                        <div className="teamDiv ">
+                            <p className="headers team">Our Team</p>
+                            <div className="grids">
+                                <div className='twogrids'>
+                                    <div data-aos='fade-up' className="gridItems">
+                                        <img className="image" src={Theman}/>
+                                        <p className="nameof">Meseret Kifle</p>
+                                        <p className="expertize">Software Engineer (AASTU)</p>
+                                    </div> 
+                                    <div data-aos='fade-down' className="gridItems">
+                                        <img className="image" src={Theman}/>
+                                        <p className="nameof">Michael Mamaye</p>
+                                        <p className="expertize">Software Engineer (AASTU)</p>
+                                    </div> 
+                                </div>
+                                <div className='twogrids'>
+                                    <div data-aos='fade-up' className="gridItems">
+                                        <img className="image" src={Theman}/>
+                                        <p className="nameof">Mengistu Birhie</p>
+                                        <p className="expertize">Software Engineer (AASTU)</p>
+                                    </div> 
+                                    <div data-aos='fade-down' className="gridItems">
+                                        <img className="image" src={Theman}/>
+                                        <p className="nameof">Kirubel Adamu</p>
+                                        <p className="expertize">Software Engineer (AASTU)</p>
+                                    </div> 
+                                </div>
+                            </div>  
+                        </div>
+                    <div className='ourteamDiv'>
+                        <div className="visionDiv">
+                            <div>
+                                <p className="vision_mission vision">Vision</p>
+                                <div data-aos='zoom-in-left' className="visionParagraph">
+                                        We consistently work on our development process to provide an
+                                        informative, user-friendly and effective strategy to provide companies 
+                                        with the message or goal they are hoping to accomplish.<br/> This development 
+                                        process is tailored to meet the needs of small, medium and large size businesses 
+                                        and enterprises.
+                                </div>
                             </div>
-                            <div className='twogrids'>
-                                <div data-aos='fade-up' className="gridItems">
-                                    <img className="image" src={Theman}/>
-                                    <p className="nameof">Mengistu Birhie</p>
-                                    <p className="expertize">Software Engineer (AASTU)</p>
-                                </div> 
-                                <div data-aos='fade-up' className="gridItems">
-                                    <img className="image" src={Theman}/>
-                                    <p className="nameof">Kirubel Adamu</p>
-                                    <p className="expertize">Software Engineer (AASTU)</p>
-                                </div> 
+                            <div>
+                                <p className="vision vision_mission">Mission</p>
+                                <div data-aos='zoom-in-right' className="visionParagraph">
+                                    "To empower our clients to use the web 
+                                    to its full potential by providing affordable, 
+                                    effective, custom solutions."
+                                </div>
                             </div>
-                         </div>  
+                        </div>
                     </div>
-                    <div className="visionDiv">
-                        <p className="headers vision">Vision</p>
-                        <ul data-aos='zoom-in-left' className="lists">
-                            <li>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta suscipit voluptates officia,
-                           </li>
-                            <li>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta suscipit voluptates officia,
-                           </li>
-                            <li>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta suscipit voluptates officia,
-                           </li>
-                            <li>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta suscipit voluptates officia,
-                           </li>
-                            <li>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta suscipit voluptates officia,
-                           </li>
-                            <li>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta suscipit voluptates officia,
-                           </li>
-                        </ul>
-                    </div>
+        
                 </div>
+            </div>
             <Footer/>
         </div>
 
