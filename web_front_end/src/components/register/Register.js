@@ -167,6 +167,7 @@ export default function AddressForm() {
             <Input
               type="number"
               id="input-with-icon-adornment"
+              required
               startAdornment={
                 <InputAdornment position="start">
                   <Typography>+251</Typography>
@@ -189,6 +190,7 @@ export default function AddressForm() {
         </Grid>
         <Grid item xs={12}>
           <FormControlLabel
+            
             control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
             label="Use this address for payment details"
           />

@@ -13,6 +13,10 @@ const User = mongoose.Schema({
         type:String,
         required:true
     },
+    profileImage:{
+        type:String,
+        required:true,
+    },
     location:{
         type:String,
         required:true

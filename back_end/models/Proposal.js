@@ -26,7 +26,7 @@ const proposal=mongoose.Schema({
         required:true,
     },
     proposalDocument:{
-        type:Buffer
+        type:String
     }
 });
 module.exports=proposalModel=mongoose.model('proposal',proposal);
