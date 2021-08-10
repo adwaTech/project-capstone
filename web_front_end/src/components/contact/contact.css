@@ -381,3 +381,11 @@
     padding: 0.45rem 1.2rem;
   }
 }
+
+.contactErrorMessages
+{
+  color: red;
+  font-family: cursive;
+  font-weight: 100;
+  margin-left: 50px;
+}

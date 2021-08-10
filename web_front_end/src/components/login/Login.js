@@ -127,10 +127,12 @@ function Login({ match, history }){
               color="primary"
               className={classes.submit}
               onClick={
-                async () => {
+                async (e) => {
+                    
                     await dispatch(LoginAction(state));
                     await history.push(`/admin`);
                     // await dispatch(getProfile(userInfo.userName,userInfo.type));
+                    
                 }
               }
             >
