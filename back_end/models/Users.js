@@ -54,5 +54,5 @@ const User = mongoose.Schema({
         unique: true
     },
 })
-module.exports.User = UserModel = mongoose.model('user', User);
+module.exports.UserModel = mongoose.model('user', User);
 module.exports.UserSchema = User;

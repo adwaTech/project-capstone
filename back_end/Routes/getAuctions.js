@@ -3,4 +3,5 @@ module.exports = (req,res)=>{
     // all, posted, won, lost
     // all auctions except owner's
     // nearby auctions, popular, category, specific, latest
+    res.send(req.body);
 }

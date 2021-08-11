@@ -3,8 +3,8 @@ const auctionRule = require('./AuctionRule');
 const user = require('./Users');
 const auctionCategory = require('./AuctionCatagory');
 
-const auction=mongoose.Schema({
-    auctionname:{
+const auction = mongoose.Schema({
+    auctionName:{
         type:String,
         required:true,
     },
@@ -12,18 +12,35 @@ const auction=mongoose.Schema({
         type:String,
         required:true
     },
-    rule:{
-        type:auctionRule,
+    allPay:{
+        type:Boolean,
+        require:true,
+    },
+    bidFee:{
+        type:Number,
         required:true
     },
-    owner:user,
+    minAmount:{
+        type:Number,
+        required:true
+    },
+    minCPO:{
+        type:Number
+    },
+    owner:{
+        type:String, // owner id
+        required:true
+    },
     auctionType:{
         type:String,
         required:true,
     },
-    auctionCategory:auctionCategory,
-    image:{
-        type:String,
+    auctionCategory:{
+        type:String, // category id
+        required:true
+    },
+    images:{
+        type:Array,
         required:true
     },
     condition:{
@@ -40,4 +57,5 @@ const auction=mongoose.Schema({
         type:Boolean
     }
 });
-module.exports=auctionModel=mongoose.model('auction',auction);
+module.exports.AuctionModel = mongoose.model('auction',auction);
+module.exports.AuctionSchema = auction;

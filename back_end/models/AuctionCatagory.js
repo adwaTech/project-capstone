@@ -11,4 +11,6 @@ const catagory=mongoose.Schema({
         required:true
     },
 });
-module.exports=catagoryModel=mongoose.model('catagory',catagory);
+
+module.exports.CatagoryModel=mongoose.model('catagory',catagory);
+module.exports.CategorySchema = catagory;
