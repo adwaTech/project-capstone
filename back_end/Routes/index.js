@@ -1,7 +1,5 @@
 const express = require('express');
 const router = express();
-// router.use(express.json());
-router.use(express.urlencoded({ extended: true, }))
 const multer = require('multer');
 require('./passport')
 const LoginRoute = require('./LoginRoute');
@@ -27,7 +25,7 @@ const storage = multer.diskStorage({
 const upload = multer({
     storage: storage,
     limits: {
-        fileSize: 1024 * 1024 * 50
+        fileSize: 1024 * 1024 * 10
     },
     fileFilter: (req, file, cb) => {
         if (file.mimetype.match(/^image\//i))
@@ -59,7 +57,15 @@ router.put("/updateCustomer", passport.authenticate('jwt', { session: false }), 
 router.post('/bid', passport.authenticate('jwt', { session: false }), bidForAuctionRoute);
 router.get('/getAuctions', getAuctionsRoute);
 router.post('/pay', passport.authenticate('jwt', { session: false }), payRoute);
-router.post('/postAuction', passport.authenticate('jwt', { session: false }), upload.any('auctionImages'), postAuctionRoute);
+router.post('/postAuction', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    upload.array('images',10)(req, res, (err) => {
+        if (err) return res.status(400).send({
+            error: 'Invalid file',
+            errorStackTrace:err
+        })
+        next();
+    })
+}, postAuctionRoute);
 router.post('/sendFeedback', passport.authenticate('jwt', { session: false }), sendFeedbackRoute);
 
 // Admin routes
