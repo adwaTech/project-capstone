@@ -1,6 +1,5 @@
 const mongoose =require('mongoose');
 
-
 const auctionrule=mongoose.Schema({
     allPay:{
         type:Boolean,
@@ -18,4 +17,5 @@ const auctionrule=mongoose.Schema({
         type:Number
     }
 });
-module.exports=auctionruleModel=mongoose.nodel('auctionrule',auctionrule);
+module.exports.AuctionRuleModel =mongoose.model('auctionrule',auctionrule);
+module.exports.AuctionRuleSchema = auctionrule;

@@ -1,4 +1,5 @@
 const passport = require('passport');
+const { UserModel } = require('../models/Users');
 const LocalStrategy = require('passport-local');
 const bcrypt = require('bcrypt');
 const passportJWT = require("passport-jwt");
