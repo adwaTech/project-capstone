@@ -1,40 +1,37 @@
 import React from 'react';
-import {makeStyles} from '@material-ui/core'
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Paper from '@material-ui/core/Paper';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormLabel from '@material-ui/core/FormLabel';
-import Google from '../../assets/images/google.svg'
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Facebook from '@material-ui/icons/Facebook';
-import Input from '@material-ui/core/Input';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
+import {
+  makeStyles,
+  CssBaseline,
+  Paper,
+  Stepper,
+  Step,
+  StepLabel,
+  Button ,
+  Typography,
+  InputLabel,
+  MenuItem,
+  FormControl ,
+  Select,
+  Radio,
+  RadioGroup,
+  FormLabel,
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Input,
+  InputAdornment,
+  Grid,
+  OutlinedInput, 
+  IconButton,
+} from '@material-ui/core'
 import LocationPicker from 'react-location-picker';
 import MapPicker from 'react-google-map-picker';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import {useDispatch,useSelector} from 'react-redux';
 import {RegisterAction} from '../../redux-state-managment/Actions'
-import {
-   OutlinedInput, IconButton
-} from '@material-ui/core';
-
+import {Alert,AlertTitle} from '@material-ui/lab'
+import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 
 const DefaultLocation = { lat: 8.9806, lng: 38.7578};
 const DefaultZoom = 13;
@@ -92,9 +89,15 @@ const steps = ['Personal information', 'detail', 'Location'];
 
 
 
-export default function Checkout() {
+export default function Register({ match, history }) {
   const dispatch=useDispatch();
   const classes = useStyles();
+  // global states
+  const error = useSelector((state) => state.Register.error);
+  const status = useSelector((state) => state.Register.status);
+  const statusText = useSelector((state) => state.Register.statusText);
+  const token = useSelector((state) => state.Register.token);
+
   const [activeStep, setActiveStep] = React.useState(0);
   const [defaultLocation, setDefaultLocation] = React.useState(DefaultLocation);
   const [zoom, setZoom] = React.useState(DefaultZoom);
@@ -112,7 +115,7 @@ export default function Checkout() {
   const handleMouseDownPassword = (event) => {
       event.preventDefault();
   };
-  const [state,setState]=React.useState({
+  const initialState={
     usertype:'customer',
     password:'',
     conpassword:'',
@@ -127,7 +130,8 @@ export default function Checkout() {
     city: "",
     latitute:location.lat,
     longitute:location.lng,
-  })
+  }
+  const [state,setState]=React.useState(initialState);
   function handleChangeLocation (lat, lng){
       setLocation({lat:lat, lng:lng});
       setState({...state,latitute:lat,longitute:lng});
@@ -151,6 +155,7 @@ export default function Checkout() {
     switch (step) {
       case 0:
         return <React.Fragment>
+                  
                   <Typography variant="h6" gutterBottom>
                     Personal Information
                   </Typography>
@@ -352,17 +357,7 @@ export default function Checkout() {
                   setState({...state,idPhoto:e.target.files[0]});
               }} 
               type="file"  name="image" placeholder="image" required="required"/>
-            {/* <input
-              accept="image/*"
-              className={classes.input}
-              style={{ display: 'none' }}
-              id="raised-button-file"
-              type="file"
-              onChange={(e)=>{
-                setState({...state,idImage:e.target.files[0]});
-                console.log(e.targe.files[0]);
-              }}
-            /> */}
+            
             <label htmlFor="raised-button-file">
               <Button variant="outlined" component="span" className={classes.button}>
                 Upload your id card
@@ -428,6 +423,19 @@ export default function Checkout() {
           <Typography component="h1" variant="h4" align="center">
             SignUp
           </Typography>
+          {
+            error
+            ?<Alert severity="error">status :{status} <br/>statusText:{statusText} <br/> error:{error}</Alert>
+            :null
+          }
+          {console.log(token)}
+          {
+            
+            token
+            ?<Redirect to='/profile'/>:null
+
+          }
+
           <Stepper activeStep={activeStep} className={classes.stepper}>
             {steps.map((label) => (
               <Step key={label}>
@@ -461,7 +469,7 @@ export default function Checkout() {
                     color="primary"
                     onClick={handleNext}
                     className={classes.button}
-                    onClick={()=>{
+                    onClick={async ()=>{
                       const formData=new FormData();
                       formData.append('firstName',state.firstname);
                       formData.append('lastName',state.lastname);
@@ -476,12 +484,8 @@ export default function Checkout() {
                       formData.append('city',state.city);
                       formData.append('idPhoto',state.idPhoto);
                       formData.append('idNo',state.idNumber);
-                      console.log(formData);
-                      console.log(state);
-                      dispatch(RegisterAction(formData));
-                      setState({
-                          
-                      })
+                      await dispatch(RegisterAction(formData));
+                      setState(initialState)
                   }}
                   >
                     Register

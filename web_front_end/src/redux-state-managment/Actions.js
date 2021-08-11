@@ -17,21 +17,14 @@ export const LoginAction=(userData)=>async (dispatch)=>{
 }
 export const RegisterAction=(userData)=>async (dispatch)=>{
     
-       const {data} = await axios.post(`http://localhost:5000/register`,userData,{
+       const response = await axios.post(`http://localhost:5000/register`,userData,{
            validateStatus:function (status){
-               return status<500
+               return status<600
            }
        })
-       
-       console.log(data);
-    //    .then(response=>console.log('response',response))
-    //    .catch(err=>console.log('error is ',err))
-       //console.log(data);
-       //.catch(error=>console.log(`myerror :${error}`));
-        // console.log(data);
-        // dispatch({
-        //     type:Constant.REGISTER,
-        //     payload:data.data,
-        // })
+        dispatch({
+            type:Constant.REGISTER,
+            payload:response,
+        })
 
 }

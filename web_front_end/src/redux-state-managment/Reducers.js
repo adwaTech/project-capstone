@@ -7,6 +7,11 @@ let initialState={
         password:'',
         error:[]
     },
+    user:{},
+    token:'',
+    error:'',
+    status:'',
+    statusText:''
     
 }
 export const Login=(state=initialState,action)=>{
@@ -23,16 +28,23 @@ export const Login=(state=initialState,action)=>{
 
 }
 export const Register=(state=initialState,action)=>{
-    // action.payload.status!=200
-    // error = payload.error;
-    // action.payload.status===200
-    // action.payload.token
-    // action.payload.user
     switch(action.type){
         case Constant.REGISTER:
-            return{
-                ...state
+            if(action.payload.status===200){
+                return{
+                    ...state,
+                    user:action.payload.data.user,
+                    token:action.payload.data.token
+                }
+            }else{
+                return{
+                    ...state,
+                    error:action.payload.data.error,
+                    status:action.payload.status,
+                    statusText:action.payload.statusText
+                }
             }
+            
         default:
             return {
                 ...state
