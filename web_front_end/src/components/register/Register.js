@@ -93,10 +93,11 @@ export default function Register({ match, history }) {
   const dispatch=useDispatch();
   const classes = useStyles();
   // global states
-  const error = useSelector((state) => state.Register.error);
-  const status = useSelector((state) => state.Register.status);
-  const statusText = useSelector((state) => state.Register.statusText);
-  const token = useSelector((state) => state.Register.token);
+  const error = useSelector((state) => state.RegisterReducer.error);
+  const status = useSelector((state) => state.RegisterReducer.status);
+  const statusText = useSelector((state) => state.RegisterReducer.statusText);
+  const token = useSelector((state) => state.RegisterReducer.token);
+  const user = useSelector((state) => state.RegisterReducer.user);
 
   const [activeStep, setActiveStep] = React.useState(0);
   const [defaultLocation, setDefaultLocation] = React.useState(DefaultLocation);
@@ -428,12 +429,14 @@ export default function Register({ match, history }) {
             ?<Alert severity="error">status :{status} <br/>statusText:{statusText} <br/> error:{error}</Alert>
             :null
           }
-          {console.log(token)}
           {
-            
             token
-            ?<Redirect to='/profile'/>:null
-
+            ?(user.userType=="customer"
+            ?<Redirect to='/profile'/>
+            :user.userType=="admin"
+            ?<Redirect to="/admin"/>
+            :null)
+            :null
           }
 
           <Stepper activeStep={activeStep} className={classes.stepper}>
@@ -484,7 +487,7 @@ export default function Register({ match, history }) {
                       formData.append('city',state.city);
                       formData.append('idPhoto',state.idPhoto);
                       formData.append('idNo',state.idNumber);
-                      await dispatch(RegisterAction(formData));
+                      dispatch(RegisterAction(formData));
                       setState(initialState)
                   }}
                   >

@@ -12,7 +12,7 @@ module.exports = async (req, res) => {
     const err = validateBody(req.body, UserSchema, ['userType', 'sexType']);
     if (err)
         return res.status(400).send({
-            mesi:'fuck you'
+            error: err
         });
     const salt = bcrypt.genSaltSync(saltRounds);
     const hash = bcrypt.hashSync(req.body.password, salt);

@@ -37,14 +37,12 @@ function App() {
               <Route exact path="/about" component={About}/>
               <Route exact path="/login" component={Login}/>
               <Route exact path="/autions" component={Auctions}/>
-              <Route exact path="/admin" component={DashBoardIndex}/>
               <Route exact path="/house" component={Catagoryindex}/>
               <Route exact path="/car" component={Car}/>
-              <Route exact path="/profile" component={User}/>
               <Route exact path="/service" component={Service}/>
               <Route exact path="/government" component={Government}/>
-              {/* <ProtectedRoute exact path="/dashboard/customer/:username"  component={CustomerDashBoard}/>
-              <ProtectedRoute exact path="/dashboard/admin/:username" component={AdminDashBoard}/> */}
+              <ProtectedRoute exact path="/admin"  component={DashBoardIndex}/>
+              <ProtectedRoute exact path="/profile" component={User}/>
               <Route path="*" component={ErrorRoute}/>
           </Switch>
       </Router>

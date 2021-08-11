@@ -1,13 +1,13 @@
 import {Route,Redirect} from 'react-router-dom'
+import { useSelector } from 'react-redux';
 
 export default function ProtectedRoute({component:Component,...rest}){
-    // const canLogin=useSelector((state)=>state.featchInfo.user.success)
-
+    const token = useSelector((state) => state.RegisterReducer.token);
     return (
         <Route {...rest} render={(props)=>{
-            if(true){
+            if(token){
                 return(
-                <Component {...props}/>
+                <Component {...props} />
                 )
             }
             else{
