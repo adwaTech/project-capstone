@@ -3,7 +3,7 @@
 body{
     background-color: #eee;
 }
-=======
+
 body {
   margin: 0;
   padding: 0;
@@ -20,5 +20,3 @@ body::-webkit-scrollbar-thumb{
 body::-webkit-scrollbar-corner{
   background-color: cadetblue;
 }
-
->>>>>>> main
