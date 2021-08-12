@@ -4,7 +4,6 @@ import Thunk from 'redux-thunk';
 import { 
     AccountReducer, 
     LanguageReducer,
-    LogoutReducer 
 } from './Reducers';
 
 
@@ -13,7 +12,6 @@ const middleware = [Thunk];
 const reducer = combineReducers({
     AccountReducer,
     LanguageReducer,
-    LogoutReducer
 });
 
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(...middleware)));

@@ -32,7 +32,16 @@ export const LanguageAction=(language)=>async (dispatch)=>{
     })
 }
 export const LogoutAction=()=>async (dispatch)=>{
+    const data={
+        data:{
+            user:{},
+            token:'',
+            status:200,
+        }
+    }
+    console.log("yes yes")
     dispatch({
         type:Constant.LOGOUT,
+        payload:data
     })
 }

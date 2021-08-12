@@ -11,7 +11,7 @@ import Select from '@material-ui/core/Select';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 import {strings} from '../../language/language';
-import {LanguageAction} from '../../redux-state-managment/Actions';
+import {LanguageAction, LogoutAction} from '../../redux-state-managment/Actions';
 import {useDispatch} from 'react-redux';
 
 import {
@@ -107,7 +107,7 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 export default function Header() {
-    const dispatch=useDispatch()
+    const dispatch=useDispatch();
     const classes = useStyles();
     const location=useLocation();
     const [loc,setLoc]=React.useState('en');
@@ -126,7 +126,6 @@ export default function Header() {
     const token = useSelector((state) => state.AccountReducer.token);
     const user = useSelector((state) => state.AccountReducer.user);
     const [Lang, setLang] = React.useState('en');
-    
     return (
         <div className="nav-header">
             <div className="smoll-screen">
@@ -162,17 +161,18 @@ export default function Header() {
                                     }}
                                     input={<BootstrapInput />}
                                     >
-                                    <MenuItem value="en">Eng</MenuItem>
+                                    <MenuItem value="en">English</MenuItem>
                                     <MenuItem value="am">አማርኛ</MenuItem>
-                                    <MenuItem value="or">Oro</MenuItem>
-                                    <MenuItem value="ti">Tig</MenuItem>
+                                    <MenuItem value="or">Oromifa</MenuItem>
+                                    <MenuItem value="ti">ትግርኛ</MenuItem>
                                     <MenuItem value="so">Somali</MenuItem>
                                     </Select>
                                 </FormControl>
                             </div>
                             {
                                 token
-                                ?<Badge
+                                ?<Link to="/profile">
+                                <Badge
                                 overlap="circular"
                                 anchorOrigin={{
                                   vertical: 'bottom',
@@ -182,13 +182,20 @@ export default function Header() {
                                 >
                                 <Avatar alt=""  src={`http://localhost:5000/${user.profileImage}`}/>
                                 </Badge>
+                                </Link>
                                 :<Link to="/profile">
                                     <PersonIcon color="primary" className="personIcon" style={{color:"#000"}}/>
                                 </Link>
                             }
                             
                             <div style={{marginRight:"50px"}}>
-                            <NavLink className="loginbtn" to="/login">
+                            <NavLink 
+                            onClick={()=>{
+                                if(token){
+                                    dispatch(LogoutAction());
+                                }
+                            }}
+                            className="loginbtn" to="/login">
                                 <p>{token?strings.Logout:strings.Login}</p>
                             </NavLink>
                         </div>
@@ -259,14 +266,20 @@ export default function Header() {
                                     >
                                     <MenuItem value="en">English</MenuItem>
                                     <MenuItem value="am">አማርኛ</MenuItem>
-                                    <MenuItem value="or">Oro</MenuItem>
-                                    <MenuItem value="ti">Tig</MenuItem>
+                                    <MenuItem value="or">Oromifa</MenuItem>
+                                    <MenuItem value="ti">ትግርኛ</MenuItem>
                                     <MenuItem value="so">Somali</MenuItem>
                                     </Select>
                                 </FormControl>
                                 </li>
                                 <li className="scoll-screen">
-                                    <NavLink to="/login"><Button color="primary" variant="outlined">{token?strings.Logout:strings.Login}</Button></NavLink>
+                                    <NavLink
+                                    onClick={()=>{
+                                        if(token){
+                                            dispatch(LogoutAction());
+                                        }
+                                    }}
+                                     to="/login"><Button color="primary" variant="outlined">{token?strings.Logout:strings.Login}</Button></NavLink>
                                 </li>
                             </ul>
                         </div>
@@ -305,7 +318,7 @@ function CustomerDrawer(){
                 
                 <label for="menu-control" class="sidebar__close"></label>
                 
-                <ul class="sidebar__social">
+                <ul className="sidebar__social">
                 <li>
                     <a href="">
                     <svg viewBox="0 0 14 14" fill="none">

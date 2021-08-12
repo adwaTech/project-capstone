@@ -54,9 +54,8 @@ export default function User() {
         }
     }
 
-
+    
     const user =useSelector((state)=>state.AccountReducer.user);
-    console.log(user);
     const [component,setComponent]=React.useState('Bid');
     function renderComponents(){
         switch(component){

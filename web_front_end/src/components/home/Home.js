@@ -16,6 +16,7 @@ import bid from '../../assets/images/bid.svg';
 import {strings} from '../../language/language';
 import {useSelector} from 'react-redux'
 import ScrollButton from '../scrollToTop/ScrollToTop';
+import {useDispatch} from 'react-redux';
 import {
     makeStyles
     
@@ -31,6 +32,8 @@ const useStyles=makeStyles({
 
 export default function Home() {
     const lang=useSelector((state)=>state.LanguageReducer.language)
+    const token = useSelector((state) => state.AccountReducer.token);
+    
     React.useEffect(()=>{
 
     },[lang]);
@@ -75,8 +78,8 @@ export default function Home() {
                 <div className="banner-title">
                     <h4>{strings.description1}</h4>
                     
-                    <Link id="gooey-button" to="/register">
-                        {strings.CreateAccount}
+                    <Link id="gooey-button" to={token?'/profile':'/register'}>
+                        {token?"profile":strings.CreateAccount}
                         <span class="bubbles">
                             <span class="bubble"></span>
                             <span class="bubble"></span>
