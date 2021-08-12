@@ -13,7 +13,10 @@ const postAuctionRoute = require('./postAuction');
 const sendFeedbackRoute = require('./send_feedback');
 const getFeedbacks = require('./getFeedbacks');
 const approveAuction = require('./approveAuction');
+const getSearchRoute = require('./search');
+const getBidsRoute = require('./getBids');
 const passport = require('passport');
+const getBids = require('./getBids');
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './uploads/');
@@ -56,12 +59,14 @@ router.post("/login", upload.any(), LoginRoute);
 router.put("/updateCustomer", passport.authenticate('jwt', { session: false }), updateCustomerRoute);
 router.post('/bid', passport.authenticate('jwt', { session: false }), bidForAuctionRoute);
 router.get('/getAuctions', getAuctionsRoute);
+router.get('/getBids', passport.authenticate('jwt', { session: false }), getBidsRoute);
+router.get('/search', getSearchRoute)
 router.post('/pay', passport.authenticate('jwt', { session: false }), payRoute);
 router.post('/postAuction', passport.authenticate('jwt', { session: false }), (req, res, next) => {
-    upload.array('images',10)(req, res, (err) => {
+    upload.array('images', 10)(req, res, (err) => {
         if (err) return res.status(400).send({
             error: 'Invalid file',
-            errorStackTrace:err
+            errorStackTrace: err
         })
         next();
     })
