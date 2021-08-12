@@ -13,7 +13,8 @@ import WaveImage from '../../assets/images/wave6.svg';
 import SignIn from '../../assets/images/signin.svg';
 import win from '../../assets/images/win.svg';
 import bid from '../../assets/images/bid.svg';
-
+import {strings} from '../../language/language';
+import {useSelector} from 'react-redux'
 import {
     makeStyles
     
@@ -28,6 +29,10 @@ const useStyles=makeStyles({
 })
 
 export default function Home() {
+    const lang=useSelector((state)=>state.LanguageReducer.language)
+    React.useEffect(()=>{
+
+    },[lang]);
     return (
         <div className="home">
             <Header/>
@@ -36,29 +41,29 @@ export default function Home() {
             </div>
             <div className="easy-steps">
                 <div>
-                    <h5>How It Works</h5>
-                    <span>Easy 3 steps to win</span>
+                    <h5>{strings.HowItWorks}</h5>
+                    <span>{strings.towin}</span>
                 </div>
                 <div >
                     <div class="menu__container bd-grid ">
                         <div class="menu__content">
                             <img src={SignIn} alt="" class="about__img"/>
                             <h3 class="menu__name"></h3>
-                            <span class="menu__detail">Sign-Up</span>
+                            <span class="menu__detail">{strings.signup}</span>
                             <span class="menu__preci"></span>
                             
                         </div>
                         <div class="menu__content">
                             <img src={bid} alt="" class="about__img"/>
                             <h3 class="menu__name"></h3>
-                            <span class="menu__detail">Bid</span>
+                            <span class="menu__detail">{strings.bid}</span>
                             <span class="menu__preci"></span>
                             
                         </div>
                         <div class="menu__content">
                             <img src={win} alt="" class="about__img"/>
                             <h3 class="menu__name"></h3>
-                            <span class="menu__detail">Win</span>
+                            <span class="menu__detail">{strings.win}</span>
                             <span class="menu__preci"></span>
                         </div>
                         
@@ -67,11 +72,10 @@ export default function Home() {
             </div>
             <div className="front-image">
                 <div className="banner-title">
-                    <h4>Online Auction is where everyone goes to shop, sell,
-                        and give, while discovering variety and affordability.</h4>
+                    <h4>{strings.description1}</h4>
                     
                     <Link id="gooey-button" to="/register">
-                        Create Account
+                        {strings.CreateAccount}
                         <span class="bubbles">
                             <span class="bubble"></span>
                             <span class="bubble"></span>
@@ -93,52 +97,16 @@ export default function Home() {
             </div>
             <ImageSlider/>
             <ProductCatagory/>
-            {/* <Grid1/>
-            <Grid2/>
-            <CatagoryList/>  */}
             <Product2/>
             <HomeInfo/> 
-            <div>
-            {/* <div className="description">
-                <img src={Image11} alt=""/>
-                <div className="news-subscribe">
-                    <div>
-                        <h1>Get Our Latest Offers News</h1>
-                        <h4>subscribe for news</h4>
-                    </div>
-                    <FormControl variant="outlined" fullWidth>
-                        <InputLabel htmlFor="outlined-adornment-search">subscribe</InputLabel>
-                        <OutlinedInput
-                            id="outlined-adornment-search"
-                            type="text"
-                            className={classes.searchInput}
-                            endAdornment={
-                                <InputAdornment position="end">
-                                    <IconButton
-                                        aria-label="search"
-                                        onMouseDown={handleMouseDownPassword}
-                                        edge="end"
-                                    >
-                                        <Send size="large"/>
-                                    </IconButton>
-                                </InputAdornment>
-                            }
-                            labelWidth={70}
-                        />
-                    </FormControl>
-                </div>
-                <img src={Image12} alt=""/>
-            </div>
-             */}
-            </div>
             <Link onClick={()=>{
                 window.scrollTo(0,0);
                 
-            }} className="floating-btn"><Fab variant="outlined" color="primary"><ArrowUpward/></Fab></Link>
+            }} className="floating-btn"><Fab  color="primary"><ArrowUpward/></Fab></Link>
             <Link onClick={()=>{
                 window.scrollTo(0,document.querySelector(".footer").scrollHeight);
             }}
-            id="#footer" className="floating-btn2"><Fab variant="outlined" color="primary"><ArrowDownward/></Fab></Link>
+            id="#footer" className="floating-btn2"><Fab  color="primary"><ArrowDownward/></Fab></Link>
             <Footer className="footer"/>
         </div>
     )

@@ -35,7 +35,6 @@ export default function ErrorRoute() {
                 <div class="LeftHand"></div>
                 <div class="RightHand"></div>
                 </div>
-                <h4>Move ur mouse <br/> left or Right :)</h4>
         </div>
     );
 }

@@ -11,6 +11,8 @@ import Image13 from '../../assets/images/naomi-hebert-MP0bgaS_d1c-unsplash.jpg';
 import Image14 from '../../assets/images/sieuwert-otterloo-aren8nutd1Q-unsplash.jpg'
 import Image9 from '../../assets/images/max-O_TVsaeZNlE-unsplash.jpg';
 import Image15 from '../../assets/images/webaliser-_TPTXZd9mOo-unsplash.jpg';
+import {strings} from '../../language/language';
+import {useSelector} from 'react-redux'
 
 const useStyles=makeStyles({
     addCartBtn:{
@@ -25,6 +27,10 @@ const useStyles=makeStyles({
     }
 })
 export default function Products() {
+    const lang=useSelector((state)=>state.LanguageReducer.language)
+    React.useEffect(()=>{
+
+    },[lang]);
     const rate=[1,2,3,4,5];
     const classes=useStyles();
     const [error,setError]=React.useState(false);
@@ -78,13 +84,13 @@ export default function Products() {
             <div className="description1" style={{marginTop:"300px"}}>
                 <img src={Image8} alt=""/>
                 <div className="description1-area">
-                    <h3>Find The Best Product </h3>
-                    <Button className={classes.shopNow} variant="contained" color="primary">Shop Now</Button>
+                    <h3>{strings.findTheBestProduct}</h3>
+                    <Button className={classes.shopNow} variant="contained" color="primary">{strings.shopNow}</Button>
                 </div>
                 <img src={Image7} alt="" width="40px" height="40px"/>
             </div>
             <div className="section-name">
-                <h3 className="section-title">Latest Products</h3>
+                <h3 className="section-title">{strings.LatestProducts}</h3>
                 <div className="product-type">
                     <span className="type">Today</span>
                     <span className="type">since last month</span>

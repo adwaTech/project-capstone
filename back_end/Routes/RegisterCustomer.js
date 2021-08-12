@@ -1,30 +1,23 @@
-const { User, UserSchema } = require('../models/Users');
+const { UserModel, UserSchema } = require('../models/Users');
 const bcrypt = require('bcrypt');
+const { validateBody, createModel } = require('./toolFuntions');
 const saltRounds = 10;
 module.exports = async (req, res) => {
-    let err = '';
     if (req.files) {
         if (req.files['idPhoto'])
             req.body.idPhoto = req.files['idPhoto'][0].filename;
         if (req.files['profileImage'])
             req.body.profileImage = req.files['profileImage'][0].filename;
     }
-    Object.keys(req.body).map(key => err += !(req.body[key]) ? `#${key} cannot be empty` : '');
-    Object.keys(UserSchema.tree).map(key => {
-        err += (UserSchema.tree[key].required && !(Object.keys(req.body).includes(key)))
-            ? `#${key} is required` : '';
-    });
-    if (err !== '')
+    const err = validateBody(req.body, UserSchema, ['userType', 'sexType']);
+    if (err)
         return res.status(400).send({
             error: err
         });
-    let user = User();
     const salt = bcrypt.genSaltSync(saltRounds);
     const hash = bcrypt.hashSync(req.body.password, salt);
     req.body.password = hash;
-    Object.keys(req.body).map(key => {
-        user[key] = req.body[key];
-    })
+    const user = createModel(req.body, UserModel(), UserSchema);
     user.save().then(result => {
         res.redirect(307, '/login');
     }).catch((err) => {

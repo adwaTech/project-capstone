@@ -1,18 +1,8 @@
 module.exports = {
-    auctionType:{
-        live:'live',
-        sealed:'sealed'
-    },
-    proposalType:{
-        open:'open',
-        sealed:'sealed'
-    },
-    paymentType:{
-        incash:'incash',
-        online:'online'
-    },
-    userType:{
-        customer:'customer',
-        admin:'admin'
-    },
+    auctionType: ['live', 'sealed'],
+    auctionCategory: ['land', 'house', 'vehicle', 'electronics', 'service', 'rare', 'oldies'],
+    proposalType: ['open', 'sealed'],
+    paymentType: ['incash', 'online'],
+    userType: ['customer', 'admin'],
+    sex: ['male', 'female']
 };

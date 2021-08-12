@@ -22,7 +22,6 @@ import Catagoryindex from './components/Auctions/AuctionCatagories/CatagoryIndex
 import User from './components/customer/User';
 import Services from './components/footer/services'
 import Policy from './components/footer/policy'
-import Ethiopian from './components/footer/ethiopian'
 import FAQ from './components/footer/faq'
 import HowToPost from './components/footer/howToPost'
 import HowToBid from './components/footer/howToBid'
@@ -45,22 +44,12 @@ function App() {
               <Route exact path="/about" component={About}/>
               <Route exact path="/login" component={Login}/>
               <Route exact path="/autions" component={Auctions}/>
-              <Route exact path="/admin" component={DashBoardIndex}/>
               <Route exact path="/house" component={Catagoryindex}/>
               <Route exact path="/car" component={Car}/>
-              <Route exact path="/profile" component={User}/>
               <Route exact path="/service" component={Service}/>
               <Route exact path="/government" component={Government}/>
-              <Route exact path="/services" component={Services} />
-              <Route exact path="/privacy" component={Policy} />
-              <Route exact path="/ethiopian" component={Ethiopian} />
-              <Route exact path="/quation" component={FAQ} />
-              <Route exact path="/howtopost" component={HowToPost} />
-              <Route exact path="/howtobid" component={HowToBid} />
-              <Route exact path="/manageaccess" component={ManageAccess} />
-              <Route exact path="/paymentoption" component={PaymentOption} />
-              {/* <ProtectedRoute exact path="/dashboard/customer/:username"  component={CustomerDashBoard}/>
-              <ProtectedRoute exact path="/dashboard/admin/:username" component={AdminDashBoard}/> */}
+              <ProtectedRoute exact path="/admin"  component={DashBoardIndex}/>
+              <ProtectedRoute exact path="/profile" component={User}/>
               <Route path="*" component={ErrorRoute}/>
           </Switch>
       </Router>

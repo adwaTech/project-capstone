@@ -16,7 +16,6 @@ export default function Footer() {
                         <li><Link to="/about">about us</Link></li>
                         <li><Link to="/services">our services</Link></li>
                         <li><Link to="/privacy">privacy policy</Link></li>
-                        <li><Link to="/ethiopian">Ethiopian </Link></li>
                     </ul>
                 </div>
                 <div className="footer-col">
