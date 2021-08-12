@@ -74,11 +74,11 @@ function Login({ match, history }){
   };
   const [state,setState]=React.useState(initialState)
   // global states
-  const error = useSelector((state) => state.LoginReducer.error);
-  const status = useSelector((state) => state.LoginReducer.status);
-  const statusText = useSelector((state) => state.LoginReducer.statusText);
-  const token = useSelector((state) => state.LoginReducer.token);
-  const user = useSelector((state) => state.LoginReducer.user);
+  const error = useSelector((state) => state.AccountReducer.error);
+  const status = useSelector((state) => state.AccountReducer.status);
+  const statusText = useSelector((state) => state.AccountReducer.statusText);
+  const token = useSelector((state) => state.AccountReducer.token);
+  const user = useSelector((state) => state.AccountReducer.user);
   return(
     <Container component="main" maxWidth="xs" className={classes.container} >
       <CssBaseline />

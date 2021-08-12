@@ -8,7 +8,7 @@ export const LoginAction=(userData)=>async (dispatch)=>{
         }
     });
     dispatch({
-        type:Constant.LOGIN,
+        type:Constant.ACCOUNT,
         payload:response,
     })
 }
@@ -20,8 +20,14 @@ export const RegisterAction=(userData)=>async (dispatch)=>{
            }
        })
         dispatch({
-            type:Constant.REGISTER,
+            type:Constant.ACCOUNT,
             payload:response,
         })
 
+}
+export const LanguageAction=(language)=>async (dispatch)=>{
+    dispatch({
+        type:Constant.LANGUAGE,
+        payload:language,
+    })
 }

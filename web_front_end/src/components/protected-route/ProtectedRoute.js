@@ -1,8 +1,9 @@
 import {Route,Redirect} from 'react-router-dom'
 import { useSelector } from 'react-redux';
 
-export default function ProtectedRoute({component:Component,...rest}){
-    const token = useSelector((state) => state.RegisterReducer.token);
+export default function ProtectedRouteRegister({component:Component,...rest}){
+    const token = useSelector((state) => state.AccountReducer.token);
+    
     return (
         <Route {...rest} render={(props)=>{
             if(token){

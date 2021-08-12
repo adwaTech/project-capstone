@@ -1,14 +1,15 @@
 import {createStore,combineReducers,applyMiddleware} from 'redux';
 import {composeWithDevTools} from 'redux-devtools-extension'
 import Thunk from 'redux-thunk';
-import {LoginReducer,RegisterReducer} from './Reducers';
- 
+import {AccountReducer,LanguageReducer} from './Reducers';
+
+
 const middleware=[Thunk];
 
 const reducer=combineReducers({
-    LoginReducer,
-    RegisterReducer
-})
+    AccountReducer,
+    LanguageReducer,
+});
 
 const store=createStore(reducer,composeWithDevTools(applyMiddleware(...middleware)));
 

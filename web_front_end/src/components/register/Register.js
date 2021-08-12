@@ -93,11 +93,11 @@ export default function Register({ match, history }) {
   const dispatch=useDispatch();
   const classes = useStyles();
   // global states
-  const error = useSelector((state) => state.RegisterReducer.error);
-  const status = useSelector((state) => state.RegisterReducer.status);
-  const statusText = useSelector((state) => state.RegisterReducer.statusText);
-  const token = useSelector((state) => state.RegisterReducer.token);
-  const user = useSelector((state) => state.RegisterReducer.user);
+  const error = useSelector((state) => state.AccountReducer.error);
+  const status = useSelector((state) => state.AccountReducer.status);
+  const statusText = useSelector((state) => state.AccountReducer.statusText);
+  const token = useSelector((state) => state.AccountReducer.token);
+  const user = useSelector((state) => state.AccountReducer.user);
 
   const [activeStep, setActiveStep] = React.useState(0);
   const [defaultLocation, setDefaultLocation] = React.useState(DefaultLocation);
@@ -132,6 +132,7 @@ export default function Register({ match, history }) {
     latitute:location.lat,
     longitute:location.lng,
   }
+
   const [state,setState]=React.useState(initialState);
   function handleChangeLocation (lat, lng){
       setLocation({lat:lat, lng:lng});
