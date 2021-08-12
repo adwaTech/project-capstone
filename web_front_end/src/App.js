@@ -21,6 +21,7 @@ import Service from './components/Auctions/AuctionCatagories/Service';
 import Catagoryindex from './components/Auctions/AuctionCatagories/CatagoryIndex'
 import User from './components/customer/User';
 
+
 function App() {
   const [sideToggle,setSideToggle]=React.useState(false)
   return (
@@ -44,6 +45,7 @@ function App() {
               <ProtectedRoute exact path="/admin"  component={DashBoardIndex}/>
               <ProtectedRoute exact path="/profile" component={User}/>
               <Route path="*" component={ErrorRoute}/>
+              
           </Switch>
       </Router>
       </ShowContext.Provider>

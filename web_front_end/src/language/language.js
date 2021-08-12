@@ -36,7 +36,8 @@ export let strings = new LocalizedStrings({
     end:'የተጠናቀቀበት ቀን',
     seeMore:"ተጨማሪ ይመልከቱ",
     about:"የ M3K ጨረታ በድር ላይ የተመሠረተ በኤሌክትሮኒክ ጨረታ አማካኝነት ትርፍ ተንቀሳቃሽ ንብረትን (SMP) እየሸጡ ነው። እያንዳንዱ ጨረታ የመነሻ እና የማብቂያ ቀኑን በግልፅ ለተወሰነ ጊዜ ገቢር ይሆናል። ይህ መረጃ በድር ትግበራ የመረጃ ፓነል ላይ ይገኛል። ብዙውን ጊዜ ከሰኞ እስከ አርብ ለሁለት ሳምንታት ይቆያል። በዚህ ጊዜ ውስጥ ለትርፍ ንብረቱ በንቃት በመሳተፍ ጨረታዎን ማቅረብ ይችላሉ።",
-    ourteam:"የኛ ቡድን"
+    ourteam:"የኛ ቡድን",
+    Logout:"ውጣ"
   },
  en:{
    Home:"Home",
@@ -72,7 +73,8 @@ export let strings = new LocalizedStrings({
     end:"Ended date",
     seeMore:"See more",
     about:"M3K auction are selling surplus movable property (SMP) via a Web Based Electronic Auction. Each auction will be activated for a period of time clearly stating the start and end date. This information is available on the information panel of the web application. Usually it will be active from Monday to Friday lasting two weeks. During this period you can actively take part and submit your bid for the surplus property.",
-    ourteam:"Our Team"
+    ourteam:"Our Team",
+    Logout:"Logout"
   },
   so:{
     Home:"Hoyga",

@@ -31,3 +31,8 @@ export const LanguageAction=(language)=>async (dispatch)=>{
         payload:language,
     })
 }
+export const LogoutAction=()=>async (dispatch)=>{
+    dispatch({
+        type:Constant.LOGOUT,
+    })
+}
