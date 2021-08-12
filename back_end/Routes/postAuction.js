@@ -5,11 +5,19 @@ module.exports = (req, res) => {
         req.body.images = [];
         req.files.map(image => req.body.images.push(image.filename));
     }
-    const err = validateBody(req.body, AuctionSchema, ['auctionType']);
+    req.body['owner'] = req.user._id;
+    const err = validateBody(req.body, AuctionSchema, ['auctionType', 'auctionCategory']);
     if (err)
         return res.status(400).send({
             error: err
         })
     let auction = createModel(req.body, AuctionModel(), AuctionSchema);
-    res.send(auction);
+    auction.save().then(result => {
+        res.send(result);
+    }).catch(err => {
+        res.status(500).send({
+            error: 'Internal server error',
+            errorStackTrace: err
+        })
+    })
 }

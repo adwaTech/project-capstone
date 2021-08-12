@@ -55,7 +55,12 @@ const auction = mongoose.Schema({
     },
     approval:{ // for administrator purposes
         type:Boolean
-    }
+    },
+    postedOn:{
+        type:Date,
+        default:Date.now()
+    },
+    proposals:[String]
 });
 module.exports.AuctionModel = mongoose.model('auction',auction);
 module.exports.AuctionSchema = auction;
