@@ -18,6 +18,9 @@ import BackIcon from '@material-ui/icons/ArrowBackIos';
 import ForwardIcon from '@material-ui/icons/ArrowForwardIos';
 import { Star } from '@material-ui/icons';
 import moment from 'moment';
+import {strings} from '../../language/language';
+import {useSelector} from 'react-redux'
+import { string } from 'prop-types';
 
 export default function Slider() {
 
@@ -126,13 +129,17 @@ export default function Slider() {
             image:Image10
         },
     ]
+    const lang=useSelector((state)=>state.LanguageReducer.language)
+    React.useEffect(()=>{
+
+    },[lang]);
     return (
         <div className="slider">
             <main>
                 <div className="text">
-                    <h1>Catagories</h1>
+                    <h1>{strings.catagories}</h1>
                     <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam non atque adipisci est, recusandae aperiam, ullam minima quos nostrum animi voluptas sequi. At repellendus fuga reiciendis accusantium, dolor suscipit repellat?
+                        {strings.catagorydescription}
                     </p>
                 </div>
                 <div className="slider-catagory">
@@ -156,8 +163,8 @@ export default function Slider() {
                                         <b>{newindex.title}</b><br/>
                                         <small>{newindex.discription}</small>
                                     </p>
-                                    <p>start{newindex.date1}</p>
-                                    <p>end{newindex.date2}</p>
+                                    <p>{strings.start}{newindex.date1}</p>
+                                    <p>{strings.end}{newindex.date2}</p>
                                 </div>
                                     <div className="btn">
                                         <p className="star">
@@ -166,7 +173,7 @@ export default function Slider() {
                                             <Star/>
                                             <Star/>
                                         </p>
-                                        <a href="#">Sea More</a>
+                                        <a href="#">{strings.seeMore}</a>
                                     </div>
                                 </div>
                             </div>

@@ -7,9 +7,15 @@ import Header from '../header/Header'
 import Footer from '../footer/Footer'
 import Aos from 'aos'
 import 'aos/dist/aos.css'
+import {strings} from '../../language/language';
+import {useSelector} from 'react-redux'
+import { string } from 'prop-types'
 
 export default function About() {
+    const lang=useSelector((state)=>state.LanguageReducer.language)
+    React.useEffect(()=>{
 
+    },[lang]);
     useEffect(()=>{
         Aos.init({duration:2000})
     })
@@ -26,18 +32,15 @@ export default function About() {
                         <img src={Backgorundd} height="300px" width='300px'/>
                     </div>
                     <div data-aos='flip-left' className="contentDiv">
-                        <p className="headers">About Us</p>
+                        <p className="headers">{strings.About}</p>
                         <p className="paragraphs">
-                            M3K auction are selling surplus movable property (SMP) via a Web Based Electronic Auction. 
-                            Each auction will be activated for a period of time clearly stating the start and end date. 
-                            This information is available on the information panel of the web application. Usually it will be active from Monday to Friday lasting two weeks. 
-                            During this period you can actively take part and submit your bid for the surplus property.</p>
+                            {strings.about}</p>
                     </div>
                 </div>
                 <div className="whole">
                    
                         <div className="teamDiv ">
-                            <p className="headers team">Our Team</p>
+                            <p className="headers team">{strings.ourteam}</p>
                             <div className="grids">
                                 <div className='twogrids'>
                                     <div data-aos='fade-up' className="gridItems">

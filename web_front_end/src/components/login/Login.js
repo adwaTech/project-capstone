@@ -7,18 +7,18 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import {Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
-import Google from '../../assets/assets/google.svg';
-import Facebook from '../../assets/assets/facebook.svg';
-import {useDispatch} from 'react-redux';
+import {useDispatch,useSelector} from 'react-redux';
 import {LoginAction} from '../../redux-state-managment/Actions';
-import {Route} from 'react-router-dom'
+import {Alert} from '@material-ui/lab'
+
+import {Route,Redirect} from 'react-router-dom';
+
 
 
 
@@ -68,10 +68,17 @@ export default function SignIn() {
 function Login({ match, history }){
   const dispatch=useDispatch();
   const classes = useStyles();
-  const [state,setState]=React.useState({
-    username:'',
+  const initialState={
+    email:'',
     password:'',
-  })
+  };
+  const [state,setState]=React.useState(initialState)
+  // global states
+  const error = useSelector((state) => state.AccountReducer.error);
+  const status = useSelector((state) => state.AccountReducer.status);
+  const statusText = useSelector((state) => state.AccountReducer.statusText);
+  const token = useSelector((state) => state.AccountReducer.token);
+  const user = useSelector((state) => state.AccountReducer.user);
   return(
     <Container component="main" maxWidth="xs" className={classes.container} >
       <CssBaseline />
@@ -82,6 +89,20 @@ function Login({ match, history }){
         <Typography component="h1" variant="h5">
           Sign in     
         </Typography>
+        {
+            error
+            ?<Alert severity="error">status :{status} <br/>statusText:{statusText} <br/> error:{error}</Alert>
+            :null
+          }
+          {
+            token
+            ?(user.userType=="customer"
+            ?<Redirect to='/profile'/>
+            :user.userType=="admin"
+            ?<Redirect to="/admin"/>
+            :null)
+            :null
+          }
         <div className={classes.form} noValidate>
           <TextField
             variant="outlined"
@@ -93,9 +114,9 @@ function Login({ match, history }){
             name="email"
             autoComplete="email"
             autoFocus
-            value={state.username}
+            value={state.email}
             onChange={(e)=>{
-              setState({...state,username:e.target.value});
+              setState({...state,email:e.target.value});
             }}
           />
           <TextField
@@ -117,22 +138,15 @@ function Login({ match, history }){
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
-          <label>sign in with 
-            <img src={Facebook} alt="Facebook" style={{cursor:"pointer"}} width="50" height="40"/>
-            <img src={Google} alt="Google" style={{cursor:"pointer",}} width="30" height="20"/>
-          </label>
           <Button
               fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
               onClick={
-                async (e) => {
-                    
-                    await dispatch(LoginAction(state));
-                    await history.push(`/admin`);
-                    // await dispatch(getProfile(userInfo.userName,userInfo.type));
-                    
+                async () => {
+                    dispatch(LoginAction(state));
+                    setState(initialState);
                 }
               }
             >

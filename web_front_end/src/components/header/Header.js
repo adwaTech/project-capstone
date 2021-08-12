@@ -10,10 +10,15 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
+import {strings} from '../../language/language';
+import {LanguageAction} from '../../redux-state-managment/Actions';
+import {useDispatch} from 'react-redux'
 import {
     Link
 } from 'react-router-dom';
 import  ArrowDownward  from '@material-ui/icons/ExpandMore';
+
+
 
 
 const BootstrapInput = withStyles((theme) => ({
@@ -62,23 +67,25 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 export default function Header() {
+    const dispatch=useDispatch()
     const classes = useStyles();
     const location=useLocation();
-    const [loc,setLoc]=React.useState('');
+    const [loc,setLoc]=React.useState('en');
     React.useEffect(()=>{
         setLoc(location.pathname);
+
         window.addEventListener('scroll',function(){
             var header=document.getElementsByClassName("nav-header");
-            header[0].classList.toggle('sticky',window.scrollY>0);
             var header2=document.getElementsByClassName("top-header");
-            header2[0].classList.toggle('sticky',window.scrollY>0);
+            if(header[0].classList ||header2[0].classList){
+                header[0].classList.toggle('sticky',window.scrollY>0);
+                header2[0].classList.toggle('sticky',window.scrollY>0);
+            }
         });
     })
 
-    const [Lang, setLang] = React.useState('Eng');
-    const handleChange = (event) => {
-        setLang(event.target.value);
-    };
+    const [Lang, setLang] = React.useState('en');
+    
     return (
         <div className="nav-header">
             <div className="smoll-screen">
@@ -89,14 +96,14 @@ export default function Header() {
                     <div className="top-header">
                         <div className="left-top-header">
                             <div className={loc=='/'?"logo":"logo2"}>
-                                <div>M3K Auction</div>
+                                <div>M3K {strings.Auction}</div>
                             </div>
                         </div>
                         <div className={loc=='/'?"right-top-header":"right-top-header2"}>
                             <span>
                             <a>
                                 <PhoneIcon />
-                                <p>Customer Support</p>
+                                <p>{strings.CustomerSupport}</p>
                             </a>
                             </span>
                             <div>
@@ -107,15 +114,18 @@ export default function Header() {
                                     id="demo-customized-select"
                                     value={Lang}
                                     color="primary"
-                                    onChange={handleChange}
+                                    onChange={(e)=>{
+                                        strings.setLanguage(e.target.value);
+                                        dispatch(LanguageAction(e.target.value))
+                                        setLang(e.target.value)
+                                    }}
                                     input={<BootstrapInput />}
                                     >
-                                    <MenuItem disabled>Language</MenuItem>
-                                    <MenuItem value="Eng">Eng</MenuItem>
-                                    <MenuItem value="Amh">Amh</MenuItem>
-                                    <MenuItem value="Oro">Oro</MenuItem>
-                                    <MenuItem value="Tig">Tig</MenuItem>
-                                    <MenuItem value="sum">Sum</MenuItem>
+                                    <MenuItem value="en">Eng</MenuItem>
+                                    <MenuItem value="am">አማርኛ</MenuItem>
+                                    <MenuItem value="or">Oro</MenuItem>
+                                    <MenuItem value="ti">Tig</MenuItem>
+                                    <MenuItem value="so">Somali</MenuItem>
                                     </Select>
                                 </FormControl>
                             </div>
@@ -126,7 +136,7 @@ export default function Header() {
                             </Link>
                             <div style={{marginRight:"50px"}}>
                             <NavLink className="loginbtn" to="/login">
-                                <p>Login</p>
+                                <p>{strings.Login}</p>
                             </NavLink>
                         </div>
                         </div>
@@ -136,30 +146,30 @@ export default function Header() {
                         <div   className={"nav-links"}>
                             <ul>
                                 <li>
-                                    <NavLink className="a" to="/">Home</NavLink>
+                                    <NavLink className="a" to="/">{strings.Home}</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink className="a" to="/about">About</NavLink>
+                                    <NavLink className="a" to="/about">{strings.About}</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink className="a" to="/contact">Contact</NavLink>
+                                    <NavLink className="a" to="/contact">{strings.Contact}</NavLink>
                                 </li>
                                 <li >
-                                    <NavLink className="a" to="/catagory/house">Auction Catagory <ArrowDownward
+                                    <NavLink className="a" to="/catagory/house">{strings.Auctions}<ArrowDownward
                                      style={{marginTop:"4px"}}/></NavLink>
                                     <ul class="dropdown">
-                                        <li><Link to="/house" >House</Link></li>
-                                        <li><Link to="/car" >Car</Link></li>
-                                        <li><Link to="/land" >Land</Link></li>
-                                        <li><Link to="/service" >Service</Link></li>
-                                        <li><Link to="/government" >Government</Link></li>
-                                        <li><Link to="/private" >Private</Link></li>
-                                        <li><Link to="/bank" >Bank</Link></li>
-                                        <li><Link to="/mobile" >Mobile</Link></li>
-                                        <li><Link to="/latest" >Latest</Link></li>
-                                        <li><Link to="/thisweek" >This week</Link></li>
-                                        <li><Link to="/thismonth" >This month</Link></li>
-                                        <li><Link to="/thisyear" >This year</Link></li>
+                                        <li><Link to="/house" >{strings.House}</Link></li>
+                                        <li><Link to="/car" >{strings.Car}</Link></li>
+                                        <li><Link to="/land" >{strings.Land}</Link></li>
+                                        <li><Link to="/service" >{strings.Service}</Link></li>
+                                        <li><Link to="/government" >{strings.Government}</Link></li>
+                                        <li><Link to="/private" >{strings.Private}</Link></li>
+                                        <li><Link to="/bank" >{strings.Bank}</Link></li>
+                                        <li><Link to="/mobile" >{strings.Electronics}</Link></li>
+                                        <li><Link to="/latest" >{strings.Latest}</Link></li>
+                                        <li><Link to="/thisweek" >{strings.Thisweek}</Link></li>
+                                        <li><Link to="/thismonth" >{strings.Thismonth}</Link></li>
+                                        <li><Link to="/thisyear" >{strings.Thisyear}</Link></li>
                                     </ul>
                                 </li>
                                 <li className="scoll-screen">
@@ -174,15 +184,18 @@ export default function Header() {
                                     id="demo-customized-select"
                                     value={Lang}
                                     color="primary"
-                                    onChange={handleChange}
+                                    onChange={(e)=>{
+                                        strings.setLanguage(e.target.value);
+                                        dispatch(LanguageAction(e.target.value))
+                                        setLang(e.target.value)
+                                    }}
                                     input={<BootstrapInput />}
                                     >
-                                    <MenuItem disabled>Language</MenuItem>
-                                    <MenuItem value="Eng">Eng</MenuItem>
-                                    <MenuItem value="Amh">Amh</MenuItem>
-                                    <MenuItem value="Oro">Oro</MenuItem>
-                                    <MenuItem value="Tig">Tig</MenuItem>
-                                    <MenuItem value="sum">Sum</MenuItem>
+                                    <MenuItem value="en">English</MenuItem>
+                                    <MenuItem value="am">አማርኛ</MenuItem>
+                                    <MenuItem value="or">Oro</MenuItem>
+                                    <MenuItem value="ti">Tig</MenuItem>
+                                    <MenuItem value="s0">Somali</MenuItem>
                                     </Select>
                                 </FormControl>
                                 </li>
@@ -194,7 +207,7 @@ export default function Header() {
                         
                         <div class="search-box">
                             <button class="btn-search"><SearchIcon/></button>
-                            <input type="text" class="input-search" placeholder="Type to Search..."/>
+                            <input type="text" class="input-search" placeholder={`${strings.TypetoSearch}...`}/>
                         </div>
                     </div>
                 </div>
@@ -217,11 +230,11 @@ function CustomerDrawer(){
             <aside class="sidebar">
                 
                 <nav class="sidebar__menu">
-                <NavLink to="/">Home</NavLink>
-                <NavLink to="/catagory/house">Auctions</NavLink>
-                <NavLink to="/about">About</NavLink>
-                <NavLink to="/contact">Contact</NavLink>
-                <NavLink to="/login">Login</NavLink>
+                <NavLink to="/">{strings.Home}</NavLink>
+                <NavLink to="/catagory/house">{strings.Auctions}</NavLink>
+                <NavLink to="/about">{strings.About}</NavLink>
+                <NavLink to="/contact">{strings.Contact}</NavLink>
+                <NavLink to="/login">{strings.Login}</NavLink>
                 </nav>
                 
                 <label for="menu-control" class="sidebar__close"></label>

@@ -13,10 +13,13 @@ const User = mongoose.Schema({
         type: String,
         required: true
     },
-    locationLatitude: {
+    profileImage:{
+        type:String,
+    },
+    latitude: {
         type: Number
     },
-    locationLongtude: {
+    longtude: {
         type: Number
     },
     city: {
@@ -49,9 +52,6 @@ const User = mongoose.Schema({
         type: String,
         required: true,
         unique: true
-    },
-    profileImage: {
-        type: String
     },
 })
 module.exports.UserModel = mongoose.model('user', User);

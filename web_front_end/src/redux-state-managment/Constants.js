@@ -1,3 +1,3 @@
-export const LOGIN='LOGIN';
-export const REGISTER='PASSWORD';
+export const LANGUAGE="LANGUAGE"
+export const ACCOUNT="ACCOUNT"
 
