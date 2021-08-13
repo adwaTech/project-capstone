@@ -62,3 +62,17 @@ export const LanguageReducer=(state=initialState,action)=>{
     }
 
 }
+export const LogoutReducer=(state=initialState,action)=>{
+    switch(action.type){
+        case Constant.LOGOUT:
+            return{
+                ...state,
+                user:{},
+                token:'',
+            }
+        default:
+            return {
+                ...state
+            }
+    }
+}

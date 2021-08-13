@@ -28,6 +28,7 @@ import HowToBid from './components/footer/howToBid'
 import ManageAccess from './components/footer/manageAccess'
 import PaymentOption from './components/footer/paymentOption'
 
+
 function App() {
   const [sideToggle,setSideToggle]=React.useState(false)
   return (
@@ -51,6 +52,7 @@ function App() {
               <ProtectedRoute exact path="/admin"  component={DashBoardIndex}/>
               <ProtectedRoute exact path="/profile" component={User}/>
               <Route path="*" component={ErrorRoute}/>
+              
           </Switch>
       </Router>
       </ShowContext.Provider>

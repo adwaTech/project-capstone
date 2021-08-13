@@ -71,19 +71,13 @@ export default function About() {
                             <div>
                                 <p className="vision_mission vision">Vision</p>
                                 <div data-aos='zoom-in-left' className="visionParagraph">
-                                        We consistently work on our development process to provide an
-                                        informative, user-friendly and effective strategy to provide companies 
-                                        with the message or goal they are hoping to accomplish.<br/> This development 
-                                        process is tailored to meet the needs of small, medium and large size businesses 
-                                        and enterprises.
+                                     {strings.aboutusparagrap1}
                                 </div>
                             </div>
                             <div>
                                 <p className="vision vision_mission">Mission</p>
                                 <div data-aos='zoom-in-right' className="visionParagraph">
-                                    "To empower our clients to use the web 
-                                    to its full potential by providing affordable, 
-                                    effective, custom solutions."
+                                    {strings.aboutusparagrap2}
                                 </div>
                             </div>
                         </div>

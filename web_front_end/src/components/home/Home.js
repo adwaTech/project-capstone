@@ -15,6 +15,7 @@ import win from '../../assets/images/win.svg';
 import bid from '../../assets/images/bid.svg';
 import {strings} from '../../language/language';
 import {useSelector} from 'react-redux'
+import ScrollButton from '../scrollToTop/ScrollToTop';
 import {
     makeStyles
     
@@ -99,15 +100,8 @@ export default function Home() {
             <ProductCatagory/>
             <Product2/>
             <HomeInfo/> 
-            <Link onClick={()=>{
-                window.scrollTo(0,0);
-                
-            }} className="floating-btn"><Fab  color="primary"><ArrowUpward/></Fab></Link>
-            <Link onClick={()=>{
-                window.scrollTo(0,document.querySelector(".footer").scrollHeight);
-            }}
-            id="#footer" className="floating-btn2"><Fab  color="primary"><ArrowDownward/></Fab></Link>
             <Footer className="footer"/>
+            <ScrollButton />
         </div>
     )
 }

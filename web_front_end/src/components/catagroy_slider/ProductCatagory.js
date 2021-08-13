@@ -84,7 +84,7 @@ export default function Products() {
             <div className="description1" style={{marginTop:"300px"}}>
                 <img src={Image8} alt=""/>
                 <div className="description1-area">
-                    <h3>{strings.findTheBestProduct}</h3>
+                    <h3>{strings.FindhTBestProduct}</h3>
                     <Button className={classes.shopNow} variant="contained" color="primary">{strings.shopNow}</Button>
                 </div>
                 <img src={Image7} alt="" width="40px" height="40px"/>
@@ -92,16 +92,16 @@ export default function Products() {
             <div className="section-name">
                 <h3 className="section-title">{strings.LatestProducts}</h3>
                 <div className="product-type">
-                    <span className="type">Today</span>
-                    <span className="type">since last month</span>
-                    <span className="type">since last year</span>
-                    <span className="type">not closed</span>
+                    <span className="type">{strings.today}</span>
+                    <span className="type">{strings.sinceLastMonth}</span>
+                    <span className="type">{strings.sinceLastYear}</span>
+                    <span className="type">{strings.notClosed}</span>
                 </div>  
             </div>
             <div className="products">
                 <div className="products-item-section">
                     {
-                        error?<p>{error.message}</p>:loading?<p>loading ...</p>:
+                        error?<p>{error.message}</p>:loading?<p>{strings.loading}</p>:
                         product.map(product=>(
                             <div className="product-item" key={product._id}>
                                 <img name={product._id}   src={product.imageUrl} alt=""/>

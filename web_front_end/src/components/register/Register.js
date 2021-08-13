@@ -1,4 +1,6 @@
 import React from 'react';
+import {strings} from '../../language/language';
+import {useSelector} from 'react-redux'
 import {
   makeStyles,
   CssBaseline,
@@ -28,11 +30,10 @@ import LocationPicker from 'react-location-picker';
 import MapPicker from 'react-google-map-picker';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import {useDispatch,useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {RegisterAction} from '../../redux-state-managment/Actions'
 import {Alert,AlertTitle} from '@material-ui/lab'
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
-
 const DefaultLocation = { lat: 8.9806, lng: 38.7578};
 const DefaultZoom = 13;
 
@@ -90,6 +91,10 @@ const steps = ['Personal information', 'detail', 'Location'];
 
 
 export default function Register({ match, history }) {
+  const lang=useSelector((state)=>state.LanguageReducer.language)
+  React.useEffect(()=>{
+
+  },[lang]);
   const dispatch=useDispatch();
   const classes = useStyles();
   // global states
@@ -159,7 +164,7 @@ export default function Register({ match, history }) {
         return <React.Fragment>
                   
                   <Typography variant="h6" gutterBottom>
-                    Personal Information
+                    {strings.personalinfo}
                   </Typography>
 
                   <Grid container spacing={3}>
@@ -169,9 +174,9 @@ export default function Register({ match, history }) {
                         id="first name"
                         name="first name"
                         label="first name"
-                        value={state.firstname}
+                        value={state.name}
                         fullWidth
-                        autoComplete="first name"
+                        autoComplete={strings.fname}
                         onChange={(e)=>{
                           setState({...state,firstname:e.target.value})
                         }}
@@ -194,7 +199,7 @@ export default function Register({ match, history }) {
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <FormControl className={classes.formControl} fullWidth>
-                          <InputLabel id="user type">User Type</InputLabel>
+                          <InputLabel id="user type">{strings.usertype}</InputLabel>
                           <Select
                             labelId="user type"
                             id="user-type"
@@ -203,8 +208,8 @@ export default function Register({ match, history }) {
                               setState({...state,usertype:e.target.value})
                             }}
                           >
-                            <MenuItem value="admin">Admin</MenuItem>
-                            <MenuItem value="customer">Customer</MenuItem>
+                            <MenuItem value="admin">{strings.admin}</MenuItem>
+                            <MenuItem value="customer">{strings.customer}</MenuItem>
                           </Select>
                         </FormControl>
                     </Grid>
@@ -220,13 +225,13 @@ export default function Register({ match, history }) {
                       />
                       <label htmlFor="raised-button-file">
                         <Button variant="outlined" component="span" className={classes.button}>
-                          Upload Profile Image optional
+                          {strings.uploadprofile}
                         </Button>
                       </label> 
                     </Grid>
                     <Grid item xs={12} sm={6}>
                       <FormControl component="fieldset" fullWidth>
-                          <FormLabel component="legend">Gender</FormLabel>
+                          <FormLabel component="legend">{strings.gender}</FormLabel>
                           <RadioGroup aria-label="gender" name="gender1" value={state.sex} onChange={
                             (e)=>{
                               setState({...state,sex:e.target.value})
@@ -239,7 +244,7 @@ export default function Register({ match, history }) {
                     </Grid>
                     <Grid item xs={12} sm={6}>
                       <FormControl className={classes.margin}>
-                        <InputLabel htmlFor="input-with-icon-adornment">phone number</InputLabel>
+                        <InputLabel htmlFor="input-with-icon-adornment">{strings.phone}</InputLabel>
                         <Input
                           type="number"
                           id="input-with-icon-adornment"
@@ -264,7 +269,7 @@ export default function Register({ match, history }) {
       case 1:
         return <React.Fragment>
         <Typography variant="h6" gutterBottom>
-          user Detail Information
+          {strings.userdetail}
         </Typography>
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
@@ -298,7 +303,7 @@ export default function Register({ match, history }) {
           </Grid>
           <Grid item xs={12} md={6}>
           <FormControl variant="outlined" fullWidth>
-                    <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                    <InputLabel htmlFor="outlined-adornment-password">{strings.password}</InputLabel>
                     <OutlinedInput
                         required
                         id="outlined-adornment-password"
@@ -325,7 +330,7 @@ export default function Register({ match, history }) {
 
           <Grid item xs={12} md={6}>
           <FormControl variant="outlined" fullWidth>
-                    <InputLabel htmlFor="outlined-adornment-password">retype your password</InputLabel>
+                    <InputLabel htmlFor="outlined-adornment-password">{strings.retypepassword}</InputLabel>
                     <OutlinedInput
                         required
                         id="outlined-adornment-password"
@@ -362,7 +367,7 @@ export default function Register({ match, history }) {
             
             <label htmlFor="raised-button-file">
               <Button variant="outlined" component="span" className={classes.button}>
-                Upload your id card
+                {strings.uploadid}
               </Button>
             </label> 
           </Grid>
@@ -391,7 +396,7 @@ export default function Register({ match, history }) {
       case 2:
         return <React.Fragment>
         <Typography variant="h6" gutterBottom>
-          Location
+          {strings.location}
         </Typography>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={12}>
@@ -451,10 +456,10 @@ export default function Register({ match, history }) {
             {activeStep === steps.length ? (
               <React.Fragment>
                 <Typography variant="h5" gutterBottom>
-                  Thank you for being part of us.
+                  {strings.tanks}
                 </Typography>
                 <Typography variant="subtitle1">
-                  please varify your accont by checking your email .we have send you an email.
+                   {strings.pleaseverify}
                 </Typography>
                 
               </React.Fragment>
@@ -464,7 +469,7 @@ export default function Register({ match, history }) {
                 <div className={classes.buttons}>
                   {activeStep !== 0 && (
                     <Button onClick={handleBack} variant="outlined" className={classes.button}>
-                      Back
+                     {strings.back}
                     </Button>
                   )}
                   {activeStep === steps.length - 1 ? 
@@ -492,7 +497,7 @@ export default function Register({ match, history }) {
                       setState(initialState)
                   }}
                   >
-                    Register
+                   {strings.register}
                   </Button>:
                   <Button
                   variant="contained"
@@ -500,7 +505,7 @@ export default function Register({ match, history }) {
                   onClick={handleNext}
                   className={classes.button}
                 >
-                  Next
+                  {strings.next}
                 </Button>}
                 </div>
               </React.Fragment>

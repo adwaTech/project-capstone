@@ -10,6 +10,8 @@ import Image11 from '../../assets/images/samantha-borges-EeS69TTPQ18-unsplash.jp
 import Image2 from '../../assets/images/lode-lagrainge-45cr4wHWTIw-unsplash.jpg';
 import Image3 from '../../assets/images/annie-spratt-JMjNnQ2xFoY-unsplash.jpg';
 import Image4 from '../../assets/images/adele-payman-2oYMwuFgnTg-unsplash.jpg';
+import {strings} from '../../language/language';
+import {useSelector} from 'react-redux'
 
 import {
   Add,
@@ -70,6 +72,10 @@ let list=[
 ];
 
 export default function MediaControlCard(props) {
+  const lang=useSelector((state)=>state.LanguageReducer.language)
+  React.useEffect(()=>{
+
+  },[lang]);
   console.log(props.image)
   const classes = useStyles();
   const theme = useTheme();
@@ -83,22 +89,22 @@ export default function MediaControlCard(props) {
                 <div className={classes.details}>
               <CardContent className={classes.content}>
                 <Typography component="h5" variant="h5">
-                  House
+                  {strings.House}
                 </Typography>
                 <Typography variant="subtitle1" color="textSecondary">
-                  addis abeba bole
+                  {strings.addisabababole}
                 </Typography>
                 <Typography variant="subtitle1" color="textSecondary">
-                  description :house house house house
+                 {strings.description}:{strings.description2}
                 </Typography>
                 <Typography variant="subtitle1" color="textSecondary">
-                  start date :24/27/12
+                 {strings.start}:24/27/12
                 </Typography>
                 <Typography variant="subtitle1" color="textSecondary">
-                  end date :24/27/12
+                  {strings.end} :24/27/12
                 </Typography>
                 <Typography variant="subtitle1" color="textSecondary">
-                  end Time :24/27/12
+                  {strings.endtime} :24/27/12
                 </Typography>
               </CardContent>
               <div className={classes.controls}>
