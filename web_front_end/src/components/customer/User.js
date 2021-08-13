@@ -3,7 +3,12 @@ import Header from '../header/Header';
 import Footer from '../footer/Footer';
 import './user.css';
 import Alert from '@material-ui/lab/Alert';
-import {useDispatch,useSelector} from 'react-redux'
+import {useDispatch,useSelector} from 'react-redux';
+import Button from '@material-ui/core/Button';
+import Profile from './Profile';
+import PostAuction from './PostAuction';
+import BidAuction from './BidAuction';
+
 
 export default function User() {
     React.useEffect(()=>{
@@ -53,8 +58,6 @@ export default function User() {
             underlines[i].style.transform = 'translate3d(' + index * 100 + '%,0,0)';
         }
     }
-
-    
     const user =useSelector((state)=>state.AccountReducer.user);
     const [component,setComponent]=React.useState('Bid');
     function renderComponents(){
@@ -71,16 +74,43 @@ export default function User() {
                 return <Win/>
         }
     }
+    // dialog box
+    const [openforPost, setOpen] = React.useState(false);
+    const [dialogComp,setDialogComp]=React.useState('');
     return (
         <div>
             <Header/>
+            {/* <BidAuction/> */}
+            <Profile 
+            openforPost={openforPost} 
+            setOpen={setOpen} 
+            component={dialogComp==='Post'?<PostAuction/>:<BidAuction/>}/>
             <div className="profile-page">
-                <nav class="full">
-                <div class="underline"></div>
-                <div class="underline"></div>
-                <div class="underline"></div>
-                <a onClick={()=>ul(0)}>My Bids</a><a onClick={()=>ul(1)}>My Auctions</a><a onClick={()=>ul(2)}>Notifications</a><a onClick={()=>ul(3)}>Win</a><a onClick={()=>ul(4)}>lost</a>
+                <nav className="full">
+                    <div className="underline"></div>
+                    <div className="underline"></div>
+                    <div className="underline"></div>
+                    <a onClick={()=>ul(0)}>My Bids</a>
+                    <a onClick={()=>ul(1)}>My Auctions</a>
+                    <a onClick={()=>ul(2)}>Notifications</a>
+                    <a onClick={()=>ul(3)}>Win</a>
+                    <a onClick={()=>ul(4)}>lost</a>
                 </nav>
+                
+                <div className="user-side-bar-btn">
+                    <Button 
+                    onClick={()=>{
+                        setOpen(!openforPost);
+                        setDialogComp('Post')
+                    }}
+                    variant="contained" color="primary" className="post">Post</Button>
+                    <Button
+                     onClick={()=>{
+                        setOpen(!openforPost);
+                        setDialogComp('Bid')
+                    }}
+                    variant="contained" color="primary" >Bid</Button>
+                </div>
                 <div style={{display:"flex",flexDirection:"row",position:"relative"}}>
                     <div className="user-profile-page">
                     <div className="card">
@@ -102,7 +132,7 @@ export default function User() {
                             <p>12</p>
                             </div>
                             <div className="ds posts">
-                            <h6 title="Number of posts">Posts <i className="fas fa-comments"></i></h6>
+                            <h6 title="Number of posts">Posts<i className="fas fa-comments"></i></h6>
                             <p>20</p>
                             </div>
                         </div>

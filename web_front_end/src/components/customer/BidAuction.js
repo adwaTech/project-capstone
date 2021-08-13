@@ -62,16 +62,7 @@ const useStyles = makeStyles((theme) => ({
       marginTop: theme.spacing(2),
     },
   },
-  paper: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(20),
-    padding: theme.spacing(2),
-    [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
-      marginTop: theme.spacing(0),
-      marginBottom: theme.spacing(6),
-      padding: theme.spacing(3),
-    },
-  },
+
   stepper: {
     padding: theme.spacing(3, 0, 5),
   },
@@ -85,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const steps = ['Personal information', 'detail', 'Location'];
+const steps = ['Product Information', 'Rule', 'Detail'];
 
 
 
@@ -158,11 +149,11 @@ export default function Register({ match, history }) {
       case 0:
         return <React.Fragment>
                   <Typography variant="h6" gutterBottom>
-                    Personal Information
+                    
                   </Typography>
 
                   <Grid container spacing={3}>
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={12} sm={12}>
                       <TextField
                         required
                         id="first name"
@@ -177,7 +168,7 @@ export default function Register({ match, history }) {
                       />
                     </Grid>
                     
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={12} sm={12}>
                       <TextField
                         required
                         id="lastname"
@@ -191,7 +182,7 @@ export default function Register({ match, history }) {
                         }}
                       />
                     </Grid>
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={12} sm={12}>
                         <FormControl className={classes.formControl} fullWidth>
                           <InputLabel id="user type">User Type</InputLabel>
                           <Select
@@ -207,7 +198,7 @@ export default function Register({ match, history }) {
                           </Select>
                         </FormControl>
                     </Grid>
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={12} sm={12}>
                       <input
                         accept="image/*"
                         style={{ display: 'none' }}
@@ -223,7 +214,7 @@ export default function Register({ match, history }) {
                         </Button>
                       </label> 
                     </Grid>
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={12} sm={12}>
                       <FormControl component="fieldset" fullWidth>
                           <FormLabel component="legend">Gender</FormLabel>
                           <RadioGroup aria-label="gender" name="gender1" value={state.sex} onChange={
@@ -236,7 +227,7 @@ export default function Register({ match, history }) {
                           </RadioGroup>
                         </FormControl>
                     </Grid>
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={12} sm={12}>
                       <FormControl className={classes.margin}>
                         <InputLabel htmlFor="input-with-icon-adornment">phone number</InputLabel>
                         <Input
@@ -280,7 +271,7 @@ export default function Register({ match, history }) {
             }}
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={12}>
             <TextField
               required
               id="idNumber"
@@ -348,7 +339,7 @@ export default function Register({ match, history }) {
                     />
                 </FormControl>
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={12}>
           <input
             className={classes.input}
             style={{ display: 'none' }}
@@ -418,11 +409,11 @@ export default function Register({ match, history }) {
     <React.Fragment >
       <CssBaseline />
 
-      <main className={classes.layout}>
+      <main style={{marginLeft:"40px",marginRight:"40px"}}>
         
-        <Paper className={classes.paper}>
+        <Paper>
           <Typography component="h1" variant="h4" align="center">
-            SignUp
+            Post Auction
           </Typography>
           {
             error
@@ -450,10 +441,10 @@ export default function Register({ match, history }) {
             {activeStep === steps.length ? (
               <React.Fragment>
                 <Typography variant="h5" gutterBottom>
-                  Thank you for being part of us.
+                  Thank you for working with us.
                 </Typography>
                 <Typography variant="subtitle1">
-                  please varify your accont by checking your email .we have send you an email.
+                  you will notify if some one is participating on your auction so please always check your notification bell
                 </Typography>
                 
               </React.Fragment>
@@ -491,7 +482,7 @@ export default function Register({ match, history }) {
                       setState(initialState)
                   }}
                   >
-                    Register
+                    Post
                   </Button>:
                   <Button
                   variant="contained"

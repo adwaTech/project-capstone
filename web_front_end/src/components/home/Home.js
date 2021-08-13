@@ -16,7 +16,6 @@ import bid from '../../assets/images/bid.svg';
 import {strings} from '../../language/language';
 import {useSelector} from 'react-redux'
 import ScrollButton from '../scrollToTop/ScrollToTop';
-import {useDispatch} from 'react-redux';
 import {
     makeStyles
     
@@ -43,6 +42,29 @@ export default function Home() {
             <div className="svgimage">
                 <img src={WaveImage} alt=""/>
             </div>
+            {token?
+            <div className="user-dashboard">
+                <nav>
+                <ul>
+                    <li>
+                    <div class="home-icon">
+                        <div class="roof">
+                        <div class="roof-edge"></div>
+                        </div>
+                        <div class="front"></div>
+                    </div>
+                    </li>
+                    <li>
+                    <div class="about-icon">
+                        <div class="head">
+                        <div class="eyes"></div>
+                        <div class="beard"></div>
+                        </div>
+                    </div>
+                    </li>
+                </ul>
+                </nav>
+            </div>:null}
             <div className="easy-steps">
                 <div>
                     <h5>{strings.HowItWorks}</h5>
