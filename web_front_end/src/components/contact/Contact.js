@@ -9,8 +9,13 @@ import { Instagram } from '@material-ui/icons';
 import { LinkedIn } from '@material-ui/icons';
 import Header from '../header/Header';
 import Footer from '../footer/Footer'
+import {strings} from '../../language/language';
+import {useSelector} from 'react-redux'
+import { string } from 'prop-types'
 
 export default function Contact() {
+    const lang=useSelector((state)=>state.LanguageReducer.language)
+    
     const [values,setValues]=useState({
         username:'',
         email:'',
@@ -59,16 +64,13 @@ export default function Contact() {
             <img src="img/shape.png" class="square" alt="" />
             <div class="form">
                 <div class="contact-info">
-                <h3 class="title">Let's get in touch</h3>
-                <p class="text">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe
-                    dolorum adipisci recusandae praesentium dicta!
-                </p>
+                <h3 class="title">{strings.getintouch}</h3>
+                <p class="text">{strings.contactmoto} </p>
 
                 <div class="info">
                     <div class="information">
                     <img src={LocationImage} class="icon" alt="" />
-                    <p>92 Cherry Drive Uniondale, NY 11553</p>
+                    <p>{strings.golagul}</p>
                     </div>
                     <div class="information">
                     <img src={EmailImage} class="icon" alt="" />
