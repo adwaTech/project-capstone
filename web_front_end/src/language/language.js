@@ -49,6 +49,7 @@ export let strings = new LocalizedStrings({
     getintouch:"እንገናኝ",
     golagul:"22 የጎላጉል ሕንፃ",
     contactmoto:"ስለ እኛ የበለጠ መረጃ ለማግኘት እና አዲስ በሚኖርበት ጊዜ ለማሳወቅ ፣ በሚከተሉት አድራሻዎች እንገናኝ።",
+    contactus:"አግኙን",
     username:"የተጠቃሚ ስም",
     password:"የይለፍ ቃል",
     email:'ኢሜል',
@@ -84,8 +85,8 @@ export let strings = new LocalizedStrings({
    bid:"Bid",
    win:"Win",
    CreateAccount:"Create Account",
-   catagorydescription:"In economics and game theory, an all-pay auction is an auction in which every bidder must pay regardless of whether they win the prize, which is awarded to the highest bidder as in a conventional auction." 
-  ,catagories:"Catagories",
+   catagorydescription:"In economics and game theory, an all-pay auction is an auction in which every bidder must pay regardless of whether they win the prize, which is awarded to the highest bidder as in a conventional auction.",
+   catagories:"Catagories",
     start:"Started Date",
     end:"Ended date",
     seeMore:"See more",
