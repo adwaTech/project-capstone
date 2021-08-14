@@ -9,8 +9,13 @@ import { Instagram } from '@material-ui/icons';
 import { LinkedIn } from '@material-ui/icons';
 import Header from '../header/Header';
 import Footer from '../footer/Footer'
+import {strings} from '../../language/language';
+import {useSelector} from 'react-redux'
+import { string } from 'prop-types'
 
 export default function Contact() {
+    const lang=useSelector((state)=>state.LanguageReducer.language)
+    
     const [values,setValues]=useState({
         username:'',
         email:'',
@@ -59,16 +64,13 @@ export default function Contact() {
             <img src="img/shape.png" class="square" alt="" />
             <div class="form">
                 <div class="contact-info">
-                <h3 class="title">Let's get in touch</h3>
-                <p class="text">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe
-                    dolorum adipisci recusandae praesentium dicta!
-                </p>
+                <h3 class="title">{strings.getintouch}</h3>
+                <p class="text">{strings.contactmoto} </p>
 
                 <div class="info">
                     <div class="information">
                     <img src={LocationImage} class="icon" alt="" />
-                    <p>92 Cherry Drive Uniondale, NY 11553</p>
+                    <p>{strings.golagul}</p>
                     </div>
                     <div class="information">
                     <img src={EmailImage} class="icon" alt="" />
@@ -112,33 +114,33 @@ export default function Contact() {
                 <span class="circle two"></span>
 
                 <form action="index.html" autocomplete="off">
-                    <h3 class="title">Contact us</h3>
+                    <h3 class="title">{strings.contactus}</h3>
                     <div class="input-container">
-                        <input type="text" value={values.username} placeholder='username' onChange={(e)=>{handleChange(e)}}name="username" class="input" />
+                        <input type="text" value={values.username} placeholder={strings.username} onChange={(e)=>{handleChange(e)}}name="username" class="input" />
                         {/* <label htmlFor="usernameinput">Username</label> */}
                         {/* <span>Username</span> */}
                         {err.username && <p className='contactErrorMessages'>{err.username}</p>}
                     </div>
                     <div class="input-container">
-                        <input type="email" value={values.email}  name="email"  placeholder='email'onChange={(e)=>{handleChange(e)}} class="input" />
+                        <input type="email" value={values.email}  name="email"  placeholder={strings.email}onChange={(e)=>{handleChange(e)}} class="input" />
                         {/* <label for="input">Email</label>
                         <span>Email</span> */}
                         {err.email && <p className='contactErrorMessages'>{err.email}</p>}
                     </div>
                     <div class="input-container">
-                        <input type="tel" name="phone" value={values.phone}  placeholder='phone' onChange={(e)=>{handleChange(e)}} class="input" />
+                        <input type="tel" name="phone" value={values.phone}  placeholder={strings.phonenumber} onChange={(e)=>{handleChange(e)}} class="input" />
                         {/* <label for="">Phone</label>
                         <span>Phone</span> */}
                         {err.phone && <p className='contactErrorMessages'>{err.phone}</p>}
 
                     </div>
                     <div class="input-container textarea">
-                        <textarea name="message" value={values.message}  placeholder='message' onChange={(e)=>{handleChange(e)}} class="input"></textarea>
+                        <textarea name="message" value={values.message}  placeholder={strings.message} onChange={(e)=>{handleChange(e)}} class="input"></textarea>
                         {/* <label for="">Message</label>
                         <span>Message</span> */}
                         {err.message && <p className='contactErrorMessages'>{err.message}</p>}
                     </div>
-                    <input type="submit" onClick={(e)=>{handleClick(e)}} value="Send" class="btn" />
+                    <input type="submit" onClick={(e)=>{handleClick(e)}} value={strings.send} class="btn" />
                 </form>
                 </div>
             </div>

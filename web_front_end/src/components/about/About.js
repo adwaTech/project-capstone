@@ -45,25 +45,25 @@ export default function About() {
                                 <div className='twogrids'>
                                     <div data-aos='fade-up' className="gridItems">
                                         <img className="image" src={Theman}/>
-                                        <p className="nameof">Meseret Kifle</p>
-                                        <p className="expertize">Software Engineer (AASTU)</p>
+                                        <p className="nameof">{strings.mesi}</p>
+                                        <p className="expertize">{strings.softwareengineer}</p>
                                     </div> 
                                     <div data-aos='fade-down' className="gridItems">
                                         <img className="image" src={Theman}/>
-                                        <p className="nameof">Michael Mamaye</p>
-                                        <p className="expertize">Software Engineer (AASTU)</p>
+                                        <p className="nameof">{strings.miki}</p>
+                                        <p className="expertize">{strings.softwareengineer}</p>
                                     </div> 
                                 </div>
                                 <div className='twogrids'>
                                     <div data-aos='fade-up' className="gridItems">
                                         <img className="image" src={Theman}/>
-                                        <p className="nameof">Mengistu Birhie</p>
-                                        <p className="expertize">Software Engineer (AASTU)</p>
+                                        <p className="nameof">{strings.menge}</p>
+                                        <p className="expertize">{strings.softwareengineer}</p>
                                     </div> 
                                     <div data-aos='fade-down' className="gridItems">
                                         <img className="image" src={Theman}/>
-                                        <p className="nameof">Kirubel Adamu</p>
-                                        <p className="expertize">Software Engineer (AASTU)</p>
+                                        <p className="nameof">{strings.kira}</p>
+                                        <p className="expertize">{strings.softwareengineer}</p>
                                     </div> 
                                 </div>
                             </div>  
@@ -71,21 +71,15 @@ export default function About() {
                     <div className='ourteamDiv'>
                         <div className="visionDiv">
                             <div>
-                                <p className="vision_mission vision">Vision</p>
+                                <p className="vision_mission vision">{strings.visiontitle}</p>
                                 <div data-aos='zoom-in-left' className="visionParagraph">
-                                        We consistently work on our development process to provide an
-                                        informative, user-friendly and effective strategy to provide companies 
-                                        with the message or goal they are hoping to accomplish.<br/> This development 
-                                        process is tailored to meet the needs of small, medium and large size businesses 
-                                        and enterprises.
+                                        {strings.vision}
                                 </div>
                             </div>
                             <div>
-                                <p className="vision vision_mission">Mission</p>
+                                <p className="vision vision_mission">{strings.missiontitle}</p>
                                 <div data-aos='zoom-in-right' className="visionParagraph">
-                                    "To empower our clients to use the web 
-                                    to its full potential by providing affordable, 
-                                    effective, custom solutions."
+                                    {strings.mission}
                                 </div>
                             </div>
                         </div>

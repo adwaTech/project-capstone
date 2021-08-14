@@ -1,5 +1,6 @@
 const { validateBody, createModel } = require('./toolFuntions');
 const { AuctionModel, AuctionSchema } = require('../models/Auctions');
+const types = require('../models/types');
 module.exports = (req, res) => {
     if (req.files && req.files.length > 0) {
         req.body.images = [];
@@ -7,6 +8,8 @@ module.exports = (req, res) => {
     }
     req.body['owner'] = req.user._id;
     const err = validateBody(req.body, AuctionSchema, ['auctionType', 'auctionCategory']);
+    if(req.body.auctionType === types.auctionType['0'] && !req.body.startDate)
+        err +='Start date is required for this auction';
     if (err)
         return res.status(400).send({
             error: err
