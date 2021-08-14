@@ -1,6 +1,6 @@
 import './App.css';
 import React from 'react'
-import {BrowserRouter as Router,Switch,Route,Redirect, Link} from 'react-router-dom';
+import {BrowserRouter as Router,Switch,Route} from 'react-router-dom';
 import Store from './redux-state-managment/Store';
 import {Provider} from 'react-redux';
 import ProtectedRoute from './components/protected-route/ProtectedRoute';
@@ -15,7 +15,6 @@ import Home from './components/home/Home'
 import DashBoardIndex from './components/dashboard/admin_dashboard/index';
 import Auctions from './components/Auctions/Index';
 import Car from './components/Auctions/AuctionCatagories/Car';
-import House from './components/Auctions/AuctionCatagories/House';
 import Government from './components/Auctions/AuctionCatagories/Governments';
 import Service from './components/Auctions/AuctionCatagories/Service';
 import Catagoryindex from './components/Auctions/AuctionCatagories/CatagoryIndex'

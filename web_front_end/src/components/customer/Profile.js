@@ -51,7 +51,6 @@ const DialogActions = withStyles((theme) => ({
 }))(MuiDialogActions);
 
 export default function CustomizedDialogs(props) {
-  console.log(props);
 
   return (
       <Dialog  aria-labelledby="customized-dialog-title" open={props.openforPost}>

@@ -15,14 +15,13 @@ let initialState={
     statusText:'',
     language:'en',
     whichBtn:'',
-    
+    postauction:{}
 }
 
 export const AccountReducer=(state=initialState,action)=>{
     switch(action.type){
         case Constant.ACCOUNT:
             if(action.payload.status===200){
-                console.log(action.payload.data)
                 var now = new Date();
                 var time = now.getTime();
                 var expireTime = time + 1000*36000;
@@ -31,7 +30,9 @@ export const AccountReducer=(state=initialState,action)=>{
                 return{
                     ...state,
                     user:action.payload.data.user,
-                    token:action.payload.data.token
+                    token:action.payload.data.token,
+                    status:action.payload.status,
+                    statusText:action.payload.statusText
                 }
             }else{
                 return{
@@ -68,17 +69,28 @@ export const LanguageReducer=(state=initialState,action)=>{
     }
 
 }
-// export const LogoutReducer=(state=initialState,action)=>{
-//     switch(action.type){
-//         case Constant.LOGOUT:
-//             return{
-//                 user:{},
-//                 token:'',
-//                 ...state
-//             }
-//         default:
-//             return {
-//                 ...state
-//             }
-//     }
-// }
+export const PostAuctionReducer=(state=initialState,action)=>{
+    switch(action.type){
+        case Constant.POSTAUCTION:
+            if(action.payload.status===200){
+                return{
+                    ...state,
+                    postedauction:action.payload.data.user,
+                    status:action.payload.status,
+                    statusText:action.payload.statusText
+                }
+            }else{
+                return{
+                    ...state,
+                    error:action.payload.data.error,
+                    status:action.payload.status,
+                    statusText:action.payload.statusText
+                }
+            }
+        default:
+            return {
+                ...state
+            }
+    }
+
+}

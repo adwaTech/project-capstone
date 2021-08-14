@@ -45,3 +45,24 @@ export const LogoutAction=()=>async (dispatch)=>{
         payload:data
     })
 }
+export const PostAuctionAction=(userData,token)=>async (dispatch)=>{
+   const axiosInstance =  axios.create({
+        baseURL: "http://localhost:5000",
+        timeout: 5000,
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      }); 
+    const response=await axiosInstance.post(`/postAuction`,userData,{
+        validateStatus:function (status){
+            return status<600
+        }
+    },
+    );
+    console.log(response);
+    dispatch({
+        type:Constant.POSTAUCTION,
+        payload:response,
+    })
+}

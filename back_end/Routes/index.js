@@ -57,7 +57,7 @@ router.post("/register", (req, res, next) => {
 }, RegisterRoute);
 router.post("/login", upload.any(), LoginRoute);
 router.put("/updateCustomer", passport.authenticate('jwt', { session: false }), updateCustomerRoute);
-router.post('/bid', passport.authenticate('jwt', { session: false }), bidForAuctionRoute);
+router.post('/bid', passport.authenticate('jwt', { session: false }), upload.any(), bidForAuctionRoute);
 router.get('/getAuctions', getAuctionsRoute);
 router.get('/getBids', passport.authenticate('jwt', { session: false }), getBidsRoute);
 router.get('/search', getSearchRoute)

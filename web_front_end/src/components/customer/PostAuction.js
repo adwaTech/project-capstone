@@ -17,24 +17,19 @@ import {
   FormLabel,
   TextField,
   FormControlLabel,
-  Checkbox,
   Input,
-  InputAdornment,
   Grid,
-  OutlinedInput, 
-  IconButton,
+  withStyles
 } from '@material-ui/core'
-import MapPicker from 'react-google-map-picker';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import {useDispatch,useSelector} from 'react-redux';
-import {RegisterAction} from '../../redux-state-managment/Actions'
+import {PostAuctionAction} from '../../redux-state-managment/Actions'
 import {Alert} from '@material-ui/lab'
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
+import InputBase from '@material-ui/core/InputBase';
+import DatePicker from "react-datepicker";
 
-const DefaultLocation = { lat: 8.9806, lng: 38.7578};
-const DefaultZoom = 13;
 
+import "react-datepicker/dist/react-datepicker.css";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -75,24 +70,56 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const steps = ['UserInfo', 'Payment Detail', 'Location'];
-
+const steps = ['UserInfo', 'payment info', 'data'];
+const BootstrapInput = withStyles((theme) => ({
+  root: {
+    'label + &': {
+      marginTop: theme.spacing(3),
+    },
+  },
+  input: {
+    borderRadius: 4,
+    color:"black",
+    position: 'relative',
+    backgroundColor: theme.palette.background.paper,
+    border: '1px solid #ced4da',
+    fontSize: 16,
+    padding: '5px 26px 2px 22px',
+    transition: theme.transitions.create(['border-color', 'box-shadow']),
+    // Use the system font instead of the default Roboto font.
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+    '&:focus': {
+      borderRadius: 4,
+      borderColor: '#80bdff',
+      // boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
+    },
+  },
+}))(InputBase);
 
 
 export default function Register({ match, history }) {
   const dispatch=useDispatch();
   const classes = useStyles();
   // global states
-  const error = useSelector((state) => state.AccountReducer.error);
-  const status = useSelector((state) => state.AccountReducer.status);
-  const statusText = useSelector((state) => state.AccountReducer.statusText);
+  const error = useSelector((state) => state.PostAuctionReducer.error);
+  const status = useSelector((state) => state.PostAuctionReducer.status);
+  const statusText = useSelector((state) => state.PostAuctionReducer.statusText);
   const token = useSelector((state) => state.AccountReducer.token);
-  const user = useSelector((state) => state.AccountReducer.user);
-
+  const postedauction = useSelector((state) => state.PostAuctionReducer.postedauction);
+  
   const [activeStep, setActiveStep] = React.useState(0);
-  const [defaultLocation, setDefaultLocation] = React.useState(DefaultLocation);
-  const [zoom, setZoom] = React.useState(DefaultZoom);
-  const [location, setLocation] = React.useState(defaultLocation);
+ 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
   };
@@ -100,305 +127,219 @@ export default function Register({ match, history }) {
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
-  const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
-  };
-  const handleMouseDownPassword = (event) => {
-      event.preventDefault();
-  };
   const initialState={
-    usertype:'customer',
-    password:'',
-    conpassword:'',
-    firstname:'',
-    lastname:'',
-    idNumber:'',
-    idPhoto:'',
-    sex:'male',
-    phone:'',
-    email:'',
-    profileImage:'',
-    city: "",
-    latitute:location.lat,
-    longitute:location.lng,
+    auctionName: '',
+    briefDescription: '',
+    allPay: "false",
+    bidFee: '',
+    minAmount: '',
+    minCPO: '',
+    owner: '',
+    auctionType: 'live',
+    auctionCategory: 'land',
+    images: [],
+    condition: 'new',
+    extendedDescription: '',
+    // status: '',
+    approval: '',
+    postedOn: '',
+    deadline: new Date(),
   }
 
   const [state,setState]=React.useState(initialState);
-  function handleChangeLocation (lat, lng){
-      setLocation({lat:lat, lng:lng});
-      setState({...state,latitute:lat,longitute:lng});
-  }
 
-  function handleChangeZoom (newZoom){
-      setZoom(newZoom);
-      setState({...state,zoom:newZoom});
-  }
 
-  function handleResetLocation(){
-      setDefaultLocation({ ... DefaultLocation});
-      setZoom(DefaultZoom);
-  }
-  const [values, setValues] = React.useState({
-    
-    showPassword: false,
-  });
+  const auctionCategory= ['land', 'house', 'vehicle', 'electronics', 'service', 'rare', 'oldies'];
   function getStepContent(step) {
   
     switch (step) {
       case 0:
         return <React.Fragment>
-                  <Typography variant="h6" gutterBottom>
-                    
-                  </Typography>
-
                   <Grid container spacing={3}>
-                  <Grid item xs={12} sm={12}>
+                  <Grid item xs={12} sm={6}>
                       <TextField
                         required
-                        id="first name"
-                        name="first name"
-                        label="first name"
-                        value={state.firstname}
+                        
+                        id="auction name"
+                        name="auction name"
+                        label="auction name"
+                        value={state.auctionName}
                         fullWidth
-                        autoComplete="first name"
+                        autoComplete="auction name"
                         onChange={(e)=>{
-                          setState({...state,firstname:e.target.value})
+                          setState({...state,auctionName:e.target.value})
                         }}
                       />
                     </Grid>
                     
-                    <Grid item xs={12} sm={12}>
+                    <Grid item xs={12} sm={6}>
                       <TextField
                         required
-                        id="lastname"
-                        name="last name"
-                        label="last name"
+                        
+                        id="brief discription"
+                        name="brief discription"
+                        label="brief discription"
+                        multiline
                         fullWidth
-                        autoComplete="last name"
-                        value={state.lastname}
+                        autoComplete="brief discription"
+                        value={state.briefDescription}
                         onChange={(e)=>{
-                          setState({...state,lastname:e.target.value})
+                          setState({...state,briefDescription:e.target.value})
                         }}
                       />
                     </Grid>
-                    <Grid item xs={12} sm={12}>
-                        <FormControl className={classes.formControl} fullWidth>
-                          <InputLabel id="user type">User Type</InputLabel>
-                          <Select
-                            labelId="user type"
-                            id="user-type"
-                            value={state.usertype}
-                            onChange={(e)=>{
-                              setState({...state,usertype:e.target.value})
-                            }}
-                          >
-                            <MenuItem value="admin">Admin</MenuItem>
-                            <MenuItem value="customer">Customer</MenuItem>
-                          </Select>
-                        </FormControl>
-                    </Grid>
-                    <Grid item xs={12} sm={12}>
-                      <input
-                        accept="image/*"
-                        style={{ display: 'none' }}
-                        id="raised-button-file"
-                        onChange={(e)=>{
-                          setState({...state,profileImage:e.target.files[0]});
-                        }}
-                        type="file"
-                      />
-                      <label htmlFor="raised-button-file">
-                        <Button variant="outlined" component="span" className={classes.button}>
-                          Upload Profile Image optional
-                        </Button>
-                      </label> 
-                    </Grid>
-                    <Grid item xs={12} sm={12}>
-                      <FormControl component="fieldset" fullWidth>
-                          <FormLabel component="legend">Gender</FormLabel>
-                          <RadioGroup aria-label="gender" name="gender1" value={state.sex} onChange={
+                    <Grid item xs={12} sm={6}>
+                        <FormControl component="fieldset" fullWidth >
+                          <FormLabel component="legend">all pay</FormLabel>
+                          <RadioGroup aria-label="gender" name="gender1" value={state.allPay} onChange={
                             (e)=>{
-                              setState({...state,sex:e.target.value})
+                              setState({...state,allPay:e.target.value})
                             }
                           }>
-                            <FormControlLabel value="female" control={<Radio />} label="Female" />
-                            <FormControlLabel value="male" control={<Radio />} label="Male" />
+                            <FormControlLabel value="true" control={<Radio />} label="yes" />
+                            <FormControlLabel value="false" control={<Radio />} label="no" />
                           </RadioGroup>
                         </FormControl>
                     </Grid>
-                    <Grid item xs={12} sm={12}>
-                      <FormControl className={classes.margin}>
-                        <InputLabel htmlFor="input-with-icon-adornment">phone number</InputLabel>
-                        <Input
-                          type="number"
-                          id="input-with-icon-adornment"
-                          required
-                          startAdornment={
-                            <InputAdornment position="start">
-                              <Typography>+251</Typography>
-                            </InputAdornment>
-                          }
-                          onChange={(e)=>setState({...state,phone:`+251${e.target.value}`})}
-                        />
-                      </FormControl>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <FormControlLabel
-                        control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
-                        label="Use this address for payment details"
+                    <Grid item xs={12} sm={6} >
+                      <TextField
+                        required
+                        
+                        id="exptended description"
+                        name="exptended description"
+                        label="exptended description"
+                        multiline
+                        fullWidth
+                        autoComplete="exptended description"
+                        value={state.extendedDescription}
+                        onChange={(e)=>{
+                          setState({...state,extendedDescription:e.target.value})
+                        }}
                       />
                     </Grid>
+                    
+                    
                   </Grid>
                 </React.Fragment>;
       case 1:
         return <React.Fragment>
-        <Typography variant="h6" gutterBottom>
-          user Detail Information
-        </Typography>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={6}>
-            <TextField 
-            required id="email"
-            label="email" 
-            fullWidth 
-            autoComplete="email" 
-            value={state.email}
-            onChange={(e)=>{
-              setState({
-                ...state,email:e.target.value
-              })
-            }}
-            />
-          </Grid>
-          <Grid item xs={12} sm={12}>
-            <TextField
-              required
-              id="idNumber"
-              name="idNumber"
-              label="idNumber"
-              type="number"
-              value={state.idNumber}
-              fullWidth
-              autoComplete="id number"
-              onChange={(e)=>{
-                setState({...state,idNumber:e.target.value})
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-          <FormControl variant="outlined" fullWidth>
-                    <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-                    <OutlinedInput
-                        required
-                        id="outlined-adornment-password"
-                        type={values.showPassword ? 'text' : 'password'}
-                        value={state.password}
-                        className={classes.textfield}
-                        onChange={(e) => { setState({...state,password:e.target.value}) }}
-                        endAdornment={
-                            <InputAdornment position="end">
-                                <IconButton
-                                    aria-label="toggle password visibility"
-                                    onClick={handleClickShowPassword}
-                                    onMouseDown={handleMouseDownPassword}
-                                    edge="end"
-                                >
-                                    {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                                </IconButton>
-                            </InputAdornment>
-                        }
-                        labelWidth={70}
-                    />
+            <Grid item xs={12} sm={6} >
+              <input
+                accept="image/*"
+                style={{ display: 'none' }}
+                multiple
+                id="raised-button-file"
+                onChange={(e)=>{
+                  setState({...state,images:e.target.files[0]});
+                }}
+                type="file"
+              />
+              <label htmlFor="raised-button-file">
+                <Button variant="outlined"  component="span" className={classes.button}>
+                  Upload image 
+                </Button>
+              </label> 
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <FormControl  className={classes.margin} >
+                <InputLabel  htmlFor="input-with-icon-adornment">Bid Fee</InputLabel>
+                <Input
+                  type="number"
+                  
+                  id="input-with-icon-adornment"
+                  required
+                  value={state.bidFee}
+                  onChange={(e)=>setState({...state,bidFee:e.target.value})}
+                />
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+                        <FormControl component="fieldset" fullWidth >
+                          <FormLabel component="legend">Auction Type</FormLabel>
+                          <RadioGroup aria-label="auctionType" name="auctionType" value={state.auctionType} onChange={
+                            (e)=>{
+                              setState({...state,auctionType:e.target.value})
+                            }
+                          }>
+                            <FormControlLabel value="live" control={<Radio />} label="live" />
+                            <FormControlLabel value="sealed" control={<Radio />} label="sealed" />
+                          </RadioGroup>
+                        </FormControl>
+                    </Grid>
+            <Grid item xs={12} sm={6} >
+                <FormControl fullWidth >
+                    <Select
+                    labelId="demo-customized-select-label"
+                    id="demo-customized-select"
+                    value={state.condition}
+                    color="primary"
+                    onChange={(e)=>{
+                        setState({...state,condition:e.target.value})
+                    }}
+                    input={<BootstrapInput />}
+                    >
+                      <MenuItem value="new" >new</MenuItem>
+                      <MenuItem value="used" >used/second hand</MenuItem>
+                    </Select>
                 </FormControl>
-          </Grid>
-
-          <Grid item xs={12} md={6}>
-          <FormControl variant="outlined" fullWidth>
-                    <InputLabel htmlFor="outlined-adornment-password">retype your password</InputLabel>
-                    <OutlinedInput
-                        required
-                        id="outlined-adornment-password"
-                        type={values.showPassword ? 'text' : 'password'}
-                        value={state.conpassword}
-                        className={classes.textfield}
-                        onChange={(e) => { setState({...state,conpassword:e.target.value}) }}
-                        endAdornment={
-                            <InputAdornment position="end">
-                                <IconButton
-                                    aria-label="toggle password visibility"
-                                    onClick={handleClickShowPassword}
-                                    onMouseDown={handleMouseDownPassword}
-                                    edge="end"
-                                >
-                                    {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                                </IconButton>
-                            </InputAdornment>
-                        }
-                        labelWidth={70}
-                    />
-                </FormControl>
-          </Grid>
-          <Grid item xs={12} sm={12}>
-          <input
-            className={classes.input}
-            style={{ display: 'none' }}
-            id="raised-button-file"
-              onChange={(e)=>{
-                  console.log(e.target.files[0])
-                  setState({...state,idPhoto:e.target.files[0]});
-              }} 
-              type="file"  name="image" placeholder="image" required="required"/>
-            
-            <label htmlFor="raised-button-file">
-              <Button variant="outlined" component="span" className={classes.button}>
-                Upload your id card
-              </Button>
-            </label> 
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <TextField
-              required
-              id="city"
-              label="city"
-              value={state.city}
-              onChange={(e)=>{
-                setState({...state,city:e.target.value})
-              }}
-              helperText="please white your city"
-              fullWidth
-              autoComplete="adiss abeba"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <FormControlLabel
-              control={<Checkbox color="secondary" name="saveCard" value="yes" />}
-              label="varify your email"
-            />
-          </Grid>
+            </Grid>
+            <Grid item xs={12} sm={6} >
+              <DatePicker  selected={state.deadline} onChange={(date) => setState({...state,deadline:date})} />
+            </Grid>
         </Grid>
       </React.Fragment>;
       case 2:
         return <React.Fragment>
-        <Typography variant="h6" gutterBottom>
-          Location
-        </Typography>
+        
         <Grid container spacing={2}>
-          <Grid item xs={12} sm={12}>
-              <div style={{width:"90vh",height:"70vh"}}>
-              <MapPicker defaultLocation={defaultLocation}
-                    zoom={zoom}
-                    style={{width:"100%",height:"100%"}}
-                    onChangeLocation={handleChangeLocation} 
-                    onChangeZoom={handleChangeZoom}
-                    apiKey='AIzaSyD07E1VvpsN_0FvsmKAj4nK9GnLq-9jtj8'/>
-              </div>
-          </Grid>
-          <Grid>
-            lat:{state.latitute}
-            Log:{state.longitute}
-          </Grid>
+          <Grid item xs={12} sm={6} >
+              <FormControl className={classes.margin}>
+                <InputLabel htmlFor="input-with-icon-adornment">Min Amount</InputLabel>
+                <Input
+                  type="number"
+                  id="input-with-icon-adornment"
+                  required
+                  value={state.minAmount}
+                  onChange={(e)=>setState({...state,minAmount:e.target.value})}
+                />
+              </FormControl>
+            </Grid>
+            
+            <Grid item xs={12} sm={6} >
+              <FormControl className={classes.margin}>
+                <InputLabel htmlFor="input-with-icon-adornment">CPO</InputLabel>
+                <Input
+                  type="number"
+                  id="input-with-icon-adornment"
+                  value={state.minCPO}
+                  onChange={(e)=>setState({...state,minCPO:e.target.value})}
+                />
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} sm={6} >
+                <FormControl fullWidth >
+                    <Select
+                    labelId="demo-customized-select-label"
+                    id="demo-customized-select"
+                    value={state.auctionCategory}
+                    color="primary"
+                    onChange={(e)=>{
+                        setState({...state,auctionCategory:e.target.value})
+                    }}
+                    input={<BootstrapInput />}
+                    >
+                      {
+                        auctionCategory.map((auction,index)=>(
+                          <MenuItem value={auction} key={index}>{auction}</MenuItem>
+                        ))
+                      }
+                    </Select>
+                </FormControl>
+            </Grid>
         </Grid>
       </React.Fragment>;
+      
       default:
         throw new Error('Unknown step');
     }
@@ -420,15 +361,10 @@ export default function Register({ match, history }) {
             :null
           }
           {
-            token
-            ?(user.userType=="customer"
-            ?<Redirect to='/profile'/>
-            :user.userType=="admin"
-            ?<Redirect to="/admin"/>
-            :null)
+            status===200
+            ?<Alert severity="success">status :{status } : The auction is successfuly posted</Alert>
             :null
           }
-
           <Stepper activeStep={activeStep} className={classes.stepper}>
             {steps.map((label) => (
               <Step key={label}>
@@ -452,7 +388,7 @@ export default function Register({ match, history }) {
                 {getStepContent(activeStep)}
                 <div className={classes.buttons}>
                   {activeStep !== 0 && (
-                    <Button onClick={handleBack} variant="outlined" className={classes.button}>
+                    <Button onClick={handleBack}  className={classes.button}>
                       Back
                     </Button>
                   )}
@@ -464,21 +400,21 @@ export default function Register({ match, history }) {
                     className={classes.button}
                     onClick={async ()=>{
                       const formData=new FormData();
-                      formData.append('firstName',state.firstname);
-                      formData.append('lastName',state.lastname);
-                      formData.append('sex',state.sex);
-                      formData.append('profileImage',state.profileImage);
-                      formData.append('latitute',state.latitute);
-                      formData.append('longitute',state.longitute);
-                      formData.append('userType',state.usertype);
-                      formData.append('phone',state.phone);
-                      formData.append('email',state.email);
-                      formData.append('password',state.password);
-                      formData.append('city',state.city);
-                      formData.append('idPhoto',state.idPhoto);
-                      formData.append('idNo',state.idNumber);
-                      dispatch(RegisterAction(formData));
-                      setState(initialState)
+                      formData.append('auctionName',state.auctionName);
+                      formData.append('briefDescription',state.briefDescription);
+                      formData.append('allPay',state.allPay);
+                      formData.append('bidFee',state.bidFee);
+                      formData.append('minAmount',state. minAmount);
+                      formData.append('minCPO',state.minCPO);
+                      formData.append('owner',state.owner);
+                      formData.append('auctionType',state.auctionType);
+                      formData.append('auctionCategory',state.auctionCategory);
+                      formData.append('images',state.images);
+                      formData.append('extendedDescription',state.extendedDescription);
+                      formData.append('deadline',state.deadline);
+                      formData.append('condition',state.condition);
+                      dispatch(PostAuctionAction(formData,token));
+                      // setState(initialState)
                   }}
                   >
                     Post

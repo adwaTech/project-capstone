@@ -36,8 +36,6 @@ export default function User() {
           }
     })
     function ul(index) {
-        console.log('click!' + index)
-        
         var underlines = document.querySelectorAll(".underline");
         if(index==0){
             setComponent("Bid")
