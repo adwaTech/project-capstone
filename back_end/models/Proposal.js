@@ -10,7 +10,7 @@ const proposal = mongoose.Schema({
         type: String
     },
     amount: {
-        type: Number,
+        type: String,
         required: true,
     },
     cpo: {
@@ -31,6 +31,10 @@ const proposal = mongoose.Schema({
     submittedOn: {
         type: Date,
         default: Date.now()
+    },
+    status: { // if won or lost or pending
+        type: String,
+        default:'pending'
     }
 });
 module.exports.proposalModel = mongoose.model('proposal', proposal);

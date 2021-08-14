@@ -14,7 +14,7 @@ const auction = mongoose.Schema({
     },
     allPay: { // charity 
         type: Boolean,
-        require: true,
+        default: false
     },
     bidFee: { // 
         type: Number,
@@ -59,6 +59,9 @@ const auction = mongoose.Schema({
     postedOn: {
         type: Date,
         default: Date.now()
+    },
+    startDate:{
+        type:Date
     },
     deadline: {
         type: Date,
