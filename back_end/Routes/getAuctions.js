@@ -6,12 +6,14 @@ module.exports = async (req, res) => {
     if (req.body.type)
         switch (req.body.type) {
             case 'all':
-                return res.send(await AuctionModel.find({}));
+                return res.send(await AuctionModel.find({
+                    status: 'open'
+                }));
             case 'all-e':
-                console.log(req.body.auctioneer);
                 if (req.body.auctioneer)
                     return res.send(await AuctionModel.find({
-                        owner: { $ne: req.body.auctioneer }
+                        owner: { $ne: req.body.auctioneer },
+                        status: 'open'
                     }));
                 return res.status(400).send({
                     error: requiredParamError('auctioneer')
@@ -23,10 +25,10 @@ module.exports = async (req, res) => {
                     error: requiredParamError('auctioneer')
                 })
             case 'popular':
-                return res.send(await AuctionModel.find({}).sort({ participants: -1 }));
+                return res.send(await AuctionModel.find({ status: 'open' }).sort({ participants: -1 }));
             case 'category':
                 if (req.body.category)
-                    return res.send(await AuctionModel.find({ auctionCategory: req.body.category }));
+                    return res.send(await AuctionModel.find({ auctionCategory: req.body.category, status: 'open' }));
                 return res.status(400).send({
                     error: requiredParamError('category')
                 })
@@ -38,6 +40,7 @@ module.exports = async (req, res) => {
                 });
             case 'latest':
                 return res.send(await AuctionModel.find({
+                    status: 'open',
                     postedOn: { $gte: Date.now() - 86400000 }
                 }))
             default:
@@ -45,4 +48,7 @@ module.exports = async (req, res) => {
                     error: 'Invalid search parameter \'type\''
                 });
         }
+    return res.status(400).send({
+        error: 'missing req.body.type'
+    })
 }

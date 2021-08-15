@@ -51,17 +51,19 @@ const auction = mongoose.Schema({
         type: String,
     },
     status: {
-        type: String // ended, open, inactive
+        type: String, // ended, open, inactive
+        default: 'open'
     },
     approval: { // for administrator purposes
-        type: Boolean
+        type: Boolean,
+        default: false
     },
     postedOn: {
         type: Date,
         default: Date.now()
     },
-    startDate:{
-        type:Date
+    startDate: {
+        type: Date
     },
     deadline: {
         type: Date,

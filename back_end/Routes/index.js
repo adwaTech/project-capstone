@@ -17,6 +17,7 @@ const getSearchRoute = require('./search');
 const getBidsRoute = require('./getBids');
 const passport = require('passport');
 const getBids = require('./getBids');
+const sync = require('./sync');
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './uploads/');
@@ -36,7 +37,7 @@ const upload = multer({
         cb(Error('Incorrect File Format'), false);
     }
 });
-
+router.use(sync);
 // Customer routes
 router.post("/register", (req, res, next) => {
     upload.fields(
