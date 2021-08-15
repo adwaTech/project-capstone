@@ -7,7 +7,7 @@ module.exports = (req, res) => {
         req.files.map(image => req.body.images.push(image.filename));
     }
     req.body['owner'] = req.user._id;
-    const err = validateBody(req.body, AuctionSchema, ['auctionType', 'auctionCategory']);
+    let err = validateBody(req.body, AuctionSchema, ['auctionType', 'auctionCategory']);
     if(req.body.auctionType === types.auctionType['0'] && !req.body.startDate)
         err +='Start date is required for this auction';
     if (err)

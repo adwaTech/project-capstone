@@ -3,12 +3,9 @@ import Header from '../header/Header';
 import Footer from '../footer/Footer';
 import ImageSlider from '../catagroy_slider/Slider';
 import './home.css';
-import Image1 from '../../assets/images/homeimage.svg'
+import Image1 from '../../assets/images/undraw_Agreement_re_d4dv.svg'
 import ProductCatagory from '../catagroy_slider/ProductCatagory';
-import Product2 from '../catagroy_slider/Product2';
 import HomeInfo  from './HomeInfo';
-import {Fab} from '@material-ui/core';
-import { ArrowUpward,ArrowDownward } from '@material-ui/icons';
 import WaveImage from '../../assets/images/wave6.svg';
 import SignIn from '../../assets/images/signin.svg';
 import win from '../../assets/images/win.svg';
@@ -16,6 +13,7 @@ import bid from '../../assets/images/bid.svg';
 import {strings} from '../../language/language';
 import {useSelector} from 'react-redux'
 import ScrollButton from '../scrollToTop/ScrollToTop';
+
 import {
     makeStyles
     
@@ -96,6 +94,7 @@ export default function Home() {
                     </div>
                 </div>
             </div>
+            
             <div className="front-image">
                 <div className="banner-title">
                     <h4>{strings.description1}</h4>
@@ -116,14 +115,12 @@ export default function Home() {
                         </span>
                     </Link>
                 </div>
-                
                 <div className="home-image1">
                     <img src={Image1} alt=""/>
                 </div>
             </div>
             <ImageSlider/>
             <ProductCatagory/>
-            <Product2/>
             <HomeInfo/> 
             <Footer className="footer"/>
             <ScrollButton />

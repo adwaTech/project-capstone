@@ -66,3 +66,88 @@ export const PostAuctionAction=(userData,token)=>async (dispatch)=>{
         payload:response,
     })
 }
+export const AllAuctionAction=()=>async (dispatch)=>{
+    
+    const response = await axios.post(`http://localhost:5000/getAuctions`,{type:"all"},{
+        validateStatus:function (status){
+            return status<600
+        }
+    })
+     dispatch({
+         type:Constant.ALL_AUCTION,
+         payload:response.data,
+     })
+}
+export const AllExceptAuctionAction=(auctioner)=>async (dispatch)=>{
+    
+    const response = await axios.post(`http://localhost:5000/getAuctions`,{type:"all-e",auctioneer:auctioner},{
+        validateStatus:function (status){
+            return status<600
+        }
+    })
+     dispatch({
+         type:Constant.ALL_EXCEPT_AUCTIONER,
+         payload:response.data,
+     })
+}
+export const AuctionerAuctionAction=(auctioner)=>async (dispatch)=>{
+    
+    const response = await axios.post(`http://localhost:5000/getAuctions`,{type:"auctioneer",auctioneer:auctioner},{
+        validateStatus:function (status){
+            return status<600
+        }
+    })
+     dispatch({
+         type:Constant.GET_AUCTION_BY_AUCTIONER,
+         payload:response.data,
+     })
+}
+export const PopularAuctionAction=()=>async (dispatch)=>{
+    
+    const response = await axios.post(`http://localhost:5000/getAuctions`,{type:"popular"},{
+        validateStatus:function (status){
+            return status<600
+        }
+    })
+     dispatch({
+         type:Constant.POPULAR_AUCTION,
+         payload:response.data,
+     })
+}
+export const CatagoryAuctionAction=(category)=>async (dispatch)=>{
+    
+    const response = await axios.post(`http://localhost:5000/getAuctions`,{type:"category",category:category},{
+        validateStatus:function (status){
+            return status<600
+        }
+    })
+     dispatch({
+         type:Constant.CATAGORY_AUCTION,
+         payload:response.data,
+     })
+}
+export const IdAuctionAction=(id)=>async (dispatch)=>{
+    
+    const response = await axios.post(`http://localhost:5000/getAuctions`,{type:"id",id:id},{
+        validateStatus:function (status){
+            return status<600
+        }
+    })
+     dispatch({
+         type:Constant.AUCTION_BY_ID,
+         payload:response.data,
+     })
+}
+export const LatestAuctionAction=()=>async (dispatch)=>{
+    
+    const response = await axios.post(`http://localhost:5000/getAuctions`,{type:"latest"},{
+        validateStatus:function (status){
+            return status<600
+        }
+    })
+     dispatch({
+         type:Constant.LATEST_AUCTION,
+         payload:response.data,
+     })
+}
+

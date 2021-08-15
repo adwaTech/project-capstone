@@ -9,7 +9,7 @@ import {Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core';
+import { makeStyles,CircularProgress, Dialog } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
@@ -17,6 +17,7 @@ import {useDispatch,useSelector} from 'react-redux';
 import {LoginAction} from '../../redux-state-managment/Actions';
 import {Alert} from '@material-ui/lab';
 import './login.css';
+
 
 import {Route,Redirect} from 'react-router-dom';
 
@@ -76,6 +77,7 @@ function Login({ match, history }){
     email:'',
     password:'',
   };
+  const [progress,setProgress]=React.useState(false);
   const [state,setState]=React.useState(initialState)
   // global states
   const error = useSelector((state) => state.AccountReducer.error);
@@ -149,6 +151,7 @@ function Login({ match, history }){
               className={classes.submit}
               onClick={
                 async () => {
+                    setProgress(true);
                     dispatch(LoginAction(state));
                     setState(initialState);
                 }
@@ -170,6 +173,17 @@ function Login({ match, history }){
           </Grid>
         </div>
       </div>
+      <Progress open={progress}/>
     </Container>
+  )
+}
+
+function Progress(props){
+  return(
+    <Dialog   open={props.open} >
+        <div style={{width:"100px",height:"100px",display:"flex",background:"black",opacity:0.5,border:"none",boxShadow:'none'}}>
+          <CircularProgress style={{margin:"30px"}}/>
+        </div>
+    </Dialog>
   )
 }

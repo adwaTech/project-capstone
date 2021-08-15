@@ -2,7 +2,6 @@ import React from 'react';
 import RateIcon from '@material-ui/icons/StarBorder';
 import CartIcon from '@material-ui/icons/AddShoppingCart';
 import {Button,makeStyles} from '@material-ui/core';
-import Image1 from '../../assets/images/undraw_services_5tv9.svg'
 import Image8 from '../../assets/images/PngItem_3205063.png';
 import Image7 from '../../assets/images/PngItem_3204975.png';
 import Image11 from '../../assets/images/webaliser-_TPTXZd9mOo-unsplash.jpg';
@@ -84,12 +83,13 @@ export default function Products() {
                 <img src={Image7} alt="" width="40px" height="40px"/>
             </div>
             <div className="section-name">
-                <h3 className="section-title">Latest Products</h3>
+                <h2 >Latest Products</h2>
+                <hr/>
                 <div className="product-type">
-                    <span className="type">Today</span>
-                    <span className="type">since last month</span>
-                    <span className="type">since last year</span>
-                    <span className="type">not closed</span>
+                    <span className="type1">Today</span>
+                    <span className="type1">since last month</span>
+                    <span className="type1">since last year</span>
+                    <span className="type1">not closed</span>
                 </div>  
             </div>
             <div className="products">
