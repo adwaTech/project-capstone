@@ -23,5 +23,9 @@ search = async (query) => {
 module.exports = async (req, res) => {
     // search for auction titles, auction categories,
     // search for auctioneer names, city names
-    res.send(await search(req.query.query));
+    if (req.query.query)
+        return res.send(await search(req.query.query));
+    return res.status(400).send({
+        error: "req.query.query is required"
+    })
 }
