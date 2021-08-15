@@ -14,9 +14,7 @@ module.exports.encrypt = (message) => {
     // input encoding
     // output encoding
     let encryptedData = cipher.update(message, "utf-8", "hex");
-
     encryptedData += cipher.final("hex");
-    console.log('hello', encryptedData);
     return encryptedData;
 }
 // the decipher function

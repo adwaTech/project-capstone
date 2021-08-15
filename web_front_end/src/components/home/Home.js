@@ -37,21 +37,10 @@ export default function Home() {
     const dispatch=useDispatch();
     const lang=useSelector((state)=>state.LanguageReducer.language)
     const token = useSelector((state) => state.AccountReducer.token);
-    const allAuction=useSelector((state)=>state.AuctionsReducer.allAuction);
-    const allexcept=useSelector((state)=>state.AuctionsReducer.allAuction);
-    const popularAuction=useSelector((state)=>state.AuctionsReducer.allAuction);
-    const latestAuction=useSelector((state)=>state.AuctionsReducer.allAuction);
-    console.log(allAuction);
-    console.log(allexcept);
     React.useEffect(()=>{
 
     },[lang]);
-    React.useEffect(async ()=>{
-        await dispatch(AllAuctionAction());
-        await dispatch(PopularAuctionAction());
-        await dispatch(LatestAuctionAction());
-        await dispatch(AllExceptAuctionAction());
-    });
+    
     return (
         <div className="home">
             <Header/>

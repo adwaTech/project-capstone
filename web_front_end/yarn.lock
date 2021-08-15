@@ -9560,7 +9560,14 @@
   "resolved" "https://registry.npmjs.org/mobile-detect/-/mobile-detect-1.4.5.tgz"
   "version" "1.4.5"
 
-"moment@^2.10.2", "moment@^2.29.1":
+"moment-timezone@^0.5.33":
+  "integrity" "sha512-PTc2vcT8K9J5/9rDEPe5czSIKgLoGsH8UNpA4qZTVw0Vd/Uz19geE9abbIOQKaAQFcnQ3v5YEXrbSc5BpshH+w=="
+  "resolved" "https://registry.npmjs.org/moment-timezone/-/moment-timezone-0.5.33.tgz"
+  "version" "0.5.33"
+  dependencies:
+    "moment" ">= 2.9.0"
+
+"moment@^2.10.2", "moment@^2.29.0", "moment@^2.29.1", "moment@>= 2.9.0":
   "integrity" "sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ=="
   "resolved" "https://registry.npmjs.org/moment/-/moment-2.29.1.tgz"
   "version" "2.29.1"
@@ -11561,7 +11568,7 @@
   dependencies:
     "read" "1"
 
-"prop-types@^15.0.0", "prop-types@^15.5.8", "prop-types@^15.6.0", "prop-types@^15.6.1", "prop-types@^15.6.2", "prop-types@^15.7.2":
+"prop-types@^15.0.0", "prop-types@^15.5.8", "prop-types@^15.6.0", "prop-types@^15.6.1", "prop-types@^15.6.2", "prop-types@^15.7.0", "prop-types@^15.7.2":
   "integrity" "sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ=="
   "resolved" "https://registry.npmjs.org/prop-types/-/prop-types-15.7.2.tgz"
   "version" "15.7.2"
@@ -11911,6 +11918,11 @@
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
   "version" "16.13.1"
 
+"react-live-clock@^5.2.0":
+  "integrity" "sha512-MHL+1twEIMNxmf/2HpzE/KQTfEubZlobWLjf+BrHBGLllhPxjc40V+ZR0Q6W10yb78XLlilZU1TPIQAJNwcT6w=="
+  "resolved" "https://registry.npmjs.org/react-live-clock/-/react-live-clock-5.2.0.tgz"
+  "version" "5.2.0"
+
 "react-localization@^1.0.17":
   "integrity" "sha512-UowuLAvnEPXJgzxjDX/9hKdKYvtUgC6hQ5PV0CnT5f/77tItIUru5tTwgrDY2UL5oUK3JRMgz42tqnAU2W5eoA=="
   "resolved" "https://registry.npmjs.org/react-localization/-/react-localization-1.0.17.tgz"
@@ -11925,6 +11937,11 @@
   dependencies:
     "prop-types" "^15.6.1"
     "react-google-maps" "^9.4.5"
+
+"react-moment@1.1.1":
+  "integrity" "sha512-WjwvxBSnmLMRcU33do0KixDB+9vP3e84eCse+rd+HNklAMNWyRgZTDEQlay/qK6lcXFPRuEIASJTpEt6pyK7Ww=="
+  "resolved" "https://registry.npmjs.org/react-moment/-/react-moment-1.1.1.tgz"
+  "version" "1.1.1"
 
 "react-multi-carousel@^2.6.3":
   "integrity" "sha512-fCe+I1BlhTUyNHm/fh3bWavDo8UzoolTd/zrKao/wvb/XFf9dvesfNOawx7ukAzptiHOQhGCWZiNao+J76Byfw=="
@@ -12066,7 +12083,7 @@
     "loose-envify" "^1.4.0"
     "prop-types" "^15.6.2"
 
-"react@*", "react@^0.14.0 || ^15.0.0 || ^16.0.0", "react@^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0", "react@^0.14.9 || ^15.0.0 || ^16.0.0 || ^17.0.0", "react@^15.0.0 || ^16.0.0", "react@^15.5.x || ^16.x || ^17.x", "react@^16.6.3", "react@^16.6.3 || ^17.0.0", "react@^16.8.0 || ^17", "react@^16.8.0 || ^17.0.0", "react@^16.8.3 || ^17", "react@^16.9.0 || ^17", "react@^17.0.0", "react@^17.0.0 || ^16.0.0 || ^15.6.0", "react@^17.0.2", "react@>= 16", "react@>= 16.8.0", "react@>=15", "react@>=16.6.0", "react@>=16.8", "react@>=16.8.0", "react@>=16.x", "react@~0.14.8 || ^15.0.0 || ^16.0.0", "react@17.0.2":
+"react@*", "react@^0.14.0 || ^15.0.0 || ^16.0.0", "react@^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0", "react@^0.14.9 || ^15.0.0 || ^16.0.0 || ^17.0.0", "react@^15.0.0 || ^16.0.0", "react@^15.5.x || ^16.x || ^17.x", "react@^16.0 || ^17.0.0", "react@^16.6.3", "react@^16.6.3 || ^17.0.0", "react@^16.8 || ^17", "react@^16.8.0 || ^17", "react@^16.8.0 || ^17.0.0", "react@^16.8.3 || ^17", "react@^16.9.0 || ^17", "react@^17.0.0", "react@^17.0.0 || ^16.0.0 || ^15.6.0", "react@^17.0.2", "react@>= 16", "react@>= 16.8.0", "react@>=15", "react@>=16.6.0", "react@>=16.8", "react@>=16.8.0", "react@>=16.x", "react@~0.14.8 || ^15.0.0 || ^16.0.0", "react@17.0.2":
   "integrity" "sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA=="
   "resolved" "https://registry.npmjs.org/react/-/react-17.0.2.tgz"
   "version" "17.0.2"

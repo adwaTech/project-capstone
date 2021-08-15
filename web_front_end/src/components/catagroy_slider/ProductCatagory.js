@@ -1,15 +1,20 @@
 import React from 'react';
 import RateIcon from '@material-ui/icons/StarBorder';
 import CartIcon from '@material-ui/icons/AddShoppingCart';
-import {Button,makeStyles} from '@material-ui/core';
+import {Button,CircularProgress,makeStyles} from '@material-ui/core';
 import Image8 from '../../assets/images/PngItem_3205063.png';
 import Image7 from '../../assets/images/PngItem_3204975.png';
-import Image11 from '../../assets/images/webaliser-_TPTXZd9mOo-unsplash.jpg';
-import Image12 from '../../assets/images/abhinav-raina-cyQiSGGDThQ-unsplash.jpg';
-import Image13 from '../../assets/images/naomi-hebert-MP0bgaS_d1c-unsplash.jpg';
-import Image14 from '../../assets/images/sieuwert-otterloo-aren8nutd1Q-unsplash.jpg'
-import Image9 from '../../assets/images/max-O_TVsaeZNlE-unsplash.jpg';
-import Image15 from '../../assets/images/webaliser-_TPTXZd9mOo-unsplash.jpg';
+import {useSelector,useDispatch} from 'react-redux';
+import {strings} from '../../language/language';
+import moment from 'moment';
+import Clock from 'react-live-clock';
+import {
+    AllAuctionAction,
+    PopularAuctionAction,
+    LatestAuctionAction,
+    AllExceptAuctionAction,
+} from '../../redux-state-managment/Actions';
+import DetailDialog from './Detail';
 
 const useStyles=makeStyles({
     addCartBtn:{
@@ -24,56 +29,67 @@ const useStyles=makeStyles({
     }
 })
 export default function Products() {
+    const dispatch=useDispatch();
     const rate=[1,2,3,4,5];
     const classes=useStyles();
     const [error,setError]=React.useState(false);
-    var product =[
-        {
-            _id:1,
-            imageUrl:Image14,
-            title:"title",
-            selling_price:"$200",
-            description:"this is mesi this is mesi this is mesi"
-        },
-        {
-            _id:1,
-            imageUrl:Image13,
-            title:"title",
-            selling_price:"$200",
-            description:"this is mesi this is mesi this is mesi"
-        },
-        {
-            _id:1,
-            imageUrl:Image15,
-            title:"title",
-            selling_price:"$200",
-            description:"this is mesi this is mesi this is mesi"
-        },
-        {
-            _id:1,
-            imageUrl:Image9,
-            title:"title",
-            selling_price:"$200",
-            description:"this is mesi this is mesi this is mesi"
-        },
-        {
-            _id:1,
-            imageUrl:Image11,
-            title:"title",
-            selling_price:"$200",
-            description:"this is mesi this is mesi this is mesi"
-        },
-        {
-            _id:1,
-            imageUrl:Image12,
-            title:"title",
-            selling_price:"$200",
-            description:"this is mesi this is mesi this is mesi"
-        },
-    ];
-    var loading=false;
+    const [num,setNum]=React.useState(1);
+   
+
+    const token = useSelector((state) => state.AccountReducer.token);
+    const allAuction=useSelector((state)=>state.AuctionsReducer.allAuction);
+    const allexcept=useSelector((state)=>state.AuctionsReducer.allAuction);
+    const popularAuction=useSelector((state)=>state.AuctionsReducer.allAuction);
+    const latestAuction=useSelector((state)=>state.AuctionsReducer.allAuction);
+    const lang=useSelector((state)=>state.LanguageReducer.language)
+    React.useEffect(()=>{
+
+    },[lang]);
+    React.useEffect( ()=>{
+        if(num==1){
+            dispatch(AllAuctionAction());
+            setNum(2)
+        }
+        // await dispatch(PopularAuctionAction());
+        // await dispatch(LatestAuctionAction());
+        // await dispatch(AllExceptAuctionAction());
+    });
+    var loading=true;
+    if(allAuction.length>0){
+    
+        loading=false
+    }
+    const [open,setOpen]=React.useState(false);
+    function timer(start1,end1){
+        var start =new Date(moment(start1).format());
+        var end=new Date(moment(end).format());
+        var hoursstart = start.getHours()
+        var minutesstart = start.getMinutes()
+        var secstart = start.getSeconds()
+        var hoursend = end.getHours()
+        var minutesend = end.getMinutes()
+        var secend = end.getSeconds()
+
+        var hours= hoursend-hoursstart;
+        var minutes= minutesend-minutesstart;
+        var sec= secend-secstart;
+       if (minutes < 10){
+           minutes = "0" + minutes
+       }
+       if (sec < 10){
+           sec = "0" + sec
+       }
+       var t_str = hours + ":" + minutes + ":" + sec + " ";
+       if(hours > 11){
+           t_str += "PM";
+       } else {
+          t_str += "AM";
+       }
+        return t_str;
+    }
     return (
         <div>
+            {console.log(allAuction)}
             <div className="description1" style={{marginTop:"300px"}}>
                 <img src={Image8} alt=""/>
                 <div className="description1-area">
@@ -96,12 +112,12 @@ export default function Products() {
             <div className="products">
                 <div className="products-item-section">
                     {
-                        error?<p>{error.message}</p>:loading?<p>loading ...</p>:
-                        product.map(product=>(
-                            
+                        loading?<CircularProgress/>:
+                        allAuction.map(product=>(
+                           
                             <div className="product-item" key={product._id}>
-                                <img name={product._id}   src={product.imageUrl} alt=""/>
-                                {/* <h3 name={product.title}>you already add it.</h3> */}
+                                {}
+                                <img   src={`http://localhost:5000/${product.images}`} alt=""/>
                                 <div className="rate">
                                 {rate.map((rate,i)=>(
                                         rate<=product.rating?<RateIcon key={i} style={{color:"orange"}}/>:
@@ -109,17 +125,37 @@ export default function Products() {
                                 ))}
                                 </div>
                                 <div className="product-discription">
-                                    <p>{product.title}</p>
-                                    <p>{product.description}</p>
-                                    <p>{product.selling_price}ETB</p>
-                                    <Button className="cartbtn"  color="primary" className={classes.addCartBtn} variant="outlined">
+                                    <p>{product.auctionName}</p>
+                                    <p>
+                                    <Clock
+                                    date={Date.now() - product.deadline}
+                                    format={'h:mm:ssa'}
+                                    timezone={'East Africa Time (EAT)'}
+                                    style={{fontSize: '1.5em'}}
+                                    ticking={true} />
+                                    </p>
+                                    <p>{product.condition}</p>
+                                    <p>min amount :{product.minAmount}</p>
+                                    <p style={{display:"flex",flexDirection:"row",justifyContent:"space-between",margin:"10px"}}>
+                                        <Button 
+                                        onClick={
+                                            ()=>{
+                                                setOpen(true);
+                                            }
+                                        }
+                                        color="primary" variant="contained">See More</Button>
+                                        <Button className="cartbtn"  color="primary" className={classes.addCartBtn} variant="outlined">
                                         <CartIcon/>
-                                    </Button>
+                                        <DetailDialog open={open} data={product} setOpen={setOpen} />
+                                    </Button>   
+                                    </p>
+                                    
                                 </div>
                             </div>
                         ))
                     }
                 </div>
+                
             </div>
         </div>
     )

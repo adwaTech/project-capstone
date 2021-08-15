@@ -32,9 +32,9 @@ const proposal = mongoose.Schema({
         type: Date,
         default: Date.now()
     },
-    status: { // if won or lost or pending
+    status: { // pending, waitingresult, lost, won //
         type: String,
-        default:'pending'
+        default: 'pending'
     }
 });
 module.exports.proposalModel = mongoose.model('proposal', proposal);

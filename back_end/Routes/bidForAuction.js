@@ -37,7 +37,6 @@ module.exports = async (req, res) => {
         ownerId: req.user._id,
         auctionId: req.body.auctionId
     })
-    console.log(duplicate);
     if (duplicate.length > 0 && !(auction.allPay || auction.auctionType === types.auctionType[0]))
         return res.status(400).send({
             error: 'you can\'t bid twice for this auction'
