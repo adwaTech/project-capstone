@@ -1,6 +1,5 @@
 const { AuctionModel } = require("../models/Auctions");
 const { proposalModel } = require("../models/Proposal");
-const { validateBody } = require("./toolFuntions")
 
 module.exports = async (req, res) => {
     if (req.query.type)
@@ -28,24 +27,25 @@ module.exports = async (req, res) => {
                             return res.send(temp);
                         case 'lost':
                             proposals.map(proposal => {
-                                if (proposal.status === 'won')
+                                if (proposal.status === 'lost')
                                     temp.push(proposal);
                             })
                             return res.send(temp);
                         case 'pending':
                             proposals.map(proposal => {
-                                if (proposal.status === 'won')
+                                if (proposal.status === 'pending')
+                                    temp.push(proposal);
+                            })
+                            return res.send(temp);
+                        case 'waitingresult':
+                            proposals.map(proposal => {
+                                if (proposal.status === 'waitingresult')
                                     temp.push(proposal);
                             })
                             return res.send(temp);
                     }
-                } else {
-                    if (proposals.length > 0)
-                        return res.send(proposals);
-                    return res.status(400).send({
-                        error: `No proposals were made by user of id '${req.user._id}'`
-                    });
-                }
+                } else
+                    return res.send(proposals);
             default:
                 res.status(400).send({
                     error: `value '${req.query.type}' for req.query.type was Invalid`

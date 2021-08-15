@@ -1,3 +1,27 @@
-module.exports = (req,res)=>{
-    res.send(req.body);
+const { AuctionModel } = require('../models/Auctions');
+const { UserModel } = require('../models/Users');
+search = async (query) => {
+    const exp = RegExp(`\.\*${query}\.\*`, 'i');
+    return {
+        auctionsWithName: await AuctionModel.find({
+            auctionName: exp
+        }),
+        auctionsWithCategory: await AuctionModel.find({
+            auctionCategory: exp
+        }),
+        cities: await UserModel.find({
+            city: exp
+        }),
+        usersWithFirstName: await UserModel.find({
+            firstName: exp
+        }),
+        usersWithLastName: await UserModel.find({
+            lastName: exp
+        })
+    }
+}
+module.exports = async (req, res) => {
+    // search for auction titles, auction categories,
+    // search for auctioneer names, city names
+    res.send(await search(req.query.query));
 }
