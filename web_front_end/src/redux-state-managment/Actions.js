@@ -68,7 +68,7 @@ export const PostAuctionAction=(userData,token)=>async (dispatch)=>{
 }
 export const AllAuctionAction=()=>async (dispatch)=>{
     
-    const response = await axios.post(`http://localhost:5000/getAuctions`,{type:"all"},{
+    const response = await axios.get(`http://localhost:5000/getAuctions`,{type:"all"},{
         validateStatus:function (status){
             return status<600
         }
@@ -80,7 +80,7 @@ export const AllAuctionAction=()=>async (dispatch)=>{
 }
 export const AllExceptAuctionAction=(auctioner)=>async (dispatch)=>{
     
-    const response = await axios.post(`http://localhost:5000/getAuctions`,{type:"all-e",auctioneer:auctioner},{
+    const response = await axios.get(`http://localhost:5000/getAuctions`,{type:"all-e",auctioneer:auctioner},{
         validateStatus:function (status){
             return status<600
         }
@@ -92,7 +92,7 @@ export const AllExceptAuctionAction=(auctioner)=>async (dispatch)=>{
 }
 export const AuctionerAuctionAction=(auctioner)=>async (dispatch)=>{
     
-    const response = await axios.post(`http://localhost:5000/getAuctions`,{type:"auctioneer",auctioneer:auctioner},{
+    const response = await axios.get(`http://localhost:5000/getAuctions`,{type:"auctioneer",auctioneer:auctioner},{
         validateStatus:function (status){
             return status<600
         }
@@ -104,7 +104,7 @@ export const AuctionerAuctionAction=(auctioner)=>async (dispatch)=>{
 }
 export const PopularAuctionAction=()=>async (dispatch)=>{
     
-    const response = await axios.post(`http://localhost:5000/getAuctions`,{type:"popular"},{
+    const response = await axios.get(`http://localhost:5000/getAuctions`,{type:"popular"},{
         validateStatus:function (status){
             return status<600
         }
@@ -116,7 +116,7 @@ export const PopularAuctionAction=()=>async (dispatch)=>{
 }
 export const CatagoryAuctionAction=(category)=>async (dispatch)=>{
     
-    const response = await axios.post(`http://localhost:5000/getAuctions`,{type:"category",category:category},{
+    const response = await axios.get(`http://localhost:5000/getAuctions`,{type:"category",category:category},{
         validateStatus:function (status){
             return status<600
         }
@@ -128,7 +128,7 @@ export const CatagoryAuctionAction=(category)=>async (dispatch)=>{
 }
 export const IdAuctionAction=(id)=>async (dispatch)=>{
     
-    const response = await axios.post(`http://localhost:5000/getAuctions`,{type:"id",id:id},{
+    const response = await axios.get(`http://localhost:5000/getAuctions`,{type:"id",id:id},{
         validateStatus:function (status){
             return status<600
         }
@@ -140,7 +140,7 @@ export const IdAuctionAction=(id)=>async (dispatch)=>{
 }
 export const LatestAuctionAction=()=>async (dispatch)=>{
     
-    const response = await axios.post(`http://localhost:5000/getAuctions`,{type:"latest"},{
+    const response = await axios.get(`http://localhost:5000/getAuctions`,{type:"latest"},{
         validateStatus:function (status){
             return status<600
         }

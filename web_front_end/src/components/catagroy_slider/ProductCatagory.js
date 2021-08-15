@@ -86,6 +86,7 @@ export default function Products() {
                 <h2 >Latest Products</h2>
                 <hr/>
                 <div className="product-type">
+                    <span className="type1">All</span>
                     <span className="type1">Today</span>
                     <span className="type1">since last month</span>
                     <span className="type1">since last year</span>
@@ -97,6 +98,7 @@ export default function Products() {
                     {
                         error?<p>{error.message}</p>:loading?<p>loading ...</p>:
                         product.map(product=>(
+                            
                             <div className="product-item" key={product._id}>
                                 <img name={product._id}   src={product.imageUrl} alt=""/>
                                 {/* <h3 name={product.title}>you already add it.</h3> */}
