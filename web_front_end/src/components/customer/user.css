@@ -1,6 +1,5 @@
 .profile-page .card {
     position: relative;
-
     top: -80px;
     right: 0;
     bottom: 0;
@@ -262,11 +261,10 @@
     background: crimson;
   }
   .profile-page {
-      margin-bottom: 300px;
+      margin-bottom: 30%;
       position: relative;
-      width: 80%;
+      width: 90%;
       top: 140px;
-      left: 60px;
       height: 120vh;
       /* background-color: #fff; */
       border-radius: 50px;
@@ -283,8 +281,8 @@
     white-space: nowrap;
     background: white;
     padding: var(--underline-height) 0;
-    width: 50%;
-    left: 40%;
+    width: 60%;
+    left: 30%;
     margin: 2em 0;
     box-shadow: 0 1em 2em rgba(0, 0, 0, 0.2);
   }
@@ -540,5 +538,18 @@
 
 
 
-  /* Notification */
+  /* user side bar*/
+  .user-side-bar-btn{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 60vh;
+    left: 90%;
+    padding: 50px;
+    width: 50px;
+  }
+  .user-side-bar-btn .post{
+    margin-bottom: 10px;
+  }
+  
 

@@ -11,15 +11,55 @@ import Select from '@material-ui/core/Select';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 import {strings} from '../../language/language';
-import {LanguageAction} from '../../redux-state-managment/Actions';
-import {useDispatch} from 'react-redux'
+import {LanguageAction, LogoutAction} from '../../redux-state-managment/Actions';
+import {useDispatch} from 'react-redux';
+
 import {
     Link
 } from 'react-router-dom';
 import  ArrowDownward  from '@material-ui/icons/ExpandMore';
+import { useSelector } from 'react-redux';
+
+import Badge from '@material-ui/core/Badge';
+import Avatar from '@material-ui/core/Avatar';
 
 
+const StyledBadge = withStyles((theme) => ({
+  badge: {
+    backgroundColor: '#44b700',
+    color: '#44b700',
+    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+    '&::after': {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      borderRadius: '50%',
+      animation: '$ripple 1.2s infinite ease-in-out',
+      border: '1px solid currentColor',
+      content: '""',
+    },
+  },
+  '@keyframes ripple': {
+    '0%': {
+      transform: 'scale(.8)',
+      opacity: 1,
+    },
+    '100%': {
+      transform: 'scale(2.4)',
+      opacity: 0,
+    },
+  },
+}))(Badge);
 
+const SmallAvatar = withStyles((theme) => ({
+    root: {
+      width: 22,
+      height: 22,
+      border: `2px solid ${theme.palette.background.paper}`,
+    },
+  }))(Avatar);
 
 const BootstrapInput = withStyles((theme) => ({
   root: {
@@ -67,7 +107,7 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 export default function Header() {
-    const dispatch=useDispatch()
+    const dispatch=useDispatch();
     const classes = useStyles();
     const location=useLocation();
     const [loc,setLoc]=React.useState('en');
@@ -83,9 +123,9 @@ export default function Header() {
             }
         });
     })
-
+    const token = useSelector((state) => state.AccountReducer.token);
+    const user = useSelector((state) => state.AccountReducer.user);
     const [Lang, setLang] = React.useState('en');
-    
     return (
         <div className="nav-header">
             <div className="smoll-screen">
@@ -121,22 +161,42 @@ export default function Header() {
                                     }}
                                     input={<BootstrapInput />}
                                     >
-                                    <MenuItem value="en">Eng</MenuItem>
+                                    <MenuItem value="en">English</MenuItem>
                                     <MenuItem value="am">አማርኛ</MenuItem>
-                                    <MenuItem value="or">Oro</MenuItem>
-                                    <MenuItem value="ti">Tig</MenuItem>
+                                    <MenuItem value="or">Oromifa</MenuItem>
+                                    <MenuItem value="ti">ትግርኛ</MenuItem>
                                     <MenuItem value="so">Somali</MenuItem>
                                     </Select>
                                 </FormControl>
                             </div>
-                            <Link to="/profile">
-                            <PersonIcon color="primary"
+                            {
+                                token
+                                ?<Link to="/profile">
+                                <Badge
+                                overlap="circular"
+                                anchorOrigin={{
+                                  vertical: 'bottom',
+                                  horizontal: 'right',
+                                }}
+                                badgeContent={<SmallAvatar alt=""  src={`http://localhost:5000/${user.idPhoto}`}/>}
+                                >
+                                <Avatar alt=""  src={`http://localhost:5000/${user.profileImage}`}/>
+                                </Badge>
+                                </Link>
+                                :<Link to="/profile">
+                                    <PersonIcon color="primary" className="personIcon" style={{color:"#000"}}/>
+                                </Link>
+                            }
                             
-                            className="personIcon" style={{color:"#000"}}/>
-                            </Link>
                             <div style={{marginRight:"50px"}}>
-                            <NavLink className="loginbtn" to="/login">
-                                <p>{strings.Login}</p>
+                            <NavLink 
+                            onClick={()=>{
+                                if(token){
+                                    dispatch(LogoutAction());
+                                }
+                            }}
+                            className="loginbtn" to="/login">
+                                <p>{token?strings.Logout:strings.Login}</p>
                             </NavLink>
                         </div>
                         </div>
@@ -173,9 +233,22 @@ export default function Header() {
                                     </ul>
                                 </li>
                                 <li className="scoll-screen">
-                                <Link to="/profile">
-                                <PersonIcon color="primary" className="personIcon" />
-                                </Link>
+                                {
+                                    token
+                                    ?<Badge
+                                    overlap="circular"
+                                    anchorOrigin={{
+                                    vertical: 'bottom',
+                                    horizontal: 'right',
+                                    }}
+                                    badgeContent={<SmallAvatar alt=""  src={`http://localhost:5000/${user.idPhoto}`}/>}
+                                    >
+                                    <Avatar alt=""  src={`http://localhost:5000/${user.profileImage}`}/>
+                                    </Badge>
+                                    :<Link to="/profile">
+                                        <PersonIcon color="primary" className="personIcon" style={{color:"#000"}}/>
+                                    </Link>
+                                }
                                 </li>
                                 <li className="scoll-screen">
                                 <FormControl >
@@ -193,14 +266,20 @@ export default function Header() {
                                     >
                                     <MenuItem value="en">English</MenuItem>
                                     <MenuItem value="am">አማርኛ</MenuItem>
-                                    <MenuItem value="or">Oro</MenuItem>
-                                    <MenuItem value="ti">Tig</MenuItem>
-                                    <MenuItem value="s0">Somali</MenuItem>
+                                    <MenuItem value="or">Oromifa</MenuItem>
+                                    <MenuItem value="ti">ትግርኛ</MenuItem>
+                                    <MenuItem value="so">Somali</MenuItem>
                                     </Select>
                                 </FormControl>
                                 </li>
                                 <li className="scoll-screen">
-                                    <NavLink to="/login"><Button color="primary" variant="outlined">Login</Button></NavLink>
+                                    <NavLink
+                                    onClick={()=>{
+                                        if(token){
+                                            dispatch(LogoutAction());
+                                        }
+                                    }}
+                                     to="/login"><Button color="primary" variant="outlined">{token?strings.Logout:strings.Login}</Button></NavLink>
                                 </li>
                             </ul>
                         </div>
@@ -239,7 +318,7 @@ function CustomerDrawer(){
                 
                 <label for="menu-control" class="sidebar__close"></label>
                 
-                <ul class="sidebar__social">
+                <ul className="sidebar__social">
                 <li>
                     <a href="">
                     <svg viewBox="0 0 14 14" fill="none">

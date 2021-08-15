@@ -15,7 +15,8 @@ import Header from '../header/Header';
 import Footer from '../footer/Footer';
 import {useDispatch,useSelector} from 'react-redux';
 import {LoginAction} from '../../redux-state-managment/Actions';
-import {Alert} from '@material-ui/lab'
+import {Alert} from '@material-ui/lab';
+import './login.css';
 
 import {Route,Redirect} from 'react-router-dom';
 
@@ -44,8 +45,11 @@ const useStyles = makeStyles((theme) => ({
     padding:10,
     backgroundColor:"white",
     borderRadius:'25px',
-    paddingTop:170,
-    marginBottom:100
+    marginBottom:250,
+    top:200,
+    position:"relative",
+    boxShadow:"0px 0px 1px rgba(0,0,0.035)",
+
   },
   donthaveaccounte:{
     cursor:"pointer",
@@ -58,7 +62,7 @@ export default function SignIn() {
   const classes = useStyles();
 
   return (
-    <div>
+    <div className="main-login-page">
     <Header/>
       <Route path="/" component={Login}/> 
     <Footer/>
@@ -80,7 +84,7 @@ function Login({ match, history }){
   const token = useSelector((state) => state.AccountReducer.token);
   const user = useSelector((state) => state.AccountReducer.user);
   return(
-    <Container component="main" maxWidth="xs" className={classes.container} >
+    <Container maxWidth="xs" className={classes.container} >
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>

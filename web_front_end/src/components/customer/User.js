@@ -3,6 +3,12 @@ import Header from '../header/Header';
 import Footer from '../footer/Footer';
 import './user.css';
 import Alert from '@material-ui/lab/Alert';
+import {useDispatch,useSelector} from 'react-redux';
+import Button from '@material-ui/core/Button';
+import Profile from './Profile';
+import PostAuction from './PostAuction';
+import BidAuction from './BidAuction';
+
 
 export default function User() {
     React.useEffect(()=>{
@@ -30,8 +36,6 @@ export default function User() {
           }
     })
     function ul(index) {
-        console.log('click!' + index)
-        
         var underlines = document.querySelectorAll(".underline");
         if(index==0){
             setComponent("Bid")
@@ -52,6 +56,7 @@ export default function User() {
             underlines[i].style.transform = 'translate3d(' + index * 100 + '%,0,0)';
         }
     }
+    const user =useSelector((state)=>state.AccountReducer.user);
     const [component,setComponent]=React.useState('Bid');
     function renderComponents(){
         switch(component){
@@ -67,65 +72,92 @@ export default function User() {
                 return <Win/>
         }
     }
+    // dialog box
+    const [openforPost, setOpen] = React.useState(false);
+    const [dialogComp,setDialogComp]=React.useState('');
     return (
         <div>
             <Header/>
+            {/* <BidAuction/> */}
+            <Profile 
+            openforPost={openforPost} 
+            setOpen={setOpen} 
+            component={dialogComp==='Post'?<PostAuction/>:<BidAuction/>}/>
             <div className="profile-page">
-                <nav class="full">
-                <div class="underline"></div>
-                <div class="underline"></div>
-                <div class="underline"></div>
-                <a onClick={()=>ul(0)}>My Bids</a><a onClick={()=>ul(1)}>My Auctions</a><a onClick={()=>ul(2)}>Notifications</a><a onClick={()=>ul(3)}>Win</a><a onClick={()=>ul(4)}>lost</a>
+                <nav className="full">
+                    <div className="underline"></div>
+                    <div className="underline"></div>
+                    <div className="underline"></div>
+                    <a onClick={()=>ul(0)}>My Bids</a>
+                    <a onClick={()=>ul(1)}>My Auctions</a>
+                    <a onClick={()=>ul(2)}>Notifications</a>
+                    <a onClick={()=>ul(3)}>Win</a>
+                    <a onClick={()=>ul(4)}>lost</a>
                 </nav>
+                
+                <div className="user-side-bar-btn">
+                    <Button 
+                    onClick={()=>{
+                        setOpen(!openforPost);
+                        setDialogComp('Post')
+                    }}
+                    variant="contained" color="primary" className="post">Post</Button>
+                    <Button
+                     onClick={()=>{
+                        setOpen(!openforPost);
+                        setDialogComp('Bid')
+                    }}
+                    variant="contained" color="primary" >Bid</Button>
+                </div>
                 <div style={{display:"flex",flexDirection:"row",position:"relative"}}>
                     <div className="user-profile-page">
-                    <div class="card">
-                        <div class="ds-top"></div>
-                        <div class="avatar-holder">
-                            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1820405/profile/profile-512.jpg?1533058950" alt="Albert Einstein"/>
+                    <div className="card">
+                        <div className="ds-top"></div>
+                        <div className="avatar-holder">
+                            <img src={`http://localhost:5000/${user.profileImage}`} alt=""/>
                         </div>
-                        <div class="name">
-                            <a href="" target="_blank">Meseret Kifle</a>
-                            <h6 title="Followers"><i class="fas fa-users"></i> <span class="followers">90</span></h6>
+                        <div className="name">
+                            <a href="" target="_blank">{user.firstName} {user.lastName}</a>
                         </div>
-                        <div class="button">
-                            <a href="#" class="btn" onmousedown="follow();">Create Auction <i class="fas fa-user-plus"></i></a>
-                        </div>
-                        <div class="ds-info">
-                            <div class="ds pens">
+                        
+                        <div className="ds-info">
+                            <div className="ds pens">
                             <h6 title="Number of pens created by the user">Bids <i class="fas fa-edit"></i></h6>
                             <p>29</p>
                             </div>
-                            <div class="ds projects">
+                            <div className="ds projects">
                             <h6 title="Number of projects created by the user">Posts <i class="fas fa-project-diagram"></i></h6>
                             <p>12</p>
                             </div>
-                            <div class="ds posts">
-                            <h6 title="Number of posts">Posts <i class="fas fa-comments"></i></h6>
+                            <div className="ds posts">
+                            <h6 title="Number of posts">Posts<i className="fas fa-comments"></i></h6>
                             <p>20</p>
                             </div>
                         </div>
                         <div class="ds-skill">
-                            <h6>Skill <i class="fa fa-code" aria-hidden="true"></i></h6>
-                            <div class="skill html">
-                            <h6><i class="fab fa-html5"></i> Total Auction </h6>
-                            <div class="bar bar-html">
+                            <h6>Activities<i class="fa fa-code" aria-hidden="true"></i></h6>
+                            <div className="skill html">
+                            <h6><i className="fab fa-html5"></i> Total Auction </h6>
+                            <div className="bar bar-html">
                                 <p>95%</p>
                             </div>
                             </div>
-                            <div class="skill css">
-                            <h6><i class="fab fa-css3-alt"></i> Total Bid </h6>
-                            <div class="bar bar-css">
+                            <div className="skill css">
+                            <h6><i className="fab fa-css3-alt"></i> Total Bid </h6>
+                            <div className="bar bar-css">
                                 <p>90%</p>
                             </div>
                             </div>
-                            <div class="skill javascript">
-                            <h6><i class="fab fa-js"></i> Total Win </h6>
-                            <div class="bar bar-js">
+                            <div className="skill javascript">
+                            <h6><i className="fab fa-js"></i> Total Win </h6>
+                            <div className="bar bar-js">
                                 <p>75%</p>
                             </div>
                             </div>
                         </div>
+                        {/* <div class="button">
+                                <a href="#" class="btn" onmousedown="follow();">Create Auction <i class="fas fa-user-plus"></i></a>
+                        </div> */}
                         </div>
                     </div>
                     {renderComponents()}

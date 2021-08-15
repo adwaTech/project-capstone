@@ -7,7 +7,8 @@ const PORT = 5000;
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use('', router)
+app.use('',router);
+app.use(express.static("uploads"));
 // create setInterval callbacks
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true)
