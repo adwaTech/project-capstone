@@ -3,6 +3,7 @@ function requiredParamError(param) {
     return `field '${param}' is required for this search`;
 }
 module.exports = async (req, res) => {
+    let error = '';
     if (req.query.type)
         switch (req.query.type) {
             case 'all':
@@ -34,11 +35,12 @@ module.exports = async (req, res) => {
                 })
             case 'id':
                 if (req.query.id){
-                    const auction = await AuctionModel.findById(req.query.id).catch(err=>console.log(err))
-                    if(auction)
+                    const auction = await AuctionModel.findById(req.query.id).catch(err=>error = err)
+                    if(error == '')
                         return res.send(auction);
                     return res.status(400).send({
-                        error: 'Invalid id'
+                        error: 'Invalid id',
+                        errorStackTrace: error
                     })
                 }
                 return res.status(400).send({
