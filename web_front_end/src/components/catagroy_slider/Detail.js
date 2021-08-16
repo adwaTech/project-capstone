@@ -2,7 +2,6 @@ import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import {useSelector,useDispatch} from 'react-redux';
 import { Dialog,DialogContent  } from '@material-ui/core';
@@ -10,7 +9,6 @@ import Button from '@material-ui/core/Button';
 import moment from 'moment';
 import { withStyles } from '@material-ui/core/styles';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import MuiDialogContent from '@material-ui/core/DialogContent';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 
@@ -30,6 +28,9 @@ const useStyles = makeStyles((theme) => ({
     height:100,
     
   },
+  controls:{
+    marginTop:"10px"
+  }
 }));
 const styles = (theme) => ({
     root: {
@@ -70,64 +71,68 @@ export default function DetailDialog(props){
             <Card className={classes.root}>
             <div className={classes.details}>
                 <CardContent className={classes.content}>
-                    <Typography component="p" variant="p">
-                        Name: {props.data.auctionName}
+                    <Typography >
+                        <h5>Name:</h5> <Typography variant="subtitle2">{props.data.auctionName}</Typography>
                     </Typography>
-                    <Typography  color="textSecondary">
-                        Description: {props.data.briefDescription}
+                    <Typography  >
+                        <h5>Description:</h5> <Typography variant="subtitle2">{props.data.briefDescription}</Typography>
                     </Typography>
-                    <Typography component="p" variant="p">
-                        Bid Fee: {props.data.bidFee}
+                    <Typography >
+                        <h5>Bid Fee:</h5> <Typography variant="subtitle2">{props.data.bidFee}</Typography>
                     </Typography>
-                    <Typography  color="textSecondary">
-                        Min Amount: {props.data.minAmount}
+                    <Typography  >
+                        <h5>Min Amount:</h5> <Typography variant="subtitle2">{props.data.minAmount}</Typography>
                     </Typography>
-                    <Typography component="p" variant="p">
-                        Min CPO: {props.data.minCPO}
+                    <Typography >
+                        <h5>Min CPO:</h5> <Typography variant="subtitle2">{props.data.minCPO}</Typography>
                     </Typography>
-                    <Typography  color="textSecondary">
-                        Owner: {props.data.owner}
+                    <Typography  >
+                        <h5>Owner:</h5> <Typography variant="subtitle2">{props.data.owner}</Typography>
                     </Typography>
-                    <Typography component="p" variant="p">
-                        Type: {props.data.auctionType}
+                    <Typography >
+                        <h5>Type:</h5> <Typography variant="subtitle2">
+                        {props.data.auctionType}
+                        </Typography>
                     </Typography>
-                    <Typography  color="textSecondary">
-                        Category: {props.data.auctionCategory}
+                    <Typography  >
+                        <h5>Category:</h5> {props.data.auctionCategory}
                     </Typography>
                 </CardContent>
-                <div className={classes.controls}>
-                    <Button variant="contained" color="primary">Bid</Button>
-                </div>
             </div>
             <CardContent>
-                    <Typography component="p" variant="p">
-                        Extended Description: {props.data.extendedDescription}
+                    <Typography >
+                        <h5>Extended Description:</h5><Typography variant="subtitle2"> {props.data.extendedDescription}</Typography>
                     </Typography>
-                    <Typography  color="textSecondary">
-                        Start Date: {moment(props.data.postedOn).format()}
+                    <Typography  >
+                        <h5>Start Date:</h5><Typography variant="subtitle2"> {moment(props.data.postedOn).format()}</Typography>
                     </Typography>
-                    <Typography  color="textSecondary">
-                        Dedline Date: {moment(props.data.deadline).format()}
+                    <Typography  >
+                        <h5>Dedline Date:</h5><Typography variant="subtitle2"> {moment(props.data.deadline).format()}</Typography>
                     </Typography>
-                    <Typography component="p" variant="p">
-                        Condition: {props.data.condition}
+                    <Typography >
+                        <h5>Condition:</h5> <Typography variant="subtitle2">{props.data.condition}</Typography>
                     </Typography>
-                    <Typography component="p" variant="p">
-                        Number of Bids: {props.data.proposals.length}
+                    <Typography >
+                        <h5>Number of Bids:</h5> <Typography variant="subtitle2">{props.data.proposals.length}</Typography>
                     </Typography>
-                    <Typography  color="textSecondary">
-                        Approval: {props.data.approval}
+                    <Typography  >
+                        <h5>Approval:</h5> <Typography variant="subtitle2">{props.data.approval}</Typography>
                     </Typography>
-                    <Typography component="p" variant="p">
-                        Status: {props.data.status}
+                    <Typography >
+                        <h5>Status:</h5> <Typography variant="subtitle2">{props.data.status}</Typography>
                     </Typography>
                     
             </CardContent>
-            <img
-                className={classes.cover}
-                src={`http://localhost:5000/${props.data.images}`}
-                alt="Product images"
-            />
+            <div style={{display:'flex',flexDirection:'column'}}>
+              <img
+                  className={classes.cover}
+                  src={`http://localhost:5000/${props.data.images}`}
+                  alt="Product images"
+                  />
+              <div className={classes.controls}>
+                  <Button fullWidth variant="contained" color="primary">Bid</Button>
+              </div>
+            </div>
             </Card>
         </DialogContent>
       </Dialog>
