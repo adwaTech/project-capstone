@@ -1,6 +1,4 @@
 import * as Constant from './Constants';
-import {strings} from '../language/language'
-
 let initialState={
     item:{
         isLogedIn:false,
@@ -15,7 +13,15 @@ let initialState={
     statusText:'',
     language:'en',
     whichBtn:'',
-    postauction:{}
+    postauction:{},
+    // autions types
+    allAuction:[],
+    allexcept:[],
+    idAuction:[],
+    catagoryAuction:[],
+    popularAuction:[],
+    latestAuction:[],
+    AuctioneerAuction:[]
 }
 
 export const AccountReducer=(state=initialState,action)=>{
@@ -86,6 +92,50 @@ export const PostAuctionReducer=(state=initialState,action)=>{
                     status:action.payload.status,
                     statusText:action.payload.statusText
                 }
+            }
+        default:
+            return {
+                ...state
+            }
+    }
+
+}
+export const AuctionsReducer=(state=initialState,action)=>{
+    switch(action.type){
+        case Constant.ALL_AUCTION:
+            return{
+                ...state,
+                allAuction:action.payload
+            }
+        case Constant.ALL_EXCEPT_AUCTIONER:
+            return{
+                ...state,
+                allexcept:action.payload
+            }
+        case Constant.AUCTION_BY_ID:
+            return{
+                ...state,
+                idAuction:action.payload
+            }
+        case Constant.CATAGORY_AUCTION:
+            return{
+                ...state,
+                catagoryAuction:action.payload
+            }
+        case Constant.POPULAR_AUCTION:
+            return{
+                ...state,
+                popularAuction:action.payload
+            }
+        case Constant.LATEST_AUCTION:
+            return{
+                ...state,
+                latestAuction:action.payload
+            }
+        case Constant.GET_AUCTION_BY_AUCTIONER:
+            return{
+                ...state,
+                AuctioneerAuction:action.payload
             }
         default:
             return {

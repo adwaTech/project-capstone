@@ -24,7 +24,6 @@ import {
 import {useDispatch,useSelector} from 'react-redux';
 import {PostAuctionAction} from '../../redux-state-managment/Actions'
 import {Alert} from '@material-ui/lab'
-import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import InputBase from '@material-ui/core/InputBase';
 import DatePicker from "react-datepicker";
 
@@ -82,11 +81,8 @@ const BootstrapInput = withStyles((theme) => ({
     color:"black",
     position: 'relative',
     backgroundColor: theme.palette.background.paper,
-    border: '1px solid #ced4da',
+    
     fontSize: 16,
-    padding: '5px 26px 2px 22px',
-    transition: theme.transitions.create(['border-color', 'box-shadow']),
-    // Use the system font instead of the default Roboto font.
     fontFamily: [
       '-apple-system',
       'BlinkMacSystemFont',
@@ -102,7 +98,6 @@ const BootstrapInput = withStyles((theme) => ({
     '&:focus': {
       borderRadius: 4,
       borderColor: '#80bdff',
-      // boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
     },
   },
 }))(InputBase);
@@ -204,7 +199,6 @@ export default function Register({ match, history }) {
                     <Grid item xs={12} sm={6} >
                       <TextField
                         required
-                        
                         id="exptended description"
                         name="exptended description"
                         label="exptended description"
@@ -240,6 +234,7 @@ export default function Register({ match, history }) {
                   Upload image 
                 </Button>
               </label> 
+              <label>{state.images.name}</label>
             </Grid>
             <Grid item xs={12} sm={6}>
               <FormControl  className={classes.margin} >
@@ -268,10 +263,12 @@ export default function Register({ match, history }) {
                         </FormControl>
                     </Grid>
             <Grid item xs={12} sm={6} >
+                <label>condition</label>
                 <FormControl fullWidth >
                     <Select
                     labelId="demo-customized-select-label"
                     id="demo-customized-select"
+                    label="condition"
                     value={state.condition}
                     color="primary"
                     onChange={(e)=>{
@@ -284,9 +281,7 @@ export default function Register({ match, history }) {
                     </Select>
                 </FormControl>
             </Grid>
-            <Grid item xs={12} sm={6} >
-              <DatePicker  selected={state.deadline} onChange={(date) => setState({...state,deadline:date})} />
-            </Grid>
+            
         </Grid>
       </React.Fragment>;
       case 2:
@@ -318,6 +313,7 @@ export default function Register({ match, history }) {
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={6} >
+                <label>Auction Catagory</label>
                 <FormControl fullWidth >
                     <Select
                     labelId="demo-customized-select-label"
@@ -336,6 +332,10 @@ export default function Register({ match, history }) {
                       }
                     </Select>
                 </FormControl>
+            </Grid>
+            <Grid item xs={12} sm={6} >
+            <label>deadline</label>
+              <DatePicker  selected={state.deadline} onChange={(date) => setState({...state,deadline:date})} />
             </Grid>
         </Grid>
       </React.Fragment>;

@@ -11,7 +11,6 @@ import Header from '../header/Header';
 import Footer from '../footer/Footer'
 import {strings} from '../../language/language';
 import {useSelector} from 'react-redux'
-import { string } from 'prop-types'
 
 export default function Contact() {
     const lang=useSelector((state)=>state.LanguageReducer.language)
