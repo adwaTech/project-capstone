@@ -1,8 +1,23 @@
+.product-type .type1::after{
+    content: '';
+    width: 0;
+    height: 2px;
+    background: lightblue;
+    display: block;
+    margin: auto;
+    transition: 0.5s;
 
+}
+
+.product-type .type1:hover:after{
+    width: 100%;
+}
+.product-type .type1 span{
+    color:rgba(0,0,0,0.6)
+}
 .slider main{
     width: 100%;
-    height: 840px;
-    /*background: red;*/
+    height: 600px;
     margin: 10px auto;
     position: relative;
     padding: 5px 0;
@@ -11,7 +26,6 @@
 .slider main .text{
     padding: 10px;
     text-align: center;
-    /*font-size: 30px;*/
     color: #554;
 }
 .slider .text h1{
@@ -27,7 +41,6 @@
     width: 70%;
     height: 40px;
     margin: 0 auto;
-    /*background: gray;*/
     display: flex;
     align-items: center;
     padding: 20px;
@@ -115,7 +128,6 @@
     font-size: 15px;
     margin: 5px 0 0 20px;
     display: inline-block;
-    background: #6773ff;
     color: white;
     border-radius: 40px;
 }

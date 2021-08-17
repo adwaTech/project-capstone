@@ -158,7 +158,6 @@ export default function Register({ match, history }) {
     switch (step) {
       case 0:
         return <React.Fragment>
-                  
                   <Typography variant="h6" gutterBottom>
                     Personal Information
                   </Typography>

@@ -3,18 +3,23 @@ import Header from '../header/Header';
 import Footer from '../footer/Footer';
 import ImageSlider from '../catagroy_slider/Slider';
 import './home.css';
-import Image1 from '../../assets/images/homeimage.svg'
+import Image1 from '../../assets/images/undraw_Agreement_re_d4dv.svg'
 import ProductCatagory from '../catagroy_slider/ProductCatagory';
-import Product2 from '../catagroy_slider/Product2';
 import HomeInfo  from './HomeInfo';
-import {Fab} from '@material-ui/core';
-import { ArrowUpward,ArrowDownward } from '@material-ui/icons';
 import WaveImage from '../../assets/images/wave6.svg';
 import SignIn from '../../assets/images/signin.svg';
 import win from '../../assets/images/win.svg';
 import bid from '../../assets/images/bid.svg';
 import {strings} from '../../language/language';
-import {useSelector} from 'react-redux'
+import {useSelector,useDispatch} from 'react-redux';
+import {
+    AllAuctionAction,
+    PopularAuctionAction,
+    LatestAuctionAction,
+    AllExceptAuctionAction,
+} from '../../redux-state-managment/Actions';
+import ScrollButton from '../scrollToTop/ScrollToTop';
+
 import {
     makeStyles
     
@@ -30,10 +35,13 @@ const useStyles=makeStyles({
 })
 
 export default function Home() {
+    const dispatch=useDispatch();
     const lang=useSelector((state)=>state.LanguageReducer.language)
+    const token = useSelector((state) => state.AccountReducer.token);
     React.useEffect(()=>{
 
     },[lang]);
+    
     return (
         <div className="home">
             <ScrollToTop/>
@@ -41,6 +49,29 @@ export default function Home() {
             <div className="svgimage">
                 <img src={WaveImage} alt=""/>
             </div>
+            {token?
+            <div className="user-dashboard">
+                <nav>
+                <ul>
+                    <li>
+                    <div class="home-icon">
+                        <div class="roof">
+                        <div class="roof-edge"></div>
+                        </div>
+                        <div class="front"></div>
+                    </div>
+                    </li>
+                    <li>
+                    <div class="about-icon">
+                        <div class="head">
+                        <div class="eyes"></div>
+                        <div class="beard"></div>
+                        </div>
+                    </div>
+                    </li>
+                </ul>
+                </nav>
+            </div>:null}
             <div className="easy-steps">
                 <div>
                     <h5>{strings.HowItWorks}</h5>
@@ -72,12 +103,13 @@ export default function Home() {
                     </div>
                 </div>
             </div>
+            
             <div className="front-image">
                 <div className="banner-title">
                     <h4>{strings.description1}</h4>
                     
-                    <Link id="gooey-button" to="/register">
-                        {strings.CreateAccount}
+                    <Link id="gooey-button" to={token?'/profile':'/register'}>
+                        {token?"profile":strings.CreateAccount}
                         <span class="bubbles">
                             <span class="bubble"></span>
                             <span class="bubble"></span>
@@ -92,24 +124,15 @@ export default function Home() {
                         </span>
                     </Link>
                 </div>
-                
                 <div className="home-image1">
                     <img src={Image1} alt=""/>
                 </div>
             </div>
             <ImageSlider/>
             <ProductCatagory/>
-            <Product2/>
             <HomeInfo/> 
-            <Link onClick={()=>{
-                window.scrollTo(0,0);
-                
-            }} className="floating-btn"><Fab  color="primary"><ArrowUpward/></Fab></Link>
-            <Link onClick={()=>{
-                window.scrollTo(0,document.querySelector(".footer").scrollHeight);
-            }}
-            id="#footer" className="floating-btn2"><Fab  color="primary"><ArrowDownward/></Fab></Link>
             <Footer className="footer"/>
+            <ScrollButton />
         </div>
     )
 }

@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 //const insurance = require('./Insurance')
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 const User = mongoose.Schema({
     firstName: {
         type: String,
@@ -13,8 +15,8 @@ const User = mongoose.Schema({
         type: String,
         required: true
     },
-    profileImage:{
-        type:String,
+    profileImage: {
+        type: String,
     },
     latitude: {
         type: Number
@@ -41,7 +43,9 @@ const User = mongoose.Schema({
     },
     password: {
         type: String,
-        required: true
+        required: true,
+        set: (password) =>
+            bcrypt.hashSync(password, bcrypt.genSaltSync(10))
     },
     phone: {
         type: String,

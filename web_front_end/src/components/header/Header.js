@@ -11,15 +11,55 @@ import Select from '@material-ui/core/Select';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 import {strings} from '../../language/language';
-import {LanguageAction} from '../../redux-state-managment/Actions';
-import {useDispatch} from 'react-redux'
+import {LanguageAction, LogoutAction} from '../../redux-state-managment/Actions';
+import {useDispatch} from 'react-redux';
+
 import {
     Link
 } from 'react-router-dom';
 import  ArrowDownward  from '@material-ui/icons/ExpandMore';
+import { useSelector } from 'react-redux';
+
+import Badge from '@material-ui/core/Badge';
+import Avatar from '@material-ui/core/Avatar';
 
 
+// const StyledBadge = withStyles((theme) => ({
+//   badge: {
+//     backgroundColor: '#44b700',
+//     color: '#44b700',
+//     boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+//     '&::after': {
+//       position: 'absolute',
+//       top: 0,
+//       left: 0,
+//       width: '100%',
+//       height: '100%',
+//       borderRadius: '50%',
+//       animation: '$ripple 1.2s infinite ease-in-out',
+//       border: '1px solid currentColor',
+//       content: '""',
+//     },
+//   },
+//   '@keyframes ripple': {
+//     '0%': {
+//       transform: 'scale(.8)',
+//       opacity: 1,
+//     },
+//     '100%': {
+//       transform: 'scale(2.4)',
+//       opacity: 0,
+//     },
+//   },
+// }))(Badge);
 
+const SmallAvatar = withStyles((theme) => ({
+    root: {
+      width: 22,
+      height: 22,
+      border: `2px solid ${theme.palette.background.paper}`,
+    },
+  }))(Avatar);
 
 const BootstrapInput = withStyles((theme) => ({
   root: {
@@ -66,8 +106,9 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
+const auctionCategory= [strings.Land, strings.House, strings.Car, , 'service', 'rare', 'oldies'];
 export default function Header() {
-    const dispatch=useDispatch()
+    const dispatch=useDispatch();
     const classes = useStyles();
     const location=useLocation();
     const [loc,setLoc]=React.useState('en');
@@ -83,9 +124,9 @@ export default function Header() {
             }
         });
     })
-
+    const token = useSelector((state) => state.AccountReducer.token);
+    const user = useSelector((state) => state.AccountReducer.user);
     const [Lang, setLang] = React.useState('en');
-    
     return (
         <div className="nav-header">
             <div className="smoll-screen">
@@ -121,22 +162,42 @@ export default function Header() {
                                     }}
                                     input={<BootstrapInput />}
                                     >
-                                    <MenuItem value="en">Eng</MenuItem>
+                                    <MenuItem value="en">English</MenuItem>
                                     <MenuItem value="am">አማርኛ</MenuItem>
-                                    <MenuItem value="or">Oro</MenuItem>
-                                    <MenuItem value="ti">Tig</MenuItem>
+                                    <MenuItem value="or">Oromifa</MenuItem>
+                                    <MenuItem value="ti">ትግርኛ</MenuItem>
                                     <MenuItem value="so">Somali</MenuItem>
                                     </Select>
                                 </FormControl>
                             </div>
-                            <Link to="/profile">
-                            <PersonIcon color="primary"
+                            {
+                                token
+                                ?<Link to="/profile">
+                                <Badge
+                                overlap="circular"
+                                anchorOrigin={{
+                                  vertical: 'bottom',
+                                  horizontal: 'right',
+                                }}
+                                badgeContent={<SmallAvatar alt=""  src={`http://localhost:5000/${user.idPhoto}`}/>}
+                                >
+                                <Avatar alt=""  src={`http://localhost:5000/${user.profileImage}`}/>
+                                </Badge>
+                                </Link>
+                                :<Link to="/profile">
+                                    <PersonIcon color="primary" className="personIcon" style={{color:"#000"}}/>
+                                </Link>
+                            }
                             
-                            className="personIcon" style={{color:"#000"}}/>
-                            </Link>
                             <div style={{marginRight:"50px"}}>
-                            <NavLink className="loginbtn" to="/login">
-                                <p>{strings.Login}</p>
+                            <NavLink 
+                            onClick={()=>{
+                                if(token){
+                                    dispatch(LogoutAction());
+                                }
+                            }}
+                            className="loginbtn" to="/login">
+                                <p>{token?strings.Logout:strings.Login}</p>
                             </NavLink>
                         </div>
                         </div>
@@ -157,25 +218,31 @@ export default function Header() {
                                 <li >
                                     <NavLink className="a" to="/catagory/house">{strings.Auctions}<ArrowDownward
                                      style={{marginTop:"4px"}}/></NavLink>
-                                    <ul class="dropdown">
-                                        <li><Link to="/house" >{strings.House}</Link></li>
-                                        <li><Link to="/car" >{strings.Car}</Link></li>
-                                        <li><Link to="/land" >{strings.Land}</Link></li>
-                                        <li><Link to="/service" >{strings.Service}</Link></li>
-                                        <li><Link to="/government" >{strings.Government}</Link></li>
-                                        <li><Link to="/private" >{strings.Private}</Link></li>
-                                        <li><Link to="/bank" >{strings.Bank}</Link></li>
-                                        <li><Link to="/mobile" >{strings.Electronics}</Link></li>
-                                        <li><Link to="/latest" >{strings.Latest}</Link></li>
-                                        <li><Link to="/thisweek" >{strings.Thisweek}</Link></li>
-                                        <li><Link to="/thismonth" >{strings.Thismonth}</Link></li>
-                                        <li><Link to="/thisyear" >{strings.Thisyear}</Link></li>
+                                    <ul className="dropdown">
+                                        {
+                                            auctionCategory.map((auction,i)=>(
+                                                <li key={i}><Link to={`/${auction}`} >{auction}</Link></li>
+                                            ))
+                                        }
                                     </ul>
                                 </li>
                                 <li className="scoll-screen">
-                                <Link to="/profile">
-                                <PersonIcon color="primary" className="personIcon" />
-                                </Link>
+                                {
+                                    token
+                                    ?<Badge
+                                    overlap="circular"
+                                    anchorOrigin={{
+                                    vertical: 'bottom',
+                                    horizontal: 'right',
+                                    }}
+                                    badgeContent={<SmallAvatar alt=""  src={`http://localhost:5000/${user.idPhoto}`}/>}
+                                    >
+                                    <Avatar alt=""  src={`http://localhost:5000/${user.profileImage}`}/>
+                                    </Badge>
+                                    :<Link to="/profile">
+                                        <PersonIcon color="primary" className="personIcon" style={{color:"#000"}}/>
+                                    </Link>
+                                }
                                 </li>
                                 <li className="scoll-screen">
                                 <FormControl >
@@ -193,21 +260,27 @@ export default function Header() {
                                     >
                                     <MenuItem value="en">English</MenuItem>
                                     <MenuItem value="am">አማርኛ</MenuItem>
-                                    <MenuItem value="or">Oro</MenuItem>
-                                    <MenuItem value="ti">Tig</MenuItem>
-                                    <MenuItem value="s0">Somali</MenuItem>
+                                    <MenuItem value="or">Oromifa</MenuItem>
+                                    <MenuItem value="ti">ትግርኛ</MenuItem>
+                                    <MenuItem value="so">Somali</MenuItem>
                                     </Select>
                                 </FormControl>
                                 </li>
                                 <li className="scoll-screen">
-                                    <NavLink to="/login"><Button color="primary" variant="outlined">Login</Button></NavLink>
+                                    <NavLink
+                                    onClick={()=>{
+                                        if(token){
+                                            dispatch(LogoutAction());
+                                        }
+                                    }}
+                                     to="/login"><Button color="primary" variant="outlined">{token?strings.Logout:strings.Login}</Button></NavLink>
                                 </li>
                             </ul>
                         </div>
                         
-                        <div class="search-box">
-                            <button class="btn-search"><SearchIcon/></button>
-                            <input type="text" class="input-search" placeholder={`${strings.TypetoSearch}...`}/>
+                        <div className="search-box">
+                            <button className="btn-search"><SearchIcon/></button>
+                            <input type="text" className="input-search" placeholder={`${strings.TypetoSearch}...`}/>
                         </div>
                     </div>
                 </div>
@@ -219,17 +292,17 @@ export default function Header() {
 function CustomerDrawer(){
     return (
         <div className="custom-drawer">
-            <section class="banner">
-            <label for="menu-control" class="hamburger">
-                <i class="hamburger__icon"></i>
-                <i class="hamburger__icon"></i>
-                <i class="hamburger__icon"></i>
+            <section className="banner">
+            <label htmlFor="menu-control" className="hamburger">
+                <i className="hamburger__icon"></i>
+                <i className="hamburger__icon"></i>
+                <i className="hamburger__icon"></i>
             </label>
             
-            <input type="checkbox" id="menu-control" class="menu-control"/>
-            <aside class="sidebar">
+            <input type="checkbox" id="menu-control" className="menu-control"/>
+            <aside className="sidebar">
                 
-                <nav class="sidebar__menu">
+                <nav className="sidebar__menu">
                 <NavLink to="/">{strings.Home}</NavLink>
                 <NavLink to="/catagory/house">{strings.Auctions}</NavLink>
                 <NavLink to="/about">{strings.About}</NavLink>
@@ -237,9 +310,9 @@ function CustomerDrawer(){
                 <NavLink to="/login">{strings.Login}</NavLink>
                 </nav>
                 
-                <label for="menu-control" class="sidebar__close"></label>
+                <label htmlFor="menu-control" className="sidebar__close"></label>
                 
-                <ul class="sidebar__social">
+                <ul className="sidebar__social">
                 <li>
                     <a href="">
                     <svg viewBox="0 0 14 14" fill="none">

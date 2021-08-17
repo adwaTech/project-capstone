@@ -1,8 +1,7 @@
 import React from 'react';
 import './footer.css';
-import { LinkedIn,Twitter,Instagram,Facebook,GitHub ,YouTube} from '@material-ui/icons';
+import {Twitter,Instagram,Facebook,GitHub ,YouTube} from '@material-ui/icons';
 import {Link} from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function Footer() {
     return (
@@ -17,53 +16,54 @@ export default function Footer() {
                         <li><Link >our services</Link></li>
                         <li><Link >privacy policy</Link></li>
                         <li><Link >Ethiopian </Link></li>
+ 
                     </ul>
                 </div>
                 <div className="footer-col">
                     <h4>get help</h4>
                     <ul>
-                        <li><Link>FAQ</Link></li>
-                        <li><Link>How to post</Link></li>
-                        <li><Link>How to Bid</Link></li>
-                        <li><Link>Manage Access</Link></li>
-                        <li><Link>payment options</Link></li>
+                        <li><Link to="">FAQ</Link></li>
+                        <li><Link to="">How to post</Link></li>
+                        <li><Link to="">How to Bid</Link></li>
+                        <li><Link to="">Manage Access</Link></li>
+                        <li><Link to="">payment options</Link></li>
                     </ul>
                 </div>
                 <div className="footer-col">
                     <h4>Popular Catagories</h4>
                     <ul>
-                        <li><Link>Farm Land</Link></li>
-                        <li><Link>Cars</Link></li>
-                        <li><Link>House</Link></li>
-                        <li><Link>Gov't Mangt Projects</Link></li>
+                        <li><Link to="">Farm Land</Link></li>
+                        <li><Link to="">Cars</Link></li>
+                        <li><Link to="">House</Link></li>
+                        <li><Link to="">Gov't Mangt Projects</Link></li>
                     </ul>
                 </div>
                 <div className="footer-col">
                     <h4>follow us</h4>
                     <div >
-                    <div class="wrapper">
-                        <div class="icon facebook">
-                            <div class="tooltip">Facebook</div>
+                    <div className="wrapper">
+                        <div className="icon facebook">
+                            <div className="tooltip">Facebook</div>
                             <span>
                                 <Facebook/>
                             </span>
                         </div>
-                        <div class="icon twitter">
-                            <div class="tooltip">Twitter</div>
+                        <div className="icon twitter">
+                            <div className="tooltip">Twitter</div>
                             <span><Twitter/></span>
                         </div>
-                        <div class="icon instagram">
-                            <div class="tooltip">Instagram</div>
+                        <div className="icon instagram">
+                            <div className="tooltip">Instagram</div>
                             <span><Instagram/></span>
                         </div>
-                        <div class="icon github">
-                            <div class="tooltip">Github</div>
+                        <div className="icon github">
+                            <div className="tooltip">Github</div>
                             <span>
                                 <GitHub/>
                             </span>
                         </div>
-                        <div class="icon youtube">
-                            <div class="tooltip">Youtube</div>
+                        <div className="icon youtube">
+                            <div className="tooltip">Youtube</div>
                             <span><YouTube/></span>
                         </div>
                     </div>

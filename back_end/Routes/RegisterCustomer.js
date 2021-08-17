@@ -14,9 +14,6 @@ module.exports = async (req, res) => {
         return res.status(400).send({
             error: err
         });
-    const salt = bcrypt.genSaltSync(saltRounds);
-    const hash = bcrypt.hashSync(req.body.password, salt);
-    req.body.password = hash;
     const user = createModel(req.body, UserModel(), UserSchema);
     user.save().then(result => {
         res.redirect(307, '/login');
