@@ -9,7 +9,6 @@ import Aos from 'aos'
 import 'aos/dist/aos.css'
 import {strings} from '../../language/language';
 import {useSelector} from 'react-redux'
-
 export default function About() {
     const lang=useSelector((state)=>state.LanguageReducer.language)
     React.useEffect(()=>{},[lang]);
