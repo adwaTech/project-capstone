@@ -21,7 +21,11 @@ let initialState={
     catagoryAuction:[],
     popularAuction:[],
     latestAuction:[],
-    AuctioneerAuction:[]
+    AuctioneerAuction:[],
+    bid:{},
+    biderror:'',
+    bidstatus:'',
+    bidstatusText:''
 }
 
 export const AccountReducer=(state=initialState,action)=>{
@@ -100,6 +104,7 @@ export const PostAuctionReducer=(state=initialState,action)=>{
     }
 
 }
+
 export const AuctionsReducer=(state=initialState,action)=>{
     switch(action.type){
         case Constant.ALL_AUCTION:
@@ -136,6 +141,41 @@ export const AuctionsReducer=(state=initialState,action)=>{
             return{
                 ...state,
                 AuctioneerAuction:action.payload
+            }
+        default:
+            return {
+                ...state
+            }
+    }
+
+}
+export const bidAuctionReducer=(state=initialState,action)=>{
+    switch(action.type){
+        case Constant.BID_AUCTION:
+            console.log(action.payload);
+            if(action.payload.status===200){
+                return{
+                    ...state,
+                    bid:action.payload.data.bid,
+                    bidstatus:action.payload.status,
+                    bidstatusText:action.payload.statusText
+                }
+            }
+            else if(action.payload.status===401){
+                return{
+                    ...state,
+                    biderror:action.payload.data,
+                    bidstatus:action.payload.status,
+                    bidstatusText:action.payload.statusText
+                }
+            }
+            else{
+                return{
+                    ...state,
+                    biderror:action.payload.data.error,
+                    bidstatus:action.payload.status,
+                    bidstatusText:action.payload.statusText
+                }
             }
         default:
             return {

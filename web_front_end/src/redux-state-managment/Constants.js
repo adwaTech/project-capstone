@@ -9,5 +9,6 @@ export const POPULAR_AUCTION="POPULAR";
 export const CATAGORY_AUCTION='CATAGORY';
 export const AUCTION_BY_ID="AUCTION_BY_ID";
 export const LATEST_AUCTION="ACUTION_AUCTION";
+export const BID_AUCTION="BID_AUCTION";
 
 
