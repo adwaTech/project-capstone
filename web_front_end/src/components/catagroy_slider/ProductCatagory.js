@@ -7,7 +7,7 @@ import Image7 from '../../assets/images/PngItem_3204975.png';
 import {useSelector,useDispatch} from 'react-redux';
 import {strings} from '../../language/language';
 import moment from 'moment';
-import Clock from 'react-live-clock';
+import Timer from 'react-compound-timer'
 import {
     AllAuctionAction,
     PopularAuctionAction,
@@ -38,21 +38,25 @@ export default function Products() {
 
     const token = useSelector((state) => state.AccountReducer.token);
     const allAuction=useSelector((state)=>state.AuctionsReducer.allAuction);
-    const allexcept=useSelector((state)=>state.AuctionsReducer.allAuction);
-    const popularAuction=useSelector((state)=>state.AuctionsReducer.allAuction);
-    const latestAuction=useSelector((state)=>state.AuctionsReducer.allAuction);
-    const lang=useSelector((state)=>state.LanguageReducer.language)
+    const allexcept=useSelector((state)=>state.AuctionsReducer.allexcept);
+    const popularAuction=useSelector((state)=>state.AuctionsReducer.popularAuctionn);
+    const latestAuction=useSelector((state)=>state.AuctionsReducer.latestAuction);
+    const lang=useSelector((state)=>state.LanguageReducer.language);
+    console.log(latestAuction);
     React.useEffect(()=>{
 
     },[lang]);
     React.useEffect( ()=>{
         if(num==1){
             dispatch(AllAuctionAction());
+            dispatch(LatestAuctionAction());
+            dispatch(AllExceptAuctionAction());
+            dispatch(PopularAuctionAction());
             setNum(2)
         }
         // await dispatch(PopularAuctionAction());
-        // await dispatch(LatestAuctionAction());
-        // await dispatch(AllExceptAuctionAction());
+        // 
+        // 
     });
     var loading=true;
     if(allAuction.length>0){
@@ -60,41 +64,28 @@ export default function Products() {
         loading=false
     }
     const [open,setOpen]=React.useState(false);
-    function timer(start1,end1){
-        var start =new Date(moment(start1).format());
-        var end=new Date(moment(end).format());
-        var hoursstart = start.getHours()
-        var minutesstart = start.getMinutes()
-        var secstart = start.getSeconds()
-        var hoursend = end.getHours()
-        var minutesend = end.getMinutes()
-        var secend = end.getSeconds()
-
-        var hours= hoursend-hoursstart;
-        var minutes= minutesend-minutesstart;
-        var sec= secend-secstart;
-       if (minutes < 10){
-           minutes = "0" + minutes
-       }
-       if (sec < 10){
-           sec = "0" + sec
-       }
-       var t_str = hours + ":" + minutes + ":" + sec + " ";
-       if(hours > 11){
-           t_str += "PM";
-       } else {
-          t_str += "AM";
-       }
-        return t_str;
+    function timer(end){
+        const date=new Date(end.toString()).getTime();
+        const now=new Date().getTime();
+        return date-now
     }
+    const Auctions=[
+        allAuction,
+        latestAuction,
+        allAuction.filter((item)=>item.auctionType==="open"),
+        allAuction.filter((item)=>item.auctionType==="sealed"),
+        allAuction.filter((item)=>item.condition==="used"),
+        allAuction.filter((item)=>item.condition==="new")
+    ];
+    const [index,setIndex]=React.useState(0);
+    
     return (
         <div>
-            {console.log(allAuction)}
             <div className="description1" style={{marginTop:"300px"}}>
                 <img src={Image8} alt=""/>
                 <div className="description1-area">
                     <h3>Find The Best Product </h3>
-                    <Button className={classes.shopNow} variant="contained" color="primary">Shop Now</Button>
+                    <Button className={classes.shopNow} variant="contained" color="primary">Bid Now</Button>
                 </div>
                 <img src={Image7} alt="" width="40px" height="40px"/>
             </div>
@@ -102,21 +93,64 @@ export default function Products() {
                 <h2 >Latest Products</h2>
                 <hr/>
                 <div className="product-type">
-                    <span className="type1">All</span>
-                    <span className="type1">Today</span>
-                    <span className="type1">since last month</span>
-                    <span className="type1">since last year</span>
-                    <span className="type1">not closed</span>
+                    <span 
+                    onClick={
+                        async ()=>{
+                            
+                            await dispatch(AllAuctionAction());
+                            setIndex(0)
+                        }
+                    }
+                    className="type1">All</span>
+                    <span 
+                    onClick={
+                        async ()=>{
+                            await dispatch(LatestAuctionAction());
+                            setIndex(1)
+                        }
+                    }
+                    className="type1">Latest</span>
+                    
+                    <span 
+                    onClick={
+                        ()=>{
+                            
+                            setIndex(2)
+                        }
+                    }
+                    className="type1">Open</span>
+                    <span 
+                    onClick={
+                        ()=>{
+                            setIndex(3)
+                        }
+                    }
+                    className="type1">sealed</span>
+                    <span 
+                    onClick={
+                        ()=>{
+                            setIndex(4)
+                        }
+                    }
+                    className="type1">Used</span>
+                    <span 
+                    onClick={
+                        ()=>{
+                            setIndex(5)
+                        }
+                    }
+                    className="type1">New</span>
+                    
                 </div>  
             </div>
             <div className="products">
                 <div className="products-item-section">
                     {
                         loading?<CircularProgress/>:
-                        allAuction.map(product=>(
+
+                        Auctions[index].map(product=>(
                            
                             <div className="product-item" key={product._id}>
-                                {}
                                 <img   src={`http://localhost:5000/${product.images}`} alt=""/>
                                 <div className="rate">
                                 {rate.map((rate,i)=>(
@@ -126,14 +160,20 @@ export default function Products() {
                                 </div>
                                 <div className="product-discription">
                                     <p>{product.auctionName}</p>
-                                    <p>
-                                    <Clock
-                                    date={Date.now() - product.deadline}
-                                    format={'h:mm:ssa'}
-                                    timezone={'East Africa Time (EAT)'}
-                                    style={{fontSize: '1.5em'}}
-                                    ticking={true} />
-                                    </p>
+                                    <Timer
+                                        initialTime={timer(product.deadline)}
+                                        lastUnit="d"
+                                        direction="backward"
+                                    >
+                                        {() => (
+                                            <React.Fragment>
+                                                <Timer.Days /> D	&nbsp;
+                                                <Timer.Hours /> H	&nbsp;
+                                                <Timer.Minutes /> M	&nbsp;
+                                                <Timer.Seconds /> S	&nbsp;
+                                            </React.Fragment>
+                                        )}
+                                    </Timer>
                                     <p>{product.condition}</p>
                                     <p>min amount :{product.minAmount}</p>
                                     <p style={{display:"flex",flexDirection:"row",justifyContent:"space-between",margin:"10px"}}>
