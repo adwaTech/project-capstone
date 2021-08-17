@@ -20,6 +20,9 @@ module.exports = async (req, res) => {
     if (!auction) return res.status(400).send({
         error: `No auction with id ${req.body.auctionId} was found`
     });
+    if (auction.owner == req.user._id) return res.status(400).send({
+        error: `bidder '${req.user._id}' is the owner of auction of id '${auction._id}'`
+    });
     const proposal = createModel(req.body, proposalModel(), proposalSchema);
     if (auction.auctionType !== proposal.proposalType)
         return res.status(400).send({

@@ -4,5 +4,6 @@ module.exports = {// auctionCategory should be dynamic
     proposalType: ['live', 'sealed'],
     paymentType: ['incash', 'online'],
     userType: ['customer', 'admin'],
-    sex: ['male', 'female']
+    sex: ['male', 'female'],
+    adminOperations: ['auctionapproval']
 };
