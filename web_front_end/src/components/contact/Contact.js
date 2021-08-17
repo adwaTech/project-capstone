@@ -58,8 +58,8 @@ export default function Contact() {
 
     return (
     <div>
-        <ScrollToTop/>
         <Header/>
+        <ScrollToTop/>
         <div className="contact">
         <div class="container">
             <span class="big-circle"></span>
