@@ -24,34 +24,34 @@ import Badge from '@material-ui/core/Badge';
 import Avatar from '@material-ui/core/Avatar';
 
 
-const StyledBadge = withStyles((theme) => ({
-  badge: {
-    backgroundColor: '#44b700',
-    color: '#44b700',
-    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
-    '&::after': {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
-      borderRadius: '50%',
-      animation: '$ripple 1.2s infinite ease-in-out',
-      border: '1px solid currentColor',
-      content: '""',
-    },
-  },
-  '@keyframes ripple': {
-    '0%': {
-      transform: 'scale(.8)',
-      opacity: 1,
-    },
-    '100%': {
-      transform: 'scale(2.4)',
-      opacity: 0,
-    },
-  },
-}))(Badge);
+// const StyledBadge = withStyles((theme) => ({
+//   badge: {
+//     backgroundColor: '#44b700',
+//     color: '#44b700',
+//     boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+//     '&::after': {
+//       position: 'absolute',
+//       top: 0,
+//       left: 0,
+//       width: '100%',
+//       height: '100%',
+//       borderRadius: '50%',
+//       animation: '$ripple 1.2s infinite ease-in-out',
+//       border: '1px solid currentColor',
+//       content: '""',
+//     },
+//   },
+//   '@keyframes ripple': {
+//     '0%': {
+//       transform: 'scale(.8)',
+//       opacity: 1,
+//     },
+//     '100%': {
+//       transform: 'scale(2.4)',
+//       opacity: 0,
+//     },
+//   },
+// }))(Badge);
 
 const SmallAvatar = withStyles((theme) => ({
     root: {
@@ -106,6 +106,7 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
+const auctionCategory= [strings.Land, strings.House, strings.Car, , 'service', 'rare', 'oldies'];
 export default function Header() {
     const dispatch=useDispatch();
     const classes = useStyles();
@@ -217,19 +218,12 @@ export default function Header() {
                                 <li >
                                     <NavLink className="a" to="/catagory/house">{strings.Auctions}<ArrowDownward
                                      style={{marginTop:"4px"}}/></NavLink>
-                                    <ul class="dropdown">
-                                        <li><Link to="/house" >{strings.House}</Link></li>
-                                        <li><Link to="/car" >{strings.Car}</Link></li>
-                                        <li><Link to="/land" >{strings.Land}</Link></li>
-                                        <li><Link to="/service" >{strings.Service}</Link></li>
-                                        <li><Link to="/government" >{strings.Government}</Link></li>
-                                        <li><Link to="/private" >{strings.Private}</Link></li>
-                                        <li><Link to="/bank" >{strings.Bank}</Link></li>
-                                        <li><Link to="/mobile" >{strings.Electronics}</Link></li>
-                                        <li><Link to="/latest" >{strings.Latest}</Link></li>
-                                        <li><Link to="/thisweek" >{strings.Thisweek}</Link></li>
-                                        <li><Link to="/thismonth" >{strings.Thismonth}</Link></li>
-                                        <li><Link to="/thisyear" >{strings.Thisyear}</Link></li>
+                                    <ul className="dropdown">
+                                        {
+                                            auctionCategory.map((auction,i)=>(
+                                                <li key={i}><Link to={`/${auction}`} >{auction}</Link></li>
+                                            ))
+                                        }
                                     </ul>
                                 </li>
                                 <li className="scoll-screen">
@@ -284,9 +278,9 @@ export default function Header() {
                             </ul>
                         </div>
                         
-                        <div class="search-box">
-                            <button class="btn-search"><SearchIcon/></button>
-                            <input type="text" class="input-search" placeholder={`${strings.TypetoSearch}...`}/>
+                        <div className="search-box">
+                            <button className="btn-search"><SearchIcon/></button>
+                            <input type="text" className="input-search" placeholder={`${strings.TypetoSearch}...`}/>
                         </div>
                     </div>
                 </div>
@@ -298,17 +292,17 @@ export default function Header() {
 function CustomerDrawer(){
     return (
         <div className="custom-drawer">
-            <section class="banner">
-            <label for="menu-control" class="hamburger">
-                <i class="hamburger__icon"></i>
-                <i class="hamburger__icon"></i>
-                <i class="hamburger__icon"></i>
+            <section className="banner">
+            <label htmlFor="menu-control" className="hamburger">
+                <i className="hamburger__icon"></i>
+                <i className="hamburger__icon"></i>
+                <i className="hamburger__icon"></i>
             </label>
             
-            <input type="checkbox" id="menu-control" class="menu-control"/>
-            <aside class="sidebar">
+            <input type="checkbox" id="menu-control" className="menu-control"/>
+            <aside className="sidebar">
                 
-                <nav class="sidebar__menu">
+                <nav className="sidebar__menu">
                 <NavLink to="/">{strings.Home}</NavLink>
                 <NavLink to="/catagory/house">{strings.Auctions}</NavLink>
                 <NavLink to="/about">{strings.About}</NavLink>
@@ -316,7 +310,7 @@ function CustomerDrawer(){
                 <NavLink to="/login">{strings.Login}</NavLink>
                 </nav>
                 
-                <label for="menu-control" class="sidebar__close"></label>
+                <label htmlFor="menu-control" className="sidebar__close"></label>
                 
                 <ul className="sidebar__social">
                 <li>

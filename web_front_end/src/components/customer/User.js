@@ -21,11 +21,11 @@ export default function User() {
           
           const follow = () => {
             target.clicked += 1;
-            target.btn.innerHTML = 'Following <i class="fas fa-user-times"></i>';
+            target.btn.innerHTML = 'Following <i className="fas fa-user-times"></i>';
           
             if (target.clicked % 2 === 0) {
               target.currentFollowers -= 1;
-              target.btn.innerHTML = 'Follow <i class="fas fa-user-plus"></i>';
+              target.btn.innerHTML = 'Follow <i className="fas fa-user-plus"></i>';
             }
             else {
               target.currentFollowers += 1;
@@ -122,11 +122,11 @@ export default function User() {
                         
                         <div className="ds-info">
                             <div className="ds pens">
-                            <h6 title="Number of pens created by the user">Bids <i class="fas fa-edit"></i></h6>
+                            <h6 title="Number of pens created by the user">Bids <i className="fas fa-edit"></i></h6>
                             <p>29</p>
                             </div>
                             <div className="ds projects">
-                            <h6 title="Number of projects created by the user">Posts <i class="fas fa-project-diagram"></i></h6>
+                            <h6 title="Number of projects created by the user">Posts <i className="fas fa-project-diagram"></i></h6>
                             <p>12</p>
                             </div>
                             <div className="ds posts">
@@ -134,8 +134,8 @@ export default function User() {
                             <p>20</p>
                             </div>
                         </div>
-                        <div class="ds-skill">
-                            <h6>Activities<i class="fa fa-code" aria-hidden="true"></i></h6>
+                        <div className="ds-skill">
+                            <h6>Activities<i className="fa fa-code" aria-hidden="true"></i></h6>
                             <div className="skill html">
                             <h6><i className="fab fa-html5"></i> Total Auction </h6>
                             <div className="bar bar-html">
@@ -155,9 +155,6 @@ export default function User() {
                             </div>
                             </div>
                         </div>
-                        {/* <div class="button">
-                                <a href="#" class="btn" onmousedown="follow();">Create Auction <i class="fas fa-user-plus"></i></a>
-                        </div> */}
                         </div>
                     </div>
                     {renderComponents()}
@@ -172,98 +169,98 @@ export default function User() {
 function BidTable(){
     return(
         <div className="bidTable">
-            <div class="table">
-                <div class="table-cell"></div>
-                <div class="table-cell plattform">
+            <div className="table">
+                <div className="table-cell"></div>
+                <div className="table-cell plattform">
                     <h3>Wins</h3>
-                    <a href="" class="btn">Wins</a>
+                    <a href="" className="btn">Wins</a>
                 </div>
-                <div class="table-cell enterprise">
+                <div className="table-cell enterprise">
                     <h3>Loses</h3>
-                    <a href="" class="btn">Loses</a>
+                    <a href="" className="btn">Loses</a>
                 </div>
-                <div class="table-cell cell-feature">Land</div>
-                <div class="table-cell">
-                    <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                <div className="table-cell cell-feature">Land</div>
+                <div className="table-cell">
+                    <svg width="18" height="18" viewBox="0 0 18 18" xmlns="#">
                     <title>check_blue</title>
-                    <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fill-rule="evenodd"/>
+                    <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd"/>
                     </svg>
                 </div>
-                <div class="table-cell">
-                    <svg class="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                <div className="table-cell">
+                    <svg className="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="#">
                     <title>check_blue</title>
-                    <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fill-rule="evenodd"/>
+                    <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd"/>
                     </svg>
                 </div>
-                <div class="table-cell cell-feature">Car</div>
-                <div class="table-cell">
-                    <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                <div className="table-cell cell-feature">Car</div>
+                <div className="table-cell">
+                    <svg width="18" height="18" viewBox="0 0 18 18" xmlns="#">
                     <title>check_blue</title>
-                    <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fill-rule="evenodd"/>
+                    <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd"/>
                     </svg>
                 </div>
-                <div class="table-cell">
-                    <svg class="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                <div className="table-cell">
+                    <svg className="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="#">
                     <title>check_blue</title>
-                    <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fill-rule="evenodd"/>
+                    <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd"/>
                     </svg>
                 </div>
-                <div class="table-cell cell-feature">Land</div>
-                <div class="table-cell">
-                    <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                <div className="table-cell cell-feature">Land</div>
+                <div className="table-cell">
+                    <svg width="18" height="18" viewBox="0 0 18 18" xmlns="#">
                     <title>check_blue</title>
-                    <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fill-rule="evenodd"/>
+                    <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd"/>
                     </svg>
                 </div>
-                <div class="table-cell">
-                    <svg class="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                <div className="table-cell">
+                    <svg className="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="#">
                     <title>check_blue</title>
-                    <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fill-rule="evenodd"/>
+                    <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd"/>
                     </svg>
                 </div>
-                <div class="table-cell cell-feature">Road Constraction</div>
-                <div class="table-cell">
-                    <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                <div className="table-cell cell-feature">Road Constraction</div>
+                <div className="table-cell">
+                    <svg width="18" height="18" viewBox="0 0 18 18" xmlns="#">
                     <title>check_blue</title>
-                    <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fill-rule="evenodd"/>
+                    <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd"/>
                     </svg>
                 </div>
-                <div class="table-cell">
-                    <svg class="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                <div className="table-cell">
+                    <svg className="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="#">
                     <title>check_blue</title>
-                    <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fill-rule="evenodd"/>
+                    <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd"/>
                     </svg>
                 </div>
-                <div class="table-cell cell-feature">Mobile Phone</div>
-                <div class="table-cell"></div>
-                <div class="table-cell">
-                    <svg class="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                <div className="table-cell cell-feature">Mobile Phone</div>
+                <div className="table-cell"></div>
+                <div className="table-cell">
+                    <svg className="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="#">
                     <title>check_blue</title>
                     <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen"/>
                     </svg>
                 </div>
-                <div class="table-cell cell-feature">Farm Land</div>
-                <div class="table-cell"></div>
-                <div class="table-cell">
-                    <svg class="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                <div className="table-cell cell-feature">Farm Land</div>
+                <div className="table-cell"></div>
+                <div className="table-cell">
+                    <svg className="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="#">
                     <title>check_blue</title>
-                    <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fill-rule="evenodd"/>
+                    <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd"/>
                     </svg>
                 </div>
-                <div class="table-cell cell-feature">Car</div>
-                <div class="table-cell"></div>
-                <div class="table-cell">
-                    <svg class="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                <div className="table-cell cell-feature">Car</div>
+                <div className="table-cell"></div>
+                <div className="table-cell">
+                    <svg className="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="#">
                     <title>check_blue</title>
-                    <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fill-rule="evenodd"/>
+                    <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd"/>
                     </svg>
                 </div>
-                <div class="table-cell cell-feature">House</div>
-                <div class="table-cell"></div>
-                <div class="table-cell">
-                    <svg class="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                <div className="table-cell cell-feature">House</div>
+                <div className="table-cell"></div>
+                <div className="table-cell">
+                    <svg className="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="#">
                     <title>check_blue</title>
-                    <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fill-rule="evenodd"/>
+                    <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd"/>
                     </svg>
                 </div>
                 </div>
@@ -276,7 +273,7 @@ function AuctionsTable(){
         <div className="auctionTable">
         <section>
             <h1>My Auction</h1>
-            <div class="tbl-header">
+            <div className="tbl-header">
                 <table cellpadding="0" cellspacing="0" border="0">
                 <thead>
                     <tr>
@@ -289,7 +286,7 @@ function AuctionsTable(){
                 </thead>
                 </table>
             </div>
-            <div class="tbl-content">
+            <div className="tbl-content">
                 <table cellpadding="0" cellspacing="0" border="0">
                 <tbody>
                     <tr>
@@ -520,7 +517,7 @@ function AuctionsTable(){
                 </table>
             </div>
             </section>
-            <div class="made-with-love">
+            <div className="made-with-love">
             M3K Auction
             <i>♥</i> 21/12/11
             <a target="" href="3">Thank you</a>
@@ -532,11 +529,13 @@ function AuctionsTable(){
 
 function Notification(){
     return(
-        <div>
-            <Alert severity="error">This is an error alert — check it out!</Alert>
-            <Alert severity="warning">This is a warning alert — check it out!</Alert>
-            <Alert severity="info">This is an info alert — check it out!</Alert>
-            <Alert severity="success">This is a success alert — check it out!</Alert>
+        <div style={{
+            marginLeft:"100px"
+        }}>
+            <Alert  style={{marginBottom:'10px'}} severity="error">This is an error alert — check it out!</Alert>
+            <Alert style={{marginBottom:'10px'}} severity="warning">This is a warning alert — check it out!</Alert>
+            <Alert style={{marginBottom:'10px'}} severity="info">This is an info alert — check it out!</Alert>
+            <Alert style={{marginBottom:'10px'}} severity="success">This is a success alert — check it out!</Alert>
         </div>
     );
 }
@@ -544,98 +543,98 @@ function Notification(){
 function Win(){
     return(
         <div className="bidTable">
-        <div class="table">
-            <div class="table-cell"></div>
-            <div class="table-cell plattform">
+        <div className="table">
+            <div className="table-cell"></div>
+            <div className="table-cell plattform">
                 <h3>Wins</h3>
-                <a href="" class="btn">Wins</a>
+                <a href="" className="btn">Wins</a>
             </div>
-            <div class="table-cell enterprise">
+            <div className="table-cell enterprise">
                 <h3>Loses</h3>
-                <a href="" class="btn">Loses</a>
+                <a href="" className="btn">Loses</a>
             </div>
-            <div class="table-cell cell-feature">Land</div>
-            <div class="table-cell">
-                <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+            <div className="table-cell cell-feature">Land</div>
+            <div className="table-cell">
+                <svg width="18" height="18" viewBox="0 0 18 18" xmlns="#">
                 <title>check_blue</title>
-                <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fill-rule="evenodd"/>
+                <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd"/>
                 </svg>
             </div>
-            <div class="table-cell">
-                <svg class="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+            <div className="table-cell">
+                <svg className="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="#">
                 <title>check_blue</title>
-                <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fill-rule="evenodd"/>
+                <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd"/>
                 </svg>
             </div>
-            <div class="table-cell cell-feature">Car</div>
-            <div class="table-cell">
-                <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+            <div className="table-cell cell-feature">Car</div>
+            <div className="table-cell">
+                <svg width="18" height="18" viewBox="0 0 18 18" xmlns="#">
                 <title>check_blue</title>
-                <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fill-rule="evenodd"/>
+                <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd"/>
                 </svg>
             </div>
-            <div class="table-cell">
-                <svg class="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+            <div className="table-cell">
+                <svg className="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="#">
                 <title>check_blue</title>
-                <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fill-rule="evenodd"/>
+                <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd"/>
                 </svg>
             </div>
-            <div class="table-cell cell-feature">Land</div>
-            <div class="table-cell">
-                <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+            <div className="table-cell cell-feature">Land</div>
+            <div className="table-cell">
+                <svg width="18" height="18" viewBox="0 0 18 18" xmlns="#">
                 <title>check_blue</title>
-                <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fill-rule="evenodd"/>
+                <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd"/>
                 </svg>
             </div>
-            <div class="table-cell">
-                <svg class="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+            <div className="table-cell">
+                <svg className="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="#">
                 <title>check_blue</title>
-                <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fill-rule="evenodd"/>
+                <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd"/>
                 </svg>
             </div>
-            <div class="table-cell cell-feature">Road Constraction</div>
-            <div class="table-cell">
-                <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+            <div className="table-cell cell-feature">Road Constraction</div>
+            <div className="table-cell">
+                <svg width="18" height="18" viewBox="0 0 18 18" xmlns="#">
                 <title>check_blue</title>
-                <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fill-rule="evenodd"/>
+                <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd"/>
                 </svg>
             </div>
-            <div class="table-cell">
-                <svg class="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+            <div className="table-cell">
+                <svg className="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="#">
                 <title>check_blue</title>
-                <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fill-rule="evenodd"/>
+                <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd"/>
                 </svg>
             </div>
-            <div class="table-cell cell-feature">Mobile Phone</div>
-            <div class="table-cell"></div>
-            <div class="table-cell">
-                <svg class="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+            <div className="table-cell cell-feature">Mobile Phone</div>
+            <div className="table-cell"></div>
+            <div className="table-cell">
+                <svg className="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="#">
                 <title>check_blue</title>
                 <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen"/>
                 </svg>
             </div>
-            <div class="table-cell cell-feature">Farm Land</div>
-            <div class="table-cell"></div>
-            <div class="table-cell">
-                <svg class="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+            <div className="table-cell cell-feature">Farm Land</div>
+            <div className="table-cell"></div>
+            <div className="table-cell">
+                <svg className="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="#">
                 <title>check_blue</title>
-                <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fill-rule="evenodd"/>
+                <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd"/>
                 </svg>
             </div>
-            <div class="table-cell cell-feature">Car</div>
-            <div class="table-cell"></div>
-            <div class="table-cell">
-                <svg class="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+            <div className="table-cell cell-feature">Car</div>
+            <div className="table-cell"></div>
+            <div className="table-cell">
+                <svg className="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="#">
                 <title>check_blue</title>
-                <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fill-rule="evenodd"/>
+                <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd"/>
                 </svg>
             </div>
-            <div class="table-cell cell-feature">House</div>
-            <div class="table-cell"></div>
-            <div class="table-cell">
-                <svg class="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+            <div className="table-cell cell-feature">House</div>
+            <div className="table-cell"></div>
+            <div className="table-cell">
+                <svg className="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="#">
                 <title>check_blue</title>
-                <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fill-rule="evenodd"/>
+                <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd"/>
                 </svg>
             </div>
             </div>
