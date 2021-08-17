@@ -10,11 +10,13 @@ import 'aos/dist/aos.css'
 import {strings} from '../../language/language';
 import {useSelector} from 'react-redux'
 import { string } from 'prop-types'
+import ScrollToTop from '../../scrollTop/ScrollToTop'
 
 export default function About() {
     const lang=useSelector((state)=>state.LanguageReducer.language)
+    
     React.useEffect(()=>{
-
+        
     },[lang]);
     useEffect(()=>{
         Aos.init({duration:2000})
@@ -22,6 +24,7 @@ export default function About() {
     return (
 
         <div>
+            <ScrollToTop/>
             <Header/>
                 <div className="spaceProvider">
 

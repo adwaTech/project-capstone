@@ -22,6 +22,7 @@ import {
 import {
     Link
 } from 'react-router-dom'
+import ScrollToTop from '../../scrollTop/ScrollToTop';
 const useStyles=makeStyles({
     catagoryBtn:{
         borderColor:"#5C7795"
@@ -35,6 +36,7 @@ export default function Home() {
     },[lang]);
     return (
         <div className="home">
+            <ScrollToTop/>
             <Header/>
             <div className="svgimage">
                 <img src={WaveImage} alt=""/>

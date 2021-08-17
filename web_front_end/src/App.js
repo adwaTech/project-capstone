@@ -20,6 +20,7 @@ import Government from './components/Auctions/AuctionCatagories/Governments';
 import Service from './components/Auctions/AuctionCatagories/Service';
 import Catagoryindex from './components/Auctions/AuctionCatagories/CatagoryIndex'
 import User from './components/customer/User';
+import ScrollToTop from './scrollTop/ScrollToTop';
 
 function App() {
   const [sideToggle,setSideToggle]=React.useState(false)
@@ -29,6 +30,7 @@ function App() {
       
       <Router>
       <Drawer />
+      <ScrollToTop/>
           <Switch>
               <Route exact  path="/" component={Home}/>
               <Route exact  path="/home" component={Home}/>

@@ -13,7 +13,7 @@ export default function Footer() {
                 <div className="footer-col">
                     <h4>company</h4>
                     <ul>
-                        <li><Link >about us</Link></li>
+                        <li><Link to='/about'>about us</Link></li>
                         <li><Link >our services</Link></li>
                         <li><Link >privacy policy</Link></li>
                         <li><Link >Ethiopian </Link></li>
