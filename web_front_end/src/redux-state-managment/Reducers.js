@@ -25,7 +25,13 @@ let initialState={
     bid:{},
     biderror:'',
     bidstatus:'',
-    bidstatusText:''
+    bidstatusText:'',
+    // search
+    auctionsWithName: [],
+    auctionsWithCategory: [],
+    cities: [],
+    usersWithFirstName: [],
+    usersWithLastName: []
 }
 
 export const AccountReducer=(state=initialState,action)=>{
@@ -36,7 +42,7 @@ export const AccountReducer=(state=initialState,action)=>{
                 var time = now.getTime();
                 var expireTime = time + 1000*36000;
                 now.setTime(expireTime);
-                document.cookie = `user=${action.payload.data.user}; token=${action.payload.data.token} ; expires=${now.toUTCString()}; path=/`;
+                document.cookie = `user=${action.payload.user}; token=${action.payload.data.token} ; expires=${now.toUTCString()}; path=/`;
                 return{
                     ...state,
                     user:action.payload.data.user,
@@ -152,7 +158,6 @@ export const AuctionsReducer=(state=initialState,action)=>{
 export const bidAuctionReducer=(state=initialState,action)=>{
     switch(action.type){
         case Constant.BID_AUCTION:
-            console.log(action.payload);
             if(action.payload.status===200){
                 return{
                     ...state,
@@ -176,6 +181,24 @@ export const bidAuctionReducer=(state=initialState,action)=>{
                     bidstatus:action.payload.status,
                     bidstatusText:action.payload.statusText
                 }
+            }
+        default:
+            return {
+                ...state
+            }
+    }
+
+}
+export const SearchAuctionReducer=(state=initialState,action)=>{
+    switch(action.type){
+        case Constant.SEARCH_AUCTION:
+            return{
+                ...state,
+                auctionsWithName: action.payload.auctionsWithName,
+                auctionsWithCategory: action.payload.auctionsWithCategory,
+                cities: action.payload.cities,
+                usersWithFirstName: action.payload.usersWithFirstName,
+                usersWithLastName: action.payload.usersWithLastName
             }
         default:
             return {

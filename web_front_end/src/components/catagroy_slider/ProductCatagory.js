@@ -114,11 +114,9 @@ export default function Products() {
     const biderror = useSelector((state) => state.bidAuctionReducer.biderror);
     const bidstatusText = useSelector((state) => state.bidAuctionReducer.bidstatusText);
     const bid = useSelector((state) => state.bidAuctionReducer.bid);
-    console.log(bidstatus);
-    console.log(biderror);
-
+    
     const lang = useSelector((state) => state.LanguageReducer.language);
-    console.log(latestAuction);
+    
     React.useEffect(() => {
 
     }, [lang]);
@@ -305,7 +303,6 @@ export default function Products() {
                 <Dialog
                     open={open_bid_dialog}
                 >
-                        {console.log(data)}
                     <DialogTitle onClose={() => setOpen_bid_dialog(!open_bid_dialog)}>
                         Bid For An Auction
                     </DialogTitle>
@@ -459,7 +456,7 @@ export default function Products() {
                                     <h5>Condition:</h5> <Typography variant="subtitle2">{data.condition}</Typography>
                                 </div>
                                 <div >
-                                    {/* <h5>Number of Bids:</h5> <Typography variant="subtitle2">{data.proposals.length}</Typography> */}
+                                    <h5>Number of Bids:</h5> <Typography variant="subtitle2">{data.proposals?data.proposals.length:0}</Typography>
                                 </div>
                                 <Typography  >
                                     <h5>Approval:</h5> <Typography variant="subtitle2">{data.approval}</Typography>
@@ -476,7 +473,14 @@ export default function Products() {
                                     alt="Product images"
                                 />
                                 <div className={classes.controls}>
-                                    <Button fullWidth variant="contained" color="primary">Bid</Button>
+                                    <Button
+                                    onClick={
+                                        () => {
+                                            setOpen(false);
+                                            setOpen_bid_dialog(!open);
+                                        }
+                                    } 
+                                    fullWidth variant="contained" color="primary">Bid</Button>
                                 </div>
                             </div>
                         </Card>

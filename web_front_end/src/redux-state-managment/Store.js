@@ -6,7 +6,8 @@ import {
     LanguageReducer,
     PostAuctionReducer,
     AuctionsReducer,
-    bidAuctionReducer
+    bidAuctionReducer,
+    SearchAuctionReducer
 } from './Reducers';
 
 
@@ -18,6 +19,7 @@ const reducer = combineReducers({
     PostAuctionReducer,
     AuctionsReducer,
     bidAuctionReducer,
+    SearchAuctionReducer
 });
 
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(...middleware)));

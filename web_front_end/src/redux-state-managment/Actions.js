@@ -189,3 +189,16 @@ export const BidAuctionAction=(userData,token)=>async (dispatch)=>{
          payload:response,
      })
  }
+ export const SearchAuctionAction=(userData)=>async (dispatch)=>{
+    const response = await axios.get(`http://localhost:5000/search`,{
+        params:{query:userData}
+    },{
+        validateStatus:function (status){
+            return status<600
+        }
+    })
+     dispatch({
+         type:Constant.SEARCH_AUCTION,
+         payload:response.data,
+     })
+ }
