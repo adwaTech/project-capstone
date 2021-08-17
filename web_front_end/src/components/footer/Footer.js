@@ -13,20 +13,19 @@ export default function Footer() {
                     <h4>company</h4>
                     <ul>
                         <li><Link to='/about'>about us</Link></li>
-                        <li><Link >our services</Link></li>
-                        <li><Link >privacy policy</Link></li>
-                        <li><Link >Ethiopian </Link></li>
+                        <li><Link to='/our-services'>our services</Link></li>
+                        <li><Link to='/privacy-policy'>privacy policy</Link></li>
  
                     </ul>
                 </div>
                 <div className="footer-col">
                     <h4>get help</h4>
                     <ul>
-                        <li><Link to="">FAQ</Link></li>
-                        <li><Link to="">How to post</Link></li>
-                        <li><Link to="">How to Bid</Link></li>
-                        <li><Link to="">Manage Access</Link></li>
-                        <li><Link to="">payment options</Link></li>
+                        <li><Link to="frequently-asked-questions">FAQ</Link></li>
+                        <li><Link to="how-to-post">How to post</Link></li>
+                        <li><Link to="how-to-bid">How to Bid</Link></li>
+                        <li><Link to="register">Create Account</Link></li>
+                        <li><Link to="payment-options">payment options</Link></li>
                     </ul>
                 </div>
                 <div className="footer-col">
