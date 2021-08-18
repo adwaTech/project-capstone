@@ -284,6 +284,21 @@
 .smoll-screen{
     display: none;
 }
+
+.searched-auction{
+  display: flex;
+  flex-direction: row;
+  margin-left: 0px;
+  margin-right: 0px;
+  padding-right: 30px;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+.searched-auction span{
+  padding-left: 30px;
+}
+
 @media (max-width:920px){
 
     .header-front{

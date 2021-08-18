@@ -27,6 +27,7 @@ import Search from "@material-ui/icons/Search";
 import CustomInput from "../../components/dashboard/admin_dashboard/components/CustomInput/CustomInput.js";
 import Button1 from "../../components/dashboard/admin_dashboard/components/CustomButtons/Button.js";
 import styles from "../../components/dashboard/admin_dashboard/assets/jss/material-dashboard-react/components/headerLinksStyle.js";
+import Timer from 'react-compound-timer';
 
 
 import {
@@ -35,38 +36,19 @@ import {
 import ArrowDownward from '@material-ui/icons/ExpandMore';
 import { useSelector, useDispatch } from 'react-redux';
 
+
 import Badge from '@material-ui/core/Badge';
 import Avatar from '@material-ui/core/Avatar';
 
 
-// const StyledBadge = withStyles((theme) => ({
-//   badge: {
-//     backgroundColor: '#44b700',
-//     color: '#44b700',
-//     boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
-//     '&::after': {
-//       position: 'absolute',
-//       top: 0,
-//       left: 0,
-//       width: '100%',
-//       height: '100%',
-//       borderRadius: '50%',
-//       animation: '$ripple 1.2s infinite ease-in-out',
-//       border: '1px solid currentColor',
-//       content: '""',
-//     },
-//   },
-//   '@keyframes ripple': {
-//     '0%': {
-//       transform: 'scale(.8)',
-//       opacity: 1,
-//     },
-//     '100%': {
-//       transform: 'scale(2.4)',
-//       opacity: 0,
-//     },
-//   },
-// }))(Badge);
+const StyledBadge = withStyles((theme) => ({
+    badge: {
+        right: -3,
+        top: 13,
+        border: `2px solid ${theme.palette.background.paper}`,
+        padding: '0 4px',
+    },
+}))(Badge);
 
 const SmallAvatar = withStyles((theme) => ({
     root: {
@@ -118,6 +100,18 @@ const useStyles = makeStyles((theme) => ({
     },
     loginbtn: {
         marginTop: -30,
+    },
+    large: {
+        width: theme.spacing(7),
+        height: theme.spacing(7),
+    },
+    popper: {
+        position: "fixed",
+        right: 100,
+        top: 100,
+        width: 460,
+        height: 400,
+        overflowY: "scroll"
     }
 }));
 
@@ -127,17 +121,6 @@ const auctionCategory = [strings.Land, strings.House, strings.Car, , 'service', 
 export default function Header() {
     const classes1 = useStyles1();
     const [openNotification, setOpenNotification] = React.useState(null);
-
-    const handleClickNotification = (event) => {
-        if (openNotification && openNotification.contains(event.target)) {
-          setOpenNotification(null);
-        } else {
-          setOpenNotification(event.currentTarget);
-        }
-      };
-    const handleCloseNotification = () => {
-    setOpenNotification(null);
-    };
 
     const dispatch = useDispatch();
     const classes = useStyles();
@@ -165,14 +148,40 @@ export default function Header() {
     const cities = useSelector((state) => state.SearchAuctionReducer.cities);
     const usersWithFirstName = useSelector((state) => state.SearchAuctionReducer.usersWithFirstName);
     const usersWithLastName = useSelector((state) => state.SearchAuctionReducer.usersWithLastName);
-    console.log(auctionsWithName);
-    console.log(auctionsWithCategory);
-    console.log(cities);
-    console.log(usersWithFirstName);
-    console.log(usersWithLastName)
 
+    let searchItem = auctionsWithCategory.length
+        + auctionsWithName.length
+        + cities.length
+        + usersWithFirstName.length
+        + usersWithLastName.length;
+    console.log(usersWithLastName);
+    console.log(usersWithFirstName);
+    console.log(cities);
+    console.log(auctionsWithCategory);
+    console.log(auctionsWithName)
     const [Lang, setLang] = React.useState('en');
     const [searchitem, setSearchitem] = React.useState('')
+
+
+
+    const handleClickNotification = async (event) => {
+
+        if (openNotification && openNotification.contains(event.target)) {
+            setOpenNotification(null);
+        } else {
+            setOpenNotification(event.currentTarget);
+            await dispatch(SearchAuctionAction(searchitem));
+            setSearchitem('');
+        }
+    };
+    const handleCloseNotification = () => {
+        setOpenNotification(null);
+    };
+    function timer(end) {
+        const date = new Date(end.toString()).getTime();
+        const now = new Date().getTime();
+        return date - now
+    }
     return (
         <div className="nav-header">
             <div className="smoll-screen">
@@ -323,87 +332,177 @@ export default function Header() {
                                 </li>
                             </ul>
                         </div>
-                        
+
                         <div className="search-box">
                             {/* button */}
-                        <div className="btn-search">
-                            <Button1
-                                color={window.innerWidth > 959 ? "transparent" : "white"}
-                                justIcon={window.innerWidth > 959}
-                                simple={!(window.innerWidth > 959)}
-                                aria-owns={openNotification ? "notification-menu-list-grow" : null}
-                                aria-haspopup="true"
-                                onClick={handleClickNotification}
-                                className={classes1.buttonLink}
-                            >
-                                <SearchIcon className={classes1.icons} />
-                                <span className={classes1.notifications}>5</span>
-                                <Hidden mdUp implementation="css">
-                                    <p onClick={handleCloseNotification} className={classes1.linkText}>
-                                        Notification
-                                    </p>
-                                </Hidden>
-                            </Button1>
-                            <Poppers
-                                open={Boolean(openNotification)}
-                                anchorEl={openNotification}
-                                transition
-                                disablePortal
-                                className={
-                                    classNames({ [classes1.popperClose]: !openNotification }) +
-                                    " " +
-                                    classes1.popperNav
-                                }
-                            >
-                                {({ TransitionProps, placement }) => (
-                                    <Grow
-                                        {...TransitionProps}
-                                        id="notification-menu-list-grow"
-                                        style={{
-                                            transformOrigin:
-                                                placement === "bottom" ? "center top" : "center bottom",
-                                        }}
-                                    >
-                                        <Paper>
-                                            <ClickAwayListener onClickAway={handleCloseNotification}>
-                                                <MenuList role="menu">
-                                                    <MenuItem
-                                                        onClick={handleCloseNotification}
-                                                        className={classes1.dropdownItem}
-                                                    >
-                                                        Mike John responded to your email
-                                                    </MenuItem>
-                                                    <MenuItem
-                                                        onClick={handleCloseNotification}
-                                                        className={classes1.dropdownItem}
-                                                    >
-                                                        You have 5 new tasks
-                                                    </MenuItem>
-                                                    <MenuItem
-                                                        onClick={handleCloseNotification}
-                                                        className={classes1.dropdownItem}
-                                                    >
-                                                        You{"'"}re now friend with Andrew
-                                                    </MenuItem>
-                                                    <MenuItem
-                                                        onClick={handleCloseNotification}
-                                                        className={classes1.dropdownItem}
-                                                    >
-                                                        Another Notification
-                                                    </MenuItem>
-                                                    <MenuItem
-                                                        onClick={handleCloseNotification}
-                                                        className={classes1.dropdownItem}
-                                                    >
-                                                        Another One
-                                                    </MenuItem>
-                                                </MenuList>
-                                            </ClickAwayListener>
-                                        </Paper>
-                                    </Grow>
-                                )}
-                            </Poppers>
-                        </div>
+                            <div className="btn-search">
+                                <Button1
+                                    color={window.innerWidth > 959 ? "transparent" : "white"}
+                                    justIcon={window.innerWidth > 959}
+                                    simple={!(window.innerWidth > 959)}
+                                    aria-owns={openNotification ? "notification-menu-list-grow" : null}
+                                    aria-haspopup="true"
+                                    onClick={handleClickNotification}
+                                    className={classes1.buttonLink}
+                                >
+                                    <SearchIcon className={classes1.icons} />
+                                    {searchItem == 0 ? null : <span className={classes1.notifications}>{searchItem}</span>}
+                                    <Hidden mdUp implementation="css">
+                                        <p onClick={handleCloseNotification} className={classes1.linkText}>
+                                            search
+                                        </p>
+                                    </Hidden>
+                                </Button1>
+                                <Poppers
+                                    open={Boolean(openNotification)}
+                                    anchorEl={openNotification}
+                                    transition
+                                    disablePortal
+                                    // className={
+                                    //     classNames({ [classes1.popperClose]: !openNotification }) +
+                                    //     " " +
+                                    //     classes1.popperNav
+                                    // }
+                                    className={classes.popper}
+                                >
+                                    {({ TransitionProps, placement }) => (
+                                        <Grow
+                                            {...TransitionProps}
+                                            id="notification-menu-list-grow"
+                                            style={{
+                                                transformOrigin:
+                                                    "center bottom",
+                                            }}
+                                        >
+                                            <Paper>
+                                                <ClickAwayListener onClickAway={handleCloseNotification}>
+                                                    <MenuList role="menu">
+
+                                                        {
+                                                            auctionsWithName.map(auction => (
+                                                                <Link to={`/search/${auction._id}`}>
+                                                                    <MenuItem
+                                                                        key={auction._id}
+                                                                        onClick={handleCloseNotification}
+                                                                        className={classes1.dropdownItem}
+                                                                    >
+                                                                        <div className="searched-auction">
+                                                                            {auction.images ? <Avatar alt="" src={`http://localhost:5000/${auction.images[0]}`} className={classes.large} /> : null}
+                                                                            <span>{auction.auctionName}</span>
+                                                                            <span>{auction.auctionType}</span>
+                                                                            &nbsp;
+                                                                            <Timer
+                                                                                initialTime={timer(auction.deadline)}
+                                                                                lastUnit="d"
+                                                                                direction="backward"
+                                                                            >
+                                                                                {() => (
+                                                                                    <React.Fragment>
+                                                                                        <Timer.Days /> D	&nbsp;
+                                                                                        <Timer.Hours /> H	&nbsp;
+                                                                                        <Timer.Minutes /> M	&nbsp;
+                                                                                        <Timer.Seconds /> S	&nbsp;
+                                                                                    </React.Fragment>
+                                                                                )}
+                                                                            </Timer>
+                                                                            &nbsp;
+                                                                            {auction.status === "ended"
+                                                                                ? <StyledBadge badgeContent="ended" color="secondary">
+                                                                                </StyledBadge>
+                                                                                : <StyledBadge badgeContent="pending" color="primary">
+                                                                                </StyledBadge>}
+
+                                                                        </div>
+                                                                    </MenuItem>
+
+                                                                </Link>
+                                                            ))
+                                                        }
+                                                        {
+                                                            auctionsWithCategory.map(auction => (
+                                                                <MenuItem
+                                                                    key={auction._id}
+                                                                    onClick={handleCloseNotification}
+                                                                    className={classes1.dropdownItem}
+                                                                >
+                                                                    <div className="searched-auction">
+                                                                        {auction.images ? <Avatar alt="" src={`http://localhost:5000/${auction.images[0]}`} className={classes.large} /> : null}
+                                                                        <span>{auction.auctionName}</span>
+                                                                        <span>{auction.auctionType}</span>
+                                                                        &nbsp;
+                                                                        <Timer
+                                                                            initialTime={timer(auction.deadline)}
+                                                                            lastUnit="d"
+                                                                            direction="backward"
+                                                                        >
+                                                                            {() => (
+                                                                                <React.Fragment>
+                                                                                    <Timer.Days /> D	&nbsp;
+                                                                                    <Timer.Hours /> H	&nbsp;
+                                                                                    <Timer.Minutes /> M	&nbsp;
+                                                                                    <Timer.Seconds /> S	&nbsp;
+                                                                                </React.Fragment>
+                                                                            )}
+                                                                        </Timer>
+                                                                        &nbsp;
+                                                                        {auction.status === "ended"
+                                                                            ? <StyledBadge badgeContent="ended" color="secondary">
+                                                                            </StyledBadge>
+                                                                            : <StyledBadge badgeContent="pending" color="primary">
+                                                                            </StyledBadge>}
+                                                                    </div>
+                                                                </MenuItem>
+                                                            ))
+                                                        }
+                                                        {
+                                                            cities.map(auction => (
+                                                                <MenuItem
+                                                                    key={auction._id}
+                                                                    onClick={handleCloseNotification}
+                                                                    className={classes1.dropdownItem}
+                                                                >
+                                                                    <div className="searched-auction">
+                                                                        <Avatar alt="" src={`http://localhost:5000/${auction.profileImage}`} className={classes.large} />
+                                                                        <span>{auction.city}</span>
+                                                                    </div>
+                                                                </MenuItem>
+                                                            ))
+                                                        }
+                                                        {
+                                                            usersWithFirstName.map(auction => (
+                                                                <MenuItem
+                                                                    key={auction._id}
+                                                                    onClick={handleCloseNotification}
+                                                                    className={classes1.dropdownItem}
+                                                                >
+                                                                    <div className="searched-auction">
+                                                                        <Avatar alt="" src={`http://localhost:5000/${auction.profileImage}`} className={classes.large} />
+                                                                        <span>{auction.firstName}&nbsp;{auction.lastName}</span>
+                                                                    </div>
+                                                                </MenuItem>
+                                                            ))
+                                                        }
+                                                        {
+                                                            usersWithLastName.map(auction => (
+                                                                <MenuItem
+                                                                    key={auction._id}
+                                                                    onClick={handleCloseNotification}
+                                                                    className={classes1.dropdownItem}
+                                                                >
+                                                                    <div className="searched-auction">
+                                                                        <Avatar alt="" src={`http://localhost:5000/${auction.profileImage}`} className={classes.large} />
+                                                                        <span>{auction.firstName}&nbsp;{auction.lastName}</span>
+                                                                    </div>
+                                                                </MenuItem>
+                                                            ))
+                                                        }
+                                                    </MenuList>
+                                                </ClickAwayListener>
+                                            </Paper>
+                                        </Grow>
+                                    )}
+                                </Poppers>
+                            </div>
 
                             {/* <button
                                 onClick={async () => {
