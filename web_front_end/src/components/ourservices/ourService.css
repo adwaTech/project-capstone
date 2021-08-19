@@ -6,6 +6,7 @@
     justify-content: center;
     justify-items: center;
     text-align: center;
+    padding-bottom: 100px;
 }
 .ourServicesTitle
 {
@@ -19,7 +20,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    margin-top: 100px;
+    margin-top: 70px;
 }
 .ourServiceGridTitles
 {
@@ -34,7 +35,7 @@
     font-family: cursive;
     text-align: left;
     opacity: 0.7;
-
+   
 }
 @media screen and (max-width:700px) {
     .ourServiceGrids
@@ -47,4 +48,8 @@
 .serviceOF
 {
     max-width: 400px;
+    background-color: rgb(247, 247, 247);
+    border-radius: 3px;
+    padding: 10px;
+    padding-top: 20px;
 }
