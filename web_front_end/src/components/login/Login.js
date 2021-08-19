@@ -13,17 +13,12 @@ import { makeStyles,CircularProgress, Dialog } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
-import {useDispatch,useSelector} from 'react-redux';
 import {LoginAction} from '../../redux-state-managment/Actions';
 import {Alert} from '@material-ui/lab';
 import './login.css';
-
-
+import {strings} from '../../language/language';
+import {useSelector,useDispatch} from 'react-redux';
 import {Route,Redirect} from 'react-router-dom';
-
-
-
-
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(3),
@@ -60,6 +55,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignIn() {
+  const lang=useSelector((state)=>state.LanguageReducer.language)
+  React.useEffect(()=>{
+
+  },[lang]);
   const classes = useStyles();
 
   return (
@@ -94,11 +93,11 @@ function Login({ match, history }){
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in     
+         {strings.singin}   
         </Typography>
         {
             error
-            ?<Alert severity="error">status :{status} <br/>statusText:{statusText} <br/> error:{error}</Alert>
+            ?<Alert severity="error">status :{status} <br/>{strings.statustext}:{statusText} <br/> error:{error}</Alert>
             :null
           }
           {
@@ -159,12 +158,12 @@ function Login({ match, history }){
                 }
               }
             >
-              Sign In
+            {strings.singin}
           </Button>
           <Grid container>
             <Grid item xs>
               <Link to="/forgetpassword" className={classes.donthaveaccount}  variant="body2">
-                Forgot password?
+               {strings.fortgotpassword}
               </Link>
             </Grid>
             <Grid item>

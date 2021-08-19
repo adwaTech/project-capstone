@@ -272,7 +272,8 @@ export default function Products() {
             <div className="description1" style={{ marginTop: "300px" }}>
                 <img src={Image8} alt="" />
                 <div className="description1-area">
-                    <h3>Find The Best Product </h3>
+                    <h3>{strings.FindhTBestProduct}</h3>
+                    
                     <Button className={classes.shopNow} variant="contained" color="primary">Bid Now</Button>
                 </div>
                 <img src={Image7} alt="" width="40px" height="40px" />

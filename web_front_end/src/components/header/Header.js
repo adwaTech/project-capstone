@@ -118,12 +118,13 @@ const useStyles = makeStyles((theme) => ({
 
 const useStyles1 = makeStyles(styles);
 
-const auctionCategory = [strings.Land, strings.House, strings.Car, , 'service', 'rare', 'oldies'];
 export default function Header() {
     const classes1 = useStyles1();
     const [openNotification, setOpenNotification] = React.useState(null);
 
-    const dispatch = useDispatch();
+
+    const auctionCategory= [strings.Land, strings.House, strings.Car, strings.service, strings.rare, strings.oldies];
+    const dispatch=useDispatch();
     const classes = useStyles();
     const location = useLocation();
     const [loc, setLoc] = React.useState('en');

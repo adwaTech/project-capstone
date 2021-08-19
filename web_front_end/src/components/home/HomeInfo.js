@@ -6,17 +6,23 @@ import app1 from '../../assets/images/app1.png';
 import app2 from '../../assets/images/app2.png';
 import Mobile from '../../assets/images/balazs-ketyi-6ba_vdgx_go-unsplash.jpg';
 import './info.css';
-
+import {strings} from '../../language/language';
+import {useSelector} from 'react-redux'
+import { string } from 'prop-types';
 export default function HomeInfo() {
+    const lang=useSelector((state)=>state.LanguageReducer.language)
+    React.useEffect(()=>{
+
+    },[lang]);
     return (
         <div>
             <section class="about section bd-container" id="about">
                 <div class="about__container  bd-grid">
                     <div class="about__data">
-                        <span class="section-subtitle about__initial">About us</span>
-                        <h2 class="section-title about__initial">We offer best and quality <br/> reliable Services</h2>
-                        <p class="about__description">We offer the best service  in the entire country, with excellent customer service, the best auction and at the easy process, visit us.</p>
-                        <a href="#" class="button">Explore history</a>
+                        <span class="section-subtitle about__initial">{strings.aboutUs}</span>
+                        <h2 class="section-title about__initial">{strings.des} <br/> {strings.des2}</h2>
+                        <p class="about__description">{strings.offerService}</p>
+                        <a href="#" class="button">{strings.history}</a>
                     </div>
 
                     <img src={Image1} alt="" class="about__img"/>
@@ -24,8 +30,8 @@ export default function HomeInfo() {
             </section>
 
             <section class="services section bd-container" id="services">
-                <span class="section-subtitle">Offering</span>
-                <h2 class="section-title">Our amazing services</h2>
+                <span class="section-subtitle">{strings.offering}</span>
+                <h2 class="section-title">{strings.ourservices}</h2>
 
                 <div class="services__container  bd-grid">
                     <div class="services__content">
@@ -90,8 +96,8 @@ export default function HomeInfo() {
                             16.8875 47.057C17.3045 47.4744 17.9811 47.4746 18.3984 47.0576C18.8157 
                             46.6405 18.816 45.964 18.3989 45.5466Z"/>
                         </svg>
-                        <h3 class="services__title">Excellent Service</h3>
-                        <p class="services__description">We offer our clients excellent quality services for many years, with the best and secure service in the city.</p>
+                        <h3 class="services__title">{strings.eservice}</h3>
+                        <p class="services__description">{strings.oursexelentservice}</p>
                     </div>
 
                     <div class="services__content">
@@ -247,8 +253,8 @@ export default function HomeInfo() {
                             </clipPath>
                             </defs>
                         </svg>
-                        <h3 class="services__title">Quality</h3>
-                        <p class="services__description">We offer our clients excellent quality services for many years, with the best and secure service in the country.</p>
+                        <h3 class="services__title">{strings.qulity}</h3>
+                        <p class="services__description">{strings.qulityservice}</p>
                     </div>
 
                     <div class="services__content">
@@ -303,36 +309,36 @@ export default function HomeInfo() {
                                 </clipPath>
                                 </defs>
                         </svg>
-                        <h3 class="services__title">Security</h3>
-                        <p class="services__description">We offer our clients excellent quality services for many years, with the best and secure service in the city.</p>
+                        <h3 class="services__title">{strings.security}</h3>
+                        <p class="services__description">{strings.securityservices}</p>
                     </div>
                 </div>
             </section>
             <section class="menu section bd-container" id="menu">
-                <span class="section-subtitle">Special</span>
-                <h2 class="section-title">letest products</h2>
+                <span class="section-subtitle">{strings.special}</span>
+                <h2 class="section-title">{strings.LatestProducts}</h2>
 
                 <div class="menu__container bd-grid">
                     <div class="menu__content">
                         <img src={Image1} alt="" class="about__img"/>
-                        <h3 class="menu__name">land around bole</h3>
-                        <span class="menu__detail">private</span>
+                        <h3 class="menu__name">{strings.landbole}</h3>
+                        <span class="menu__detail">{strings.private}</span>
                         <span class="menu__preci">$22M</span>
                         <a href="#" class="button menu__button"><i class='bx bx-cart-alt'></i></a>
                     </div>
 
                     <div class="menu__content">
                         <img src={Image1} alt="" class="about__img"/>
-                        <h3 class="menu__name">land around bole</h3>
-                        <span class="menu__detail">private</span>
+                        <h3 class="menu__name">{strings.landbole}</h3>
+                        <span class="menu__detail">{strings.private}</span>
                         <span class="menu__preci">$22M</span>
                         <a href="#" class="button menu__button"><i class='bx bx-cart-alt'></i></a>
                     </div>
                     
                     <div class="menu__content">
                         <img src={Image1} alt="" class="about__img"/>
-                        <h3 class="menu__name">land around bole</h3>
-                        <span class="menu__detail">private</span>
+                        <h3 class="menu__name">{strings.landbole}</h3>
+                        <span class="menu__detail">{strings.private}</span>
                         <span class="menu__preci">$22M</span>
                         <a href="#" class="button menu__button"><i class='bx bx-cart-alt'></i></a>
                     </div>
@@ -342,9 +348,9 @@ export default function HomeInfo() {
             <section class="app section bd-container">
                 <div class="app__container bd-grid">
                     <div class="app__data">
-                        <span class="section-subtitle app__initial">App</span>
-                        <h2 class="section-title app__initial">App is aviable</h2>
-                        <p class="app__description">Find our application and download it, you can make bids, post auctions, see your deliveries on the way and much more.</p>
+                        <span class="section-subtitle app__initial">{strings.app}</span>
+                        <h2 class="section-title app__initial">{strings.appavailable}</h2>
+                        <p class="app__description">{strings.findandDownload}</p>
                         <div class="app__stores">
                             <a href="#"><img src={app1} alt="" class="about__img"/></a>
                             <a href="#"><img src={app2} alt="" class="about__img"/></a>

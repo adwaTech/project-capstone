@@ -76,13 +76,13 @@ export default function About() {
                             <div>
                                 <p className="vision_mission vision">{strings.visiontitle}</p>
                                 <div data-aos='zoom-in-left' className="visionParagraph">
-                                        {strings.vision}
+                                     {strings.aboutusparagrap1}
                                 </div>
                             </div>
                             <div>
                                 <p className="vision vision_mission">{strings.missiontitle}</p>
                                 <div data-aos='zoom-in-right' className="visionParagraph">
-                                    {strings.mission}
+                                    {strings.aboutusparagrap2}
                                 </div>
                             </div>
                         </div>

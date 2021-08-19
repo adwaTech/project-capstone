@@ -17,6 +17,8 @@ import House from '../Auctions/AuctionCatagories/House';
 import Car from '../Auctions/AuctionCatagories/Car';
 import Governments from '../Auctions/AuctionCatagories/Governments';
 import Land from '../Auctions/AuctionCatagories/Land'
+import {strings} from '../../language/language';
+import {useSelector} from 'react-redux'
 import {
     Route,
 } from 'react-router-dom'
@@ -53,6 +55,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function PermanentDrawerLeft() {
+    const lang=useSelector((state)=>state.LanguageReducer.language)
+  React.useEffect(()=>{},[lang]);
   const classes = useStyles();
   const [type,setType]=React.useState('House');
   function RenderCompoenent(){
