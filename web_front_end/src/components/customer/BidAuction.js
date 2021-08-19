@@ -20,7 +20,7 @@ import {
   Tv
 } from '@material-ui/icons'
 
-const emails = ['username@gmail.com', 'user02@gmail.com'];
+const emails = ['meseretkifle2@gmail.com', 'user02@gmail.com'];
 const useStyles = makeStyles({
   avatar: {
     backgroundColor: blue[100],
