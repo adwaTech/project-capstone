@@ -4,11 +4,17 @@
     line-height: 2rem;
     color: #555555;
     word-spacing: normal;
+    display: flex;
+    justify-content: center;
+    
 }
 .privacyContents
 {
     padding-top: -20px;
     padding: 40px;
+    display: flex;
+    flex-direction: column;
+    max-width: 800px;
     
 }
 .privacyTitles

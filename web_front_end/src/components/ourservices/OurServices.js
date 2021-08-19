@@ -16,65 +16,54 @@ function OurServices() {
                         <p className='ourServicesTitle'>Our Services</p>
                     </div>
                     <div className='ourServiceGrids'>
-                        <div>
+                        <div className="serviceOF">
                             <p className='ourServiceGridTitles'>Post Auction</p>
                             <div className='ourServiceDescriptions'>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                                    Dolorem sequi totam vel quaerat in vitae culpa, sint quibusdam, 
-                                    sed incidunt voluptates maiores aliquid doloremque reiciendis
-                                    cumque minus nihil magni eaque!
+                                <p>A user who have an account can post an auction and check on the status of 
+                                    his/her auction 
                                     </p>
                             </div>
                         </div>
-                        <div>
-                            <p className='ourServiceGridTitles'>participate on Auction</p>
+                        <div className="serviceOF">
+                            <p className='ourServiceGridTitles'>Participate on Auction</p>
                             <div className='ourServiceDescriptions'>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                                    Dolorem sequi totam vel quaerat in vitae culpa, sint quibusdam, 
-                                    sed incidunt voluptates maiores aliquid doloremque reiciendis
-                                    cumque minus nihil magni eaque!
+                                <p>you can partcipate on an auction if you want. But in order to participate on 
+                                    an auction you should have to full fill the auction minimum requirements.
+                                    
                                     </p>
                             </div>
                         </div>
-                        <div>
-                            <p className='ourServiceGridTitles'>Post Auction</p>
+                        <div className="serviceOF">
+                            <p className='ourServiceGridTitles'>See Auctions</p>
                             <div className='ourServiceDescriptions'>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                                    Dolorem sequi totam vel quaerat in vitae culpa, sint quibusdam, 
-                                    sed incidunt voluptates maiores aliquid doloremque reiciendis
-                                    cumque minus nihil magni eaque!
+                                <p>you can see all the auctions posted by different users.
+
                                     </p>
                             </div>
                         </div>
                     </div>
                     <div className='ourServiceGrids'>
-                        <div>
-                            <p className='ourServiceGridTitles'>Post Auction</p>
+                        <div className="serviceOF">
+                            <p className='ourServiceGridTitles'>Fasciltate platform</p>
                             <div className='ourServiceDescriptions'>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                                    Dolorem sequi totam vel quaerat in vitae culpa, sint quibusdam, 
-                                    sed incidunt voluptates maiores aliquid doloremque reiciendis
-                                    cumque minus nihil magni eaque!
+                                <p>We fascilitate the platform to let the auctioneer and bidder meet through this 
+                                    website.
                                     </p>
                             </div>
                         </div>
-                        <div>
-                            <p className='ourServiceGridTitles'>participate on Auction</p>
+                        <div className="serviceOF">
+                            <p className='ourServiceGridTitles'>Fast Payment</p>
                             <div className='ourServiceDescriptions'>
-                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                                    Dolorem sequi totam vel quaerat in vitae culpa, sint quibusdam, 
-                                    sed incidunt voluptates maiores aliquid doloremque reiciendis
-                                    cumque minus nihil magni eaque!
+                                 <p>we have provided online payment systems like CBE and Amole so the bidder or the 
+                                     auctioneer can pay using his mobile phone.
                                     </p>
                             </div>
                         </div>
-                        <div>
-                            <p className='ourServiceGridTitles'>Post Auction</p>
+                        <div className="serviceOF">
+                            <p className='ourServiceGridTitles'>Future</p>
                             <div className='ourServiceDescriptions'>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                                    Dolorem sequi totam vel quaerat in vitae culpa, sint quibusdam, 
-                                    sed incidunt voluptates maiores aliquid doloremque reiciendis
-                                    cumque minus nihil magni eaque!
+                                <p>we are trying to work with international payment methods like paypal and paytm.
+                                    
                                     </p>
                             </div>
                         </div>

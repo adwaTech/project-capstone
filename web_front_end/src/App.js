@@ -24,6 +24,7 @@ import OurServices from './components/ourservices/OurServices';
 import Faq from './components/FAQ/Faq';
 import PrivacyPolicy from './components/privacy-policy/PrivacyPolicy';
 import howToPost from './components/howToPost/howToPost';
+import paymentOptions from './components/paymentOptions/paymentOptions';
 
 
 function App() {
@@ -51,7 +52,7 @@ function App() {
               <Route exact path="/frequently-asked-questions" component={Faq}/>
               <Route exact path="/how-to-post" component={howToPost}/>
               <Route exact path="/how-to-bid" component={OurServices}/>
-              <Route exact path="/payment-options" component={OurServices}/>
+              <Route exact path="/payment-options" component={paymentOptions}/>
               <Route exact path="/government" component={Government}/>
               <ProtectedRoute exact path="/admin"  component={DashBoardIndex}/>
               <ProtectedRoute exact path="/profile" component={User}/>

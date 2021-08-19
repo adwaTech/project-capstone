@@ -70,7 +70,7 @@ function Faq() {
                     </div>
                     <div className='faqQuestionDiv'>
                         <div onClick={()=>{handleClick('4')}} className='thisQuestion'>
-                            <p className='faqQuestions'>Q3. How Can I change password? i forgot my password </p>
+                            <p className='faqQuestions'>Q4. How Can I change password? i forgot my password </p>
                             <span>{open4 && <ArrowDropUp/>}{!open4 && <ArrowDropDown/>}</span>
                         </div>
                         {open4 && <div className='answersDiv'>

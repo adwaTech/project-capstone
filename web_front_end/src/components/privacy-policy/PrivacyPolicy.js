@@ -10,6 +10,7 @@ function PrivacyPolicy() {
             <Header/>  
                <div className='privacyDiv'>
                 <div className='privacyContents'>
+                    <h2 style={{marginBottom:'20px'}}>Our Privacy Policy</h2>
                      <p className='privacyParagraphs'>
                         This privacy policy sets out how M3K Online Auction System uses and protects any information that you give M3K Online Auction System when you use this website.
                         <br/>
