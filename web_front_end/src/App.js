@@ -19,6 +19,13 @@ import Government from './components/Auctions/AuctionCatagories/Governments';
 import Service from './components/Auctions/AuctionCatagories/Service';
 import Catagoryindex from './components/Auctions/AuctionCatagories/CatagoryIndex'
 import User from './components/customer/User';
+import Search from './components/search/index';
+import ScrollToTop from './scrollTop/ScrollToTop';
+import OurServices from './components/ourservices/OurServices';
+import Faq from './components/FAQ/Faq';
+import PrivacyPolicy from './components/privacy-policy/PrivacyPolicy';
+import howToPost from './components/howToPost/howToPost';
+import paymentOptions from './components/paymentOptions/paymentOptions';
 
 
 function App() {
@@ -29,6 +36,7 @@ function App() {
       
       <Router>
       <Drawer />
+      <ScrollToTop/>
           <Switch>
               <Route exact  path="/" component={Home}/>
               <Route exact  path="/home" component={Home}/>
@@ -40,9 +48,16 @@ function App() {
               <Route exact path="/house" component={Catagoryindex}/>
               <Route exact path="/car" component={Car}/>
               <Route exact path="/service" component={Service}/>
+              <Route exact path="/our-services" component={OurServices}/>
+              <Route exact path="/privacy-policy" component={PrivacyPolicy}/>
+              <Route exact path="/frequently-asked-questions" component={Faq}/>
+              <Route exact path="/how-to-post" component={howToPost}/>
+              <Route exact path="/how-to-bid" component={OurServices}/>
+              <Route exact path="/payment-options" component={paymentOptions}/>
               <Route exact path="/government" component={Government}/>
               <ProtectedRoute exact path="/admin"  component={DashBoardIndex}/>
               <ProtectedRoute exact path="/profile" component={User}/>
+              <Route exact path="/search/:type/:search_item" component={Search}/>
               <Route path="*" component={ErrorRoute}/>
               
           </Switch>

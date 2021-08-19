@@ -1,0 +1,77 @@
+.faqDiv
+{
+    padding-top: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+    text-align: center;
+}
+.faqTitle
+{
+    font-size: 35px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+    opacity: 0.7;
+}
+.faqQuestionDiv
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+.wholeFaqQuestion
+{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.thisQuestion
+{
+    background-color: rgb(214, 214, 214);
+    width: 500px;
+    align-self: center;
+    text-align: justify;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    box-shadow: 1px 1px 2px rgb(163, 163, 163);
+}
+.thisQuestion:hover
+{
+    background-color: rgb(189, 188, 188);
+    
+}
+.faqQuestions{
+    font-weight: bold;
+    align-items: center;
+    padding: 10px;
+}
+.answersDiv
+{
+    background-color: white;
+    padding:20px;
+    text-align: left;
+    width: 500px;
+    box-shadow: 1px 1px 2px rgb(163, 163, 163);;
+}
+.faqAnswers
+{
+    margin-top:5px;
+    align-items: center;
+    opacity:0.7;
+    
+}
+@media screen and (max-width:700px) {
+    .thisQuestion
+    {
+        width: 400px;
+    }
+    .answersDiv
+    {
+        width: 400px;
+    }
+}

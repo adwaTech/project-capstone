@@ -1,0 +1,116 @@
+.search-detail .recipe,
+.search-detail .pizza-box {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  background-color: #ffffff;
+}
+
+.search-detail .pizza-box {
+  flex: 3 1 30ch;
+  height: calc(282px + 5vw);
+  overflow: hidden;
+}
+.search-detail .pizza-box img {
+  max-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: 50% 50%;
+     object-position: 50% 50%;
+}
+
+.search-detail .recipe {
+  border: 0.5px solid #F2F2F2;
+  box-shadow: 0 0 0.5px rgba(0,0,0,0.3);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.search-detail .recipe-content {
+  padding: 16px 32px;
+  flex: 4 1 40ch;
+}
+.search-detail .recipe-tags {
+  margin: 0 -8px;
+}
+.search-detail .recipe-tag {
+  display: inline-block;
+  margin: 8px;
+  font-size: 0 .875em;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0 .02em;
+  color: var(--primary);
+}
+.search-detail .recipe-title {
+  margin: 0;
+  font-size: clamp(1.4em, 2.1vw, 2.1em);
+  font-family: "Roboto Slab", Helvetica, Arial, sans-serif;
+}
+.search-detail .recipe-title a {
+  text-decoration: none;
+  color: inherit;
+}
+.search-detail .recipe-metadata {
+  margin: 0;
+}
+.search-detail .recipe-rating {
+  font-size: 1.2em;
+  letter-spacing: 0.05em;
+  color: var(--primary);
+}
+.search-detail .recipe-rating span {
+  color: var(--grey);
+}
+.search-detail .recipe-votes {
+  font-size: 0.825em;
+  font-style: italic;
+  color: var(--lightgrey);
+}
+.search-detail .recipe-save {
+  display: flex;
+  align-items: center;
+  padding: 6px 14px 6px 12px;
+  border-radius: 4px;
+  border: 2px solid currentColor;
+  color: var(--primary);
+  background: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+.search-detail .recipe-save svg {
+  margin-right: 6px;
+}
+
+/* Body Layout */
+.search-detail  {
+  /* box-sizing: border-box; */
+  /* margin-top: 100px; */
+  position: relative;
+  top: 150px;
+  margin-bottom: 200px;
+  --primary: #E05D26;
+  --grey: #454545;
+  --lightgrey: #666;
+  color: var(--grey);
+  
+  line-height: 1.55;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-family: "Roboto", Helvetica, Arial, sans-serif;
+}
+
+
+.search-detail  .big {
+  width: clamp(320px, 65%, 65%);
+  padding: 24px;
+  
+}
+
+.search-detail  .small {
+  width: clamp(320px, 35%, 480px);
+  padding: 24px;
+}

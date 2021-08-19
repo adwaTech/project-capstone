@@ -10,11 +10,13 @@ import 'aos/dist/aos.css'
 import {strings} from '../../language/language';
 import {useSelector} from 'react-redux'
 import { string } from 'prop-types'
+import ScrollToTop from '../../scrollTop/ScrollToTop'
 
 export default function About() {
     const lang=useSelector((state)=>state.LanguageReducer.language)
+    
     React.useEffect(()=>{
-
+        
     },[lang]);
     useEffect(()=>{
         Aos.init({duration:2000})
@@ -22,6 +24,7 @@ export default function About() {
     return (
 
         <div>
+            <ScrollToTop/>
             <Header/>
                 <div className="spaceProvider">
 
@@ -73,13 +76,13 @@ export default function About() {
                             <div>
                                 <p className="vision_mission vision">{strings.visiontitle}</p>
                                 <div data-aos='zoom-in-left' className="visionParagraph">
-                                        {strings.vision}
+                                     {strings.aboutusparagrap1}
                                 </div>
                             </div>
                             <div>
                                 <p className="vision vision_mission">{strings.missiontitle}</p>
                                 <div data-aos='zoom-in-right' className="visionParagraph">
-                                    {strings.mission}
+                                    {strings.aboutusparagrap2}
                                 </div>
                             </div>
                         </div>

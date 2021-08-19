@@ -1,0 +1,39 @@
+.privacyDiv
+{
+    padding-top: 150px;
+    line-height: 2rem;
+    color: #555555;
+    word-spacing: normal;
+    display: flex;
+    justify-content: center;
+    
+}
+.privacyContents
+{
+    padding-top: -20px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    max-width: 800px;
+    
+}
+.privacyTitles
+{
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.privacyLists
+{
+    list-style-type: circle;
+    margin-left: 40px;
+    line-height: normal;
+    
+}
+.privacyParagraphs
+{
+    background-color: rgb(248, 248, 248);
+    padding: 15px;
+    border-radius: 10px;
+}
