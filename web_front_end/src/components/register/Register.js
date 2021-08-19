@@ -167,7 +167,7 @@ export default function Register({ match, history }) {
                   id="first name"
                   name="first name"
                   label={strings.label1}
-                  value={state.name}
+                  value={state.firstname}
                   fullWidth
                   autoComplete={strings.fname}
                   onChange={(e) => {
@@ -315,7 +315,7 @@ export default function Register({ match, history }) {
                   name="idNumber"
                   label={strings.label7}
                   type="number"
-                  value="idNumber"
+                  value={state.idNumber}
                   fullWidth
                   autoComplete="id number"
                   onChange={(e) => {

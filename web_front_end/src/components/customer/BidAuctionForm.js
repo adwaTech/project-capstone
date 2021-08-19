@@ -6,11 +6,16 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { useSelector, useDispatch } from 'react-redux';
-import { Dialog, DialogContent ,TextField,Grid,Slide} from '@material-ui/core';
+import { Dialog, DialogContent, TextField, Grid, Slide } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import moment from 'moment';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
+import Alert from '@material-ui/lab/Alert';
+import {BidAuctionAction,
+} from '../../redux-state-managment/Actions';
+
+
 
 
 const styles = (theme) => ({
@@ -54,26 +59,35 @@ const useStyles = makeStyles({
     controls: {
         marginTop: "10px"
     },
-    dialogbtn1:{
-        display:"flex",
-        justifyContent:"center",
-        alignItems:"center",
-        textAlign:"center",
-        marginTop:"10px",
-        marginBottom:"10px"
+    dialogbtn1: {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        textAlign: "center",
+        marginTop: "10px",
+        marginBottom: "10px"
     },
-    dialogbtn2:{
-        marginTop:"10px",
-        display:"flex",
-        justifyContent:"center",
-        alignItems:"center",
-        textAlign:"center"
+    dialogbtn2: {
+        marginTop: "10px",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        textAlign: "center"
     }
 })
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 export default function BidAuctionForm(props) {
+
+
+    // for bid 
+    const bidstatus = useSelector((state) => state.bidAuctionReducer.bidstatus);
+    const biderror = useSelector((state) => state.bidAuctionReducer.biderror);
+    const bidstatusText = useSelector((state) => state.bidAuctionReducer.bidstatusText);
+    const bid = useSelector((state) => state.bidAuctionReducer.bid);
+
+    const dispatch=useDispatch();
     const DialogTitle = withStyles(styles)((props) => {
         const { children, classes, onClose, ...other } = props;
         return (
@@ -95,8 +109,9 @@ export default function BidAuctionForm(props) {
         cpo: "",
         ownerId: "",
         auctionId: "",
-        proposalDocument: "",
+        proposalDocument: '',
     })
+    const token = useSelector((state) => state.AccountReducer.token);
     return (
         <Dialog
             open={props.open}
@@ -104,6 +119,16 @@ export default function BidAuctionForm(props) {
             <DialogTitle onClose={() => props.setOpen(!props.open)}>
                 Bid For An Auction
             </DialogTitle>
+            {
+                biderror
+                    ? <Alert severity="error">status :{bidstatus} <br />statusText:{bidstatusText} <br /> error:{biderror}</Alert>
+                    : null
+            }
+            {
+                bidstatus === 200
+                    ? <Alert severity="success">status :{bidstatus} : your request to bid is successfuly submited</Alert>
+                    : null
+            }
             <DialogContent >
                 <Grid spacing={3}>
                     <Grid item xs={12} sm={12}>
@@ -138,6 +163,22 @@ export default function BidAuctionForm(props) {
                             }}
                         />
                     </Grid>
+                    <Grid item xs={12} sm={12}>
+                        <TextField
+                            required
+                            type="number"
+                            id="cpo"
+                            name="cpo"
+                            label="cpo"
+                            multiline
+                            fullWidth
+                            autoComplete="cpo"
+                            value={state.cpo}
+                            onChange={(e) => {
+                                setState({ ...state, cpo: e.target.value })
+                            }}
+                        />
+                    </Grid>
                     <Grid item xs={12} sm={12} className={classes.dialogbtn1} >
                         <input
                             accept="image/*"
@@ -156,11 +197,24 @@ export default function BidAuctionForm(props) {
                         </label>
                         <label>{state.proposalDocument.name}</label>
                     </Grid>
+
                     <Grid className={classes.dialogbtn2}>
                         <Button
                             color="primary"
                             variant="contained"
-                            onClick
+                            onClick={async () => {
+                                const formData = new FormData();
+                                formData.append('amount', state.amount);
+                                formData.append('auctionId', props.data._id);
+                                formData.append('cpo', state.cpo);
+                                formData.append('description', state.description);
+                                formData.append('ownerId', props.data.owner);
+                                if(state.proposalDocument){
+                                    formData.append('proposalDocument', state.proposalDocument);
+                                }
+                                formData.append('proposalType', props.data.auctionType);
+                                await dispatch(BidAuctionAction(formData, token));
+                            }}
                         >Submite Bid</Button>
                     </Grid>
                 </Grid>

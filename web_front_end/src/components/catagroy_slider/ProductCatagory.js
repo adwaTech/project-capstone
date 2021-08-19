@@ -1,23 +1,15 @@
 import React from 'react';
 import RateIcon from '@material-ui/icons/StarBorder';
 import CartIcon from '@material-ui/icons/AddShoppingCart';
-import Alert from '@material-ui/lab/Alert';
 import {
     Button,
     CircularProgress,
-    Dialog,
     makeStyles,
-    Typography, CardContent,
-    Card,
-    DialogContent,
-    Grid,
-    TextField,
 } from '@material-ui/core';
 import Image8 from '../../assets/images/PngItem_3205063.png';
 import Image7 from '../../assets/images/PngItem_3204975.png';
 import { useSelector, useDispatch } from 'react-redux';
 import { strings } from '../../language/language';
-import moment from 'moment';
 import Timer from 'react-compound-timer';
 import BidAuctionForm from '../customer/BidAuctionForm';
 import Slide from '@material-ui/core/Slide';
@@ -26,25 +18,10 @@ import {
     PopularAuctionAction,
     LatestAuctionAction,
     AllExceptAuctionAction,
-    BidAuctionAction,
 } from '../../redux-state-managment/Actions';
 import DetailDialog from './Detail';
-import CloseIcon from '@material-ui/icons/Close';
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import IconButton from '@material-ui/core/IconButton';
-import { withStyles } from '@material-ui/core/styles';
-const styles = (theme) => ({
-    root: {
-        margin: 0,
-        padding: theme.spacing(2),
-    },
-    closeButton: {
-        position: 'absolute',
-        right: theme.spacing(1),
-        top: theme.spacing(1),
-        color: theme.palette.grey[500],
-    },
-});
+
+
 const useStyles = makeStyles({
     addCartBtn: {
         borderRadius: "20px"
@@ -98,22 +75,16 @@ export default function Products() {
     const dispatch = useDispatch();
     const rate = [1, 2, 3, 4, 5];
     const classes = useStyles();
-    const [error, setError] = React.useState(false);
     const [num, setNum] = React.useState(1);
 
 
-    const token = useSelector((state) => state.AccountReducer.token);
     const allAuction = useSelector((state) => state.AuctionsReducer.allAuction);
     const allexcept = useSelector((state) => state.AuctionsReducer.allexcept);
     const popularAuction = useSelector((state) => state.AuctionsReducer.popularAuction);
     const latestAuction = useSelector((state) => state.AuctionsReducer.latestAuction);
     const [numTodesplay, setNumTodesplay] = React.useState(0);
 
-    // for bid 
-    const bidstatus = useSelector((state) => state.bidAuctionReducer.bidstatus);
-    const biderror = useSelector((state) => state.bidAuctionReducer.biderror);
-    const bidstatusText = useSelector((state) => state.bidAuctionReducer.bidstatusText);
-    const bid = useSelector((state) => state.bidAuctionReducer.bid);
+    
 
     const lang = useSelector((state) => state.LanguageReducer.language);
 
@@ -151,28 +122,7 @@ export default function Products() {
         allAuction.filter((item) => item.condition === "new")
     ];
     const [index, setIndex] = React.useState(0);
-    const DialogTitle = withStyles(styles)((props) => {
-        const { children, classes, onClose, ...other } = props;
-        return (
-            <MuiDialogTitle disableTypography className={classes.root} {...other}>
-                <Typography variant="h6">{children}</Typography>
-                {onClose ? (
-                    <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
-                        <CloseIcon />
-                    </IconButton>
-                ) : null}
-            </MuiDialogTitle>
-        );
-    });
-    const [state, setState] = React.useState({
-        proposalType: "",
-        description: "",
-        amount: "",
-        cpo: "",
-        ownerId: "",
-        auctionId: "",
-        proposalDocument: "",
-    })
+
     function myMap(product, startindex) {
         let array = [];
         for (let i = startindex; i < 6 + startindex; i++) {
@@ -207,7 +157,7 @@ export default function Products() {
                             <Button
                                 onClick={
                                     () => {
-                                        setOpen(true);
+                                        setOpen(!open);
                                         setData(product[i]);
                                     }
                                 }
@@ -215,19 +165,19 @@ export default function Products() {
                             <Button
                                 onClick={
                                     () => {
-                                        setOpen_bid_dialog(!open);
+                                        setOpen_bid_dialog(!open_bid_dialog);
                                         setData(product[i]);
                                     }
                                 }
                                 className="cartbtn" color="primary" className={classes.addCartBtn} variant="outlined">
                                 <CartIcon />
-
                             </Button>
-                            {/* <BidAuctionForm open={open_bid_dialog} setOpen={setOpen_bid_dialog} /> */}
+                            
+                            
                         </p>
 
                     </div>
-                    {/* <DetailDialog open={open} data={data} setOpen={setOpen} /> */}
+                    
                 </div>)
 
         }
@@ -269,6 +219,8 @@ export default function Products() {
     }
     return (
         <div>
+            <DetailDialog open={open} data={data} setOpen={setOpen} />
+            <BidAuctionForm open={open_bid_dialog} data={data} setOpen={setOpen_bid_dialog} />
             <div className="description1" style={{ marginTop: "300px" }}>
                 <img src={Image8} alt="" />
                 <div className="description1-area">
@@ -338,195 +290,7 @@ export default function Products() {
 
                         myMap(Auctions[index], numTodesplay)
                 }
-
-
-                <Dialog
-                    open={open_bid_dialog}
-                >
-                    <DialogTitle onClose={() => setOpen_bid_dialog(!open_bid_dialog)}>
-                        Bid For An Auction
-                    </DialogTitle>
-                    {
-                        biderror
-                            ? <Alert severity="error">status :{bidstatus} <br />statusText:{bidstatusText} <br /> error:{biderror}</Alert>
-                            : null
-                    }
-                    {
-                        bidstatus === 200
-                            ? <Alert severity="success">status :{bidstatus} : your request to bid is successfuly submited</Alert>
-                            : null
-                    }
-                    <DialogContent >
-                        <Grid spacing={3}>
-                            <Grid item xs={12} sm={12}>
-                                <TextField
-                                    required
-                                    id="description"
-                                    name="description"
-                                    label="description"
-                                    value={state.description}
-                                    multiline
-                                    fullWidth
-                                    autoComplete="description"
-                                    onChange={(e) => {
-                                        setState({ ...state, description: e.target.value })
-                                    }}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12} sm={12}>
-                                <TextField
-                                    required
-                                    type="number"
-                                    id="amount"
-                                    name="amount"
-                                    label="amount"
-                                    multiline
-                                    fullWidth
-                                    autoComplete="amount"
-                                    value={state.amount}
-                                    onChange={(e) => {
-                                        setState({ ...state, amount: e.target.value })
-                                    }}
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={12}>
-                                <TextField
-                                    required
-                                    type="number"
-                                    id="cpo"
-                                    name="cpo"
-                                    label="cpo"
-                                    multiline
-                                    fullWidth
-                                    autoComplete="cpo"
-                                    value={state.cpo}
-                                    onChange={(e) => {
-                                        setState({ ...state, cpo: e.target.value })
-                                    }}
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={12} className={classes.dialogbtn1} >
-                                <input
-                                    accept="image/*"
-                                    style={{ display: 'none' }}
-                                    multiple
-                                    id="raised-button-file"
-                                    onChange={(e) => {
-                                        setState({ ...state, proposalDocument: e.target.files[0] });
-                                    }}
-                                    type="file"
-                                />
-                                <label htmlFor="raised-button-file">
-                                    <Button variant="outlined" component="span" className={classes.button}>
-                                        Upload Doc if any
-                                    </Button>
-                                </label>
-                                <label>{state.proposalDocument.name}</label>
-                            </Grid>
-
-                            <Grid className={classes.dialogbtn2}>
-                                <Button
-                                    color="primary"
-                                    variant="contained"
-                                    onClick={async () => {
-                                        const formData = new FormData();
-                                        formData.append('amount', state.amount);
-                                        formData.append('auctionId', data._id);
-                                        formData.append('cpo', state.cpo);
-                                        formData.append('description', state.description);
-                                        formData.append('ownerId', data.owner);
-                                        formData.append('proposalDocument', state.proposalDocument);
-                                        formData.append('proposalType', data.auctionType);
-                                        await dispatch(BidAuctionAction(formData, token));
-                                    }}
-                                >Submite Bid</Button>
-                            </Grid>
-                        </Grid>
-                    </DialogContent >
-                </Dialog>
-
-                <Dialog open={open}>
-                    <DialogTitle onClose={() => setOpen(!open)}>
-                        Auction Detail
-                    </DialogTitle>
-                    <DialogContent dividers>
-                        <Card className={classes.root}>
-                            <div className={classes.details}>
-                                <CardContent className={classes.content}>
-                                    <div >
-                                        <h5>Name:</h5> <Typography variant="subtitle2">{data.auctionName}</Typography>
-                                    </div>
-                                    <div>
-                                        <h5>Description:</h5> <Typography variant="subtitle2">{data.briefDescription}</Typography>
-                                    </div>
-                                    <div >
-                                        <h5>Bid Fee:</h5> <Typography variant="subtitle2">{data.bidFee}</Typography>
-                                    </div>
-                                    <div>
-                                        <h5>Min Amount:</h5> <Typography variant="subtitle2">{data.minAmount}</Typography>
-                                    </div>
-                                    <div >
-                                        <h5>Min CPO:</h5> <Typography variant="subtitle2">{data.minCPO}</Typography>
-                                    </div>
-                                    <div >
-                                        <h5>Owner:</h5> <Typography variant="subtitle2">{data.owner}</Typography>
-                                    </div>
-                                    <div >
-                                        <h5>Type:</h5> <Typography variant="subtitle2">
-                                            {data.auctionType}
-                                        </Typography>
-                                    </div>
-                                    <div>
-                                        <h5>Category:</h5> {data.auctionCategory}
-                                    </div>
-                                </CardContent>
-                            </div>
-                            <CardContent>
-                                <div >
-                                    <h5>Extended Description:</h5><Typography variant="subtitle2"> {data.extendedDescription}</Typography>
-                                </div>
-                                <div>
-                                    <h5>Start Date:</h5><Typography variant="subtitle2"> {moment(data.postedOn).format()}</Typography>
-                                </div>
-                                <div>
-                                    <h5>Dedline Date:</h5><Typography variant="subtitle2"> {moment(data.deadline).format()}</Typography>
-                                </div>
-                                <div >
-                                    <h5>Condition:</h5> <Typography variant="subtitle2">{data.condition}</Typography>
-                                </div>
-                                <div >
-                                    <h5>Number of Bids:</h5> <Typography variant="subtitle2">{data.proposals ? data.proposals.length : 0}</Typography>
-                                </div>
-                                <Typography  >
-                                    <h5>Approval:</h5> <Typography variant="subtitle2">{data.approval}</Typography>
-                                </Typography>
-                                <div >
-                                    <h5>Status:</h5> <Typography variant="subtitle2">{data.status}</Typography>
-                                </div>
-
-                            </CardContent>
-                            <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                <img
-                                    className={classes.cover}
-                                    src={`http://localhost:5000/${data.images}`}
-                                    alt="Product images"
-                                />
-                                <div className={classes.controls}>
-                                    <Button
-                                        onClick={
-                                            () => {
-                                                setOpen(false);
-                                                setOpen_bid_dialog(!open);
-                                            }
-                                        }
-                                        fullWidth variant="contained" color="primary">Bid</Button>
-                                </div>
-                            </div>
-                        </Card>
-                    </DialogContent>
-
-                </Dialog>
+                
             </div>
         </div>
     )

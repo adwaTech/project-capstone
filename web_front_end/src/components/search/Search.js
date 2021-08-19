@@ -3,16 +3,24 @@ import {
     withStyles
 } from '@material-ui/core'
 import './search.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { Category } from '@material-ui/icons';
-import MapPicker from 'react-google-map-picker';
+import { useSelector } from 'react-redux';
+import BidAuctionForm from '../customer/BidAuctionForm';
+import GoogleMapReact from 'google-map-react';
+import Marker from './Marker';
 
 import Timer from 'react-compound-timer';
 
 import Badge from '@material-ui/core/Badge';
 
-
+const defaultProps = {
+    center: {
+        lat: 8.9806,
+        lng: 38.7578
+    },
+    zoom: 11
+}
 const StyledBadge = withStyles((theme) => ({
+
     badge: {
         right: -3,
         top: 13,
@@ -21,19 +29,13 @@ const StyledBadge = withStyles((theme) => ({
     },
 }))(Badge);
 
-const defaultLocation = { lat: 8.9806, lng: 38.7578};
+const defaultLocation = { lat: 8.9806, lng: 38.7578 };
 const DefaultZoom = 13;
 export default function Search(props) {
     // location
     const [location, setLocation] = React.useState(defaultLocation);
     const [zoom, setZoom] = React.useState(DefaultZoom);
-    function handleChangeLocation (lat, lng){
-        setLocation({lat:lat, lng:lng});
-    }
-  
-    function handleChangeZoom (newZoom){
-        setZoom(newZoom);
-    }
+    
     // type
     const auctionsWithName = useSelector((state) => state.SearchAuctionReducer.auctionsWithName);
     const auctionsWithCategory = useSelector((state) => state.SearchAuctionReducer.auctionsWithCategory);
@@ -84,6 +86,7 @@ export default function Search(props) {
         const d = date - now;
         return d;
     }
+    const [open_bid_dialog, setOpen_bid_dialog] = React.useState(false);
     return (
         <div className="search-detail">
             <div class="big">
@@ -201,7 +204,13 @@ export default function Search(props) {
                             }
                         </p>
 
-                        <button class="recipe-save" type="button">
+                        <button
+                            onClick={
+                                () => {
+                                    setOpen_bid_dialog(!open_bid_dialog);
+                                }
+                            }
+                            class="recipe-save" type="button">
                             <svg xmlns="#" width="24" height="24" viewBox="0 0 24 24" fill="#000000"><path d="M 6.0097656 2 C 4.9143111 2 4.0097656 2.9025988 4.0097656 3.9980469 L 4 22 L 12 19 L 20 22 L 20 20.556641 L 20 4 C 20 2.9069372 19.093063 2 18 2 L 6.0097656 2 z M 6.0097656 4 L 18 4 L 18 19.113281 L 12 16.863281 L 6.0019531 19.113281 L 6.0097656 4 z" fill="currentColor" /></svg>
                             Bid
                         </button>
@@ -210,18 +219,24 @@ export default function Search(props) {
                 </article>
             </div>
 
-            {/* <div class="small">
+            <div class="small">
                 <article class="recipe">
                     <div style={{ width: "90vh", height: "70vh" }}>
-                        <MapPicker defaultLocation={ {lat: 8.9806, lng: 38.7578}}
-                            zoom={zoom}
-                            style={{ width: "100%", height: "100%" }}
-                            onChangeLocation={handleChangeLocation}
-                            onChangeZoom={handleChangeZoom}
-                            apiKey='AIzaSyD07E1VvpsN_0FvsmKAj4nK9GnLq-9jtj8' />
+                        <GoogleMapReact
+                            bootstrapURLKeys={{ key: 'AIzaSyD07E1VvpsN_0FvsmKAj4nK9GnLq-9jtj8' }}
+                            defaultCenter={defaultProps.center}
+                            defaultZoom={defaultProps.zoom}
+                        >
+                            <Marker
+                                lat={defaultLocation.lat}
+                                lng={defaultLocation.lng}
+                                text="auction location"
+                            />
+                        </GoogleMapReact>
                     </div>
                 </article>
-            </div> */}
+            </div>
+            <BidAuctionForm open={open_bid_dialog} data={auction} setOpen={setOpen_bid_dialog} />
         </div>
     )
 }
