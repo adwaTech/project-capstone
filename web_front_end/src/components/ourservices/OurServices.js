@@ -60,7 +60,7 @@ function OurServices() {
                             </div>
                         </div>
                         <div className="serviceOF">
-                            <p className='ourServiceGridTitles'>Future</p>
+                            <p className='ourServiceGridTitles'>For The Future</p>
                             <div className='ourServiceDescriptions'>
                                 <p>we are trying to work with international payment methods like paypal and paytm.
                                     
