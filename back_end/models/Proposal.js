@@ -1,37 +1,41 @@
-const mongoose =require('mongoose');
+const mongoose = require('mongoose');
 
 
-const proposal=mongoose.Schema({
-    proposalType:{
-        type:String,
-        required:true
+const proposal = mongoose.Schema({
+    proposalType: {
+        type: String,
+        required: true
     },
-    description:{
-        type:String
+    description: {
+        type: String
     },
-    amount:{
-        type:Number,
-        required:true,
+    amount: {
+        type: String,
+        required: true,
     },
-    cpo:{
-        type:Number,
-        required:true,
+    cpo: {
+        type: Number,
+        required: true,
     },
-    ownerId:{
-        type:String,
-        required:true,
+    ownerId: {
+        type: String,
+        required: true,
     },
-    auctionId:{
-        type:String,
-        required:true,
+    auctionId: {
+        type: String,
+        required: true,
     },
-    proposalDocument:{
-        type:String
+    proposalDocument: {
+        type: String
     },
-    submittedOn:{
-        type:Date,
-        required:true,
-        default:Date.now()
+    submittedOn: {
+        type: Date,
+        default: Date.now()
+    },
+    status: { // pending, waitingresult, lost, won //
+        type: String,
+        default: 'pending'
     }
 });
-module.exports=proposalModel=mongoose.model('proposal',proposal);
+module.exports.proposalModel = mongoose.model('proposal', proposal);
+module.exports.proposalSchema = proposal;

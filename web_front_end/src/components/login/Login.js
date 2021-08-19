@@ -9,19 +9,16 @@ import {Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core';
+import { makeStyles,CircularProgress, Dialog } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
-import {useDispatch,useSelector} from 'react-redux';
 import {LoginAction} from '../../redux-state-managment/Actions';
-import {Alert} from '@material-ui/lab'
-
+import {Alert} from '@material-ui/lab';
+import './login.css';
+import {strings} from '../../language/language';
+import {useSelector,useDispatch} from 'react-redux';
 import {Route,Redirect} from 'react-router-dom';
-
-
-
-
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(3),
@@ -44,8 +41,11 @@ const useStyles = makeStyles((theme) => ({
     padding:10,
     backgroundColor:"white",
     borderRadius:'25px',
-    paddingTop:170,
-    marginBottom:100
+    marginBottom:250,
+    top:200,
+    position:"relative",
+    boxShadow:"0px 0px 1px rgba(0,0,0.035)",
+
   },
   donthaveaccounte:{
     cursor:"pointer",
@@ -55,10 +55,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignIn() {
+  const lang=useSelector((state)=>state.LanguageReducer.language)
+  React.useEffect(()=>{
+
+  },[lang]);
   const classes = useStyles();
 
   return (
-    <div>
+    <div className="main-login-page">
     <Header/>
       <Route path="/" component={Login}/> 
     <Footer/>
@@ -72,6 +76,8 @@ function Login({ match, history }){
     email:'',
     password:'',
   };
+  const [progress,setProgress]=React.useState(false);
+  const bool=false;
   const [state,setState]=React.useState(initialState)
   // global states
   const error = useSelector((state) => state.AccountReducer.error);
@@ -80,18 +86,18 @@ function Login({ match, history }){
   const token = useSelector((state) => state.AccountReducer.token);
   const user = useSelector((state) => state.AccountReducer.user);
   return(
-    <Container component="main" maxWidth="xs" className={classes.container} >
+    <Container maxWidth="xs" className={classes.container} >
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in     
+         {strings.singin}   
         </Typography>
         {
             error
-            ?<Alert severity="error">status :{status} <br/>statusText:{statusText} <br/> error:{error}</Alert>
+            ?<Alert severity="error">status :{status} <br/>{strings.statustext}:{statusText} <br/> error:{error}</Alert>
             :null
           }
           {
@@ -145,17 +151,19 @@ function Login({ match, history }){
               className={classes.submit}
               onClick={
                 async () => {
-                    dispatch(LoginAction(state));
+                  setProgress(true);
+                    await dispatch(LoginAction(state));
                     setState(initialState);
+                    
                 }
               }
             >
-              Sign In
+            {strings.singin}
           </Button>
           <Grid container>
             <Grid item xs>
               <Link to="/forgetpassword" className={classes.donthaveaccount}  variant="body2">
-                Forgot password?
+               {strings.fortgotpassword}
               </Link>
             </Grid>
             <Grid item>
@@ -166,6 +174,28 @@ function Login({ match, history }){
           </Grid>
         </div>
       </div>
+      <Progress open={progress} setOpen={setProgress}/>
     </Container>
+  )
+}
+
+function Progress(props){
+  const error = useSelector((state) => state.AccountReducer.error);
+  const token = useSelector((state) => state.AccountReducer.token);
+  function progresscheck(){
+    if(error.length>0){
+      props.setOpen(false);
+    }
+    if(token){
+      props.setOpen(false);
+    }
+  }
+  return(
+    <Dialog   open={props.open} >
+      {progresscheck()}
+        <div style={{width:"100px",height:"100px",display:"flex",background:"black",opacity:0.5,border:"none",boxShadow:'none'}}>
+          <CircularProgress style={{margin:"30px"}}/>
+        </div>
+    </Dialog>
   )
 }

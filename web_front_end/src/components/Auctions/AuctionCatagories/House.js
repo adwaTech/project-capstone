@@ -8,8 +8,12 @@ import './auctioncatagories.css';
 import Button from '@material-ui/core/Button';
 import Header from '../../header/Header';
 import Footer from '../../footer/Footer';
+import {strings} from '../../../language/language';
+import {useSelector} from 'react-redux'
 
 export default function House() {
+    const lang=useSelector((state)=>state.LanguageReducer.language)
+    React.useEffect(()=>{},[lang]);
     var data=[
         {
             image:Image1,
@@ -82,8 +86,8 @@ export default function House() {
             <div className="house-auction">
             
             <section class="menu section bd-container" id="menu">
-            <span class="section-subtitle">House</span>
-            <h6 class="section-title">list accourding to date of post</h6>
+            <span class="section-subtitle">{strings.House}</span>
+            <h6 class="section-title">{strings.listbydate}</h6>
             <div class="menu__container bd-grid ">
             {
                 data.map(data=>(
@@ -94,7 +98,7 @@ export default function House() {
                             <span class="menu__detail">private</span>
                             <span class="menu__preci">${data.price}</span>
                             <a href="#" class="button menu__button"><i class='bx bx-cart-alt'></i></a>
-                            <Button variant="outlined" color="primary">Bid</Button>
+                            <Button variant="outlined" color="primary">{strings.bid}</Button>
                         </div>
                     
                 ))

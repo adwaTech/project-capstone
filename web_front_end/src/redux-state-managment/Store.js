@@ -4,7 +4,8 @@ import Thunk from 'redux-thunk';
 import { 
     AccountReducer, 
     LanguageReducer,
-    LogoutReducer 
+    PostAuctionReducer,
+    AuctionsReducer
 } from './Reducers';
 
 
@@ -13,7 +14,8 @@ const middleware = [Thunk];
 const reducer = combineReducers({
     AccountReducer,
     LanguageReducer,
-    LogoutReducer
+    PostAuctionReducer,
+    AuctionsReducer
 });
 
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(...middleware)));

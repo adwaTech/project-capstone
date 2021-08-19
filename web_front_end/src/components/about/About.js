@@ -42,25 +42,25 @@ export default function About() {
                                 <div className='twogrids'>
                                     <div data-aos='fade-up' className="gridItems">
                                         <img className="image" src={Theman}/>
-                                        <p className="nameof">Meseret Kifle</p>
-                                        <p className="expertize">{strings.SoftwareEngineer} (AASTU)</p>
+                                        <p className="nameof">{strings.mesi}</p>
+                                        <p className="expertize">{strings.softwareengineer}</p>
                                     </div> 
                                     <div data-aos='fade-down' className="gridItems">
                                         <img className="image" src={Theman}/>
-                                        <p className="nameof">Michael Mamaye</p>
-                                        <p className="expertize">Software Engineer (AASTU)</p>
+                                        <p className="nameof">{strings.miki}</p>
+                                        <p className="expertize">{strings.softwareengineer}</p>
                                     </div> 
                                 </div>
                                 <div className='twogrids'>
                                     <div data-aos='fade-up' className="gridItems">
                                         <img className="image" src={Theman}/>
-                                        <p className="nameof">Mengistu Birhie</p>
-                                        <p className="expertize">Software Engineer (AASTU)</p>
+                                        <p className="nameof">{strings.menge}</p>
+                                        <p className="expertize">{strings.softwareengineer}</p>
                                     </div> 
                                     <div data-aos='fade-down' className="gridItems">
                                         <img className="image" src={Theman}/>
-                                        <p className="nameof">Kirubel Adamu</p>
-                                        <p className="expertize">Software Engineer (AASTU)</p>
+                                        <p className="nameof">{strings.kira}</p>
+                                        <p className="expertize">{strings.softwareengineer}</p>
                                     </div> 
                                 </div>
                             </div>  
@@ -68,13 +68,13 @@ export default function About() {
                     <div className='ourteamDiv'>
                         <div className="visionDiv">
                             <div>
-                                <p className="vision_mission vision">Vision</p>
+                                <p className="vision_mission vision">{strings.visiontitle}</p>
                                 <div data-aos='zoom-in-left' className="visionParagraph">
                                      {strings.aboutusparagrap1}
                                 </div>
                             </div>
                             <div>
-                                <p className="vision vision_mission">Mission</p>
+                                <p className="vision vision_mission">{strings.missiontitle}</p>
                                 <div data-aos='zoom-in-right' className="visionParagraph">
                                     {strings.aboutusparagrap2}
                                 </div>

@@ -15,8 +15,10 @@ const getFeedbacks = require('./getFeedbacks');
 const approveAuction = require('./approveAuction');
 const getSearchRoute = require('./search');
 const getBidsRoute = require('./getBids');
+const setWinnerRoute = require('./setWinner');
 const passport = require('passport');
 const getBids = require('./getBids');
+const sync = require('./sync');
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './uploads/');
@@ -36,7 +38,7 @@ const upload = multer({
         cb(Error('Incorrect File Format'), false);
     }
 });
-
+router.use(sync);
 // Customer routes
 router.post("/register", (req, res, next) => {
     upload.fields(
@@ -57,11 +59,12 @@ router.post("/register", (req, res, next) => {
 }, RegisterRoute);
 router.post("/login", upload.any(), LoginRoute);
 router.put("/updateCustomer", passport.authenticate('jwt', { session: false }), updateCustomerRoute);
-router.post('/bid', passport.authenticate('jwt', { session: false }), bidForAuctionRoute);
+router.post('/bid', passport.authenticate('jwt', { session: false }), upload.any(), bidForAuctionRoute);
 router.get('/getAuctions', getAuctionsRoute);
 router.get('/getBids', passport.authenticate('jwt', { session: false }), getBidsRoute);
 router.get('/search', getSearchRoute)
 router.post('/pay', passport.authenticate('jwt', { session: false }), payRoute);
+router.post('/setWinner', passport.authenticate('jwt', { session: false }), upload.any(), setWinnerRoute);
 router.post('/postAuction', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     upload.array('images', 10)(req, res, (err) => {
         if (err) return res.status(400).send({

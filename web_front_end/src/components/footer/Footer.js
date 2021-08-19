@@ -1,6 +1,6 @@
 import React from 'react';
 import './footer.css';
-import { LinkedIn,Twitter,Instagram,Facebook,GitHub ,YouTube} from '@material-ui/icons';
+import {Twitter,Instagram,Facebook,GitHub ,YouTube} from '@material-ui/icons';
 import {Link} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {strings} from '../../language/language';

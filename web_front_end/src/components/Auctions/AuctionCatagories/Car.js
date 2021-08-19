@@ -7,8 +7,12 @@ import { Data } from '@react-google-maps/api';
 import './auctioncatagories.css';
 import Button from '@material-ui/core/Button';
 import Header from '../../header/Header';
+import {strings} from '../../../language/language';
+import {useSelector} from 'react-redux'
 
 export default function Car() {
+    const lang=useSelector((state)=>state.LanguageReducer.language)
+    React.useEffect(()=>{},[lang]);
     var data=[
         {
             image:Image1,
@@ -81,8 +85,8 @@ export default function Car() {
             <div className="house-auction">
             
             <section class="menu section bd-container" id="menu">
-            <span class="section-subtitle">Car</span>
-            <h6 class="section-title">list accourding to date of post</h6>
+            <span class="section-subtitle">{strings.Car}</span>
+            <h6 class="section-title">{strings.listbydate}</h6>
             <div class="menu__container bd-grid ">
             {
                 data.map(data=>(
@@ -90,10 +94,10 @@ export default function Car() {
                         <div class="menu__content">
                             <img src={data.image} alt="" class="about__img"/>
                             <h3 class="menu__name">{data.description}</h3>
-                            <span class="menu__detail">private</span>
+                            <span class="menu__detail">{strings.private}</span>
                             <span class="menu__preci">${data.price}</span>
                             <a href="#" class="button menu__button"><i class='bx bx-cart-alt'></i></a>
-                            <Button variant="outlined" color="primary">Bid</Button>
+                            <Button variant="outlined" color="primary">{strings.bid}</Button>
                         </div>
                     
                 ))

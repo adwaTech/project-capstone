@@ -1,5 +1,5 @@
-<<<<<<< HEAD
 
+<<<<<<< HEAD
 body{
     background-color: #eee;
 }
@@ -14,9 +14,16 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+=======
+>>>>>>> 18968cac74b0edfdd5c4c2a1041458cdc14d7bdb
 body::-webkit-scrollbar-thumb{
   background-color: blue;
 }
 body::-webkit-scrollbar-corner{
   background-color: cadetblue;
+<<<<<<< HEAD
 }
+=======
+}
+
+>>>>>>> 18968cac74b0edfdd5c4c2a1041458cdc14d7bdb
