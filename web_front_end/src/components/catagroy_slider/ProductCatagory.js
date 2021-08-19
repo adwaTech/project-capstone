@@ -107,16 +107,16 @@ export default function Products() {
     const allexcept = useSelector((state) => state.AuctionsReducer.allexcept);
     const popularAuction = useSelector((state) => state.AuctionsReducer.popularAuction);
     const latestAuction = useSelector((state) => state.AuctionsReducer.latestAuction);
-
+    const [numTodesplay, setNumTodesplay] = React.useState(0);
 
     // for bid 
     const bidstatus = useSelector((state) => state.bidAuctionReducer.bidstatus);
     const biderror = useSelector((state) => state.bidAuctionReducer.biderror);
     const bidstatusText = useSelector((state) => state.bidAuctionReducer.bidstatusText);
     const bid = useSelector((state) => state.bidAuctionReducer.bid);
-    
+
     const lang = useSelector((state) => state.LanguageReducer.language);
-    
+
     React.useEffect(() => {
 
     }, [lang]);
@@ -173,6 +173,100 @@ export default function Products() {
         auctionId: "",
         proposalDocument: "",
     })
+    function myMap(product, startindex) {
+        let array = [];
+        for (let i = startindex; i < 6 + startindex; i++) {
+            if (i < product.length)
+                array.push(<div className="product-item" key={product[i]._id}>
+                    <img src={`http://localhost:5000/${product[i].images[0]}`} alt="" />
+                    <div className="rate">
+                        {rate.map((rate, i) => (
+                            // rate <= product[i].rating ? <RateIcon key={i} style={{ color: "orange" }} /> :
+                                <RateIcon key={i} />
+                        ))}
+                    </div>
+                    <div className="product-discription">
+                        <p>{product[i].auctionName}</p>
+                        <Timer
+                            initialTime={timer(product[i].deadline)}
+                            lastUnit="d"
+                            direction="backward"
+                        >
+                            {() => (
+                                <React.Fragment>
+                                    <Timer.Days /> D	&nbsp;
+                                    <Timer.Hours /> H	&nbsp;
+                                    <Timer.Minutes /> M	&nbsp;
+                                    <Timer.Seconds /> S	&nbsp;
+                                </React.Fragment>
+                            )}
+                        </Timer>
+                        <p>{product[i].condition}</p>
+                        <p>min amount :{product[i].minAmount}</p>
+                        <p style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", margin: "10px" }}>
+                            <Button
+                                onClick={
+                                    () => {
+                                        setOpen(true);
+                                        setData(product[i]);
+                                    }
+                                }
+                                color="primary" variant="contained">See More</Button>
+                            <Button
+                                onClick={
+                                    () => {
+                                        setOpen_bid_dialog(!open);
+                                        setData(product[i]);
+                                    }
+                                }
+                                className="cartbtn" color="primary" className={classes.addCartBtn} variant="outlined">
+                                <CartIcon />
+
+                            </Button>
+                            {/* <BidAuctionForm open={open_bid_dialog} setOpen={setOpen_bid_dialog} /> */}
+                        </p>
+
+                    </div>
+                    {/* <DetailDialog open={open} data={data} setOpen={setOpen} /> */}
+                </div>)
+
+        }
+        return <div
+            className="products-item-section"
+        >
+            {array}
+            <div style={{
+                display: "flex",
+                justifyContent: "space-between",
+            }}>
+                <Button style={{
+                    width:"100px",
+                    height:"40px",
+                    justifyContent:"center",
+                    alignItem:"center",
+                    textAlign:"center"
+                }} 
+                onClick={() => {
+                    if(numTodesplay>0)
+                    setNumTodesplay(numTodesplay - 6);
+                }}
+                color="primary" variant="outlined">Prev</Button>
+                <Button
+                    style={{
+                        width:"100px",
+                        height:"40px",
+                        justifyContent:"center",
+                        alignItem:"center",
+                        textAlign:"center",
+                    }}
+                    onClick={() => {
+                        if(numTodesplay<Auctions[index].length-1)
+                        setNumTodesplay(numTodesplay + 6);
+                    }}
+                    color="primary" variant="outlined">Next</Button>
+            </div>
+        </div>
+    }
     return (
         <div>
             <div className="description1" style={{ marginTop: "300px" }}>
@@ -238,68 +332,13 @@ export default function Products() {
                 </div>
             </div>
             <div className="products">
-                <div className="products-item-section">
-                    {
-                        loading ? <CircularProgress /> :
+                {
+                    loading ? <CircularProgress /> :
 
-                            Auctions[index].map(product => (
+                        myMap(Auctions[index], numTodesplay)
+                }
 
-                                <div className="product-item" key={product._id}>
-                                    <img src={`http://localhost:5000/${product.images}`} alt="" />
-                                    <div className="rate">
-                                        {rate.map((rate, i) => (
-                                            rate <= product.rating ? <RateIcon key={i} style={{ color: "orange" }} /> :
-                                                <RateIcon key={i} />
-                                        ))}
-                                    </div>
-                                    <div className="product-discription">
-                                        <p>{product.auctionName}</p>
-                                        <Timer
-                                            initialTime={timer(product.deadline)}
-                                            lastUnit="d"
-                                            direction="backward"
-                                        >
-                                            {() => (
-                                                <React.Fragment>
-                                                    <Timer.Days /> D	&nbsp;
-                                                    <Timer.Hours /> H	&nbsp;
-                                                    <Timer.Minutes /> M	&nbsp;
-                                                    <Timer.Seconds /> S	&nbsp;
-                                                </React.Fragment>
-                                            )}
-                                        </Timer>
-                                        <p>{product.condition}</p>
-                                        <p>min amount :{product.minAmount}</p>
-                                        <p style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", margin: "10px" }}>
-                                            <Button
-                                                onClick={
-                                                    () => {
-                                                        setOpen(true);
-                                                        setData(product);
-                                                    }
-                                                }
-                                                color="primary" variant="contained">See More</Button>
-                                            <Button
-                                                onClick={
-                                                    () => {
-                                                        setOpen_bid_dialog(!open);
-                                                        setData(product);
-                                                    }
-                                                }
-                                                className="cartbtn" color="primary" className={classes.addCartBtn} variant="outlined">
-                                                <CartIcon />
 
-                                            </Button>
-                                            {/* <BidAuctionForm open={open_bid_dialog} setOpen={setOpen_bid_dialog} /> */}
-                                        </p>
-
-                                    </div>
-                                    {/* <DetailDialog open={open} data={data} setOpen={setOpen} /> */}
-                                </div>
-                            ))
-                    }
-                </div>
-                
                 <Dialog
                     open={open_bid_dialog}
                 >
@@ -308,13 +347,13 @@ export default function Products() {
                     </DialogTitle>
                     {
                         biderror
-                        ? <Alert severity="error">status :{bidstatus} <br />statusText:{bidstatusText} <br /> error:{biderror}</Alert>
-                        : null
+                            ? <Alert severity="error">status :{bidstatus} <br />statusText:{bidstatusText} <br /> error:{biderror}</Alert>
+                            : null
                     }
                     {
                         bidstatus === 200
-                        ? <Alert severity="success">status :{bidstatus} : your request to bid is successfuly submited</Alert>
-                        : null
+                            ? <Alert severity="success">status :{bidstatus} : your request to bid is successfuly submited</Alert>
+                            : null
                     }
                     <DialogContent >
                         <Grid spacing={3}>
@@ -384,7 +423,7 @@ export default function Products() {
                                 </label>
                                 <label>{state.proposalDocument.name}</label>
                             </Grid>
-                            
+
                             <Grid className={classes.dialogbtn2}>
                                 <Button
                                     color="primary"
@@ -398,7 +437,7 @@ export default function Products() {
                                         formData.append('ownerId', data.owner);
                                         formData.append('proposalDocument', state.proposalDocument);
                                         formData.append('proposalType', data.auctionType);
-                                        await dispatch(BidAuctionAction(formData,token));
+                                        await dispatch(BidAuctionAction(formData, token));
                                     }}
                                 >Submite Bid</Button>
                             </Grid>
@@ -456,7 +495,7 @@ export default function Products() {
                                     <h5>Condition:</h5> <Typography variant="subtitle2">{data.condition}</Typography>
                                 </div>
                                 <div >
-                                    <h5>Number of Bids:</h5> <Typography variant="subtitle2">{data.proposals?data.proposals.length:0}</Typography>
+                                    <h5>Number of Bids:</h5> <Typography variant="subtitle2">{data.proposals ? data.proposals.length : 0}</Typography>
                                 </div>
                                 <Typography  >
                                     <h5>Approval:</h5> <Typography variant="subtitle2">{data.approval}</Typography>
@@ -474,13 +513,13 @@ export default function Products() {
                                 />
                                 <div className={classes.controls}>
                                     <Button
-                                    onClick={
-                                        () => {
-                                            setOpen(false);
-                                            setOpen_bid_dialog(!open);
+                                        onClick={
+                                            () => {
+                                                setOpen(false);
+                                                setOpen_bid_dialog(!open);
+                                            }
                                         }
-                                    } 
-                                    fullWidth variant="contained" color="primary">Bid</Button>
+                                        fullWidth variant="contained" color="primary">Bid</Button>
                                 </div>
                             </div>
                         </Card>

@@ -23,14 +23,13 @@ import {
   Grid,
   OutlinedInput, 
   IconButton,
-} from '@material-ui/core'
-import LocationPicker from 'react-location-picker';
+} from '@material-ui/core';
 import MapPicker from 'react-google-map-picker';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import {useDispatch,useSelector} from 'react-redux';
 import {RegisterAction} from '../../redux-state-managment/Actions'
-import {Alert,AlertTitle} from '@material-ui/lab'
+import {Alert} from '@material-ui/lab'
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 
 const DefaultLocation = { lat: 8.9806, lng: 38.7578};

@@ -1,78 +1,227 @@
 import React from 'react';
+import {
+    withStyles
+} from '@material-ui/core'
 import './search.css';
-import {useDispatch,useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Category } from '@material-ui/icons';
+import MapPicker from 'react-google-map-picker';
 
+import Timer from 'react-compound-timer';
+
+import Badge from '@material-ui/core/Badge';
+
+
+const StyledBadge = withStyles((theme) => ({
+    badge: {
+        right: -3,
+        top: 13,
+        border: `2px solid ${theme.palette.background.paper}`,
+        padding: '0 4px',
+    },
+}))(Badge);
+
+const defaultLocation = { lat: 8.9806, lng: 38.7578};
+const DefaultZoom = 13;
 export default function Search(props) {
-    const allexcept = useSelector((state) => state.AuctionsReducer.allexcept);
-    const id =props.match.params.search_item;
-    const [auction,setAuction]=React.useState({});
-    function search(id){
-        return allexcept.map(auction=>auction._id===id);
+    // location
+    const [location, setLocation] = React.useState(defaultLocation);
+    const [zoom, setZoom] = React.useState(DefaultZoom);
+    function handleChangeLocation (lat, lng){
+        setLocation({lat:lat, lng:lng});
     }
-    React.useEffect(()=>{
-        setAuction(allexcept.map(auction=>auction._id===id));
-    },id);
+  
+    function handleChangeZoom (newZoom){
+        setZoom(newZoom);
+    }
+    // type
+    const auctionsWithName = useSelector((state) => state.SearchAuctionReducer.auctionsWithName);
+    const auctionsWithCategory = useSelector((state) => state.SearchAuctionReducer.auctionsWithCategory);
+    const cities = useSelector((state) => state.SearchAuctionReducer.cities);
+    const usersWithFirstName = useSelector((state) => state.SearchAuctionReducer.usersWithFirstName);
+    const usersWithLastName = useSelector((state) => state.SearchAuctionReducer.usersWithLastName);
+
+
+    const id = props.match.params.search_item;
+    const type = props.match.params.type;
+    const [auction, setAuction] = React.useState({});
+    const [auctiontype, setAuctionType] = React.useState('');
+    const [date, setDate] = React.useState('');
+    React.useEffect(() => {
+        if (type === 'name') {
+            const au = auctionsWithName.filter(auction => auction._id == id);
+            setAuction(au[0]);
+            timer(au[0].deadline)
+            setAuctionType('name')
+        }
+        if (type === 'first_name') {
+            const au = usersWithFirstName.filter(auction => auction._id == id);
+            setAuction(au[0]);
+            setAuctionType('first_name')
+        }
+        if (type === 'last_name') {
+            const au = usersWithLastName.filter(auction => auction._id == id);
+            setAuction(au[0]);
+            setAuctionType('last_name')
+        }
+        if (type === 'catagory') {
+            const au = auctionsWithCategory.filter(auction => auction._id == id);
+            setAuction(au[0]);
+            setAuctionType('catagory')
+        }
+        if (type === 'city') {
+            const au = auctionsWithName.filter(auction => auction._id == id);
+            setAuction(au[0]);
+            setAuctionType('city')
+        }
+
+
+    }, id);
+    function timer(end) {
+        let date;
+        date = new Date(end.toString()).getTime();
+        const now = new Date().getTime();
+        const d = date - now;
+        return d;
+    }
     return (
         <div className="search-detail">
-
-            {console.log(auction)}
             <div class="big">
                 <article class="recipe">
                     <div class="pizza-box">
-                        <img src="https://brotokoll.com/wp-content/uploads/2019/12/xPSX_20190928_134709.jpg.pagespeed.ic.qsjw5ilFw5.jpg" width="1500" height="1368" alt=""/>
+                        <img src={auctiontype === 'first_name' || auctiontype === 'last_name' || auctiontype === 'city'
+                            ? `http://localhost:5000/${auction.profileImage}` :
+                            auction.images ? `http://localhost:5000/${auction.images[0]}` : ''}
+                            width="1500" height="100%" alt="" />
                     </div>
                     <div class="recipe-content">
                         <p class="recipe-tags">
-                            <span class="recipe-tag">Gluten Free</span>
-                            <span class="recipe-tag">Main dish</span>
+                            <span class="recipe-tag">
+                                {auctiontype === 'first_name' || auctiontype === 'last_name' || auctiontype === 'city' ?
+                                    '' :
+                                    date ? <Timer
+                                        initialTime={
+                                            async () => {
+                                                const date = await new Date(auction.deadline.toString()).getTime();
+                                                const now = new Date().getTime();
+                                                return date - now;
+                                            }
+                                        }
+                                        lastUnit="d"
+                                        direction="backward"
+                                    >
+                                        {() => (
+                                            <React.Fragment>
+                                                <Timer.Days /> D	&nbsp;
+                                                <Timer.Hours /> H	&nbsp;
+                                                <Timer.Minutes /> M	&nbsp;
+                                                <Timer.Seconds /> S	&nbsp;
+                                            </React.Fragment>
+                                        )}
+                                    </Timer> : ''
+                                }
+                            </span>
+                            <span class="recipe-tag">
+                                {auction.status === "ended"
+                                    ? <StyledBadge badgeContent="ended" color="secondary">
+                                    </StyledBadge>
+                                    : <StyledBadge badgeContent="pending" color="primary">
+                                    </StyledBadge>}
+                            </span>
                         </p>
 
-                        <h1 class="recipe-title"><a href="#">Gluten Free Pan Pizza</a></h1>
+                        <h1 class="recipe-title"><a href="#">
+                            {auctiontype === 'first_name' || auctiontype === 'last_name' || auctiontype === 'city' ?
+                                '' : auction.auctionName
+                            }
+                        </a></h1>
 
                         <p class="recipe-metadata">
                             <span class="recipe-rating">★★★★<span>☆</span></span>
-                            <span class="recipe-votes">(12 votes)</span>
+                            <span class="recipe-votes">
+                                ({auctiontype === 'first_name' || auctiontype === 'last_name' || auctiontype === 'city' ?
+                                    ''
+                                    : auction.proposals ? auction.proposals.length : ''
+                                })
+                            </span>
                         </p>
 
-                        <p class="recipe-desc">It really is possible to make excellent gluten free pizza at home in your own oven with our recipes and techniques.</p>
+                        <p class="recipe-desc">
+                            {auctiontype === 'first_name' || auctiontype === 'last_name' || auctiontype === 'city' ?
+                                ''
+                                : auction.briefDescription
+                            }
+                        </p>
+                        <p class="recipe-desc">
+                            {auctiontype === 'first_name' || auctiontype === 'last_name' || auctiontype === 'city' ?
+                                ''
+                                : 'aproval :' + auction.approval
+                            }
+                        </p>
+                        <p class="recipe-desc">
+                            {auctiontype === 'first_name' || auctiontype === 'last_name' || auctiontype === 'city' ?
+                                ''
+                                : 'Bid fee :' + auction.bidFee
+                            }
+                        </p>
+                        <p class="recipe-desc">
+                            {auctiontype === 'first_name' || auctiontype === 'last_name' || auctiontype === 'city' ?
+                                ''
+                                : 'Minimum amout to bid : ' + auction.minAmount
+                            }
+                        </p>
+                        <p class="recipe-desc">
+                            {auctiontype === 'first_name' || auctiontype === 'last_name' || auctiontype === 'city' ?
+                                ''
+                                : 'Min CPO : ' + auction.minCPO
+                            }
+                        </p>
+                        <p class="recipe-desc">
+                            {auctiontype === 'first_name' || auctiontype === 'last_name' || auctiontype === 'city' ?
+                                ''
+                                : 'Auction type : ' + auction.auctionType
+                            }
+                        </p>
+                        <p class="recipe-desc">
+                            {auctiontype === 'first_name' || auctiontype === 'last_name' || auctiontype === 'city' ?
+                                ''
+                                : 'Auction Category : ' + auction.auctionCategory
+                            }
+                        </p>
+                        <p class="recipe-desc">
+                            {auctiontype === 'first_name' || auctiontype === 'last_name' || auctiontype === 'city' ?
+                                ''
+                                : 'Further information : ' + auction.extendedDescription
+                            }
+                        </p>
+                        <p class="recipe-desc">
+                            {auctiontype === 'first_name' || auctiontype === 'last_name' || auctiontype === 'city' ?
+                                ''
+                                : 'condition : ' + auction.condition
+                            }
+                        </p>
 
                         <button class="recipe-save" type="button">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#000000"><path d="M 6.0097656 2 C 4.9143111 2 4.0097656 2.9025988 4.0097656 3.9980469 L 4 22 L 12 19 L 20 22 L 20 20.556641 L 20 4 C 20 2.9069372 19.093063 2 18 2 L 6.0097656 2 z M 6.0097656 4 L 18 4 L 18 19.113281 L 12 16.863281 L 6.0019531 19.113281 L 6.0097656 4 z" fill="currentColor" /></svg>
-                            Save
+                            <svg xmlns="#" width="24" height="24" viewBox="0 0 24 24" fill="#000000"><path d="M 6.0097656 2 C 4.9143111 2 4.0097656 2.9025988 4.0097656 3.9980469 L 4 22 L 12 19 L 20 22 L 20 20.556641 L 20 4 C 20 2.9069372 19.093063 2 18 2 L 6.0097656 2 z M 6.0097656 4 L 18 4 L 18 19.113281 L 12 16.863281 L 6.0019531 19.113281 L 6.0097656 4 z" fill="currentColor" /></svg>
+                            Bid
                         </button>
 
                     </div>
                 </article>
             </div>
 
-            <div class="small">
+            {/* <div class="small">
                 <article class="recipe">
-                    <div class="pizza-box">
-                        <img src="https://brotokoll.com/wp-content/uploads/2019/12/xPSX_20190928_134709.jpg.pagespeed.ic.qsjw5ilFw5.jpg" width="1500" height="1368" alt=""/>
-                    </div>
-                    <div class="recipe-content">
-                        <p class="recipe-tags">
-                            <span class="recipe-tag">Gluten Free</span>
-                            <span class="recipe-tag">Main dish</span>
-                        </p>
-
-                        <h1 class="recipe-title"><a href="#">Gluten Free Pan Pizza</a></h1>
-
-                        <p class="recipe-metadata">
-                            <span class="recipe-rating">★★★★<span>☆</span></span>
-                            <span class="recipe-votes">(12 votes)</span>
-                        </p>
-
-                        <p class="recipe-desc">It really is possible to make excellent gluten free pizza at home in your own oven with our recipes and techniques.</p>
-
-                        <button class="recipe-save" type="button">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#000000"><path d="M 6.0097656 2 C 4.9143111 2 4.0097656 2.9025988 4.0097656 3.9980469 L 4 22 L 12 19 L 20 22 L 20 20.556641 L 20 4 C 20 2.9069372 19.093063 2 18 2 L 6.0097656 2 z M 6.0097656 4 L 18 4 L 18 19.113281 L 12 16.863281 L 6.0019531 19.113281 L 6.0097656 4 z" fill="currentColor" /></svg>
-                            Save
-                        </button>
-
+                    <div style={{ width: "90vh", height: "70vh" }}>
+                        <MapPicker defaultLocation={ {lat: 8.9806, lng: 38.7578}}
+                            zoom={zoom}
+                            style={{ width: "100%", height: "100%" }}
+                            onChangeLocation={handleChangeLocation}
+                            onChangeZoom={handleChangeZoom}
+                            apiKey='AIzaSyD07E1VvpsN_0FvsmKAj4nK9GnLq-9jtj8' />
                     </div>
                 </article>
-            </div>
+            </div> */}
         </div>
     )
 }

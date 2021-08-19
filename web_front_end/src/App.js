@@ -44,7 +44,7 @@ function App() {
               <Route exact path="/government" component={Government}/>
               <ProtectedRoute exact path="/admin"  component={DashBoardIndex}/>
               <ProtectedRoute exact path="/profile" component={User}/>
-              <Route exact path="/search/:search_item" component={Search}/>
+              <Route exact path="/search/:type/:search_item" component={Search}/>
               <Route path="*" component={ErrorRoute}/>
               
           </Switch>
