@@ -31,6 +31,7 @@ import {useDispatch,useSelector} from 'react-redux';
 import {RegisterAction} from '../../redux-state-managment/Actions'
 import {Alert} from '@material-ui/lab'
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
+import ScrollToTop from '../../scrollTop/ScrollToTop';
 
 const DefaultLocation = { lat: 8.9806, lng: 38.7578};
 const DefaultZoom = 13;
@@ -414,7 +415,8 @@ export default function Register({ match, history }) {
   }
   
   return (
-    <React.Fragment >
+    <React.Fragment>
+      <ScrollToTop/>
       <CssBaseline />
 
       <main className={classes.layout}>

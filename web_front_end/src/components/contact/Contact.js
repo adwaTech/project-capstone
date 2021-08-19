@@ -12,6 +12,9 @@ import Footer from '../footer/Footer'
 import {strings} from '../../language/language';
 import {useSelector} from 'react-redux'
 
+import { string } from 'prop-types'
+import ScrollToTop from '../../scrollTop/ScrollToTop';
+
 export default function Contact() {
     const lang=useSelector((state)=>state.LanguageReducer.language)
     
@@ -57,6 +60,7 @@ export default function Contact() {
     return (
     <div>
         <Header/>
+        <ScrollToTop/>
         <div className="contact">
         <div class="container">
             <span class="big-circle"></span>
