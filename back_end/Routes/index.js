@@ -30,7 +30,7 @@ const storage = multer.diskStorage({
 const upload = multer({
     storage: storage,
     limits: {
-        fileSize: 1024 * 1024 * 10
+        fileSize: 1024 * 1024 * 30
     },
     fileFilter: (req, file, cb) => {
         if (file.mimetype.match(/^image\//i))
@@ -59,7 +59,14 @@ router.post("/register", (req, res, next) => {
 }, RegisterRoute);
 router.post("/login", upload.any(), LoginRoute);
 router.put("/updateCustomer", passport.authenticate('jwt', { session: false }), updateCustomerRoute);
-router.post('/bid', passport.authenticate('jwt', { session: false }), upload.any(), bidForAuctionRoute);
+router.post('/bid', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    upload.single('proposalDocument')(req, res, (err) => {
+        if (err) return res.status(400).send({
+            error: 'Invalid file'
+        })
+        next();
+    })
+}, bidForAuctionRoute);
 router.get('/getAuctions', getAuctionsRoute);
 router.get('/getBids', passport.authenticate('jwt', { session: false }), getBidsRoute);
 router.get('/search', getSearchRoute)
@@ -78,7 +85,7 @@ router.post('/sendFeedback', passport.authenticate('jwt', { session: false }), s
 
 // Admin routes
 router.get("/getFeedbacks", passport.authenticate('jwt', { session: false }), getFeedbacks);
-router.put("/approveAuction", passport.authenticate('jwt', { session: false }), approveAuction);
+router.put("/approveAuction", passport.authenticate('jwt', { session: false }), upload.any(), approveAuction);
 
 // Common routes
 router.delete("/deleteCustomer", passport.authenticate('jwt', { session: false }), deleteCustomerRoute);
