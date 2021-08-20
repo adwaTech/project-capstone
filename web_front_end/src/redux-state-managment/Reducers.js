@@ -64,11 +64,12 @@ export const AccountReducer = (state = initialState, action) => {
                 user: {},
                 token: ''
             }
-        case Constant.LOGOUT:
+        case Constant.ACCOUNTCHECKOUT:
             return {
                 ...state,
-                user: {},
-                token: ''
+                error: '',
+                status: '',
+                statusText: ''
             }
         default:
             return {

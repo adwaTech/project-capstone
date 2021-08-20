@@ -13,7 +13,7 @@ import { makeStyles, CircularProgress, Dialog } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
-import { LoginAction } from '../../redux-state-managment/Actions';
+import { LoginAction,AccountCheckoutAction } from '../../redux-state-managment/Actions';
 import { Alert } from '@material-ui/lab';
 import './login.css';
 import { strings } from '../../language/language';
@@ -111,6 +111,9 @@ function Login({ match, history }) {
       setProgress(true);
       await dispatch(LoginAction(state));
       setState(initialState);
+      setTimeout(function(){
+        dispatch(AccountCheckoutAction());
+      }, 3000);
     }
   }
   React.useEffect(()=>{
@@ -134,8 +137,16 @@ function Login({ match, history }) {
         {
           error
             ? <div>
-              <Alert style={{marginBottom:"10px"}} severity="error">status :{status} 	&nbsp;{statusText}</Alert>
-              <Alert severity="error">error: 	&nbsp;{error}</Alert>
+              {statusText==="Network Error"
+              ?<div>
+                <Alert style={{marginBottom:"10px"}} severity="error">status :{status} 	&nbsp;{statusText}</Alert>
+                <Alert severity="error">error: 	&nbsp;{error}</Alert>
+              </div>
+              :<div>
+                <Alert style={{marginBottom:"10px"}} severity="error">status :{status} 	&nbsp;{statusText}</Alert>
+                <Alert severity="error">Incorrect user name or password</Alert>
+              </div>
+              }
             </div>
             : null
         }

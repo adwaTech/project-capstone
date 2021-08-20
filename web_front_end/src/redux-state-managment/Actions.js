@@ -26,7 +26,7 @@ export const LoginAction = (userData) => async (dispatch) => {
         })
     }
 }
-export const AccountCheckoutAction = (userData) => async (dispatch) => {
+export const AccountCheckoutAction = () => async (dispatch) => {
     const data = {
         data: {
             error: "",
