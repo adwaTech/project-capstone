@@ -1,31 +1,31 @@
 import * as Constant from './Constants';
-let initialState={
-    item:{
-        isLogedIn:false,
-        username:'',
-        password:'',
-        error:[]
+let initialState = {
+    item: {
+        isLogedIn: false,
+        username: '',
+        password: '',
+        error: []
     },
-    user:{},
-    token:'',
-    error:'',
-    status:'',
-    statusText:'',
-    language:'en',
-    whichBtn:'',
-    postauction:{},
+    user: {},
+    token: '',
+    error: '',
+    status: '',
+    statusText: '',
+    language: 'en',
+    whichBtn: '',
+    postauction: {},
     // autions types
-    allAuction:[],
-    allexcept:[],
-    idAuction:[],
-    catagoryAuction:[],
-    popularAuction:[],
-    latestAuction:[],
-    AuctioneerAuction:[],
-    bid:{},
-    biderror:'',
-    bidstatus:'',
-    bidstatusText:'',
+    allAuction: [],
+    allexcept: [],
+    idAuction: [],
+    catagoryAuction: [],
+    popularAuction: [],
+    latestAuction: [],
+    AuctioneerAuction: [],
+    bid: {},
+    biderror: '',
+    bidstatus: '',
+    bidstatusText: '',
     // search
     auctionsWithName: [],
     auctionsWithCategory: [],
@@ -34,36 +34,42 @@ let initialState={
     usersWithLastName: []
 }
 
-export const AccountReducer=(state=initialState,action)=>{
-    switch(action.type){
+export const AccountReducer = (state = initialState, action) => {
+    switch (action.type) {
         case Constant.ACCOUNT:
-            if(action.payload.status===200){
+            if (action.payload.status === 200) {
                 var now = new Date();
                 var time = now.getTime();
-                var expireTime = time + 1000*36000;
+                var expireTime = time + 1000 * 36000;
                 now.setTime(expireTime);
                 document.cookie = `user=${action.payload.user}; token=${action.payload.data.token} ; expires=${now.toUTCString()}; path=/`;
-                return{
+                return {
                     ...state,
-                    user:action.payload.data.user,
-                    token:action.payload.data.token,
-                    status:action.payload.status,
-                    statusText:action.payload.statusText
+                    user: action.payload.data.user,
+                    token: action.payload.data.token,
+                    status: action.payload.status,
+                    statusText: action.payload.statusText
                 }
-            }else{
-                return{
+            } else {
+                return {
                     ...state,
-                    error:action.payload.data.error,
-                    status:action.payload.status,
-                    statusText:action.payload.statusText
+                    error: action.payload.data.error,
+                    status: action.payload.status,
+                    statusText: action.payload.statusText
                 }
             }
-           case Constant.LOGOUT:
-            return{
+        case Constant.LOGOUT:
+            return {
                 ...state,
-                user:{},
-                token:''
-                }
+                user: {},
+                token: ''
+            }
+        case Constant.LOGOUT:
+            return {
+                ...state,
+                user: {},
+                token: ''
+            }
         default:
             return {
                 ...state
@@ -71,12 +77,12 @@ export const AccountReducer=(state=initialState,action)=>{
     }
 
 }
-export const LanguageReducer=(state=initialState,action)=>{
-    switch(action.type){
+export const LanguageReducer = (state = initialState, action) => {
+    switch (action.type) {
         case Constant.LANGUAGE:
-            return{
+            return {
                 ...state,
-                language:action.payload
+                language: action.payload
             }
         default:
             return {
@@ -85,22 +91,22 @@ export const LanguageReducer=(state=initialState,action)=>{
     }
 
 }
-export const PostAuctionReducer=(state=initialState,action)=>{
-    switch(action.type){
+export const PostAuctionReducer = (state = initialState, action) => {
+    switch (action.type) {
         case Constant.POSTAUCTION:
-            if(action.payload.status===200){
-                return{
+            if (action.payload.status === 200) {
+                return {
                     ...state,
-                    postedauction:action.payload.data.user,
-                    status:action.payload.status,
-                    statusText:action.payload.statusText
+                    postedauction: action.payload.data.user,
+                    status: action.payload.status,
+                    statusText: action.payload.statusText
                 }
-            }else{
-                return{
+            } else {
+                return {
                     ...state,
-                    error:action.payload.data.error,
-                    status:action.payload.status,
-                    statusText:action.payload.statusText
+                    error: action.payload.data.error,
+                    status: action.payload.status,
+                    statusText: action.payload.statusText
                 }
             }
         default:
@@ -111,42 +117,42 @@ export const PostAuctionReducer=(state=initialState,action)=>{
 
 }
 
-export const AuctionsReducer=(state=initialState,action)=>{
-    switch(action.type){
+export const AuctionsReducer = (state = initialState, action) => {
+    switch (action.type) {
         case Constant.ALL_AUCTION:
-            return{
+            return {
                 ...state,
-                allAuction:action.payload
+                allAuction: action.payload
             }
         case Constant.ALL_EXCEPT_AUCTIONER:
-            return{
+            return {
                 ...state,
-                allexcept:action.payload
+                allexcept: action.payload
             }
         case Constant.AUCTION_BY_ID:
-            return{
+            return {
                 ...state,
-                idAuction:action.payload
+                idAuction: action.payload
             }
         case Constant.CATAGORY_AUCTION:
-            return{
+            return {
                 ...state,
-                catagoryAuction:action.payload
+                catagoryAuction: action.payload
             }
         case Constant.POPULAR_AUCTION:
-            return{
+            return {
                 ...state,
-                popularAuction:action.payload
+                popularAuction: action.payload
             }
         case Constant.LATEST_AUCTION:
-            return{
+            return {
                 ...state,
-                latestAuction:action.payload
+                latestAuction: action.payload
             }
         case Constant.GET_AUCTION_BY_AUCTIONER:
-            return{
+            return {
                 ...state,
-                AuctioneerAuction:action.payload
+                AuctioneerAuction: action.payload
             }
         default:
             return {
@@ -155,31 +161,31 @@ export const AuctionsReducer=(state=initialState,action)=>{
     }
 
 }
-export const bidAuctionReducer=(state=initialState,action)=>{
-    switch(action.type){
+export const bidAuctionReducer = (state = initialState, action) => {
+    switch (action.type) {
         case Constant.BID_AUCTION:
-            if(action.payload.status===200){
-                return{
+            if (action.payload.status === 200) {
+                return {
                     ...state,
-                    bid:action.payload.data.bid,
-                    bidstatus:action.payload.status,
-                    bidstatusText:action.payload.statusText
+                    bid: action.payload.data.bid,
+                    bidstatus: action.payload.status,
+                    bidstatusText: action.payload.statusText
                 }
             }
-            else if(action.payload.status===401){
-                return{
+            else if (action.payload.status === 401) {
+                return {
                     ...state,
-                    biderror:action.payload.data,
-                    bidstatus:action.payload.status,
-                    bidstatusText:action.payload.statusText
+                    biderror: action.payload.data,
+                    bidstatus: action.payload.status,
+                    bidstatusText: action.payload.statusText
                 }
             }
-            else{
-                return{
+            else {
+                return {
                     ...state,
-                    biderror:action.payload.data.error,
-                    bidstatus:action.payload.status,
-                    bidstatusText:action.payload.statusText
+                    biderror: action.payload.data.error,
+                    bidstatus: action.payload.status,
+                    bidstatusText: action.payload.statusText
                 }
             }
         default:
@@ -189,10 +195,10 @@ export const bidAuctionReducer=(state=initialState,action)=>{
     }
 
 }
-export const SearchAuctionReducer=(state=initialState,action)=>{
-    switch(action.type){
+export const SearchAuctionReducer = (state = initialState, action) => {
+    switch (action.type) {
         case Constant.SEARCH_AUCTION:
-            return{
+            return {
                 ...state,
                 auctionsWithName: action.payload.auctionsWithName,
                 auctionsWithCategory: action.payload.auctionsWithCategory,
