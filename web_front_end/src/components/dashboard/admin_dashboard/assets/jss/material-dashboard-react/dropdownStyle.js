@@ -71,7 +71,7 @@ const dropdownStyle = (theme) => ({
           margin: "10px 15px 0!important",
           padding: "10px 15px !important",
           "&:hover": {
-            backgroundColor: "hsla(0,0%,78%,.2)",
+            backgroundColor: "#0099ff",
             boxShadow: "none",
           },
         },
@@ -114,7 +114,7 @@ const dropdownStyle = (theme) => ({
     height: "unset",
     minHeight: "unset",
     "&:hover": {
-      backgroundColor: primaryColor[0],
+      backgroundColor: "#0099ff",
       color: whiteColor,
       ...primaryBoxShadow,
     },

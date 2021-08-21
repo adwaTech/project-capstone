@@ -12,9 +12,14 @@ import Footer from '../footer/Footer'
 import {strings} from '../../language/language';
 import {useSelector} from 'react-redux'
 
+import { string } from 'prop-types'
+import ScrollToTop from '../../scrollTop/ScrollToTop';
+
 export default function Contact() {
     const lang=useSelector((state)=>state.LanguageReducer.language)
-    
+    React.useEffect(()=>{
+
+    },[lang]);
     const [values,setValues]=useState({
         username:'',
         email:'',
@@ -57,6 +62,7 @@ export default function Contact() {
     return (
     <div>
         <Header/>
+        <ScrollToTop/>
         <div className="contact">
         <div class="container">
             <span class="big-circle"></span>
@@ -73,7 +79,7 @@ export default function Contact() {
                     </div>
                     <div class="information">
                     <img src={EmailImage} class="icon" alt="" />
-                    <p>lorem@ipsum.com</p>
+                    <p>{strings.lorem}</p>
                     </div>
                     <div class="information">
                     <img src={PhoneImage} class="icon" alt="" />
@@ -82,7 +88,7 @@ export default function Contact() {
                 </div>
 
                 <div class="social-media">
-                    <p>Connect with us :</p>
+                    <p>{strings.connectwithus} :</p>
                     <div class="social-icons">
                     <a href="#">
                         <i class="fab fa-facebook-f">

@@ -1,13 +1,18 @@
 import React from 'react';
 import RateIcon from '@material-ui/icons/StarBorder';
 import CartIcon from '@material-ui/icons/AddShoppingCart';
-import {Button,CircularProgress,makeStyles} from '@material-ui/core';
+import {
+    Button,
+    CircularProgress,
+    makeStyles,
+} from '@material-ui/core';
 import Image8 from '../../assets/images/PngItem_3205063.png';
 import Image7 from '../../assets/images/PngItem_3204975.png';
-import {useSelector,useDispatch} from 'react-redux';
-import {strings} from '../../language/language';
-import moment from 'moment';
-import Clock from 'react-live-clock';
+import { useSelector, useDispatch } from 'react-redux';
+import { strings } from '../../language/language';
+import Timer from 'react-compound-timer';
+import BidAuctionForm from '../customer/BidAuctionForm';
+import Slide from '@material-ui/core/Slide';
 import {
     AllAuctionAction,
     PopularAuctionAction,
@@ -16,145 +21,275 @@ import {
 } from '../../redux-state-managment/Actions';
 import DetailDialog from './Detail';
 
-const useStyles=makeStyles({
-    addCartBtn:{
-        borderRadius:"20px"
+
+const useStyles = makeStyles({
+    addCartBtn: {
+        borderRadius: "20px"
     },
-    shopNow:{
-        display:"flex",
-        justifyContent:"center",
-        alignItems:"center",
-        textAlign:"center",
-        borderRadius:"30px"
+    shopNow: {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        textAlign: "center",
+        borderRadius: "30px"
+    },
+    root: {
+        display: 'flex',
+    },
+    details: {
+        display: 'flex',
+        flexDirection: 'column',
+    },
+    content: {
+        flex: '1 0 auto',
+    },
+    cover: {
+        width: 400,
+        height: 100,
+
+    },
+    controls: {
+        marginTop: "10px"
+    },
+    dialogbtn1: {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        textAlign: "center",
+        marginTop: "10px",
+        marginBottom: "10px"
+    },
+    dialogbtn2: {
+        marginTop: "10px",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        textAlign: "center"
     }
 })
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
+
 export default function Products() {
-    const dispatch=useDispatch();
-    const rate=[1,2,3,4,5];
-    const classes=useStyles();
-    const [error,setError]=React.useState(false);
-    const [num,setNum]=React.useState(1);
-   
+    const dispatch = useDispatch();
+    const rate = [1, 2, 3, 4, 5];
+    const classes = useStyles();
+    const [num, setNum] = React.useState(1);
 
-    const token = useSelector((state) => state.AccountReducer.token);
-    const allAuction=useSelector((state)=>state.AuctionsReducer.allAuction);
-    const allexcept=useSelector((state)=>state.AuctionsReducer.allAuction);
-    const popularAuction=useSelector((state)=>state.AuctionsReducer.allAuction);
-    const latestAuction=useSelector((state)=>state.AuctionsReducer.allAuction);
-    const lang=useSelector((state)=>state.LanguageReducer.language)
-    React.useEffect(()=>{
 
-    },[lang]);
-    React.useEffect( ()=>{
-        if(num==1){
+    const allAuction = useSelector((state) => state.AuctionsReducer.allAuction);
+    const allexcept = useSelector((state) => state.AuctionsReducer.allexcept);
+    const popularAuction = useSelector((state) => state.AuctionsReducer.popularAuction);
+    const latestAuction = useSelector((state) => state.AuctionsReducer.latestAuction);
+    const [numTodesplay, setNumTodesplay] = React.useState(0);
+
+    
+
+    const lang = useSelector((state) => state.LanguageReducer.language);
+
+    React.useEffect(() => {
+
+    }, [lang]);
+    React.useEffect(() => {
+        if (num == 1) {
             dispatch(AllAuctionAction());
+            dispatch(LatestAuctionAction());
+            dispatch(AllExceptAuctionAction());
+            dispatch(PopularAuctionAction());
             setNum(2)
         }
-        // await dispatch(PopularAuctionAction());
-        // await dispatch(LatestAuctionAction());
-        // await dispatch(AllExceptAuctionAction());
     });
-    var loading=true;
-    if(allAuction.length>0){
-    
-        loading=false
-    }
-    const [open,setOpen]=React.useState(false);
-    function timer(start1,end1){
-        var start =new Date(moment(start1).format());
-        var end=new Date(moment(end).format());
-        var hoursstart = start.getHours()
-        var minutesstart = start.getMinutes()
-        var secstart = start.getSeconds()
-        var hoursend = end.getHours()
-        var minutesend = end.getMinutes()
-        var secend = end.getSeconds()
+    var loading = true;
+    if (allAuction.length > 0) {
 
-        var hours= hoursend-hoursstart;
-        var minutes= minutesend-minutesstart;
-        var sec= secend-secstart;
-       if (minutes < 10){
-           minutes = "0" + minutes
-       }
-       if (sec < 10){
-           sec = "0" + sec
-       }
-       var t_str = hours + ":" + minutes + ":" + sec + " ";
-       if(hours > 11){
-           t_str += "PM";
-       } else {
-          t_str += "AM";
-       }
-        return t_str;
+        loading = false
+    }
+    const [open, setOpen] = React.useState(false);
+    const [open_bid_dialog, setOpen_bid_dialog] = React.useState(false);
+    const [data, setData] = React.useState({});
+    function timer(end) {
+        const date = new Date(end.toString()).getTime();
+        const now = new Date().getTime();
+        return date - now
+    }
+    const Auctions = [
+        allAuction,
+        latestAuction,
+        allAuction.filter((item) => item.auctionType === "open"),
+        allAuction.filter((item) => item.auctionType === "sealed"),
+        allAuction.filter((item) => item.condition === "used"),
+        allAuction.filter((item) => item.condition === "new")
+    ];
+    const [index, setIndex] = React.useState(0);
+
+    function myMap(product, startindex) {
+        let array = [];
+        for (let i = startindex; i < 6 + startindex; i++) {
+            if (i < product.length)
+                array.push(<div className="product-item" key={product[i]._id}>
+                    <img src={`http://localhost:5000/${product[i].images[0]}`} alt="" />
+                    <div className="rate">
+                        {rate.map((rate, i) => (
+                            // rate <= product[i].rating ? <RateIcon key={i} style={{ color: "orange" }} /> :
+                                <RateIcon key={i} />
+                        ))}
+                    </div>
+                    <div className="product-discription">
+                        <p>{product[i].auctionName}</p>
+                        <Timer
+                            initialTime={timer(product[i].deadline)}
+                            lastUnit="d"
+                            direction="backward"
+                        >
+                            {() => (
+                                <React.Fragment>
+                                    <Timer.Days /> D	&nbsp;
+                                    <Timer.Hours /> H	&nbsp;
+                                    <Timer.Minutes /> M	&nbsp;
+                                    <Timer.Seconds /> S	&nbsp;
+                                </React.Fragment>
+                            )}
+                        </Timer>
+                        <p>{product[i].condition}</p>
+                        <p>min amount :{product[i].minAmount}</p>
+                        <p style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", margin: "10px" }}>
+                            <Button
+                                onClick={
+                                    () => {
+                                        setOpen(!open);
+                                        setData(product[i]);
+                                    }
+                                }
+                                color="primary" variant="contained">See More</Button>
+                            <Button
+                                onClick={
+                                    () => {
+                                        setOpen_bid_dialog(!open_bid_dialog);
+                                        setData(product[i]);
+                                    }
+                                }
+                                className="cartbtn" color="primary" className={classes.addCartBtn} variant="outlined">
+                                <CartIcon />
+                            </Button>
+                            
+                            
+                        </p>
+
+                    </div>
+                    
+                </div>)
+
+        }
+        return <div
+            className="products-item-section"
+        >
+            {array}
+            <div style={{
+                display: "flex",
+                justifyContent: "space-between",
+            }}>
+                <Button style={{
+                    width:"100px",
+                    height:"40px",
+                    justifyContent:"center",
+                    alignItem:"center",
+                    textAlign:"center"
+                }} 
+                onClick={() => {
+                    if(numTodesplay>0)
+                    setNumTodesplay(numTodesplay - 6);
+                }}
+                color="primary" variant="outlined">Prev</Button>
+                <Button
+                    style={{
+                        width:"100px",
+                        height:"40px",
+                        justifyContent:"center",
+                        alignItem:"center",
+                        textAlign:"center",
+                    }}
+                    onClick={() => {
+                        if(numTodesplay<Auctions[index].length-1)
+                        setNumTodesplay(numTodesplay + 6);
+                    }}
+                    color="primary" variant="outlined">Next</Button>
+            </div>
+        </div>
     }
     return (
         <div>
-            {console.log(allAuction)}
-            <div className="description1" style={{marginTop:"300px"}}>
-                <img src={Image8} alt=""/>
+            <DetailDialog open={open} data={data} setOpen={setOpen} />
+            <BidAuctionForm open={open_bid_dialog} data={data} setOpen={setOpen_bid_dialog} />
+            <div className="description1" style={{ marginTop: "300px" }}>
+                <img src={Image8} alt="" />
                 <div className="description1-area">
-                    <h3>Find The Best Product </h3>
-                    <Button className={classes.shopNow} variant="contained" color="primary">Shop Now</Button>
+                    <h3>{strings.FindhTBestProduct}</h3>
+                    
+                    <Button className={classes.shopNow} variant="contained" color="primary">Bid Now</Button>
                 </div>
-                <img src={Image7} alt="" width="40px" height="40px"/>
+                <img src={Image7} alt="" width="40px" height="40px" />
             </div>
             <div className="section-name">
                 <h2 >Latest Products</h2>
-                <hr/>
+                <hr />
                 <div className="product-type">
-                    <span className="type1">All</span>
-                    <span className="type1">Today</span>
-                    <span className="type1">since last month</span>
-                    <span className="type1">since last year</span>
-                    <span className="type1">not closed</span>
-                </div>  
+                    <span
+                        onClick={
+                            async () => {
+
+                                await dispatch(AllAuctionAction());
+                                setIndex(0)
+                            }
+                        }
+                        className="type1">All</span>
+                    <span
+                        onClick={
+                            async () => {
+                                await dispatch(LatestAuctionAction());
+                                setIndex(1)
+                            }
+                        }
+                        className="type1">Latest</span>
+
+                    <span
+                        onClick={
+                            () => {
+
+                                setIndex(2)
+                            }
+                        }
+                        className="type1">Open</span>
+                    <span
+                        onClick={
+                            () => {
+                                setIndex(3)
+                            }
+                        }
+                        className="type1">sealed</span>
+                    <span
+                        onClick={
+                            () => {
+                                setIndex(4)
+                            }
+                        }
+                        className="type1">Used</span>
+                    <span
+                        onClick={
+                            () => {
+                                setIndex(5)
+                            }
+                        }
+                        className="type1">New</span>
+
+                </div>
             </div>
             <div className="products">
-                <div className="products-item-section">
-                    {
-                        loading?<CircularProgress/>:
-                        allAuction.map(product=>(
-                           
-                            <div className="product-item" key={product._id}>
-                                {}
-                                <img   src={`http://localhost:5000/${product.images}`} alt=""/>
-                                <div className="rate">
-                                {rate.map((rate,i)=>(
-                                        rate<=product.rating?<RateIcon key={i} style={{color:"orange"}}/>:
-                                        <RateIcon key={i} />
-                                ))}
-                                </div>
-                                <div className="product-discription">
-                                    <p>{product.auctionName}</p>
-                                    <p>
-                                    <Clock
-                                    date={Date.now() - product.deadline}
-                                    format={'h:mm:ssa'}
-                                    timezone={'East Africa Time (EAT)'}
-                                    style={{fontSize: '1.5em'}}
-                                    ticking={true} />
-                                    </p>
-                                    <p>{product.condition}</p>
-                                    <p>min amount :{product.minAmount}</p>
-                                    <p style={{display:"flex",flexDirection:"row",justifyContent:"space-between",margin:"10px"}}>
-                                        <Button 
-                                        onClick={
-                                            ()=>{
-                                                setOpen(true);
-                                            }
-                                        }
-                                        color="primary" variant="contained">See More</Button>
-                                        <Button className="cartbtn"  color="primary" className={classes.addCartBtn} variant="outlined">
-                                        <CartIcon/>
-                                        <DetailDialog open={open} data={product} setOpen={setOpen} />
-                                    </Button>   
-                                    </p>
-                                    
-                                </div>
-                            </div>
-                        ))
-                    }
-                </div>
+                {
+                    loading ? <CircularProgress /> :
+
+                        myMap(Auctions[index], numTodesplay)
+                }
                 
             </div>
         </div>
