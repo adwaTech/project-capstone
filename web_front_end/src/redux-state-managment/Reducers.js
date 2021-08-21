@@ -110,6 +110,13 @@ export const PostAuctionReducer = (state = initialState, action) => {
                     statusText: action.payload.statusText
                 }
             }
+        case Constant.CLEANUPPOSTAUCTION:
+            return {
+                ...state,
+                error: '',
+                status: '',
+                statusText: ''
+            }
         default:
             return {
                 ...state

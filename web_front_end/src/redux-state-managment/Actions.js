@@ -85,24 +85,39 @@ export const LogoutAction = () => async (dispatch) => {
     })
 }
 export const PostAuctionAction = (userData, token) => async (dispatch) => {
-    const axiosInstance = axios.create({
-        baseURL: "http://localhost:5000",
-        timeout: 5000,
-        headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-        }
-    });
-    const response = await axiosInstance.post(`/postAuction`, userData, {
-        validateStatus: function (status) {
-            return status < 600
-        }
-    },
-    );
-    dispatch({
-        type: Constant.POSTAUCTION,
-        payload: response,
-    })
+    const data = {
+        data: {
+            error: "Please check your network connection",
+        },
+        status: 404,
+        statusText: "Network Error"
+    }
+    try {
+        const axiosInstance = axios.create({
+            baseURL: "http://localhost:5000",
+            timeout: 5000,
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        const response = await axiosInstance.post(`/postAuction`, userData, {
+            validateStatus: function (status) {
+                return status < 600
+            }
+        },
+        );
+        dispatch({
+            type: Constant.POSTAUCTION,
+            payload: response,
+        })
+    }
+    catch (error) {
+        dispatch({
+            type: Constant.POSTAUCTION,
+            payload: data,
+        })
+    }
 }
 export const BidCleanUpAction = () => async (dispatch) => {
     const data = {
@@ -114,6 +129,19 @@ export const BidCleanUpAction = () => async (dispatch) => {
     }
     dispatch({
         type: Constant.CLEANUPBIDAUCTION,
+        payload: data,
+    })
+}
+export const PostCleanUpAction = () => async (dispatch) => {
+    const data = {
+        data: {
+            error: "",
+        },
+        status: '',
+        statusText: ""
+    }
+    dispatch({
+        type: Constant.CLEANUPPOSTAUCTION,
         payload: data,
     })
 }

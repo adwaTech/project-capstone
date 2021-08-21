@@ -24,15 +24,13 @@ import {
 } from '@material-ui/core'
 import { FileUploader } from "react-drag-drop-files";
 import { useDispatch, useSelector } from 'react-redux';
-import { PostAuctionAction } from '../../redux-state-managment/Actions'
+import { PostAuctionAction,PostCleanUpAction } from '../../redux-state-managment/Actions'
 import { Alert } from '@material-ui/lab'
 import InputBase from '@material-ui/core/InputBase';
-import DatePicker from "react-datepicker";
 import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
-  KeyboardTimePicker,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 
@@ -309,7 +307,6 @@ export default function Register({ match, history }) {
                 <div>{state.images.length > 0 ? <div>
                   {state.images.map((i, index) => (<span key={index}>{i.name}</span>))}
                 </div> : "no files uploaded yet"}</div>
-                {console.log(state.images)}
                 <p style={{ color: "red" }}>
                   {images.haveError ? images.message : null}
                 </p>
@@ -342,7 +339,7 @@ export default function Register({ match, history }) {
                 </RadioGroup>
               </FormControl>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            {state.auctionType==="live"?<Grid item xs={12} sm={6}>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <KeyboardDatePicker
                   margin="normal"
@@ -356,7 +353,7 @@ export default function Register({ match, history }) {
                   }}
                 />
               </MuiPickersUtilsProvider>
-            </Grid>
+            </Grid>:null}
             <Grid item xs={12} sm={6} >
               <p>condition</p>
               <FormControl fullWidth >
@@ -452,6 +449,15 @@ export default function Register({ match, history }) {
         throw new Error('Unknown step');
     }
   }
+  const [progress, setProgress] = React.useState(false);
+  React.useEffect(() => {
+    if (error) {
+      setProgress(false);
+    }
+    if (token) {
+      setProgress(false);
+    }
+  }, [error, token])
 
   return (
     <React.Fragment >
@@ -465,12 +471,12 @@ export default function Register({ match, history }) {
           </Typography>
           {
             error
-              ? <Alert severity="error">status :{status} <br />statusText:{statusText} <br /> error:{error}</Alert>
+              ? <Alert severity="error">{error}</Alert>
               : null
           }
           {
             status === 200
-              ? <Alert severity="success">status :{status} : The auction is successfuly posted</Alert>
+              ? <Alert severity="success">The auction is successfuly posted</Alert>
               : null
           }
           <Stepper activeStep={activeStep} className={classes.stepper}>
@@ -509,6 +515,7 @@ export default function Register({ match, history }) {
                       onClick={async () => {
                         validation3();
                         if (state.minCPO && state.minAmount) {
+                          setProgress(true)
                           const formData = new FormData();
                           formData.append('auctionName', state.auctionName);
                           formData.append('briefDescription', state.briefDescription);
@@ -522,9 +529,12 @@ export default function Register({ match, history }) {
                           formData.append('extendedDescription', state.extendedDescription);
                           formData.append('deadline', state.deadline);
                           formData.append('condition', state.condition);
-                          formData.append('startDate',state.startDate)
+                          formData.append('startDate', state.startDate)
                           dispatch(PostAuctionAction(formData, token));
-                          // setState(initialState)
+                          setState(initialState);
+                          setTimeout(function () {
+                            dispatch(PostCleanUpAction());
+                          }, 5000);
                         }
 
                       }}
