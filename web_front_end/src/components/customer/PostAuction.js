@@ -19,16 +19,27 @@ import {
   FormControlLabel,
   Input,
   Grid,
-  withStyles
+  withStyles,
+  FormHelperText
 } from '@material-ui/core'
+import { FileUploader } from "react-drag-drop-files";
 import { useDispatch, useSelector } from 'react-redux';
 import { PostAuctionAction } from '../../redux-state-managment/Actions'
 import { Alert } from '@material-ui/lab'
 import InputBase from '@material-ui/core/InputBase';
 import DatePicker from "react-datepicker";
+import 'date-fns';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
 
 
 import "react-datepicker/dist/react-datepicker.css";
+
+const fileTypes = ["jpg", "png", "gif", 'jpeg', 'svg', 'pdf'];
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -116,7 +127,21 @@ export default function Register({ match, history }) {
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleNext = () => {
-    setActiveStep(activeStep + 1);
+    if (activeStep === 0) {
+      validation1();
+      if (state.auctionName && state.briefDescription) {
+        setActiveStep(activeStep + 1);
+      }
+    }
+    if (activeStep === 1) {
+      validation2();
+      if (state.images.length > 0 && state.bidFee) {
+        setActiveStep(activeStep + 1);
+      }
+    }
+
+
+
   };
 
   const handleBack = () => {
@@ -134,16 +159,66 @@ export default function Register({ match, history }) {
     auctionCategory: 'land',
     images: [],
     condition: 'new',
-    extendedDescription: '',
-    // status: '',
-    approval: '',
-    postedOn: '',
+    extendedDescription: null,
     deadline: new Date(),
-    
+    startDate: new Date(),
+  }
+  const [auctionName, setAuctionName] = React.useState({ message: '', haveError: '' })
+  const [briefDescription, setbriefDescription] = React.useState({ message: '', haveError: '' })
+  const [bidFee, setbidFee] = React.useState({ message: '', haveError: '' });
+  const [minAmount, setminAmount] = React.useState({ message: '', haveError: '' })
+  const [minCPO, setminCPO] = React.useState({ message: '', haveError: '' })
+  const [images, setimages] = React.useState({ message: '', haveError: '' })
+  function validation3() {
+
+    if (state.minAmount === '') {
+      setminAmount({ message: "this field is required", haveError: true });
+    }
+    if (state.minAmount) {
+      setminAmount({ message: "", haveError: false });
+    }
+    if (state.minCPO === '') {
+      setminCPO({ message: "this field is required", haveError: true });
+    }
+    if (state.minCPO) {
+      setminCPO({ message: "", haveError: false });
+    }
+
+  }
+  function validation1() {
+    if (state.auctionName === '') {
+      setAuctionName({ message: "this field is required", haveError: true });
+    }
+    if (state.auctionName) {
+      setAuctionName({ message: "", haveError: false });
+    }
+    if (state.briefDescription === '') {
+      setbriefDescription({ message: "this field is required", haveError: true });
+    }
+    if (state.briefDescription) {
+      setbriefDescription({ message: "", haveError: false });
+    }
+  }
+  function validation2() {
+    if (state.images.length === 0) {
+      setimages({ message: "this field is required", haveError: true });
+    }
+    if (state.images.length > 0) {
+      setimages({ message: "", haveError: false });
+    }
+    if (state.bidFee === '') {
+      setbidFee({ message: "this field is required", haveError: true });
+    }
+    if (state.bidFee) {
+      setbidFee({ message: "", haveError: false });
+    }
   }
 
   const [state, setState] = React.useState(initialState);
 
+  const handleDateChange = (date) => {
+    setState({ ...state, startDate: date });
+  };
 
   const auctionCategory = ['land', 'house', 'vehicle', 'electronics', 'service', 'rare', 'oldies'];
   function getStepContent(step) {
@@ -155,7 +230,8 @@ export default function Register({ match, history }) {
             <Grid item xs={12} sm={6}>
               <TextField
                 required
-
+                error={auctionName.haveError}
+                helperText={auctionName.message}
                 id="auction name"
                 name="auction name"
                 label="auction name"
@@ -171,7 +247,8 @@ export default function Register({ match, history }) {
             <Grid item xs={12} sm={6}>
               <TextField
                 required
-
+                error={briefDescription.haveError}
+                helperText={briefDescription.message}
                 id="brief discription"
                 name="brief discription"
                 label="brief discription"
@@ -185,7 +262,7 @@ export default function Register({ match, history }) {
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <FormControl component="fieldset" fullWidth >
+              <FormControl component="fieldset" fullWidth>
                 <FormLabel component="legend">all pay</FormLabel>
                 <RadioGroup aria-label="gender" name="gender1" value={state.allPay} onChange={
                   (e) => {
@@ -199,7 +276,6 @@ export default function Register({ match, history }) {
             </Grid>
             <Grid item xs={12} sm={6} >
               <TextField
-                required
                 id="exptended description"
                 name="exptended description"
                 label="exptended description"
@@ -221,25 +297,26 @@ export default function Register({ match, history }) {
         return <React.Fragment>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6} >
-              <input
-                accept="image/*"
-                style={{ display: 'none' }}
-                multiple
-                id="raised-button-file"
-                onChange={(e) => {
-                  setState({ ...state, images: e.target.files[0] });
-                }}
-                type="file"
-              />
-              <label htmlFor="raised-button-file">
-                <Button variant="outlined" component="span" className={classes.button}>
-                  Upload image
-                </Button>
-              </label>
-              <label>{state.images.name}</label>
+              <div >
+                <p>upload image of item</p>
+                <FileUploader
+                  maxSize={100}
+                  multiline
+                  handleChange={(e) => {
+                    setState({ ...state, images: state.images.concat(e) });
+                  }}
+                  name="file" types={fileTypes} />
+                <div>{state.images.length > 0 ? <div>
+                  {state.images.map((i, index) => (<span key={index}>{i.name}</span>))}
+                </div> : "no files uploaded yet"}</div>
+                {console.log(state.images)}
+                <p style={{ color: "red" }}>
+                  {images.haveError ? images.message : null}
+                </p>
+              </div>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <FormControl className={classes.margin} >
+              <FormControl className={classes.margin} error={bidFee.haveError} >
                 <InputLabel htmlFor="input-with-icon-adornment">Bid Fee</InputLabel>
                 <Input
                   type="number"
@@ -249,6 +326,7 @@ export default function Register({ match, history }) {
                   value={state.bidFee}
                   onChange={(e) => setState({ ...state, bidFee: e.target.value })}
                 />
+                <FormHelperText>{bidFee.message}</FormHelperText>
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -264,8 +342,23 @@ export default function Register({ match, history }) {
                 </RadioGroup>
               </FormControl>
             </Grid>
+            <Grid item xs={12} sm={6}>
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <KeyboardDatePicker
+                  margin="normal"
+                  id="date-picker-dialog"
+                  label="Start Date"
+                  format="MM/dd/yyyy"
+                  value={state.startDate}
+                  onChange={handleDateChange}
+                  KeyboardButtonProps={{
+                    'aria-label': 'change date',
+                  }}
+                />
+              </MuiPickersUtilsProvider>
+            </Grid>
             <Grid item xs={12} sm={6} >
-              <label>condition</label>
+              <p>condition</p>
               <FormControl fullWidth >
                 <Select
                   labelId="demo-customized-select-label"
@@ -291,7 +384,7 @@ export default function Register({ match, history }) {
 
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6} >
-              <FormControl className={classes.margin}>
+              <FormControl className={classes.margin} error={minAmount.haveError}>
                 <InputLabel htmlFor="input-with-icon-adornment">Min Amount</InputLabel>
                 <Input
                   type="number"
@@ -300,11 +393,12 @@ export default function Register({ match, history }) {
                   value={state.minAmount}
                   onChange={(e) => setState({ ...state, minAmount: e.target.value })}
                 />
+                <FormHelperText>{minAmount.message}</FormHelperText>
               </FormControl>
             </Grid>
 
             <Grid item xs={12} sm={6} >
-              <FormControl className={classes.margin}>
+              <FormControl className={classes.margin} error={minCPO.haveError}>
                 <InputLabel htmlFor="input-with-icon-adornment">CPO</InputLabel>
                 <Input
                   type="number"
@@ -312,6 +406,7 @@ export default function Register({ match, history }) {
                   value={state.minCPO}
                   onChange={(e) => setState({ ...state, minCPO: e.target.value })}
                 />
+                <FormHelperText>{minCPO.message}</FormHelperText>
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={6} >
@@ -336,8 +431,19 @@ export default function Register({ match, history }) {
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={6} >
-              <label>deadline</label>
-              <DatePicker selected={state.deadline} onChange={(date) => setState({ ...state, deadline: date })} />
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <KeyboardDatePicker
+                  margin="normal"
+                  id="date-picker-dialog"
+                  label="Deadline Date"
+                  format="MM/dd/yyyy"
+                  value={state.deadline}
+                  onChange={(date) => setState({ ...state, deadline: date })}
+                  KeyboardButtonProps={{
+                    'aria-label': 'change date',
+                  }}
+                />
+              </MuiPickersUtilsProvider>
             </Grid>
           </Grid>
         </React.Fragment>;
@@ -401,22 +507,26 @@ export default function Register({ match, history }) {
                       onClick={handleNext}
                       className={classes.button}
                       onClick={async () => {
-                        const formData = new FormData();
-                        formData.append('auctionName', state.auctionName);
-                        formData.append('briefDescription', state.briefDescription);
-                        formData.append('allPay', state.allPay);
-                        formData.append('bidFee', state.bidFee);
-                        formData.append('minAmount', state.minAmount);
-                        formData.append('minCPO', state.minCPO);
-                        formData.append('owner', state.owner);
-                        formData.append('auctionType', state.auctionType);
-                        formData.append('auctionCategory', state.auctionCategory);
-                        formData.append('images', state.images);
-                        formData.append('extendedDescription', state.extendedDescription);
-                        formData.append('deadline', state.deadline);
-                        formData.append('condition', state.condition);
-                        dispatch(PostAuctionAction(formData, token));
-                        // setState(initialState)
+                        validation3();
+                        if (state.minCPO && state.minAmount) {
+                          const formData = new FormData();
+                          formData.append('auctionName', state.auctionName);
+                          formData.append('briefDescription', state.briefDescription);
+                          formData.append('allPay', state.allPay);
+                          formData.append('bidFee', state.bidFee);
+                          formData.append('minAmount', state.minAmount);
+                          formData.append('minCPO', state.minCPO);
+                          formData.append('auctionType', state.auctionType);
+                          formData.append('auctionCategory', state.auctionCategory);
+                          formData.append('images', state.images);
+                          formData.append('extendedDescription', state.extendedDescription);
+                          formData.append('deadline', state.deadline);
+                          formData.append('condition', state.condition);
+                          formData.append('startDate',state.startDate)
+                          dispatch(PostAuctionAction(formData, token));
+                          // setState(initialState)
+                        }
+
                       }}
                     >
                       Post
