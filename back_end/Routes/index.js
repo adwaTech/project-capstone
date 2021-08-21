@@ -16,6 +16,8 @@ const approveAuction = require('./approveAuction');
 const getSearchRoute = require('./search');
 const getBidsRoute = require('./getBids');
 const setWinnerRoute = require('./setWinner');
+const withdrawRoute = require('./withdraw');
+const depositRoute = require('./deposit');
 const passport = require('passport');
 const getBids = require('./getBids');
 const sync = require('./sync');
@@ -94,7 +96,8 @@ router.post('/postAuction', passport.authenticate('jwt', { session: false }), (r
     })
 }, postAuctionRoute);
 router.post('/sendFeedback', passport.authenticate('jwt', { session: false }), upload.any(), sendFeedbackRoute);
-
+router.post('/withdraw', passport.authenticate('jwt', { session: false }), withdrawRoute);
+router.post('/deposit', passport.authenticate('jwt', { session: false }), depositRoute);
 // Admin routes
 router.get("/getFeedbacks", passport.authenticate('jwt', { session: false }), getFeedbacks);
 router.put("/approveAuction", passport.authenticate('jwt', { session: false }), upload.any(), approveAuction);
