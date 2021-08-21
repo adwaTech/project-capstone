@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { strings } from "../../language/language";
+import { FileUploader } from "react-drag-drop-files";
 import {
   makeStyles,
   CssBaseline,
@@ -22,15 +23,15 @@ import {
   Input,
   InputAdornment,
   Grid,
-  OutlinedInput,
   IconButton,
-  FormHelperText
+  FormHelperText,
+  CircularProgress
 } from '@material-ui/core';
 import MapPicker from 'react-google-map-picker';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import { useDispatch, useSelector } from 'react-redux';
-import { RegisterAction } from '../../redux-state-managment/Actions'
+import { RegisterAction, AccountCheckoutAction } from '../../redux-state-managment/Actions'
 import { Alert } from '@material-ui/lab'
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import ScrollToTop from '../../scrollTop/ScrollToTop';
@@ -86,11 +87,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const fileTypes = ["jpg", "png", "gif",'jpeg'];
+
 const steps = [strings.personalinfo, strings.detail, strings.location];
 
 export default function Register({ match, history }) {
   const lang = useSelector((state) => state.LanguageReducer.language);
-  React.useEffect(() => { }, [lang]);
+  const [progress, setProgress] = React.useState(false);
+
   const dispatch = useDispatch();
   const classes = useStyles();
   // global states
@@ -105,26 +109,31 @@ export default function Register({ match, history }) {
   const [zoom, setZoom] = React.useState(DefaultZoom);
   const [location, setLocation] = React.useState(defaultLocation);
   const handleNext = () => {
-    if (activeStep === 0){
+    if (activeStep === 0) {
       validate1step();
-      if (state.firstname && state.lastname && state.profileImage && state.phone.length > 4 && state.usertype && state.sex)
-      setActiveStep(activeStep + 1);
+      if (state.firstname && state.lastname && state.profileImage && state.phone.length === 13 && state.usertype && state.sex)
+        setActiveStep(activeStep + 1);
     }
-      
-    if (activeStep === 1){
+
+    if (activeStep === 1) {
       validate2step();
-      if(state.email && state.city && state.conpassword && state.password && state.idNumber && state.idPhoto )
-        if(state.conpassword === state.password)
-          setActiveStep(activeStep + 1);
-    }
-    if(activeStep===2){
-      console.log("yes")
-      validate3step();
-      if(state.latitute && state.longitute){
-        setActiveStep(activeStep+1)
+      if (state.email && state.city && state.conpassword && state.password && state.idNumber && state.idPhoto) {
+        if (state.conpassword === state.password) {
+          if ((!ConpasswordMessage.haveError)) {
+            if (!emailMessage.haveError) {
+              setActiveStep(activeStep + 1);
+            }
+          }
+        }
       }
     }
-      
+    if (activeStep === 2) {
+      validate3step();
+      if (state.latitute && state.longitute) {
+        setActiveStep(activeStep + 1)
+      }
+    }
+
 
   };
 
@@ -228,117 +237,137 @@ export default function Register({ match, history }) {
       setFnameerror({ message: "this field is required", haveError: true })
     }
     if (state.firstname) {
-      setFnameerror({ message: "this field is required", haveError: false })
+      setFnameerror({ message: "", haveError: false })
     }
     if (state.lastname === '') {
       setLnameerror({ message: "this field is required", haveError: true })
     }
     if (state.lastname) {
-      setLnameerror({ message: "this field is required", haveError: false })
+      setLnameerror({ message: "", haveError: false })
     }
     if (state.usertype === '') {
       setUsertypemessage({ message: "this field is required", haveError: true })
     }
     if (state.usertype) {
-      setUsertypemessage({ message: "this field is required", haveError: false })
+      setUsertypemessage({ message: "", haveError: false })
     }
     if (state.profileImage === '') {
       setProfilePicMessage({ message: "this field is required", haveError: true })
     }
     if (state.profileImage) {
-      setProfilePicMessage({ message: "this field is required", haveError: false })
+      setProfilePicMessage({ message: "", haveError: false })
     }
     if (state.gender === '') {
       setSexMessage({ message: "this field is required", haveError: true })
     }
     if (state.gender) {
-      setSexMessage({ message: "this field is required", haveError: false })
+      setSexMessage({ message: "", haveError: false })
     }
-    if (state.phone.length < 4) {
+    if (state.phone.length < 5) {
       setPhoneMessage({ message: "this field is required", haveError: true })
     }
-    if (state.phone > 4) {
-      setPhoneMessage({ message: "this field is required", haveError: false })
+    if (state.phone.length > 4) {
+      if (state.phone.length === 13) {
+        setPhoneMessage({ message: "", haveError: false })
+      }
+      else {
+        setPhoneMessage({ message: "phone number must have 9 digit write with out (0 and +251) e.g 917897592", haveError: true })
+      }
     }
-    // setProgress(true);
-    // await dispatch(LoginAction(state));
-    // setState(initialState);
-    // setTimeout(function(){
-    //   dispatch(AccountCheckoutAction());
-    // }, 3000);
   }
   const validate2step = () => {
     if (state.email === '') {
       setemailMessage({ message: "this field is required", haveError: true })
     }
     if (state.email) {
-      setemailMessage({ message: "this field is required", haveError: false })
+      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      // return re.test(String(state.email).toLowerCase());
+      if (re.test(state.email.toLowerCase())) {
+        setemailMessage({ message: "", haveError: false })
+      }
+      else {
+        setemailMessage({ message: "incorrect email e.g meseretkifle2@gmail.com", haveError: true })
+      }
+
     }
     if (state.city === '') {
       setCitymessage({ message: "this field is required", haveError: true })
     }
     if (state.city) {
-      setCitymessage({ message: "this field is required", haveError: false })
+      setCitymessage({ message: "", haveError: false })
     }
     if (state.password === '') {
       setpasswordMessage({ message: "this field is required", haveError: true })
     }
     if (state.password) {
-      if (state.conpassword !=state.password) {
-        setpasswordMessage({ message: "password and conpassword must be the same", haveError: true  })
-      }
-      if (state.conpassword ===state.password) {
-        setpasswordMessage({ message: "", haveError: false })
-      }
+      setpasswordMessage({ message: "", haveError: false })
     }
     if (state.conpassword === '') {
       setConpasswordMessage({ message: "this field is required", haveError: true })
     }
     if (state.conpassword) {
-      if (state.conpassword !=state.password) {
+      if (state.conpassword != state.password) {
         setConpasswordMessage({ message: "password and conpassword must be the same", haveError: true })
       }
-      if (state.conpassword ===state.password) {
-        setConpasswordMessage({ message: "", haveError: false })
+      if (state.conpassword === state.password) {
+        if (state.password.length > 8) {
+          var format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+          var bool = format.test(state.password);
+          if (bool) {
+            if (/\d/.test(state.password)) {
+              if (/[A-Z]/.test(state.password)) {
+                setConpasswordMessage({ message: "", haveError: false })
+              }
+              else {
+                setConpasswordMessage({ message: "password must contain Captial letter", haveError: true })
+              }
+            }
+            else {
+              setConpasswordMessage({ message: "password must contain a number", haveError: true })
+            }
+          }
+          else {
+            setConpasswordMessage({ message: "password must contain at least one special character e.g @,&", haveError: true })
+          }
+        }
+        else {
+          setConpasswordMessage({ message: "length of the password must be greater than 8", haveError: true })
+        }
+
       }
     }
-    
+
     if (state.idNumber === '') {
       setIdNumMessage({ message: "this field is required", haveError: true })
     }
     if (state.idNumber) {
-      setIdNumMessage({ message: "this field is required", haveError: false })
+      setIdNumMessage({ message: "", haveError: false })
     }
     if (state.idPhoto === '') {
       setIdPhotoMessage({ message: "this field is required", haveError: true })
     }
     if (state.idPhoto) {
-      setIdPhotoMessage({ message: "this field is required", haveError: false })
+      setIdPhotoMessage({ message: "", haveError: false })
     }
-    // setProgress(true);
-    // await dispatch(LoginAction(state));
-    // setState(initialState);
-    // setTimeout(function(){
-    //   dispatch(AccountCheckoutAction());
-    // }, 3000);
   }
-  const validate3step=()=>{
+  const validate3step = () => {
     if (state.latitute === '') {
       setLatMessage({ message: "this field is required", haveError: true })
     }
     if (state.latitute) {
-      setLatMessage({ message: "this field is required", haveError: false })
+      setLatMessage({ message: "", haveError: false })
     }
     if (state.longitute === '') {
       setLongMessage({ message: "this field is required", haveError: true })
     }
     if (state.longitute) {
-      setLongMessage({ message: "this field is required", haveError: false })
+      setLongMessage({ message: "", haveError: false })
     }
 
   }
 
-  const onClickHandler = () => {
+  const onClickHandler = async () => {
+    setProgress(true);
     const formData = new FormData();
     formData.append("firstName", state.firstname);
     formData.append("lastName", state.lastname);
@@ -353,8 +382,11 @@ export default function Register({ match, history }) {
     formData.append("city", state.city);
     formData.append("idPhoto", state.idPhoto);
     formData.append("idNo", state.idNumber);
-    dispatch(RegisterAction(formData));
+    await dispatch(RegisterAction(formData));
     setState(initialState);
+    setTimeout(function () {
+      dispatch(AccountCheckoutAction());
+    }, 3000);
   }
 
   function getStepContent(step) {
@@ -418,30 +450,24 @@ export default function Register({ match, history }) {
                 </FormControl>
               </Grid>
               <Grid item xs={12} sm={6}>
-                <input
-                  accept="image/*"
-                  style={{ display: "none" }}
-                  id="raised-button-file"
-                  onChange={(e) => {
-                    setState({ ...state, profileImage: e.target.files[0] });
-                  }}
-                  type="file"
-
-                />
-                <label htmlFor="raised-button-file">
-                  <Button
-                    variant="outlined"
-                    component="span"
-                    className={classes.button}
-                  >
-                    {ProfilePicMessage.haveError
-                      ? <span style={{ color: "red" }}>
-                        {ProfilePicMessage.message}
-                      </span>
-                      : strings.uploadprofile}
-                  </Button>
-                </label>
-                <label>{state.profileImage.name}</label>
+                <div >
+                  <p>Profile Pic</p>
+                  <FileUploader
+                    maxSize={50}
+                    handleChange={(e) => {
+                      setState({ ...state, profileImage: e });
+                    }}
+                    name="file" types={fileTypes} />
+                  <p>{state.profileImage ? `File name: ${state.profileImage.name}` : "no files uploaded yet"}</p>
+                  <p>
+                  {ProfilePicMessage.haveError
+                    ? <span style={{ color: "red" }}>
+                      {ProfilePicMessage.message}
+                    </span>
+                    : ""}
+                  </p>
+                </div>
+                
               </Grid>
               <Grid item xs={12} sm={6}>
                 <FormControl component="fieldset" fullWidth error={sexMessage.haveError}>
@@ -539,7 +565,6 @@ export default function Register({ match, history }) {
                   id="idNumber"
                   name="idNumber"
                   label={strings.label7}
-                  type="number"
                   value={state.idNumber}
                   fullWidth
                   autoComplete="id number"
@@ -620,32 +645,24 @@ export default function Register({ match, history }) {
                 </FormControl>
               </Grid>
               <Grid item xs={12} sm={6}>
-                <input
-                  className={classes.input}
-                  style={{ display: "none" }}
-                  id="raised-button-file"
-                  onChange={(e) => {
-                    setState({ ...state, idPhoto: e.target.files[0] });
-                  }}
-                  type="file"
-                  name="image"
-                  placeholder="image"
-                />
-
-                <label htmlFor="raised-button-file">
-                  <Button
-                    variant="outlined"
-                    component="span"
-                    className={classes.button}
-                  >
-                    {IdPhotoMessage.haveError
-                      ? <span style={{ color: "red" }}>
-                        {IdPhotoMessage.message}
-                      </span>
-                      : strings.uploadid}
-                  </Button>
-                </label>
-                <label>{state.idPhoto.name}</label>
+              <div >
+                  <p>Profile Pic</p>
+                  <FileUploader
+                    maxSize={30}
+                    handleChange={(e) => {
+                      setState({ ...state, idPhoto: e });
+                    }}
+                    name="file" types={fileTypes} />
+                  <p>{state.idPhoto ? `File name: ${state.idPhoto.name}` : "no files uploaded yet"}</p>
+                  
+                  <p>
+                  {IdPhotoMessage.haveError
+                    ? <span style={{ color: "red" }}>
+                      {IdPhotoMessage.message}
+                    </span>
+                    : ""}</p>
+                </div>
+                
               </Grid>
               <Grid item xs={12} md={6}>
                 <TextField
@@ -704,7 +721,14 @@ export default function Register({ match, history }) {
         throw new Error("Unknown step");
     }
   }
-
+  React.useEffect(() => {
+    if (error) {
+      setProgress(false);
+    }
+    if (token) {
+      setProgress(false);
+    }
+  }, [lang, error, token]);
   return (
     <React.Fragment>
       <ScrollToTop />
@@ -716,10 +740,7 @@ export default function Register({ match, history }) {
             {strings.signup}
           </Typography>
           {error ? (
-            <Alert severity="error">
-              status :{status} <br />
-              statusText:{statusText} <br /> error:{error}
-            </Alert>
+            <Alert severity="error">{error}</Alert>
           ) : null}
           {token ? (
             user.userType == "customer" ? (
@@ -767,7 +788,7 @@ export default function Register({ match, history }) {
                       className={classes.button}
                       onClick={onClickHandler}
                     >
-                      {strings.register}
+                      {progress ? <div><CircularProgress color="#ffffff" />Loading</div> : strings.register}
                     </Button>
                   ) : (
                     <Button

@@ -139,6 +139,7 @@ export default function Register({ match, history }) {
     approval: '',
     postedOn: '',
     deadline: new Date(),
+    
   }
 
   const [state, setState] = React.useState(initialState);

@@ -134,7 +134,7 @@ export default function Header() {
         window.addEventListener('scroll', function () {
             var header = document.getElementsByClassName("nav-header");
             var header2 = document.getElementsByClassName("top-header");
-            if (header[0].classList || header2[0].classList) {
+            if (header[0] || header2[0]) {
                 header[0].classList.toggle('sticky', window.scrollY > 0);
                 header2[0].classList.toggle('sticky', window.scrollY > 0);
             }

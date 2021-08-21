@@ -1,4 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+.footer-page{
+	position: relative;
+	overflow: hidden;
+}
 .container{
 	max-width: 1170px;
 	margin:auto;
@@ -120,35 +124,41 @@
 
 
 
+
+
 /* footer wave */
 
 /* // best seen at 1500px or less */
 
 
 
+
 .ocean { 
-  height: 1%;
-  width:100%;
-  position:relative;
+	z-index: 50;
+  /* height: 40%;
+  width:100%; */
+  position:absolute;
   bottom:0;
   left:0;
   background: #015871;
 }
 
 .wave {
+	z-index: 50;
   background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/85486/wave.svg) repeat-x; 
-  position: relative;
-  top: -198px;
+  position: absolute;
+  top: -158px;
   width: 6400px;
-  height: 140px;
-  animation: wave 7s cubic-bezier( 0.36, 0.45, 0.63, 0.53) infinite;
+  height: 198px;
+  animation: wave 30s cubic-bezier( 0.36, 0.45, 0.63, 0.53) infinite;
   transform: translate3d(0, 0, 0);
 }
 
 .wave:nth-of-type(2) {
-  top: -175px;
-  animation: wave 40s cubic-bezier( 0.36, 0.45, 0.63, 0.53) -.125s infinite, swell 40s ease -1.25s infinite;
-  opacity: 1;
+	z-index: 50;
+  top: -135px;
+  animation: wave 30s cubic-bezier( 0.36, 0.45, 0.63, 0.53) -.125s infinite, swell 7s ease -1.25s infinite;
+  opacity: 0.5;
 }
 
 @keyframes wave {

@@ -189,6 +189,13 @@ export const bidAuctionReducer = (state = initialState, action) => {
                     bidstatusText: action.payload.statusText
                 }
             }
+        case Constant.CLEANUPBIDAUCTION:
+            return {
+                ...state,
+                biderror: '',
+                bidstatus: '',
+                bidstatusText: ''
+            }
         default:
             return {
                 ...state

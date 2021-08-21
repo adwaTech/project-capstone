@@ -139,12 +139,10 @@ function Login({ match, history }) {
             ? <div>
               {statusText==="Network Error"
               ?<div>
-                <Alert style={{marginBottom:"10px"}} severity="error">status :{status} 	&nbsp;{statusText}</Alert>
-                <Alert severity="error">error: 	&nbsp;{error}</Alert>
+                <Alert severity="error">{error}</Alert>
               </div>
               :<div>
-                <Alert style={{marginBottom:"10px"}} severity="error">status :{status} 	&nbsp;{statusText}</Alert>
-                <Alert severity="error">Incorrect user name or password</Alert>
+                <Alert severity="error">Incorrect email or password</Alert>
               </div>
               }
             </div>
