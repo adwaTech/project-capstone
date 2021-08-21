@@ -9,6 +9,12 @@ search = async (query) => {
         auctionsWithCategory: await AuctionModel.find({
             auctionCategory: exp
         }),
+        auctionsWithBriefDescription: await AuctionModel.find({
+            briefDescription: exp
+        }),
+        auctionsWithExtendedDescription: await AuctionModel.find({
+            extendedDescription: exp
+        }),
         cities: await UserModel.find({
             city: exp
         }),
@@ -17,7 +23,7 @@ search = async (query) => {
         }),
         usersWithLastName: await UserModel.find({
             lastName: exp
-        })
+        }),
     }
 }
 module.exports = async (req, res) => {

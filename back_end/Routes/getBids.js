@@ -1,16 +1,25 @@
 const { AuctionModel } = require("../models/Auctions");
 const { proposalModel } = require("../models/Proposal");
-
+const types = require('../models/types')
 module.exports = async (req, res) => {
     if (req.query.type)
         switch (req.query.type) {
             case 'auction':
                 if (!req.query.auctionId) return res.status(400).send({
-                    error: 'No auctionId was sent'
+                    error: 'No auctionId was specified on req.query.auctionId'
                 });
                 const auction = await AuctionModel.findById(req.query.auctionId);
-                if (auction)
-                    return res.send(auction.proposals);
+                if (auction) {
+                    if (auction.auctionType != types.auctionType[0])
+                        return res.status(403).send({
+                            error: 'You are not authorized for this request'
+                        });
+                    let proposals = [];
+                    for (let proposal of auction.proposals) {
+                        proposals.push(await proposalModel.findById(proposal));
+                    }
+                    return res.send(proposals);
+                }
                 return res.status(400).send({
                     error: `No auction with id '${req.query.auctionId}' was found`
                 });
@@ -47,7 +56,7 @@ module.exports = async (req, res) => {
                 } else
                     return res.send(proposals);
             default:
-                res.status(400).send({
+                return res.status(400).send({
                     error: `value '${req.query.type}' for req.query.type was Invalid`
                 })
         }

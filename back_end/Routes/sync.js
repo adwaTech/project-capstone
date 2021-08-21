@@ -33,6 +33,7 @@ async function sendMail(auctioneers) {
         }
     });
 }
+// TODO: Remove all unneccessary await/async functions
 module.exports = (req, res, next) => {
     let auctioneers = [];
     AuctionModel.find({

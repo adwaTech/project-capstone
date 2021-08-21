@@ -21,10 +21,22 @@ const getBids = require('./getBids');
 const sync = require('./sync');
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './uploads/');
+        switch (req.route.path) {
+            case '/register':
+                cb(null, './uploads/users');
+                break;
+            case '/postAuction':
+                cb(null, './uploads/auctions');
+                break;
+            case '/bid':
+                cb(null, './uploads/bids');
+                break;
+            default:
+                cb(null, './uploads/');
+        }
     },
     filename: function (req, file, cb) {
-        cb(null, Date.now().toFixed() + file.originalname); // hello.jpg hello.jgp
+        cb(null, Date.now().toFixed() + file.originalname.slice(file.originalname.lastIndexOf('.'))); // hello.jpg hello.jgp
     },
 });
 const upload = multer({
@@ -81,7 +93,7 @@ router.post('/postAuction', passport.authenticate('jwt', { session: false }), (r
         next();
     })
 }, postAuctionRoute);
-router.post('/sendFeedback', passport.authenticate('jwt', { session: false }), sendFeedbackRoute);
+router.post('/sendFeedback', passport.authenticate('jwt', { session: false }), upload.any(), sendFeedbackRoute);
 
 // Admin routes
 router.get("/getFeedbacks", passport.authenticate('jwt', { session: false }), getFeedbacks);
