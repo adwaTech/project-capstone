@@ -18,7 +18,7 @@ const auction = mongoose.Schema({
     },
     bidFee: { // 
         type: Number,
-        required: true
+        default: 0,
     },
     minAmount: { // 
         type: Number,

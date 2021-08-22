@@ -36,6 +36,19 @@ module.exports = async (req, res) => {
         return res.status(400).send({
             error: 'This auction hasn\'t opened yet!'
         })
+    if (auction.minAmount > proposal.amount)
+        return res.status(400).send({
+            error: 'amount is below minAmount'
+        })
+    if (auction.minCPO) {
+        if (!proposal.cpo) return res.status(400).send({
+            error: 'minCPO is required for this auction'
+        })
+        if (auction.minCPO > proposal.cpo)
+            return res.status(400).send({
+                error: 'cpo is below minCPO'
+            })
+    }
     const duplicate = await proposalModel.find({
         ownerId: req.user._id,
         auctionId: req.body.auctionId
@@ -44,6 +57,13 @@ module.exports = async (req, res) => {
         return res.status(400).send({
             error: 'you can\'t bid twice for this auction'
         });
+    if (auction.allPay) {
+        // order payment
+    }
+    if (auction.bidFee > 0) {
+        // order payment
+    }
+    // then
     if (proposal.proposalType === types.proposalType[1])
         proposal.amount = encrypt(proposal.amount.toString());
     const result = await proposal.save();
