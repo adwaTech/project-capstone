@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
             error: err
         });
     let error = '';
-    const auction = await AuctionModel.findById(req.body.auctionId).catch(err => error += err)
+    const auction = await AuctionModel.findById(req.body.auctionId).catch(err => error += err);
     if (error) return res.status(400).send({
         error
     });
@@ -21,7 +21,7 @@ module.exports = async (req, res) => {
         error: `No auction with id ${req.body.auctionId} was found`
     });
     if (auction.owner == req.user._id) return res.status(400).send({
-        error: `bidder '${req.user._id}' is the owner of auction of id '${auction._id}'`
+        error: `you are the owner of the post so you cann't bid`
     });
     const proposal = createModel(req.body, proposalModel(), proposalSchema);
     if (auction.auctionType !== proposal.proposalType)

@@ -170,7 +170,7 @@ export default function BidAuctionForm(props) {
                 biderror
                     ? <Alert severity="error">
                         
-                        {bidstatusText}{biderror}&nbsp; {biderror === "Unauthorized" ? "you must have an account to bid item" : null} &nbsp;{biderror === "Unauthorized"
+                        {biderror}&nbsp; {biderror === "Unauthorized" ? "you must have an account to bid item" : null} &nbsp;{biderror === "Unauthorized"
                         ? <Link to="/login"><Button variant="contained" color="primary">Login</Button></Link>
                         : null}</Alert>
                     : null

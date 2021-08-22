@@ -123,8 +123,8 @@ export default function Header() {
     const [openNotification, setOpenNotification] = React.useState(null);
 
 
-    const auctionCategory= [strings.Land, strings.House, strings.Car, strings.service, strings.rare, strings.oldies];
-    const dispatch=useDispatch();
+    const auctionCategory = [strings.Land, strings.House, strings.Car, strings.service, strings.rare, strings.oldies];
+    const dispatch = useDispatch();
     const classes = useStyles();
     const location = useLocation();
     const [loc, setLoc] = React.useState('en');
@@ -269,12 +269,12 @@ export default function Header() {
                                     <NavLink className="a" to="/contact">{strings.Contact}</NavLink>
                                 </li>
                                 <li >
-                                    <NavLink className="a" to="/catagory/house">{strings.Auctions}<ArrowDownward
+                                    <NavLink className="a" to="">{strings.Auctions}<ArrowDownward
                                         style={{ marginTop: "4px" }} /></NavLink>
                                     <ul className="dropdown">
                                         {
                                             auctionCategory.map((auction, i) => (
-                                                <li key={i}><Link to={`/${auction}`} >{auction}</Link></li>
+                                                <li key={i}><Link to={`/auction/${auction}`} >{auction}</Link></li>
                                             ))
                                         }
                                     </ul>
@@ -387,164 +387,164 @@ export default function Header() {
                                                                                     flexDirection: 'row',
                                                                                     alignItems: "center",
                                                                                     textAlign: "center"
+                                                                                }}>
+                                                                                {auction.images ? <Avatar alt="" src={`http://localhost:5000/${auction.images[0]}`} className={classes.large} /> : null}
+                                                                                <span>{auction.auctionName}</span>
+                                                                                <span>{auction.auctionType}</span>
+                                                                            </div>
+                                                                            <div style={{
+                                                                                display: "flex",
+                                                                                flexDirection: 'row'
                                                                             }}>
+                                                                                &nbsp;
+                                                                                <Timer
+                                                                                    initialTime={timer(auction.deadline)}
+                                                                                    lastUnit="d"
+                                                                                    direction="backward"
+                                                                                >
+                                                                                    {() => (
+                                                                                        <React.Fragment>
+                                                                                            <Timer.Days /> D	&nbsp;
+                                                                                            <Timer.Hours /> H	&nbsp;
+                                                                                            <Timer.Minutes /> M	&nbsp;
+                                                                                            <Timer.Seconds /> S	&nbsp;
+                                                                                        </React.Fragment>
+                                                                                    )}
+                                                                                </Timer>
+                                                                                &nbsp;
+                                                                                {auction.status === "ended"
+                                                                                    ? <StyledBadge badgeContent="ended" color="secondary">
+                                                                                    </StyledBadge>
+                                                                                    : <StyledBadge badgeContent="pending" color="primary">
+                                                                                    </StyledBadge>}
+
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </MenuItem>
+
+                                                                </Link>
+                                                            ))
+                                                        }
+                                                        {
+                                                            auctionsWithCategory.map(auction => (
+                                                                <Link to={`/search/catagory/${auction._id}`}>
+                                                                    <MenuItem
+                                                                        key={auction._id}
+                                                                        onClick={handleCloseNotification}
+                                                                        className={classes1.dropdownItem}
+                                                                    >
+                                                                        <div className="searched-auction">
                                                                             {auction.images ? <Avatar alt="" src={`http://localhost:5000/${auction.images[0]}`} className={classes.large} /> : null}
                                                                             <span>{auction.auctionName}</span>
                                                                             <span>{auction.auctionType}</span>
-                                                                        </div>
-                                                                        <div style={{
-                                                                            display: "flex",
-                                                                            flexDirection: 'row'
-                                                                        }}>
-                                                                            &nbsp;
-                                                                            <Timer
-                                                                                initialTime={timer(auction.deadline)}
-                                                                                lastUnit="d"
-                                                                                direction="backward"
-                                                                            >
-                                                                                {() => (
-                                                                                    <React.Fragment>
-                                                                                        <Timer.Days /> D	&nbsp;
-                                                                                        <Timer.Hours /> H	&nbsp;
-                                                                                        <Timer.Minutes /> M	&nbsp;
-                                                                                        <Timer.Seconds /> S	&nbsp;
-                                                                                    </React.Fragment>
-                                                                                )}
-                                                                            </Timer>
-                                                                            &nbsp;
-                                                                            {auction.status === "ended"
-                                                                                ? <StyledBadge badgeContent="ended" color="secondary">
-                                                                                </StyledBadge>
-                                                                                : <StyledBadge badgeContent="pending" color="primary">
-                                                                                </StyledBadge>}
+                                                                            <div style={{
+                                                                                display: "flex",
+                                                                                flexDirection: 'row'
+                                                                            }}>
+                                                                                &nbsp;
+                                                                                <Timer
+                                                                                    initialTime={timer(auction.deadline)}
+                                                                                    lastUnit="d"
+                                                                                    direction="backward"
+                                                                                >
+                                                                                    {() => (
+                                                                                        <React.Fragment>
+                                                                                            <Timer.Days /> D	&nbsp;
+                                                                                            <Timer.Hours /> H	&nbsp;
+                                                                                            <Timer.Minutes /> M	&nbsp;
+                                                                                            <Timer.Seconds /> S	&nbsp;
+                                                                                        </React.Fragment>
+                                                                                    )}
+                                                                                </Timer>
+                                                                                &nbsp;
+                                                                                {auction.status === "ended"
+                                                                                    ? <StyledBadge badgeContent="ended" color="secondary">
+                                                                                    </StyledBadge>
+                                                                                    : <StyledBadge badgeContent="pending" color="primary">
+                                                                                    </StyledBadge>}
 
+                                                                            </div>
                                                                         </div>
-
-                                                                    </div>
-                                                                </MenuItem>
+                                                                    </MenuItem>
 
                                                                 </Link>
-                                                    ))
+                                                            ))
                                                         }
-                                                    {
-                                                        auctionsWithCategory.map(auction => (
-                                                            <Link to={`/search/catagory/${auction._id}`}>
-                                                                <MenuItem
-                                                                    key={auction._id}
-                                                                    onClick={handleCloseNotification}
-                                                                    className={classes1.dropdownItem}
-                                                                >
-                                                                    <div className="searched-auction">
-                                                                        {auction.images ? <Avatar alt="" src={`http://localhost:5000/${auction.images[0]}`} className={classes.large} /> : null}
-                                                                        <span>{auction.auctionName}</span>
-                                                                        <span>{auction.auctionType}</span>
-                                                                        <div style={{
-                                                                            display: "flex",
-                                                                            flexDirection: 'row'
-                                                                        }}>
-                                                                            &nbsp;
-                                                                            <Timer
-                                                                                initialTime={timer(auction.deadline)}
-                                                                                lastUnit="d"
-                                                                                direction="backward"
-                                                                            >
-                                                                                {() => (
-                                                                                    <React.Fragment>
-                                                                                        <Timer.Days /> D	&nbsp;
-                                                                                        <Timer.Hours /> H	&nbsp;
-                                                                                        <Timer.Minutes /> M	&nbsp;
-                                                                                        <Timer.Seconds /> S	&nbsp;
-                                                                                    </React.Fragment>
-                                                                                )}
-                                                                            </Timer>
-                                                                            &nbsp;
-                                                                            {auction.status === "ended"
-                                                                                ? <StyledBadge badgeContent="ended" color="secondary">
-                                                                                </StyledBadge>
-                                                                                : <StyledBadge badgeContent="pending" color="primary">
-                                                                                </StyledBadge>}
-
+                                                        {
+                                                            cities.map(auction => (
+                                                                <Link to={`/search/city/${auction._id}`}>
+                                                                    <MenuItem
+                                                                        key={auction._id}
+                                                                        onClick={handleCloseNotification}
+                                                                        className={classes1.dropdownItem}
+                                                                    >
+                                                                        <div className="searched-auction">
+                                                                            <Avatar alt="" src={`http://localhost:5000/${auction.profileImage}`} className={classes.large} />
+                                                                            <span>{auction.city}</span>
                                                                         </div>
-                                                                    </div>
-                                                                </MenuItem>
+                                                                    </MenuItem>
 
-                                                            </Link>
-                                                        ))
-                                                    }
-                                                    {
-                                                        cities.map(auction => (
-                                                            <Link to={`/search/city/${auction._id}`}>
-                                                                <MenuItem
-                                                                    key={auction._id}
-                                                                    onClick={handleCloseNotification}
-                                                                    className={classes1.dropdownItem}
-                                                                >
-                                                                    <div className="searched-auction">
-                                                                        <Avatar alt="" src={`http://localhost:5000/${auction.profileImage}`} className={classes.large} />
-                                                                        <span>{auction.city}</span>
-                                                                    </div>
-                                                                </MenuItem>
+                                                                </Link>
+                                                            ))
+                                                        }
+                                                        {
+                                                            usersWithFirstName.map(auction => (
+                                                                <Link to={`/search/first_name/${auction._id}`}>
+                                                                    <MenuItem
+                                                                        key={auction._id}
+                                                                        onClick={handleCloseNotification}
+                                                                        className={classes1.dropdownItem}
+                                                                    >
+                                                                        <div className="searched-auction">
+                                                                            <Avatar alt="" src={`http://localhost:5000/${auction.profileImage}`} className={classes.large} />
+                                                                            <span>{auction.firstName}&nbsp;{auction.lastName}</span>
+                                                                        </div>
+                                                                    </MenuItem>
 
-                                                            </Link>
-                                                        ))
-                                                    }
-                                                    {
-                                                        usersWithFirstName.map(auction => (
-                                                            <Link to={`/search/first_name/${auction._id}`}>
-                                                                <MenuItem
-                                                                    key={auction._id}
-                                                                    onClick={handleCloseNotification}
-                                                                    className={classes1.dropdownItem}
-                                                                >
-                                                                    <div className="searched-auction">
-                                                                        <Avatar alt="" src={`http://localhost:5000/${auction.profileImage}`} className={classes.large} />
-                                                                        <span>{auction.firstName}&nbsp;{auction.lastName}</span>
-                                                                    </div>
-                                                                </MenuItem>
-
-                                                            </Link>
-                                                        ))
-                                                    }
-                                                    {
-                                                        usersWithLastName.map(auction => (
-                                                            <Link to={`/search/last_name/${auction._id}`}>
-                                                                <MenuItem
-                                                                    key={auction._id}
-                                                                    onClick={handleCloseNotification}
-                                                                    className={classes1.dropdownItem}
-                                                                >
-                                                                    <div className="searched-auction">
-                                                                        <Avatar alt="" src={`http://localhost:5000/${auction.profileImage}`} className={classes.large} />
-                                                                        <span>{auction.firstName}&nbsp;{auction.lastName}</span>
-                                                                    </div>
-                                                                </MenuItem>
-                                                            </Link>
-                                                        ))
-                                                    }
-                                                </MenuList>
-                                            </ClickAwayListener>
-                                        </Paper>
+                                                                </Link>
+                                                            ))
+                                                        }
+                                                        {
+                                                            usersWithLastName.map(auction => (
+                                                                <Link to={`/search/last_name/${auction._id}`}>
+                                                                    <MenuItem
+                                                                        key={auction._id}
+                                                                        onClick={handleCloseNotification}
+                                                                        className={classes1.dropdownItem}
+                                                                    >
+                                                                        <div className="searched-auction">
+                                                                            <Avatar alt="" src={`http://localhost:5000/${auction.profileImage}`} className={classes.large} />
+                                                                            <span>{auction.firstName}&nbsp;{auction.lastName}</span>
+                                                                        </div>
+                                                                    </MenuItem>
+                                                                </Link>
+                                                            ))
+                                                        }
+                                                    </MenuList>
+                                                </ClickAwayListener>
+                                            </Paper>
                                         </Grow>
                                     )}
-                            </Poppers>
-                        </div>
+                                </Poppers>
+                            </div>
 
-                        {/* <button
+                            {/* <button
                                 onClick={async () => {
                                     await dispatch(SearchAuctionAction(searchitem));
                                     setSearchitem('');
                                 }}
                                 className="btn-search"><SearchIcon /></button> */}
-                        <input
-                            value={searchitem}
-                            onChange={(e) => {
-                                setSearchitem(e.target.value);
-                            }}
-                            type="text" className="input-search" placeholder={`${strings.TypetoSearch}...`} />
+                            <input
+                                value={searchitem}
+                                onChange={(e) => {
+                                    setSearchitem(e.target.value);
+                                }}
+                                type="text" className="input-search" placeholder={`${strings.TypetoSearch}...`} />
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         </div >
     )
 }
