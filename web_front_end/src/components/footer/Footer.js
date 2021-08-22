@@ -26,18 +26,18 @@ export default function Footer() {
                             <h4>{strings.company}</h4>
                             <ul>
                                 <li><Link to="/about">{strings.aboutUs}</Link></li>
-                                <li><Link to="/services">{strings.ourser}</Link></li>
-                                <li><Link to="/privacy">{strings.privacyPolicy}</Link></li>
+                                <li><Link to="/our-services">{strings.ourser}</Link></li>
+                                <li><Link to="/privacy-policy">{strings.privacyPolicy}</Link></li>
                             </ul>
                         </div>
                         <div className="footer-col">
                             <h4>{strings.help}</h4>
                             <ul>
-                                <li><Link to="/quation">{strings.faq}</Link></li>
-                                <li><Link to="/howtopost"> {strings.howtopost}</Link></li>
-                                <li><Link to="/howtobid">{strings.howtobid}</Link></li>
-                                <li><Link to="/manageaccess"> {strings.manageaccess}</Link></li>
-                                <li><Link to="/paymentoption">{strings.paymentoption}</Link></li>
+                                <li><Link to="/frequently-asked-questions">{strings.faq}</Link></li>
+                                <li><Link to="/how-to-post"> {strings.howtopost}</Link></li>
+                                <li><Link to="/how-to-bid">{strings.howtobid}</Link></li>
+                                <li><Link to="/register"> {strings.manageaccess}</Link></li>
+                                <li><Link to="/payment-options">{strings.paymentoption}</Link></li>
                             </ul>
                         </div>
                         <div className="footer-col">

@@ -57,6 +57,10 @@ const User = mongoose.Schema({
         required: true,
         unique: true
     },
+    balance:{
+        type:Number,
+        default:0
+    }
 })
 module.exports.UserModel = mongoose.model('user', User);
 module.exports.UserSchema = User;

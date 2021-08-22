@@ -13,8 +13,7 @@ module.exports.validateBody = (body, schema, options) => {
                     if (!types[key].includes(body[key]))
                         err += `#your value '${body[key]}' for key '${key}' is invalid`;
             })
-    if (err !== '') return err;
-    return null;
+    return err;
 }
 module.exports.createModel = (body, model, schema) => {
     Object.keys(body).map(key => {

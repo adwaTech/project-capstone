@@ -69,6 +69,12 @@ const auction = mongoose.Schema({
         type: Date,
         required: true
     },
+    latitude: {
+        type: String,
+    },
+    longtude: {
+        type: String
+    },
     proposals: [String]
 });
 module.exports.AuctionModel = mongoose.model('auction', auction);

@@ -1,7 +1,7 @@
 import React from 'react';
 import CloseIcon from '@material-ui/icons/Close';
 import { withStyles } from '@material-ui/core/styles';
-import { makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { useSelector, useDispatch } from 'react-redux';
 import { Dialog, DialogContent, TextField, Grid, Slide, CircularProgress } from '@material-ui/core';
@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import Alert from '@material-ui/lab/Alert';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
     BidAuctionAction,
     BidCleanUpAction
@@ -79,7 +79,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const fileTypes = ["jpg", "png", "gif", 'jpeg','svg','pdf'];
+const fileTypes = ["jpg", "png", "gif", 'jpeg', 'svg', 'pdf'];
 
 export default function BidAuctionForm(props) {
 
@@ -105,7 +105,7 @@ export default function BidAuctionForm(props) {
         );
     });
     const classes = useStyles();
-    const intialState={
+    const intialState = {
         proposalType: "",
         description: "",
         amount: "",
@@ -116,6 +116,7 @@ export default function BidAuctionForm(props) {
     }
     const [state, setState] = React.useState(intialState)
     const token = useSelector((state) => state.AccountReducer.token);
+    const user = useSelector((state) => state.AccountReducer.user);
     const [des, setDes] = React.useState({ message: "", haveError: false });
     const [amount, setAmount] = React.useState({ message: "", haveError: false });
     const [propDoc, setPropDoc] = React.useState({ message: "", haveError: false });
@@ -167,9 +168,11 @@ export default function BidAuctionForm(props) {
             </DialogTitle>
             {
                 biderror
-                    ? <Alert severity="error">{biderror}&nbsp; {biderror==="Unauthorized"?"you must have an account to bid item":null} &nbsp;{biderror==="Unauthorized"
-                    ?<Link to="/login"><Button variant="contained" color="primary">Login</Button></Link>
-                :null}</Alert>
+                    ? <Alert severity="error">
+                        
+                        {bidstatusText}{biderror}&nbsp; {biderror === "Unauthorized" ? "you must have an account to bid item" : null} &nbsp;{biderror === "Unauthorized"
+                        ? <Link to="/login"><Button variant="contained" color="primary">Login</Button></Link>
+                        : null}</Alert>
                     : null
             }
             {
@@ -242,7 +245,7 @@ export default function BidAuctionForm(props) {
                                 }}
                                 name="file" types={fileTypes} />
                             <p>{state.proposalDocument ? `file name: ${state.proposalDocument.name}` : "no files uploaded yet"}</p>
-                            
+
                         </div>
                     </Grid>
 
@@ -253,26 +256,28 @@ export default function BidAuctionForm(props) {
                             onClick={async () => {
                                 validation();
                                 if (state.amount && state.cpo && state.description) {
-                                    setProgress(true);
-                                    const formData = new FormData();
-                                    formData.append('amount', state.amount);
-                                    formData.append('auctionId', props.data._id);
-                                    formData.append('cpo', state.cpo);
-                                    formData.append('description', state.description);
-                                    formData.append('ownerId', props.data.owner);
-                                    if (state.proposalDocument) {
-                                        formData.append('proposalDocument', state.proposalDocument);
+                                    if (props.data.auction) {
+                                        setProgress(true);
+                                        const formData = new FormData();
+                                        formData.append('amount', state.amount);
+                                        formData.append('auctionId', props.data.auction._id);
+                                        formData.append('cpo', state.cpo);
+                                        formData.append('description', state.description);
+                                        formData.append('ownerId', props.data.auction.owner);
+                                        if (state.proposalDocument) {
+                                            formData.append('proposalDocument', state.proposalDocument);
+                                        }
+                                        formData.append('proposalType', props.data.auction.auctionType);
+                                        await dispatch(BidAuctionAction(formData, token));
+                                        setState(intialState);
+                                        setTimeout(function () {
+                                            dispatch(BidCleanUpAction());
+                                        }, 5000);
                                     }
-                                    formData.append('proposalType', props.data.auctionType);
-                                    await dispatch(BidAuctionAction(formData, token));
-                                    setState(intialState);
-                                    setTimeout(function () {
-                                        dispatch(BidCleanUpAction());
-                                    }, 5000);
                                 }
 
                             }}
-                        >{progress?<span><CircularProgress color="#ffffff"/> Loading</span>:"Submite Bid"}</Button>
+                        >{progress ? <span><CircularProgress color="#ffffff" /> Loading</span> : "Submite Bid"}</Button>
                     </Grid>
                 </Grid>
             </DialogContent >

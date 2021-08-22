@@ -1,35 +1,51 @@
 const { AuctionModel } = require('../models/Auctions');
+const { UserModel } = require('../models/Users');
 function requiredParamError(param) {
     return `field '${param}' is required for this search`;
+}
+async function getExpandedAuctions(auctions){
+    let temp = [];
+    for(let auction of auctions)
+        temp.push({
+            auction:auction,
+            user: await UserModel.findById(auction.owner)
+        });
+    return temp;
+}
+async function getExpandedAuction(auction){
+    return {
+        auction:auction,
+        user:await UserModel.findById(auction.owner)
+    };
 }
 module.exports = async (req, res) => {
     let error = '';
     if (req.query.type)
         switch (req.query.type) {
             case 'all':
-                return res.send(await AuctionModel.find({
+                return res.send(await getExpandedAuctions(await AuctionModel.find({
                     status: 'open'
-                }));
+                })));
             case 'all-e':
                 if (req.query.auctioneer)
-                    return res.send(await AuctionModel.find({
+                    return res.send(await getExpandedAuctions(await AuctionModel.find({
                         owner: { $ne: req.query.auctioneer },
                         status: 'open'
-                    }));
+                    })));
                 return res.status(400).send({
                     error: requiredParamError('auctioneer')
                 })
             case 'auctioneer':
                 if (req.query.auctioneer)
-                    return res.send(await AuctionModel.find({ owner: req.query.auctioneer }));
+                    return res.send(await getExpandedAuctions(await AuctionModel.find({ owner: req.query.auctioneer })));
                 return res.status(400).send({
                     error: requiredParamError('auctioneer')
                 })
             case 'popular':
-                return res.send(await AuctionModel.find({ status: 'open' }).sort({ participants: -1 }));
+                return res.send(await getExpandedAuctions(await AuctionModel.find({ status: 'open' }).sort({ participants: -1 })));
             case 'category':
                 if (req.query.category)
-                    return res.send(await AuctionModel.find({ auctionCategory: req.query.category, status: 'open' }));
+                    return res.send(await getExpandedAuctions(await AuctionModel.find({ auctionCategory: req.query.category, status: 'open' })));
                 return res.status(400).send({
                     error: requiredParamError('category')
                 })
@@ -37,7 +53,7 @@ module.exports = async (req, res) => {
                 if (req.query.id){
                     const auction = await AuctionModel.findById(req.query.id).catch(err=>error = err)
                     if(error == '')
-                        return res.send(auction);
+                        return res.send(await getExpandedAuction(auction));
                     return res.status(400).send({
                         error: 'Invalid id',
                         errorStackTrace: error
@@ -47,10 +63,10 @@ module.exports = async (req, res) => {
                     error: requiredParamError('id')
                 });
             case 'latest':
-                return res.send(await AuctionModel.find({
+                return res.send(await getExpandedAuction(await AuctionModel.find({
                     status: 'open',
                     postedOn: { $gte: Date.now() - 86400000 }
-                }))
+                })));
             default:
                 return res.status(400).send({
                     error: 'Invalid search parameter \'type\''

@@ -128,7 +128,7 @@ export default function Products() {
         for (let i = startindex; i < 6 + startindex; i++) {
             if (i < product.length)
                 array.push(<div className="product-item" key={product[i]._id}>
-                    <img src={`http://localhost:5000/${product[i].images[0]}`} alt="" />
+                    <img src={`http://localhost:5000/${product[i].auction.images[0]}`} alt="" />
                     {console.log(product[i])}
                     <div className="rate">
                         {rate.map((rate, i) => (
@@ -139,7 +139,7 @@ export default function Products() {
                     <div className="product-discription">
                         <p>{product[i].auctionName}</p>
                         <Timer
-                            initialTime={timer(product[i].deadline)}
+                            initialTime={timer(product[i].auction.deadline)}
                             lastUnit="d"
                             direction="backward"
                         >
@@ -152,8 +152,8 @@ export default function Products() {
                                 </React.Fragment>
                             )}
                         </Timer>
-                        <p>{product[i].condition}</p>
-                        <p>min amount :{product[i].minAmount}</p>
+                        <p>{product[i].auction.condition}</p>
+                        <p>min amount :{product[i].auction.minAmount}</p>
                         <p style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", margin: "10px" }}>
                             <Button
                                 onClick={
@@ -188,7 +188,6 @@ export default function Products() {
             {array}
             <div style={{
                 display: "flex",
-                justifyContent: "space-between",
             }}>
                 <Button style={{
                     width:"100px",
@@ -209,6 +208,7 @@ export default function Products() {
                         justifyContent:"center",
                         alignItem:"center",
                         textAlign:"center",
+                        marginLeft:'10px'
                     }}
                     onClick={() => {
                         if(numTodesplay<Auctions[index].length-1)
