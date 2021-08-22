@@ -129,6 +129,7 @@ export default function Products() {
             if (i < product.length)
                 array.push(<div className="product-item" key={product[i]._id}>
                     <img src={`http://localhost:5000/${product[i].images[0]}`} alt="" />
+                    {console.log(product[i])}
                     <div className="rate">
                         {rate.map((rate, i) => (
                             // rate <= product[i].rating ? <RateIcon key={i} style={{ color: "orange" }} /> :

@@ -59,7 +59,6 @@ function App() {
               <ProtectedRoute exact path="/profile" component={User}/>
               <Route exact path="/search/:type/:search_item" component={Search}/>
               <Route path="*" component={ErrorRoute}/>
-              
           </Switch>
       </Router>
       </ShowContext.Provider>
