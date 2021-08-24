@@ -8,7 +8,7 @@ const updateCustomerRoute = require('./UpdateCustomer');
 const deleteCustomerRoute = require('./DeleteCustomer');
 const bidForAuctionRoute = require('./bidForAuction');
 const getAuctionsRoute = require('./getAuctions');
-const payRoute = require('./pay');
+const { route } = require('./pay');
 const postAuctionRoute = require('./postAuction');
 const sendFeedbackRoute = require('./send_feedback');
 const getFeedbacks = require('./getFeedbacks');
@@ -84,7 +84,7 @@ router.post('/bid', passport.authenticate('jwt', { session: false }), (req, res,
 router.get('/getAuctions', getAuctionsRoute);
 router.get('/getBids', passport.authenticate('jwt', { session: false }), getBidsRoute);
 router.get('/search', getSearchRoute)
-router.post('/pay', passport.authenticate('jwt', { session: false }), payRoute);
+router.post('/pay', passport.authenticate('jwt', { session: false }), upload.any(), route);
 router.post('/setWinner', passport.authenticate('jwt', { session: false }), upload.any(), setWinnerRoute);
 router.post('/postAuction', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     upload.array('images', 10)(req, res, (err) => {

@@ -1,35 +1,36 @@
-const mongoose =require('mongoose');
+const mongoose = require('mongoose');
 const proposal = require('./Proposal');
 
-const payment=mongoose.Schema({
-    transactionDate:{
-        type:String,
-        required:true,
-        default:Date.now()
+const payment = mongoose.Schema({
+    transactionDate: {
+        type: Date,
+        default: Date.now()
     },
-    transactionType:{
-        type:String,
-        required:true,
+    transactionType: {
+        type: String,
+        required: true,
     },
-    amount:{
-        type:Number,
-        required:true,
+    amount: {
+        type: Number,
+        required: true,
     },
-    userId:{
-        type:String,
-        required:true,
+    payer: {
+        type: String,
+        required: true,
     },
-    payedFor:{
-        type:String,
-        required:true
+    payee: {
+        type: String,
+        required: true
     },
-    proposal:{
-        type:proposal,
-        required:true
-    },
-    description:{
-        type:String,
-        required:true
-    },
+    description: {
+        payerNewBalance: {
+            type: Number,
+            required: true
+        },
+        payeeNewBalance: {
+            type: Number,
+            required: true
+        }
+    }
 });
-module.exports=paymentModel=mongoose.model('payment',payment);
+module.exports = paymentModel = mongoose.model('payment', payment);

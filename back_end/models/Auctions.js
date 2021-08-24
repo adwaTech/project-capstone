@@ -12,20 +12,21 @@ const auction = mongoose.Schema({
         type: String,
         required: true
     },
-    allPay: { // charity 
-        type: Boolean,
-        default: false
-    },
+    // allPay: { // charity 
+    //     type: Boolean,
+    //     default: false
+    // },
     bidFee: { // 
         type: Number,
-        required: true
+        default: 0,
     },
     minAmount: { // 
         type: Number,
         required: true
     },
-    minCPO: { // 
-        type: Number
+    minCpo: { // 
+        type: Number,
+        default: 0,
     },
     owner: {
         type: String, // owner id

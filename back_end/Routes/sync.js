@@ -3,8 +3,9 @@
 // send email to auctioneers
 const { AuctionModel } = require('../models/Auctions');
 const { proposalModel } = require('../models/Proposal');
+const types = require('../models/types');
 const { UserModel } = require('../models/Users');
-const { decrypt } = require('./encryption');
+const { decrypt, encrypt } = require('./encryption');
 async function sendMail(auctioneers) {
     let emails = [];
     await auctioneers.map(async (auctioneer) => {
@@ -45,9 +46,11 @@ module.exports = (req, res, next) => {
                 auction.status = 'ended';
                 auctioneers.push(auction.owner);
                 await auction.proposals.map(async (proposalId) => {
+                    console.log(proposalId);
                     proposal = await proposalModel.findById(proposalId);
                     proposal.status = 'waitingresult';
-                    proposal.amount = decrypt(proposal.amount);
+                    if (proposal.type = types.proposalType[1])
+                        proposal.amount = decrypt(proposal.amount);
                     await proposal.save();
                 });
                 await auction.save();

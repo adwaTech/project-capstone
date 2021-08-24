@@ -9,7 +9,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import { strings } from '../../language/language';
 import Timer from 'react-compound-timer';
-import BidAuctionForm from '../customer/BidAuctionForm';
+import BidAuctionForm from '../auction_dialog/BidAuctionForm';
 import Slide from '@material-ui/core/Slide';
 import {
     AllAuctionAction,

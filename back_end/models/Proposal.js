@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const types = require('./types');
 
 
 const proposal = mongoose.Schema({
@@ -34,7 +35,7 @@ const proposal = mongoose.Schema({
     },
     status: { // pending, waitingresult, lost, won //
         type: String,
-        default: 'pending'
+        default: types.proposalStatus.pending
     }
 });
 module.exports.proposalModel = mongoose.model('proposal', proposal);

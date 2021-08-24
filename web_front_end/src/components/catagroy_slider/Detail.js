@@ -11,7 +11,7 @@ import { withStyles } from '@material-ui/core/styles';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import BidAuctionForm from '../customer/BidAuctionForm';
+import BidAuctionForm from '../auction_dialog/BidAuctionForm';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -60,6 +60,7 @@ const DialogTitle = withStyles(styles)((props) => {
 });
 
 export default function DetailDialog(props) {
+  console.log(props)
   const classes = useStyles();
   const [open_bid_dialog, setOpen_bid_dialog] = React.useState(false);
   return (
@@ -130,7 +131,7 @@ export default function DetailDialog(props) {
                 src={`http://localhost:5000/${props.data.auction?props.data.auction.images:null}`}
                 alt="Product images"
               />
-              <div className={classes.controls}>
+              {props.detail?null:<div className={classes.controls}>
                 <Button
                   onClick={
                     () => {
@@ -139,7 +140,7 @@ export default function DetailDialog(props) {
                     }
                   }
                   fullWidth variant="contained" color="primary">Bid</Button>
-              </div>
+              </div>}
             </div>
           </Card>
         </DialogContent>

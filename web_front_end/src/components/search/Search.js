@@ -4,7 +4,7 @@ import {
 } from '@material-ui/core'
 import './search.css';
 import { useSelector } from 'react-redux';
-import BidAuctionForm from '../customer/BidAuctionForm';
+import BidAuctionForm from '../auction_dialog/BidAuctionForm';
 import GoogleMapReact from 'google-map-react';
 import Marker from './Marker';
 

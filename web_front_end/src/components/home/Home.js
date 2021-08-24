@@ -28,8 +28,8 @@ import {
     Link
 } from 'react-router-dom'
 import ScrollToTop from '../../scrollTop/ScrollToTop';
-import PostAuction from '../customer/PostAuction';
-import Profile from '../customer/Profile';
+import PostAuction from '../auction_dialog/PostAuction';
+import AuctionDialog from '../auction_dialog/AuctionDialog';
 const useStyles = makeStyles({
     catagoryBtn: {
         borderColor: "#5C7795"
@@ -46,7 +46,7 @@ export default function Home() {
     const [open, setOpen] = React.useState(false);
     return (
         <div className="home">
-            <Profile component={<PostAuction />} openforPost={open} setOpen={setOpen} />
+            <AuctionDialog component={<PostAuction />} openforPost={open} setOpen={setOpen} />
             <ScrollToTop />
             <Header />
             <div className="svgimage">
