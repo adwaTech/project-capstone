@@ -271,7 +271,6 @@ export const BidAuctionAction = (userData, token) => async (dispatch) => {
             }
         },
         );
-        console.log(response)
         dispatch({
             type: Constant.BID_AUCTION,
             payload: response,

@@ -73,12 +73,15 @@ function Login({ match, history }) {
   const dispatch = useDispatch();
   const classes = useStyles();
   const initialState = {
-    email: '',
+    email: 'mesi',
     password: '',
   };
   const [progress, setProgress] = React.useState(false);
   const bool = false;
-  const [state, setState] = React.useState(initialState)
+  const [state, setState] = React.useState({
+    email: 'mesi',
+    password: '',
+  })
   // global states
   const error = useSelector((state) => state.AccountReducer.error);
   const status = useSelector((state) => state.AccountReducer.status);

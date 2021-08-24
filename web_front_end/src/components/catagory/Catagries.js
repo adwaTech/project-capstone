@@ -87,9 +87,7 @@ export default function Catagory(props) {
 
     const lang = useSelector((state) => state.LanguageReducer.language);
 
-    React.useEffect(() => {
-
-    }, [lang]);
+   
     React.useEffect(async () => {
         if (num == 1) {
             await dispatch(AllAuctionAction());
@@ -97,7 +95,7 @@ export default function Catagory(props) {
         if(token){
             await  dispatch(AllExceptAuctionAction(user._id));
         }
-    }, [allAuction]);
+    }, [allAuction,lang]);
     var loading = true;
     if (allAuction.length > 0) {
 
@@ -124,7 +122,7 @@ export default function Catagory(props) {
             catagoryauction = allexcept.filter(item => item.auction.auctionCategory == type.toString().toLowerCase());
         }
         if (catagoryauction.length > 0) {
-            for (let i = startindex; i < 12 + startindex; i++) {
+            for (let i = numTodesplay; i < 12 + numTodesplay; i++) {
                 if (i < catagoryauction.length)
                     array.push(<div className="product-item" key={catagoryauction[i]._id}>
                         <img src={`http://localhost:5000/${catagoryauction[i].auction.images[0]}`} alt="" />
@@ -165,7 +163,7 @@ export default function Catagory(props) {
                                 <Button
                                     onClick={
                                         () => {
-                                            setOpen_bid_dialog(!open_bid_dialog);
+                                            setOpen_bid_dialog(true);
                                             setData(catagoryauction[i]);
                                         }
                                     }
@@ -198,8 +196,8 @@ export default function Catagory(props) {
                     textAlign: "center"
                 }}
                     onClick={() => {
-                        // if(numTodesplay>0)
-                        // setNumTodesplay(numTodesplay - 12);
+                        if(numTodesplay>0)
+                        setNumTodesplay(numTodesplay - 12);
                     }}
                     color="primary" variant="outlined">Prev</Button>
                 <Button
@@ -212,15 +210,17 @@ export default function Catagory(props) {
                         marginLeft: '10px'
                     }}
                     onClick={() => {
-                        // if(numTodesplay<Auctions[index].length-1)
-                        // setNumTodesplay(numTodesplay + 12);
+                        if(numTodesplay<catagoryauction.length-1 && numTodesplay+12<catagoryauction.length)
+                        setNumTodesplay(numTodesplay + 12);
                     }}
                     color="primary" variant="outlined">Next</Button>
             </div>
+            
         </div>
     }
     return (
         <div>
+            
             <DetailDialog open={open} data={data} setOpen={setOpen} />
             <BidAuctionForm open={open_bid_dialog} data={data} setOpen={setOpen_bid_dialog} />
 
@@ -234,7 +234,6 @@ export default function Catagory(props) {
                         allAuction ? (loading ? <CircularProgress /> :
                             myMap()) : null
                     }
-
                 </div>
             </div>
         </div>

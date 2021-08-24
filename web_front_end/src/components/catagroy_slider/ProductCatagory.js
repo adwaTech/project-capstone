@@ -80,7 +80,7 @@ export default function Products() {
 
     const allAuction = useSelector((state) => state.AuctionsReducer.allAuction);
     const allexcept = useSelector((state) => state.AuctionsReducer.allexcept);
-    const popularAuction = useSelector((state) => state.AuctionsReducer.popularAuction);
+    
     const latestAuction = useSelector((state) => state.AuctionsReducer.latestAuction);
     const [numTodesplay, setNumTodesplay] = React.useState(0);
 
@@ -91,12 +91,12 @@ export default function Products() {
     React.useEffect(() => {
 
     }, [lang]);
-    React.useEffect(() => {
+    React.useEffect(async () => {
         if (num == 1) {
-            dispatch(AllAuctionAction());
-            dispatch(LatestAuctionAction());
-            dispatch(AllExceptAuctionAction());
-            dispatch(PopularAuctionAction());
+            await dispatch(AllAuctionAction());
+            await dispatch(LatestAuctionAction());
+            // dispatch(AllExceptAuctionAction());
+            
             setNum(2)
         }
     });
@@ -116,20 +116,18 @@ export default function Products() {
     const Auctions = [
         allAuction,
         latestAuction,
-        allAuction.filter((item) => item.auctionType === "open"),
-        allAuction.filter((item) => item.auctionType === "sealed"),
-        allAuction.filter((item) => item.condition === "used"),
-        allAuction.filter((item) => item.condition === "new")
+        allAuction.filter((item) => item.auction.auctionType == "live"),
+        allAuction.filter((item) => item.auction.auctionType == "sealed"),
+        allAuction.filter((item) => item.auction.condition == "used"),
+        allAuction.filter((item) => item.auction.condition == "new"),
     ];
-    const [index, setIndex] = React.useState(0);
-
+    const [index, setIndex] = React.useState(3);            
     function myMap(product, startindex) {
         let array = [];
         for (let i = startindex; i < 6 + startindex; i++) {
             if (i < product.length)
                 array.push(<div className="product-item" key={product[i]._id}>
                     <img src={`http://localhost:5000/${product[i].auction.images[0]}`} alt="" />
-                    {console.log(product[i])}
                     <div className="rate">
                         {rate.map((rate, i) => (
                             // rate <= product[i].rating ? <RateIcon key={i} style={{ color: "orange" }} /> :

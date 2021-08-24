@@ -73,9 +73,10 @@ let list=[
 
 export default function MediaControlCard(props) {
   const lang=useSelector((state)=>state.LanguageReducer.language)
+  const popularAuction = useSelector((state) => state.AuctionsReducer.popularAuction);
   React.useEffect(()=>{
-
-  },[lang]);
+    await dispatch(PopularAuctionAction());
+  },[lang,popularAuction]);
   console.log(props.image)
   const classes = useStyles();
   const theme = useTheme();

@@ -10,6 +10,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import Star from '@material-ui/icons/Star'
 import {strings} from '../../language/language'
+import {Link} from 'react-router-dom';
 
 const styles = {
   card: {
@@ -29,11 +30,11 @@ function MediaCard(props) {
   const { classes, image, headline, description, isMoving } = props;
 
   return (
-    <a onClick={(e) => {
+    <Link onClick={(e) => {
         if(isMoving) {
           e.preventDefault();
         }
-      }} href='' target="">
+      }} to={`auction/${description}`}>
     <Card className={classes.card}>
       <CardActionArea>
         <CardMedia className={classes.media} image={image} title={headline} />
@@ -56,7 +57,7 @@ function MediaCard(props) {
             </div>
       </CardActions>
     </Card>
-  </a>
+  </Link>
   );
 }
 export default withStyles(styles)(MediaCard);

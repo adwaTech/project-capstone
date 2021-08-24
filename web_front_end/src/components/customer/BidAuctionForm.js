@@ -87,23 +87,9 @@ export default function BidAuctionForm(props) {
     // for bid 
     const bidstatus = useSelector((state) => state.bidAuctionReducer.bidstatus);
     const biderror = useSelector((state) => state.bidAuctionReducer.biderror);
-    const bidstatusText = useSelector((state) => state.bidAuctionReducer.bidstatusText);
-    const bid = useSelector((state) => state.bidAuctionReducer.bid);
 
     const dispatch = useDispatch();
-    const DialogTitle = withStyles(styles)((props) => {
-        const { children, classes, onClose, ...other } = props;
-        return (
-            <MuiDialogTitle disableTypography className={classes.root} {...other}>
-                <Typography variant="h6">{children}</Typography>
-                {onClose ? (
-                    <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
-                        <CloseIcon />
-                    </IconButton>
-                ) : null}
-            </MuiDialogTitle>
-        );
-    });
+   
     const classes = useStyles();
     const intialState = {
         proposalType: "",
@@ -163,9 +149,16 @@ export default function BidAuctionForm(props) {
         <Dialog
             open={props.open}
         >
-            <DialogTitle onClose={() => props.setOpen(!props.open)}>
-                Bid For An Auction
-            </DialogTitle>
+            <div style={{
+                margin:"20px",
+                display:"flex",
+                flexDirection:"row",
+                justifyContent:"space-between"
+            }}>
+                <span >Bid For An Auction</span>
+                <IconButton onClick={()=>props.setOpen(!props.open)}><span ><CloseIcon/></span></IconButton>
+            </div>
+            
             {
                 biderror
                     ? <Alert severity="error">
