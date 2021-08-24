@@ -1,4 +1,5 @@
 const { AuctionModel } = require('../models/Auctions');
+const types = require('../models/types');
 const { UserModel } = require('../models/Users');
 search = async (query) => {
     const exp = RegExp(`\.\*${query}\.\*`, 'i');
@@ -19,10 +20,12 @@ search = async (query) => {
             city: exp
         }),
         usersWithFirstName: await UserModel.find({
-            firstName: exp
+            firstName: exp,
+            _id: { $ne: types.systemUserId }
         }),
         usersWithLastName: await UserModel.find({
-            lastName: exp
+            lastName: exp,
+            _id: { $ne: types.systemUserId }
         }),
     }
 }

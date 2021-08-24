@@ -3,6 +3,8 @@ const { proposalSchema, proposalModel } = require('../models/Proposal');
 const { AuctionModel } = require('../models/Auctions');
 const types = require('../models/types');
 const { encrypt } = require('./encryption');
+const { pay } = require('./pay');
+const { UserModel } = require('../models/Users');
 module.exports = async (req, res) => {
     // based on auction type encrypt amount
     // OPEN OR CLOSED
@@ -40,11 +42,11 @@ module.exports = async (req, res) => {
         return res.status(400).send({
             error: 'amount is below minAmount'
         })
-    if (auction.minCPO) {
+    if (auction.minCpo) {
         if (!proposal.cpo) return res.status(400).send({
             error: 'minCPO is required for this auction'
         })
-        if (auction.minCPO > proposal.cpo)
+        if (auction.minCpo > proposal.cpo)
             return res.status(400).send({
                 error: 'cpo is below minCPO'
             })
@@ -57,15 +59,37 @@ module.exports = async (req, res) => {
         return res.status(400).send({
             error: 'you can\'t bid twice for this auction'
         });
-    if (auction.allPay) {
-        // order payment
-    }
+    // if (auction.allPay) {
+    //     // order payment
+    //     // payment shall be an extension of all proposals
+    //     const payee = await UserModel.findById(auction.owner);
+    //     const lastBid = (await proposalModel.find({
+    //         _id: { $in: auction.proposals}
+    //     }).sort({
+    //         amount: -1
+    //     }).limit(1))[0].amount;
+    //     if(proposal.amount<lastBid)
+    // }
     if (auction.bidFee > 0) {
         // order payment
+        const payer = await UserModel.findById(req.user._id);
+        const payee = await UserModel.findById(auction.owner);
+        if (!await pay(payer, auction.bidFee, payee, types.paymentType.auctionFee))
+            return res.status(412).send({
+                error: 'Insufficient Funds for AuctionFee'
+            })
+    }
+    if (auction.minCpo > 0) {
+        const payer = await UserModel.findById(req.user._id);
+        const payee = await UserModel.findById(auction.owner);
+        if (!await pay(payer, proposal.cpo, payee, types.paymentType.auctionCpo))
+            return res.status(412).send({
+                error: 'Insufficient Funds for CPO'
+            })
     }
     // then
     if (proposal.proposalType === types.proposalType[1])
-        proposal.amount = encrypt(proposal.amount.toString());
+        proposal.amount = encrypt(proposal.amount);
     const result = await proposal.save();
     auction.proposals.push(result._id);
     await auction.save();

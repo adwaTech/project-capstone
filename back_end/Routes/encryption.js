@@ -20,7 +20,6 @@ module.exports.encrypt = (message) => {
 // the decipher function
 module.exports.decrypt = (encryptedData) => {
     const decipher = crypto.createDecipheriv(algorithm, Securitykey, initVector);
-
     let decryptedData = decipher.update(encryptedData, "hex", "utf-8");
 
     decryptedData += decipher.final("utf8");
