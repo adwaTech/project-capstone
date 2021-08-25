@@ -1,14 +1,32 @@
 const mongoose = require('mongoose');
-module.exports = mongoose.model('notification',mongoose.Schema({
+const schema = mongoose.Schema({
+    notificationType:{
+        type:String,
+        required:true
+    },
     auctionId:{
         type:String,
         required:true
     },
     participants:{
-        type:Array, // mesi
+        type:[
+            {
+                userId:String,
+                isRead:{
+                    type:Boolean,
+                    default:false
+                }
+            }
+        ], // mesi
     },
-    message:{
+    title:{
+        type:String,
+        default:'New Notification'
+    },
+    detail:{
         type:String,
         default:''
     }
-}));
+});
+module.exports.notificationSchema = schema;
+module.exports.NotificationModel = mongoose.model('notification',schema);

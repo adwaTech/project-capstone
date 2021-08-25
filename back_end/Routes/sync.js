@@ -5,7 +5,9 @@ const { AuctionModel } = require('../models/Auctions');
 const { proposalModel } = require('../models/Proposal');
 const types = require('../models/types');
 const { UserModel } = require('../models/Users');
-const { decrypt, encrypt } = require('./encryption');
+const { decrypt } = require('./encryption');
+const { NotificationModel, notificationSchema } = require('../models/notification');
+const { createModel } = require('./toolFuntions');
 async function sendMail(auctioneers) {
     let emails = [];
     await auctioneers.map(async (auctioneer) => {
@@ -54,6 +56,20 @@ module.exports = (req, res, next) => {
                     await proposal.save();
                 });
                 await auction.save();
+                // prepare notification
+                let participants = [];
+                for (proposal of auction.proposals)
+                    participants.push({
+                        userId: (await proposalModel.findById(proposal)).ownerId
+                    })
+                const notification = createModel({
+                    notificationType: types.notificationType.auctionDueDate,
+                    auctionId: auction._id,
+                    participants: participants,
+                    title: 'Auction due date!',
+                    detail: `The auction ${auction.auctionName} is due date. click to see list of all bidders`
+                }, NotificationModel(), notificationSchema);
+                await notification.save();
             }
         })
         // send emails

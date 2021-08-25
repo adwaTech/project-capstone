@@ -9,6 +9,12 @@ module.exports = {// auctionCategory should be dynamic
         waitingResult: 'waitingresult',
         notPayed: 'notpayed'
     },
+    notificationType:{
+        bidWon:'bidwon',
+        bidLost:'bidlost',
+        bidWonPaymentNeeded:'bidWonPaymentNeeded',
+        auctionDueDate:'auctionDueDate',
+    },
     auctionStatus: {
         open: 'open',
         ended: 'ended',
