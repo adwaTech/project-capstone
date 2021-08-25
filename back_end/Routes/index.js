@@ -19,7 +19,8 @@ const setWinnerRoute = require('./setWinner');
 const withdrawRoute = require('./withdraw');
 const depositRoute = require('./deposit');
 const passport = require('passport');
-const getBids = require('./getBids');
+const getNotificationsRoute = require('./getNotifications');
+const setNotificationRoute = require('./setNotification');
 const sync = require('./sync');
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -83,6 +84,8 @@ router.post('/bid', passport.authenticate('jwt', { session: false }), (req, res,
 }, bidForAuctionRoute);
 router.get('/getAuctions', getAuctionsRoute);
 router.get('/getBids', passport.authenticate('jwt', { session: false }), getBidsRoute);
+router.get('/getNotifications', passport.authenticate('jwt', { session: false }), getNotificationsRoute);
+router.post('/setNotification', passport.authenticate('jwt', { session: false }), upload.any(), setNotificationRoute)
 router.get('/search', getSearchRoute)
 router.post('/pay', passport.authenticate('jwt', { session: false }), upload.any(), route);
 router.post('/setWinner', passport.authenticate('jwt', { session: false }), upload.any(), setWinnerRoute);

@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
 const schema = mongoose.Schema({
+    date:{
+        type:Date,
+        default:Date.now()
+    },
     notificationType:{
         type:String,
         required:true

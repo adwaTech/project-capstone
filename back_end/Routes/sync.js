@@ -36,25 +36,23 @@ async function sendMail(auctioneers) {
         }
     });
 }
-// TODO: Remove all unneccessary await/async functions
 module.exports = (req, res, next) => {
     let auctioneers = [];
     AuctionModel.find({
         status: 'open'
     }).then(async (auctions) => {
         //console.log(auctions);
-        await auctions.map(async (auction) => {
+        for (auction of auctions) {
             if (auction.deadline < Date.now().toString()) {
                 auction.status = 'ended';
                 auctioneers.push(auction.owner);
-                await auction.proposals.map(async (proposalId) => {
-                    console.log(proposalId);
+                for (proposalId of auction.proposals) {
                     proposal = await proposalModel.findById(proposalId);
                     proposal.status = 'waitingresult';
                     if (proposal.type = types.proposalType[1])
                         proposal.amount = decrypt(proposal.amount);
                     await proposal.save();
-                });
+                }
                 await auction.save();
                 // prepare notification
                 let participants = [];
@@ -71,7 +69,7 @@ module.exports = (req, res, next) => {
                 }, NotificationModel(), notificationSchema);
                 await notification.save();
             }
-        })
+        }
         // send emails
         // sendMail(auctioneers);
     })
