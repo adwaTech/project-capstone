@@ -14,6 +14,10 @@ module.exports = {// auctionCategory should be dynamic
         ended: 'ended',
         archieved: 'archieved'
     },
+    paymentMethod:{
+        cbeBirr: 'cbebirr',
+        amole:'amole'
+    },
     paymentType: {
         bidWon: 'bidwon',
         postAuction: 'postauction',

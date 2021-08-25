@@ -96,10 +96,10 @@ router.post('/postAuction', passport.authenticate('jwt', { session: false }), (r
     })
 }, postAuctionRoute);
 router.post('/sendFeedback', passport.authenticate('jwt', { session: false }), upload.any(), sendFeedbackRoute);
-router.post('/withdraw', passport.authenticate('jwt', { session: false }), withdrawRoute);
-router.post('/deposit', passport.authenticate('jwt', { session: false }), depositRoute);
+router.post('/withdraw', passport.authenticate('jwt', { session: false }), upload.any(), withdrawRoute);
+router.post('/deposit', passport.authenticate('jwt', { session: false }), upload.any(), depositRoute);
 // Admin routes
-router.get("/getFeedbacks", passport.authenticate('jwt', { session: false }), getFeedbacks);
+router.get("/getFeedbacks", passport.authenticate('jwt', { session: false }), upload.any(), getFeedbacks);
 router.put("/approveAuction", passport.authenticate('jwt', { session: false }), upload.any(), approveAuction);
 
 // Common routes
