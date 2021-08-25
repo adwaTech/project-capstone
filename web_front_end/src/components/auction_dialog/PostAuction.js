@@ -24,7 +24,7 @@ import {
 } from '@material-ui/core'
 import { FileUploader } from "react-drag-drop-files";
 import { useDispatch, useSelector } from 'react-redux';
-import { PostAuctionAction,PostCleanUpAction } from '../../redux-state-managment/Actions'
+import { PostAuctionAction, PostCleanUpAction } from '../../redux-state-managment/Actions'
 import { Alert } from '@material-ui/lab'
 import InputBase from '@material-ui/core/InputBase';
 import 'date-fns';
@@ -32,6 +32,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
+  KeyboardTimePicker
 } from '@material-ui/pickers';
 
 
@@ -259,7 +260,7 @@ export default function Register({ match, history }) {
                 }}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            {/* <Grid item xs={12} sm={6}>
               <FormControl component="fieldset" fullWidth>
                 <FormLabel component="legend">all pay</FormLabel>
                 <RadioGroup aria-label="gender" name="gender1" value={state.allPay} onChange={
@@ -271,7 +272,27 @@ export default function Register({ match, history }) {
                   <FormControlLabel value="false" control={<Radio />} label="no" />
                 </RadioGroup>
               </FormControl>
+            </Grid> */}
+            <Grid item xs={12} sm={6} >
+              <p>condition</p>
+              <FormControl fullWidth >
+                <Select
+                  labelId="demo-customized-select-label"
+                  id="demo-customized-select"
+                  label="condition"
+                  value={state.condition}
+                  color="primary"
+                  onChange={(e) => {
+                    setState({ ...state, condition: e.target.value })
+                  }}
+                  input={<BootstrapInput />}
+                >
+                  <MenuItem value="new" >new</MenuItem>
+                  <MenuItem value="used" >used/second hand</MenuItem>
+                </Select>
+              </FormControl>
             </Grid>
+
             <Grid item xs={12} sm={6} >
               <TextField
                 id="exptended description"
@@ -286,7 +307,7 @@ export default function Register({ match, history }) {
                 }}
               />
             </Grid>
-
+              
 
           </Grid>
 
@@ -339,7 +360,7 @@ export default function Register({ match, history }) {
                 </RadioGroup>
               </FormControl>
             </Grid>
-            {state.auctionType==="live"?<Grid item xs={12} sm={6}>
+            {state.auctionType === "live" ? <Grid item xs={6} sm={6}>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <KeyboardDatePicker
                   margin="normal"
@@ -352,28 +373,19 @@ export default function Register({ match, history }) {
                     'aria-label': 'change date',
                   }}
                 />
-              </MuiPickersUtilsProvider>
-            </Grid>:null}
-            <Grid item xs={12} sm={6} >
-              <p>condition</p>
-              <FormControl fullWidth >
-                <Select
-                  labelId="demo-customized-select-label"
-                  id="demo-customized-select"
-                  label="condition"
-                  value={state.condition}
-                  color="primary"
-                  onChange={(e) => {
-                    setState({ ...state, condition: e.target.value })
+                <KeyboardTimePicker
+                  margin="normal"
+                  id="time-picker"
+                  label="pick start time"
+                  value={state.startDate}
+                  onChange={handleDateChange}
+                  KeyboardButtonProps={{
+                    'aria-label': 'change time',
                   }}
-                  input={<BootstrapInput />}
-                >
-                  <MenuItem value="new" >new</MenuItem>
-                  <MenuItem value="used" >used/second hand</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-
+                />
+              </MuiPickersUtilsProvider>
+            </Grid> : null}
+            
           </Grid>
         </React.Fragment>;
       case 2:
@@ -438,6 +450,16 @@ export default function Register({ match, history }) {
                   onChange={(date) => setState({ ...state, deadline: date })}
                   KeyboardButtonProps={{
                     'aria-label': 'change date',
+                  }}
+                />
+                <KeyboardTimePicker
+                  margin="normal"
+                  id="time-picker"
+                  label="Time picker"
+                  value={state.deadline}
+                  onChange={(date) => setState({ ...state, deadline: date })}
+                  KeyboardButtonProps={{
+                    'aria-label': 'change time',
                   }}
                 />
               </MuiPickersUtilsProvider>
@@ -517,6 +539,8 @@ export default function Register({ match, history }) {
                         if (state.minCPO && state.minAmount) {
                           setProgress(true)
                           const formData = new FormData();
+                          console.log(state.startDate);
+                          console.log(state.deadline);
                           formData.append('auctionName', state.auctionName);
                           formData.append('briefDescription', state.briefDescription);
                           formData.append('allPay', state.allPay);

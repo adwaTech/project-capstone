@@ -23,6 +23,7 @@ export default function MyBid() {
                     <h3>Loses</h3>
                     {/* <a href="" className="btn">Loses</a> */}
                 </div>
+                
                 <div className="table-cell cell-feature">Land</div>
                 <div className="table-cell">
                     <svg width="18" height="18" viewBox="0 0 18 18" xmlns="#">
