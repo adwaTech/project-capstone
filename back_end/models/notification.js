@@ -9,13 +9,17 @@ const schema = mongoose.Schema({
         required:true
     },
     auctionId:{
-        type:String,
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'auction',
         required:true
     },
     participants:{
         type:[
             {
-                userId:String,
+                userId:{
+                    type:mongoose.Schema.Types.ObjectId,
+                    ref:'user',
+                },
                 isRead:{
                     type:Boolean,
                     default:false

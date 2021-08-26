@@ -29,7 +29,8 @@ const auction = mongoose.Schema({
         default: 0,
     },
     owner: {
-        type: String, // owner id
+        type: mongoose.Schema.Types.ObjectId, // owner id
+        ref:'user',
         required: true
     },
     auctionType: {
@@ -76,7 +77,10 @@ const auction = mongoose.Schema({
     longtude: {
         type: String
     },
-    proposals: [String]
+    proposals: [{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'proposal',
+    }]
 });
 module.exports.AuctionModel = mongoose.model('auction', auction);
 module.exports.AuctionSchema = auction;

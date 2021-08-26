@@ -23,7 +23,8 @@ const proposal = mongoose.Schema({
         required: true,
     },
     auctionId: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'auction',
         required: true,
     },
     proposalDocument: {

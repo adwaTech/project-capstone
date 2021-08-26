@@ -11,6 +11,7 @@ import 'package:flutter/rendering.dart';
 
 import 'category_browser.dart';
 import 'components/about.dart';
+import 'components/login.dart';
 import 'notifications.dart';
 
 void main() {
@@ -24,6 +25,7 @@ class AuctionApp extends StatefulWidget {
 class _AuctionAppState extends State<AuctionApp> with TickerProviderStateMixin {
   TabController _categoryTabController, _productsTabController;
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  bool isLoggedIn = false;
   void initState() {
     super.initState();
     _categoryTabController =
@@ -36,7 +38,7 @@ class _AuctionAppState extends State<AuctionApp> with TickerProviderStateMixin {
       debugShowCheckedModeBanner: false,
       title: 'M3K Auction',
       theme: ThemeData(primarySwatch: Colors.teal),
-      home: Scaffold(
+      home: (!isLoggedIn)?LoginPage():Scaffold(
           key: _scaffoldKey,
           drawer: DrawerComponent(),
           body: CustomScrollView(
