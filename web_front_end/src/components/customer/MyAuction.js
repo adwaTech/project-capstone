@@ -31,15 +31,7 @@ export default function MyAuction() {
 
     const [num, setNum] = React.useState(1);
     
-    React.useEffect(() => {
-        if(num===1){
-            dispatch(AuctionerAuctionAction(user._id));
-            setNum(2);
-        }
-        setInterval(() => {
-            dispatch(AuctionerAuctionAction(user._id));
-        }, 80000);
-    }, [AuctioneerAuction])
+
     return (
         <div className="auctionTable">
             {data?<DetailDialog open={open} setOpen={setOpen} data={data?data:null} detail={true}/>:null}

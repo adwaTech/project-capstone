@@ -11,6 +11,9 @@ module.exports = async (req, res) => {
     req.body['owner'] = req.user._id;
     req.body['status'] = 'open';
     let err = validateBody(req.body, AuctionSchema, ['auctionType', 'auctionCategory']);
+    if (Date.parse(req.body.deadline) <= Date.now()) return res.status(400).send({
+        error: 'Invalid deadline'
+    })
     if (req.body.auctionType === types.auctionType[0] && !req.body.startDate)
         err += '#Start date is required for this auction';
     else if (req.body.auctionType === types.auctionType[0])

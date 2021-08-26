@@ -296,3 +296,78 @@ export const SearchAuctionAction = (userData) => async (dispatch) => {
         payload: response.data,
     })
 }
+export const GetAuctionAuctionAction = (token) => async (dispatch) => {
+    const data = {
+        data: {
+            error: "Please check your network connection",
+        },
+        status: 404,
+        statusText: "Network Error"
+    }
+    try {
+        const axiosInstance = axios.create({
+            baseURL: "http://localhost:5000",
+            timeout: 5000,
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        const response = await axiosInstance.get(`/getBids`, {
+
+            params: {
+                type: "owner", 
+            }
+        },{
+            validateStatus: function (status) {
+                return status < 600
+            }
+        },
+        );
+        dispatch({
+            type: Constant.GET_BID_AUCTION,
+            payload: response,
+        })
+    }
+    catch (error) {
+        dispatch({
+            type: Constant.GET_BID_AUCTION,
+            payload: data,
+        })
+    }
+}
+export const GetNotificationAuctionAction = (token) => async (dispatch) => {
+    const data = {
+        data: {
+            error: "Please check your network connection",
+        },
+        status: 404,
+        statusText: "Network Error"
+    }
+    try {
+        const axiosInstance = axios.create({
+            baseURL: "http://localhost:5000",
+            timeout: 5000,
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        const response = await axiosInstance.get(`/getNotifications`, {
+            validateStatus: function (status) {
+                return status < 600
+            }
+        },
+        );
+        dispatch({
+            type: Constant.GET_NOTIFICATION,
+            payload: response,
+        })
+    }
+    catch (error) {
+        dispatch({
+            type: Constant.GET_NOTIFICATION,
+            payload: data,
+        })
+    }
+}

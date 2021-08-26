@@ -5,7 +5,9 @@ const { AuctionModel } = require('../models/Auctions');
 const { proposalModel } = require('../models/Proposal');
 const types = require('../models/types');
 const { UserModel } = require('../models/Users');
-const { decrypt, encrypt } = require('./encryption');
+const { decrypt } = require('./encryption');
+const { NotificationModel, notificationSchema } = require('../models/notification');
+const { createModel } = require('./toolFuntions');
 async function sendMail(auctioneers) {
     let emails = [];
     await auctioneers.map(async (auctioneer) => {
@@ -34,28 +36,40 @@ async function sendMail(auctioneers) {
         }
     });
 }
-// TODO: Remove all unneccessary await/async functions
 module.exports = (req, res, next) => {
     let auctioneers = [];
     AuctionModel.find({
         status: 'open'
     }).then(async (auctions) => {
         //console.log(auctions);
-        await auctions.map(async (auction) => {
+        for (auction of auctions) {
             if (auction.deadline < Date.now().toString()) {
                 auction.status = 'ended';
                 auctioneers.push(auction.owner);
-                await auction.proposals.map(async (proposalId) => {
-                    console.log(proposalId);
+                for (proposalId of auction.proposals) {
                     proposal = await proposalModel.findById(proposalId);
                     proposal.status = 'waitingresult';
                     if (proposal.type = types.proposalType[1])
                         proposal.amount = decrypt(proposal.amount);
                     await proposal.save();
-                });
+                }
                 await auction.save();
+                // prepare notification
+                let participants = [];
+                for (proposal of auction.proposals)
+                    participants.push({
+                        userId: (await proposalModel.findById(proposal)).ownerId
+                    })
+                const notification = createModel({
+                    notificationType: types.notificationType.auctionDueDate,
+                    auctionId: auction._id,
+                    participants: participants,
+                    title: 'Auction due date!',
+                    detail: `The auction ${auction.auctionName} is due date. click to see list of all bidders`
+                }, NotificationModel(), notificationSchema);
+                await notification.save();
             }
-        })
+        }
         // send emails
         // sendMail(auctioneers);
     })

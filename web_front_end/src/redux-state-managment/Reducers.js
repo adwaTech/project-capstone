@@ -31,7 +31,19 @@ let initialState = {
     auctionsWithCategory: [],
     cities: [],
     usersWithFirstName: [],
-    usersWithLastName: []
+    usersWithLastName: [],
+
+    // getbid
+    getbid_auctions:[],
+    getbid_error:'',
+    getbid_status:'',
+    getbid_statusText:'',
+
+    // get notification
+    Notification:[],
+    Notification_error:'',
+    Notification_status:'',
+    Notification_statusText:'',
 }
 
 export const AccountReducer = (state = initialState, action) => {
@@ -221,6 +233,70 @@ export const SearchAuctionReducer = (state = initialState, action) => {
                 usersWithFirstName: action.payload.usersWithFirstName,
                 usersWithLastName: action.payload.usersWithLastName
             }
+        default:
+            return {
+                ...state
+            }
+    }
+
+}
+export const getBidReducer = (state = initialState, action) => {
+    switch (action.type) {
+        case Constant.GET_BID_AUCTION:
+            if (action.payload.status === 200) {
+                console.log(action.payload);
+                return {
+                    ...state,
+                   getbid_auctions: action.payload.data,
+                }
+            }
+            else {
+                return {
+                    ...state,
+                    getbid_error: action.payload.data.error,
+                    getbid_status: action.payload.status,
+                    getbid_statusText: action.payload.statusText
+                }
+            }
+        // case Constant.CLEANUPBIDAUCTION:
+        //     return {
+        //         ...state,
+        //         biderror: '',
+        //         bidstatus: '',
+        //         bidstatusText: ''
+        //     }
+        default:
+            return {
+                ...state
+            }
+    }
+
+}
+export const getNotificationReducer = (state = initialState, action) => {
+    switch (action.type) {
+        case Constant.GET_NOTIFICATION:
+            if (action.payload.status === 200) {
+                console.log(action.payload);
+                return {
+                    ...state,
+                   Notification: action.payload.data,
+                }
+            }
+            else {
+                return {
+                    ...state,
+                    Notification_error: action.payload.data.error,
+                    Notification_status: action.payload.status,
+                    Notification_statusText: action.payload.statusText
+                }
+            }
+        // case Constant.CLEANUPBIDAUCTION:
+        //     return {
+        //         ...state,
+        //         biderror: '',
+        //         bidstatus: '',
+        //         bidstatusText: ''
+        //     }
         default:
             return {
                 ...state

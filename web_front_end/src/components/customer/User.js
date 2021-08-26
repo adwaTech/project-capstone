@@ -10,10 +10,15 @@ import PostAuction from '../auction_dialog/PostAuction';
 import BidAuction from '../auction_dialog/BidAuction';
 import MyAuction from './MyAuction';
 import MyBid from './MyBid';
+import {
+    GetAuctionAuctionAction,
+    AuctionerAuctionAction
+} from '../../redux-state-managment/Actions'
 
 
 
 export default function User() {
+    const dispatch = useDispatch();
     React.useEffect(() => {
         const target = {
             clicked: 0,
@@ -37,11 +42,13 @@ export default function User() {
             target.fw.textContent = target.currentFollowers;
             target.btn.classList.toggle("following");
         }
-    })
+    });
+    const token = useSelector((state) => state.AccountReducer.token);
+
     function ul(index) {
         var underlines = document.querySelectorAll(".underline");
         if (index == 0) {
-            setComponent("Bid")
+            setComponent("Bid");
         }
         if (index == 1) {
             setComponent("Auction");
@@ -60,13 +67,17 @@ export default function User() {
         }
     }
     const user = useSelector((state) => state.AccountReducer.user);
-    const [component, setComponent] = React.useState('Auction');
+    const [component, setComponent] = React.useState('Bid');
+    const AuctioneerAuction = useSelector((state) => state.AuctionsReducer.AuctioneerAuction);
+    const myauction = useSelector((state) => state.getBidReducer.getbid_auctions);
+
     function renderComponents() {
         switch (component) {
             case "Bid":
-                return <MyBid/>
+                dispatch(GetAuctionAuctionAction(token));
+                return <MyBid />
             case "Auction":
-                // return <AuctionsTable/>
+                dispatch(AuctionerAuctionAction(user._id));
                 return <MyAuction />
             case "Notifications":
                 return <Notification />
@@ -90,11 +101,11 @@ export default function User() {
             <div className="profile-page">
                 <nav className="full">
 
+                    <div className="underline1"></div>
+                    <div className="underline1"></div>
                     <div className="underline"></div>
-                    <div className="underline"></div>
-                    <div className="underline"></div>
-                    <a onClick={() => ul(1)}>My Auctions</a>
                     <a onClick={() => ul(0)}>My Bids</a>
+                    <a onClick={() => ul(1)}>My Auctions</a>
                     <a onClick={() => ul(2)}>Notifications</a>
                     <a onClick={() => ul(3)}>Win</a>
                     <a onClick={() => ul(4)}>lost</a>
@@ -128,15 +139,15 @@ export default function User() {
                             <div className="ds-info">
                                 <div className="ds pens">
                                     <h6 title="Number of pens created by the user">Bids <i className="fas fa-edit"></i></h6>
-                                    <p>29</p>
+                                    <p>{myauction.length}</p>
                                 </div>
                                 <div className="ds projects">
                                     <h6 title="Number of projects created by the user">Posts <i className="fas fa-project-diagram"></i></h6>
-                                    <p>12</p>
+                                    <p>{AuctioneerAuction.length}</p>
                                 </div>
                                 <div className="ds posts">
-                                    <h6 title="Number of posts">Posts<i className="fas fa-comments"></i></h6>
-                                    <p>20</p>
+                                    <h6 title="Number of posts">Amount<i className="fas fa-comments"></i></h6>
+                                    <p>20000</p>
                                 </div>
                             </div>
                             <div className="ds-skill">
@@ -159,10 +170,32 @@ export default function User() {
                                         <p>75%</p>
                                     </div>
                                 </div>
+                                <div style={{
+                                    margin:"auto"
+                                }}>
+                                    <Button fullWidth
+                                        style={{
+                                            marginTop:"20px",
+                                            marginBottom: "20px",
+                                            paddingLeft: "10px",
+                                            paddingRight: "10px",
+                                            color:"#00B0FF",
+                                            borderColor:"#00B0FF"
+                                        }} variant="outlined" >Deposite</Button>
+                                    <Button fullWidth
+                                        style={{
+                                            paddingLeft: "20px", paddingRight: "20px",color:"#00B0FF",
+                                            borderColor:"#00B0FF"
+                                        }}
+                                        variant="outlined" >Withdrawal</Button>
+                                </div>
                             </div>
                         </div>
+
                     </div>
-                    {renderComponents()}
+                    <div className="main-render-area">
+                        {renderComponents()}
+                    </div>
                 </div>
             </div>
             <Footer />

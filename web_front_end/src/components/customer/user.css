@@ -1,11 +1,19 @@
+.profile-page .dep-withdraw{
+  display:"flex";
+  flex-direction:column;
+  width:120px,;
+  position:fixed;
+  left: 180px;
+  top:800px;
+}
 .profile-page .card {
-    position: relative;
-    top: -80px;
+    position: absolute;
+    top:-100px;
     right: 0;
     bottom: 0;
     left: 100px;
     width: 250px;
-    height: 400px;
+    height: 700px;
     margin-right: 100px;
     border-radius: 10px;
     box-shadow: 0 10px 25px 5px rgba(233, 205, 205, 0.2);
@@ -45,7 +53,7 @@
   .profile-page .card .name {
     position: absolute;
     margin: auto;
-    top: -60px;
+    top: -380px;
     right: 0;
     bottom: 0;
     left: 0;
@@ -103,7 +111,7 @@
   .profile-page  .card .ds-info {
     position: absolute;
     margin: auto;
-    top: 120px;
+    top: -200px;
     bottom: 0;
     right: 0;
     left: 0;
@@ -134,11 +142,9 @@
     animation-delay: 1s;
   }
   .profile-page .card .ds-skill {
-    position: absolute;
+    position: relative;
     margin: auto;
-    bottom: 10px;
-    right: 0;
-    left: 0;
+    top:300px;
     width: 200px;
     height: 100px;
     animation: mvBottom 1.5s;
@@ -261,7 +267,7 @@
     background: crimson;
   }
   .profile-page {
-      margin-bottom: 30%;
+      margin-bottom: 40%;
       position: relative;
       width: 95%;
       top: 140px;
@@ -270,6 +276,7 @@
       border-radius: 50px;
       display: flex;
       flex-direction: column;
+      overflow: hidden;
       /* box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.35); */
   }
 
@@ -295,7 +302,7 @@
     left: 0;
     height: var(--underline-height);
     width: 20%;
-    background: #ffffff;
+    background: #00B0FF;
     pointer-events: none;
     mix-blend-mode: multiply;
     transition: transform var(--transition-duration) ease-in-out;
@@ -310,30 +317,38 @@
     text-align: center;
     cursor: pointer;
   }
-  
+  .profile-page .main-render-area{
+    position: relative;
+    left: 30%;
+    top: 10%;
+    width: 70%;
+    overflow: hidden;
+  }
 
   .profile-page nav.full {
     font-weight: bold;
-    background: #eee;
+    position: relative;
+    left: 30%;
     color: rgba(0, 0, 0, 0.35);
   }
   .profile-page nav.full .underline {
     height: 100%;
-    background: rgb(162, 216, 162);
+    background-color: #00B0FF;
+    color: #ffffff;
   }
   
-  .profile-page nav.retro .underline {
+  /* .profile-page nav.retro .underline {
     border-radius: 100% 100% 0 0;
   }
   .profile-page nav.retro .underline:nth-child(1) {
-    background: gold;
+    background: #00B0FF;
   }
   .profile-page nav.retro .underline:nth-child(2) {
-    background: dodgerblue;
+    background: #00B0FF;
   }
   .profile-page nav.retro .underline:nth-child(3) {
-    background: tomato;
-  }
+    background: #00B0FF;
+  } */
 
 
 
