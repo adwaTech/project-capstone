@@ -12,7 +12,6 @@ import DetailDialog from '../catagroy_slider/Detail';
 import MoreHoriz from '@material-ui/icons/MoreHoriz';
 
 import IconButton from '@material-ui/core/IconButton';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 const StyledBadge = withStyles((theme) => ({
     badge: {

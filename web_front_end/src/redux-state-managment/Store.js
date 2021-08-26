@@ -8,7 +8,8 @@ import {
     AuctionsReducer,
     bidAuctionReducer,
     SearchAuctionReducer,
-    getBidReducer
+    getBidReducer,
+    getNotificationReducer
 } from './Reducers';
 
 
@@ -21,7 +22,8 @@ const reducer = combineReducers({
     AuctionsReducer,
     bidAuctionReducer,
     SearchAuctionReducer,
-    getBidReducer
+    getBidReducer,
+    getNotificationReducer
 });
 
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(...middleware)));

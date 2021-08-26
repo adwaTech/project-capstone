@@ -539,8 +539,6 @@ export default function Register({ match, history }) {
                         if (state.minCPO && state.minAmount) {
                           setProgress(true)
                           const formData = new FormData();
-                          console.log(state.startDate);
-                          console.log(state.deadline);
                           formData.append('auctionName', state.auctionName);
                           formData.append('briefDescription', state.briefDescription);
                           formData.append('allPay', state.allPay);

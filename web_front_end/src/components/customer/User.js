@@ -8,13 +8,38 @@ import Button from '@material-ui/core/Button';
 import AuctionDialog from '../auction_dialog/AuctionDialog';
 import PostAuction from '../auction_dialog/PostAuction';
 import BidAuction from '../auction_dialog/BidAuction';
+import Notification from './Notification';
 import MyAuction from './MyAuction';
 import MyBid from './MyBid';
 import {
     GetAuctionAuctionAction,
-    AuctionerAuctionAction
-} from '../../redux-state-managment/Actions'
+    AuctionerAuctionAction,
+    GetNotificationAuctionAction
+} from '../../redux-state-managment/Actions';
+import { withStyles } from '@material-ui/core';
+import Badge from '@material-ui/core/Badge';
+import MoreHoriz from '@material-ui/icons/MoreHoriz';
+import IconButton from '@material-ui/core/IconButton';
 
+
+const StyledBadge = withStyles((theme) => ({
+    badge: {
+        right: -3,
+        top: 13,
+        border: `2px solid ${theme.palette.background.paper}`,
+        padding: '0 4px',
+    },
+}))(Badge);
+
+function RenderBadge(color, letter) {
+    return (
+        <IconButton aria-label="cart">
+            <StyledBadge badgeContent={letter} color={color}>
+
+            </StyledBadge>
+        </IconButton>
+    )
+}
 
 
 export default function User() {
@@ -43,17 +68,21 @@ export default function User() {
             target.btn.classList.toggle("following");
         }
     });
+    const [num, setNum] = React.useState(1);
     const token = useSelector((state) => state.AccountReducer.token);
 
     function ul(index) {
         var underlines = document.querySelectorAll(".underline");
         if (index == 0) {
+            dispatch(GetAuctionAuctionAction(token));
             setComponent("Bid");
         }
         if (index == 1) {
+            dispatch(AuctionerAuctionAction(user._id));
             setComponent("Auction");
         }
         if (index == 2) {
+            dispatch(GetNotificationAuctionAction(token));
             setComponent("Notifications")
         }
         if (index == 3) {
@@ -70,14 +99,19 @@ export default function User() {
     const [component, setComponent] = React.useState('Bid');
     const AuctioneerAuction = useSelector((state) => state.AuctionsReducer.AuctioneerAuction);
     const myauction = useSelector((state) => state.getBidReducer.getbid_auctions);
+    const notification = useSelector((state) => state.getNotificationReducer.Notification);
 
     function renderComponents() {
         switch (component) {
             case "Bid":
-                dispatch(GetAuctionAuctionAction(token));
+                if (num === 1) {
+                    dispatch(GetAuctionAuctionAction(token));
+                    dispatch(AuctionerAuctionAction(user._id));
+                    dispatch(GetNotificationAuctionAction(token))
+                    setNum(2)
+                }
                 return <MyBid />
             case "Auction":
-                dispatch(AuctionerAuctionAction(user._id));
                 return <MyAuction />
             case "Notifications":
                 return <Notification />
@@ -104,11 +138,15 @@ export default function User() {
                     <div className="underline1"></div>
                     <div className="underline1"></div>
                     <div className="underline"></div>
-                    <a onClick={() => ul(0)}>My Bids</a>
-                    <a onClick={() => ul(1)}>My Auctions</a>
-                    <a onClick={() => ul(2)}>Notifications</a>
-                    <a onClick={() => ul(3)}>Win</a>
-                    <a onClick={() => ul(4)}>lost</a>
+                    <a http="" onClick={() => ul(0)}>My Bids</a>
+                    <a http=""  onClick={() => ul(1)}>My Auctions</a>
+                    <a http=""  onClick={() => ul(2)}>
+                        <Badge color="primary" badgeContent={notification.length} showZero>
+                            <span >Notifications</span>
+                        </Badge>
+                    </a>
+                    <a http=""  onClick={() => ul(3)}>Win</a>
+                    <a http=""  onClick={() => ul(4)}>lost</a>
                 </nav>
 
                 <div className="user-side-bar-btn">
@@ -171,21 +209,21 @@ export default function User() {
                                     </div>
                                 </div>
                                 <div style={{
-                                    margin:"auto"
+                                    margin: "auto"
                                 }}>
                                     <Button fullWidth
                                         style={{
-                                            marginTop:"20px",
+                                            marginTop: "20px",
                                             marginBottom: "20px",
                                             paddingLeft: "10px",
                                             paddingRight: "10px",
-                                            color:"#00B0FF",
-                                            borderColor:"#00B0FF"
+                                            color: "#00B0FF",
+                                            borderColor: "#00B0FF"
                                         }} variant="outlined" >Deposite</Button>
                                     <Button fullWidth
                                         style={{
-                                            paddingLeft: "20px", paddingRight: "20px",color:"#00B0FF",
-                                            borderColor:"#00B0FF"
+                                            paddingLeft: "20px", paddingRight: "20px", color: "#00B0FF",
+                                            borderColor: "#00B0FF"
                                         }}
                                         variant="outlined" >Withdrawal</Button>
                                 </div>
@@ -204,120 +242,9 @@ export default function User() {
 }
 
 
-function BidTable() {
-    return (
-        <div className="bidTable">
-            <div className="table">
-                <div className="table-cell"></div>
-                <div className="table-cell plattform">
-                    <h3>Wins</h3>
-                    <a href="" className="btn">Wins</a>
-                </div>
-                <div className="table-cell enterprise">
-                    <h3>Loses</h3>
-                    <a href="" className="btn">Loses</a>
-                </div>
-                <div className="table-cell cell-feature">Land</div>
-                <div className="table-cell">
-                    <svg width="18" height="18" viewBox="0 0 18 18" xmlns="#">
-                        <title>check_blue</title>
-                        <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd" />
-                    </svg>
-                </div>
-                <div className="table-cell">
-                    <svg className="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="#">
-                        <title>check_blue</title>
-                        <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd" />
-                    </svg>
-                </div>
-                <div className="table-cell cell-feature">Car</div>
-                <div className="table-cell">
-                    <svg width="18" height="18" viewBox="0 0 18 18" xmlns="#">
-                        <title>check_blue</title>
-                        <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd" />
-                    </svg>
-                </div>
-                <div className="table-cell">
-                    <svg className="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="#">
-                        <title>check_blue</title>
-                        <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd" />
-                    </svg>
-                </div>
-                <div className="table-cell cell-feature">Land</div>
-                <div className="table-cell">
-                    <svg width="18" height="18" viewBox="0 0 18 18" xmlns="#">
-                        <title>check_blue</title>
-                        <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd" />
-                    </svg>
-                </div>
-                <div className="table-cell">
-                    <svg className="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="#">
-                        <title>check_blue</title>
-                        <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd" />
-                    </svg>
-                </div>
-                <div className="table-cell cell-feature">Road Constraction</div>
-                <div className="table-cell">
-                    <svg width="18" height="18" viewBox="0 0 18 18" xmlns="#">
-                        <title>check_blue</title>
-                        <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd" />
-                    </svg>
-                </div>
-                <div className="table-cell">
-                    <svg className="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="#">
-                        <title>check_blue</title>
-                        <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd" />
-                    </svg>
-                </div>
-                <div className="table-cell cell-feature">Mobile Phone</div>
-                <div className="table-cell"></div>
-                <div className="table-cell">
-                    <svg className="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="#">
-                        <title>check_blue</title>
-                        <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" />
-                    </svg>
-                </div>
-                <div className="table-cell cell-feature">Farm Land</div>
-                <div className="table-cell"></div>
-                <div className="table-cell">
-                    <svg className="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="#">
-                        <title>check_blue</title>
-                        <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd" />
-                    </svg>
-                </div>
-                <div className="table-cell cell-feature">Car</div>
-                <div className="table-cell"></div>
-                <div className="table-cell">
-                    <svg className="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="#">
-                        <title>check_blue</title>
-                        <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd" />
-                    </svg>
-                </div>
-                <div className="table-cell cell-feature">House</div>
-                <div className="table-cell"></div>
-                <div className="table-cell">
-                    <svg className="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="#">
-                        <title>check_blue</title>
-                        <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd" />
-                    </svg>
-                </div>
-            </div>
-        </div>
-    );
-}
 
-function Notification() {
-    return (
-        <div style={{
-            marginLeft: "100px"
-        }}>
-            <Alert style={{ marginBottom: '10px' }} severity="error">This is an error alert — check it out!</Alert>
-            <Alert style={{ marginBottom: '10px' }} severity="warning">This is a warning alert — check it out!</Alert>
-            <Alert style={{ marginBottom: '10px' }} severity="info">This is an info alert — check it out!</Alert>
-            <Alert style={{ marginBottom: '10px' }} severity="success">This is a success alert — check it out!</Alert>
-        </div>
-    );
-}
+
+
 
 function Win() {
     return (

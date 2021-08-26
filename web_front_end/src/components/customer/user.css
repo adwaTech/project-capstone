@@ -267,7 +267,7 @@
     background: crimson;
   }
   .profile-page {
-      margin-bottom: 40%;
+      margin-bottom: 300px;
       position: relative;
       width: 95%;
       top: 140px;
@@ -320,7 +320,7 @@
   .profile-page .main-render-area{
     position: relative;
     left: 30%;
-    top: 10%;
+    top: 0px;
     width: 70%;
     overflow: hidden;
   }

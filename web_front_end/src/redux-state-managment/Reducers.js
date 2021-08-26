@@ -244,7 +244,6 @@ export const getBidReducer = (state = initialState, action) => {
     switch (action.type) {
         case Constant.GET_BID_AUCTION:
             if (action.payload.status === 200) {
-                console.log(action.payload);
                 return {
                     ...state,
                    getbid_auctions: action.payload.data,
@@ -276,7 +275,6 @@ export const getNotificationReducer = (state = initialState, action) => {
     switch (action.type) {
         case Constant.GET_NOTIFICATION:
             if (action.payload.status === 200) {
-                console.log(action.payload);
                 return {
                     ...state,
                    Notification: action.payload.data,
