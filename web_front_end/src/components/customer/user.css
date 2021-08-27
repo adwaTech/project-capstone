@@ -1,14 +1,22 @@
+.profile-page .dep-withdraw{
+  display:"flex";
+  flex-direction:column;
+  width:120px,;
+  position:fixed;
+  left: 180px;
+  top:800px;
+}
 .profile-page .card {
-    position: relative;
-    top: -80px;
+    position: absolute;
+    top:-100px;
     right: 0;
     bottom: 0;
     left: 100px;
     width: 250px;
-    height: 400px;
+    height: 700px;
     margin-right: 100px;
     border-radius: 10px;
-    box-shadow: 0 10px 25px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 25px 5px rgba(233, 205, 205, 0.2);
     background: rgb(38, 39, 39);
     overflow: hidden;
   }
@@ -45,7 +53,7 @@
   .profile-page .card .name {
     position: absolute;
     margin: auto;
-    top: -60px;
+    top: -380px;
     right: 0;
     bottom: 0;
     left: 0;
@@ -103,7 +111,7 @@
   .profile-page  .card .ds-info {
     position: absolute;
     margin: auto;
-    top: 120px;
+    top: -200px;
     bottom: 0;
     right: 0;
     left: 0;
@@ -134,11 +142,9 @@
     animation-delay: 1s;
   }
   .profile-page .card .ds-skill {
-    position: absolute;
+    position: relative;
     margin: auto;
-    bottom: 10px;
-    right: 0;
-    left: 0;
+    top:300px;
     width: 200px;
     height: 100px;
     animation: mvBottom 1.5s;
@@ -261,15 +267,16 @@
     background: crimson;
   }
   .profile-page {
-      margin-bottom: 30%;
+      margin-bottom: 300px;
       position: relative;
-      width: 90%;
+      width: 95%;
       top: 140px;
-      height: 120vh;
+      height: 140vh;
       /* background-color: #fff; */
       border-radius: 50px;
       display: flex;
       flex-direction: column;
+      overflow: hidden;
       /* box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.35); */
   }
 
@@ -281,7 +288,7 @@
     white-space: nowrap;
     background: white;
     padding: var(--underline-height) 0;
-    width: 60%;
+    width: 70%;
     left: 30%;
     margin: 2em 0;
     box-shadow: 0 1em 2em rgba(0, 0, 0, 0.2);
@@ -295,7 +302,7 @@
     left: 0;
     height: var(--underline-height);
     width: 20%;
-    background: #ffffff;
+    background: #00B0FF;
     pointer-events: none;
     mix-blend-mode: multiply;
     transition: transform var(--transition-duration) ease-in-out;
@@ -310,218 +317,47 @@
     text-align: center;
     cursor: pointer;
   }
-  
+  .profile-page .main-render-area{
+    position: relative;
+    left: 30%;
+    top: 0px;
+    width: 70%;
+    overflow: hidden;
+  }
 
   .profile-page nav.full {
     font-weight: bold;
-    background: #eee;
+    position: relative;
+    left: 30%;
     color: rgba(0, 0, 0, 0.35);
   }
   .profile-page nav.full .underline {
     height: 100%;
-    background: rgb(162, 216, 162);
+    background-color: #00B0FF;
+    color: #ffffff;
   }
   
-  .profile-page nav.retro .underline {
+  /* .profile-page nav.retro .underline {
     border-radius: 100% 100% 0 0;
   }
   .profile-page nav.retro .underline:nth-child(1) {
-    background: gold;
+    background: #00B0FF;
   }
   .profile-page nav.retro .underline:nth-child(2) {
-    background: dodgerblue;
+    background: #00B0FF;
   }
   .profile-page nav.retro .underline:nth-child(3) {
-    background: tomato;
-  }
+    background: #00B0FF;
+  } */
 
 
 
   /* bid table */
 
-  .bidTable .table {
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 20px;
-    margin-bottom: 400px;
-    padding: 2rem 0rem 0rem 0rem;
-    max-width: 700px;
-    margin-left: 150px;
-    
-  }
   
-  .bidTable .table-cell {
-    flex-grow: 1;
-    width: 100%;
-    padding: 0.8em 1.2em;
-    overflow: hidden;
-    list-style-type: none;
-    outline: 1px solid rgba(0, 0, 0, 0.2);
-    text-align: center;
-    font-weight: 300;
-    margin-top: 1px;
-    margin-left: 1px;
-  }
-  .bidTable .table-cell:first-child {
-    outline: 1px solid rgba(0, 0, 0, 0);
-    background: transparent;
-  }
-  @media only screen and (max-width: 768px) {
-    .table-cell:first-child {
-      display: none;
-    }
-  }
-  .bidTable .table-cell:nth-child(3) {
-    outline: 1px solid #30305b;
-  }
-  .bidTable  .table-cell:nth-child(-n+3) {
-    padding-top: 40px;
-    padding-bottom: 40px;
-  }
-  .bidTable .table-cell > h3 {
-    font-size: 26px;
-    margin-top: 0;
-    margin-bottom: 3rem;
-  }
-  .bidTable  .table-cell.cell-feature {
-    text-align: left;
-    font-size: 18px;
-  }
-  .bidTable .table-cell.plattform {
-    color: limegreen;
-  }
-  .bidTable .table-cell.plattform a.btn {
-    color: limegreen;
-  }
-  .bidTable .table-cell.plattform a.btn:hover {
-    background-color: limegreen;
-    border-color: limegreen;
-    color: white;
-  }
-  .bidTable .table-cell.enterprise {
-    background-color: #30305b;
-    color: #85bafc;
-  }
-  .bidTable  .table-cell.enterprise a.btn {
-    color: #85bafc;
-  }
-  .bidTable  .table-cell.enterprise a.btn:hover {
-    background-color: #85bafc;
-    border-color: #85bafc;
-    color: #30305b;
-  }
-  
-  /* Table columns
-  ================================== */
-  .bidTable .table-cell {
-    width: calc(33.33% - 1px);
-  }
-  @media only screen and (max-width: 768px) {
-    .table-cell.cell-feature {
-      width: 100%;
-      text-align: center;
-    }
-  }
-  
-  .bidTable svg.enterprise-check path {
-    fill: #30305b !important;
-  }
-  
-  .bidTable  a.btn {
-    border: 2px solid;
-    padding: 0.6rem 0.9rem 0.6rem 0.9rem;
-    font-weight: 400;
-    text-transform: uppercase;
-    text-decoration: none;
-    -webkit-transition: 0.2s ease-in-out;
-    -moz-transition: 0.2s ease-in-out;
-    -ms-transition: 0.2s ease-in-out;
-    -o-transition: 0.2s ease-in-out;
-    transition: 0.2s ease-in-out;
-    -webkit-border-radius: 0.3rem;
-    -moz-border-radius: 0.3rem;
-    -ms-border-radius: 0.3rem;
-    border-radius: 0.3rem;
-  }
-
-  .bidTable{
-      
-  }
 
   /* auction  */
-  .auctionTable h1{
-    font-size: 30px;
-    color: rgba(0,0,0,0.3);
-    text-transform: uppercase;
-    font-weight: 300;
-    text-align: center;
-    margin-bottom: 15px;
-  }
-  .auctionTable  table{
-    width:100%;
-    table-layout: fixed;
-  }
-  .auctionTable .tbl-header{
-    background-color: rgb(226, 222, 222);
-   }
-   .auctionTable .tbl-content{
-    height:300px;
-    overflow-x:auto;
-    margin-top: 0px;
-    border: 1px solid rgba(238, 238, 238, 0.3);
-  }
-  .auctionTable th{
-    padding: 20px 15px;
-    text-align: left;
-    font-weight: 500;
-    font-size: 12px;
-    color: rgba(0, 0, 0, 0.6);
-    text-transform: uppercase;
-  }
-  .auctionTable td{
-    padding: 15px;
-    text-align: left;
-    vertical-align:middle;
-    font-weight: 300;
-    font-size: 12px;
-    color: rgba(0, 0, 0, 0.6);
-    border-bottom: solid 1px rgba(255,255,255,0.1);
-  }
   
-  
-  /* demo styles */
-  
-
-  .auctionTable section{
-    margin: 50px;
-  }
-  
-  
-  /* follow me template */
-  .auctionTable .made-with-love {
-    margin-top: 40px;
-    padding: 10px;
-    clear: left;
-    text-align: center;
-    font-size: 10px;
-    font-family: arial;
-    color: rgba(0, 0, 0, 0.6);
-  }
-  .auctionTable .made-with-love i {
-    font-style: normal;
-    color: #F50057;
-    font-size: 14px;
-    position: relative;
-    top: 2px;
-  }
-  .auctionTable  .made-with-love a {
-    color: rgba(0, 0, 0, 0.6);
-    text-decoration: none;
-  }
-  .auctionTable .made-with-love a:hover {
-    text-decoration: underline;
-  }
   
   
   /* for custom scrollbar for webkit browser*/

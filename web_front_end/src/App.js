@@ -13,11 +13,7 @@ import ShowContext from './Context';
 import Drawer from './components/drawer/Drawer';
 import Home from './components/home/Home'
 import DashBoardIndex from './components/dashboard/admin_dashboard/index';
-import Auctions from './components/Auctions/Index';
-import Car from './components/Auctions/AuctionCatagories/Car';
-import Government from './components/Auctions/AuctionCatagories/Governments';
-import Service from './components/Auctions/AuctionCatagories/Service';
-import Catagoryindex from './components/Auctions/AuctionCatagories/CatagoryIndex'
+import Catagory from './components/catagory/index';
 import User from './components/customer/User';
 import Search from './components/search/index';
 import ScrollToTop from './scrollTop/ScrollToTop';
@@ -44,22 +40,17 @@ function App() {
               <Route exact path="/register" component={Register}/>
               <Route exact path="/about" component={About}/>
               <Route exact path="/login" component={Login}/>
-              <Route exact path="/autions" component={Auctions}/>
-              <Route exact path="/house" component={Catagoryindex}/>
-              <Route exact path="/car" component={Car}/>
-              <Route exact path="/service" component={Service}/>
+              <Route exact path="/auction/:type" component={Catagory}/>
               <Route exact path="/our-services" component={OurServices}/>
               <Route exact path="/privacy-policy" component={PrivacyPolicy}/>
               <Route exact path="/frequently-asked-questions" component={Faq}/>
               <Route exact path="/how-to-post" component={howToPost}/>
               <Route exact path="/how-to-bid" component={OurServices}/>
               <Route exact path="/payment-options" component={paymentOptions}/>
-              <Route exact path="/government" component={Government}/>
               <ProtectedRoute exact path="/admin"  component={DashBoardIndex}/>
               <ProtectedRoute exact path="/profile" component={User}/>
               <Route exact path="/search/:type/:search_item" component={Search}/>
               <Route path="*" component={ErrorRoute}/>
-              
           </Switch>
       </Router>
       </ShowContext.Provider>

@@ -11,7 +11,7 @@ import Image7 from '../../assets/images/PngItem_3204975.png';
 import { useSelector, useDispatch } from 'react-redux';
 import { strings } from '../../language/language';
 import Timer from 'react-compound-timer';
-import BidAuctionForm from '../customer/BidAuctionForm';
+import BidAuctionForm from '../auction_dialog/BidAuctionForm';
 import Slide from '@material-ui/core/Slide';
 import {
     AllAuctionAction,
@@ -80,7 +80,7 @@ export default function Products() {
 
     const allAuction = useSelector((state) => state.AuctionsReducer.allAuction);
     const allexcept = useSelector((state) => state.AuctionsReducer.allexcept);
-    const popularAuction = useSelector((state) => state.AuctionsReducer.popularAuction);
+    
     const latestAuction = useSelector((state) => state.AuctionsReducer.latestAuction);
     const [numTodesplay, setNumTodesplay] = React.useState(0);
 
@@ -91,15 +91,16 @@ export default function Products() {
     React.useEffect(() => {
 
     }, [lang]);
-    React.useEffect(() => {
+    React.useEffect(async () => {
         if (num == 1) {
-            dispatch(AllAuctionAction());
-            dispatch(LatestAuctionAction());
-            dispatch(AllExceptAuctionAction());
-            dispatch(PopularAuctionAction());
+            await dispatch(AllAuctionAction());
+            await dispatch(LatestAuctionAction());
+            // dispatch(AllExceptAuctionAction());
+            
             setNum(2)
         }
     });
+    console.log(allAuction);
     var loading = true;
     if (allAuction.length > 0) {
 
@@ -116,13 +117,12 @@ export default function Products() {
     const Auctions = [
         allAuction,
         latestAuction,
-        allAuction.filter((item) => item.auctionType === "open"),
-        allAuction.filter((item) => item.auctionType === "sealed"),
-        allAuction.filter((item) => item.condition === "used"),
-        allAuction.filter((item) => item.condition === "new")
+        allAuction.filter((item) => item.auctionType == "live"),
+        allAuction.filter((item) => item.auctionType == "sealed"),
+        allAuction.filter((item) => item.condition == "used"),
+        allAuction.filter((item) => item.condition == "new"),
     ];
-    const [index, setIndex] = React.useState(0);
-
+    const [index, setIndex] = React.useState(3);            
     function myMap(product, startindex) {
         let array = [];
         for (let i = startindex; i < 6 + startindex; i++) {
@@ -187,7 +187,6 @@ export default function Products() {
             {array}
             <div style={{
                 display: "flex",
-                justifyContent: "space-between",
             }}>
                 <Button style={{
                     width:"100px",
@@ -208,6 +207,7 @@ export default function Products() {
                         justifyContent:"center",
                         alignItem:"center",
                         textAlign:"center",
+                        marginLeft:'10px'
                     }}
                     onClick={() => {
                         if(numTodesplay<Auctions[index].length-1)
@@ -292,6 +292,7 @@ export default function Products() {
                 }
                 
             </div>
-        </div>
+         </div>
+    
     )
 }

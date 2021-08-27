@@ -75,7 +75,7 @@ export default function SimpleDialog(props) {
     <div>
       <List>
         {array.map((Array,i) => (
-          <Link to={`/${auctionCategory[i]}`}>
+          <Link to={`auction/${auctionCategory[i]}`}>
           <ListItem button onClick={() => {}} key={i}>
             <ListItemAvatar>
               <Avatar className={classes.avatar}>
