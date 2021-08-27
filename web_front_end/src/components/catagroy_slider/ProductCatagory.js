@@ -100,6 +100,7 @@ export default function Products() {
             setNum(2)
         }
     });
+    console.log(allAuction);
     var loading = true;
     if (allAuction.length > 0) {
 
@@ -116,10 +117,10 @@ export default function Products() {
     const Auctions = [
         allAuction,
         latestAuction,
-        allAuction.filter((item) => item.auction.auctionType == "live"),
-        allAuction.filter((item) => item.auction.auctionType == "sealed"),
-        allAuction.filter((item) => item.auction.condition == "used"),
-        allAuction.filter((item) => item.auction.condition == "new"),
+        allAuction.filter((item) => item.auctionType == "live"),
+        allAuction.filter((item) => item.auctionType == "sealed"),
+        allAuction.filter((item) => item.condition == "used"),
+        allAuction.filter((item) => item.condition == "new"),
     ];
     const [index, setIndex] = React.useState(3);            
     function myMap(product, startindex) {
@@ -127,7 +128,7 @@ export default function Products() {
         for (let i = startindex; i < 6 + startindex; i++) {
             if (i < product.length)
                 array.push(<div className="product-item" key={product[i]._id}>
-                    <img src={`http://localhost:5000/${product[i].auction.images[0]}`} alt="" />
+                    <img src={`http://localhost:5000/${product[i].images[0]}`} alt="" />
                     <div className="rate">
                         {rate.map((rate, i) => (
                             // rate <= product[i].rating ? <RateIcon key={i} style={{ color: "orange" }} /> :
@@ -137,7 +138,7 @@ export default function Products() {
                     <div className="product-discription">
                         <p>{product[i].auctionName}</p>
                         <Timer
-                            initialTime={timer(product[i].auction.deadline)}
+                            initialTime={timer(product[i].deadline)}
                             lastUnit="d"
                             direction="backward"
                         >
@@ -150,8 +151,8 @@ export default function Products() {
                                 </React.Fragment>
                             )}
                         </Timer>
-                        <p>{product[i].auction.condition}</p>
-                        <p>min amount :{product[i].auction.minAmount}</p>
+                        <p>{product[i].condition}</p>
+                        <p>min amount :{product[i].minAmount}</p>
                         <p style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", margin: "10px" }}>
                             <Button
                                 onClick={
@@ -291,6 +292,7 @@ export default function Products() {
                 }
                 
             </div>
-        </div>
+         </div>
+    
     )
 }

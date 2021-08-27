@@ -61,14 +61,14 @@ export default function MyAuction() {
                                 AuctioneerAuction.length>0
                                 ?AuctioneerAuction.map((auction, index) => (
                                     <tr key={index}>
-                                        <td>{auction.auction.auctionName}</td>
-                                        <td>{auction.auction.minAmount}</td>
-                                        <td>{auction.auction.auctionType}</td>
-                                        <td>{auction.auction.auctionCategory}</td>
-                                        <td>{moment(auction.auction.deadline).format()}</td>
-                                        <td>{auction.auction.condition}</td>
+                                        <td>{auction.auctionName}</td>
+                                        <td>{auction.minAmount}</td>
+                                        <td>{auction.auctionType}</td>
+                                        <td>{auction.auctionCategory}</td>
+                                        <td>{moment(auction.deadline).format()}</td>
+                                        <td>{auction.condition}</td>
                                         <td>
-                                            <StyledBadge badgeContent={auction.auction.proposals.length===0?"0":auction.auction.proposals.length} color="primary">
+                                            <StyledBadge badgeContent={auction.proposals.length===0?"0":auction.proposals.length} color="primary">
                                             </StyledBadge>
                                         </td>
                                         <td

@@ -9,34 +9,35 @@ module.exports = {// auctionCategory should be dynamic
         waitingResult: 'waitingresult',
         notPayed: 'notpayed'
     },
-    notificationType:{
-        bidWon:'bidwon',
-        bidLost:'bidlost',
-        bidWonPaymentNeeded:'bidWonPaymentNeeded',
-        auctionDueDate:'auctionDueDate',
+    notificationType: {
+        bidWon: 'bidwon',
+        bidLost: 'bidlost',
+        bidWonPaymentNeeded: 'bidWonPaymentNeeded',
+        auctionDueDate: 'auctionDueDate',
     },
     auctionStatus: {
         open: 'open',
         ended: 'ended',
         archieved: 'archieved'
     },
-    paymentMethod:{
+    paymentMethod: {
         cbeBirr: 'cbebirr',
-        amole:'amole'
+        amole: 'amole'
     },
     paymentType: {
         bidWon: 'bidwon',
         postAuction: 'postauction',
         auctionFee: 'auctionfee',
         auctionCpo: 'auctioncpo',
-        returnCpo: 'returncpo'
+        returnCpo: 'returncpo',
+        bidWonTax: 'bidwontax'
     },
     userType: ['customer', 'admin'],
     sex: ['male', 'female'],
     adminOperations: ['auctionapproval'],
     fee: {
         postAuctionFee: 10,
-        winnerFeePercentage: 5
+        winnerFeePercentage: 0.05
     },
     systemUserId: '507f191e810c19729de860ea'
 };

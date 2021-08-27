@@ -21,3 +21,8 @@ module.exports.createModel = (body, model, schema) => {
     })
     return model;
 }
+module.exports.updateModel = (body, model, schema, editables) => {
+    Object.keys(body).map(key => {
+        if (Object.keys(schema.tree).includes(key) && editables.includes(key)) { model[key] = body[key]; console.log(key); }
+    })
+}

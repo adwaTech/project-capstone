@@ -74,61 +74,61 @@ export default function DetailDialog(props) {
             <div className={classes.details}>
               <CardContent className={classes.content}>
                 <div >
-                  <h5>Name:</h5> <Typography variant="subtitle2">{props.data.auction?props.data.auction.auctionName:null}</Typography>
+                  <h5>Name:</h5> <Typography variant="subtitle2">{props.data?props.data.auctionName:null}</Typography>
                 </div>
                 <div>
-                  <h5>Description:</h5> <Typography variant="props.data.auction?subtitle2">{props.data.auction?props.data.auction.briefDescription:null}</Typography>
+                  <h5>Description:</h5> <Typography variant="subtitle2">{props.data?props.data.briefDescription:null}</Typography>
                 </div>
                 <div >
-                  <h5>Bid Fee:</h5> <Typography variant="subtitle2">{props.data.auction?props.data.auction.bidFee:null}</Typography>
+                  <h5>Bid Fee:</h5> <Typography variant="subtitle2">{props.data?props.data.bidFee:null}</Typography>
                 </div>
                 <div>
-                  <h5>Min Amount:</h5> <Typography variant="subtitle2">{props.data.auction?props.data.auction.minAmount:null}</Typography>
+                  <h5>Min Amount:</h5> <Typography variant="subtitle2">{props.data?props.data.minAmount:null}</Typography>
                 </div>
                 <div >
-                  <h5>Min CPO:</h5> <Typography variant="subtitle2">{props.data.auction?props.data.auction.minCPO:null}</Typography>
+                  <h5>Min CPO:</h5> <Typography variant="subtitle2">{props.data?props.data.minCPO:null}</Typography>
                 </div>
                 <div >
-                  <h5>Owner:</h5> <Typography variant="subtitle2">{props.data.auction?props.data.user.firstName:null}&nbsp; {props.data.auction?props.data.user.lastName:null}</Typography>
+                  <h5>Owner:</h5> <Typography variant="subtitle2">{props.data.owner?props.data.owner.firstName:null}&nbsp; {props.data.owner?props.data.owner.lastName:null}</Typography>
                 </div>
                 <div >
                   <h5>Type:</h5> <Typography variant="subtitle2">
-                    {props.data.auction?props.data.auction.auctionType:null}
+                    {props.data?props.dataType:null}
                   </Typography>
                 </div>
                 <div>
-                  <h5>Category:</h5> {props.data.auction?props.data.auction.auctionCategory:null}
+                  <h5>Category:</h5> {props.data?props.data.auctionCategory:null}
                 </div>
               </CardContent>
             </div>
             <CardContent>
               <div >
-                <h5>Extended Description:</h5><Typography variant="subtitle2"> {props.data.auction?props.data.auction.extendedDescription:null}</Typography>
+                <h5>Extended Description:</h5><Typography variant="subtitle2"> {props.data?props.data.extendedDescription:null}</Typography>
               </div>
               <div>
-                <h5>Start Date:</h5><Typography variant="subtitle2"> {moment(props.data.auction?props.data.auction.postedOn:Date.now()).format()}</Typography>
+                <h5>Start Date:</h5><Typography variant="subtitle2"> {moment(props.data?props.data.postedOn:Date.now()).format()}</Typography>
               </div>
               <div>
-                <h5>Dedline Date:</h5><Typography variant="subtitle2"> {moment(props.data.auction?props.data.auction.deadline:Date.now()).format()}</Typography>
+                <h5>Dedline Date:</h5><Typography variant="subtitle2"> {moment(props.data?props.data.deadline:Date.now()).format()}</Typography>
               </div>
               <div >
-                <h5>Condition:</h5> <Typography variant="subtitle2">{props.data.auction?props.data.auction.condition:null}</Typography>
+                <h5>Condition:</h5> <Typography variant="subtitle2">{props.data?props.data.condition:null}</Typography>
               </div>
               <div >
-                <h5>Number of Bids:</h5> <Typography variant="subtitle2">{props.data.auction?(props.data.auction.proposals ? props.data.auction.proposals.length : 0):null}</Typography>
+                <h5>Number of Bids:</h5> <Typography variant="subtitle2">{props.data?(props.data.proposals ? props.data.proposals.length : 0):null}</Typography>
               </div>
               <Typography  >
-                <h5>Approval:</h5> <Typography variant="subtitle2">{props.data.auction?props.data.auction.approval:null}</Typography>
+                <h5>Approval:</h5> <Typography variant="subtitle2">{props.data?props.data.approval:null}</Typography>
               </Typography>
               <div >
-                <h5>Status:</h5> <Typography variant="subtitle2">{props.data.auction?props.data.auction.status:null}</Typography>
+                <h5>Status:</h5> <Typography variant="subtitle2">{props.data?props.data.status:null}</Typography>
               </div>
 
             </CardContent>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               <img
                 className={classes.cover}
-                src={`http://localhost:5000/${props.data.auction?props.data.auction.images:null}`}
+                src={`http://localhost:5000/${props.data.images?props.data.images[0]:null}`}
                 alt="Product images"
               />
               {props.detail?null:<div className={classes.controls}>

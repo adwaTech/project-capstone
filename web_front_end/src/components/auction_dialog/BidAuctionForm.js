@@ -162,7 +162,7 @@ export default function BidAuctionForm(props) {
             {
                 biderror
                     ? <Alert severity="error">
-                        {biderror===`bidder '${user._id}' is the owner of auction of id '${props.data.auction._id}'`
+                        {biderror===`bidder '${user._id}' is the owner of auction of id '${props.data._id}'`
                         ?"you are the owner of this auction so you cannot bid.":biderror }
                         {biderror === "Unauthorized" ? "you must have an account to bid item" : null} &nbsp;{biderror === "Unauthorized"
                         ? <Link to="/login"><Button variant="contained" color="primary">Login</Button></Link>
@@ -250,18 +250,18 @@ export default function BidAuctionForm(props) {
                             onClick={async () => {
                                 validation();
                                 if (state.amount && state.cpo && state.description) {
-                                    if (props.data.auction) {
+                                    if (props.data) {
                                         setProgress(true);
                                         const formData = new FormData();
                                         formData.append('amount', state.amount);
-                                        formData.append('auctionId', props.data.auction._id);
+                                        formData.append('auctionId', props.data._id);
                                         formData.append('cpo', state.cpo);
                                         formData.append('description', state.description);
-                                        formData.append('ownerId', props.data.auction.owner);
+                                        formData.append('ownerId', props.data.owner);
                                         if (state.proposalDocument) {
                                             formData.append('proposalDocument', state.proposalDocument);
                                         }
-                                        formData.append('proposalType', props.data.auction.auctionType);
+                                        formData.append('proposalType', props.data.auctionType);
                                         await dispatch(BidAuctionAction(formData, token));
                                         setState(intialState);
                                         setTimeout(function () {

@@ -124,6 +124,12 @@ export default function User() {
     // dialog box
     const [openforPost, setOpen] = React.useState(false);
     const [dialogComp, setDialogComp] = React.useState('');
+    function getnewNofcount(nots){
+        let count = 0;
+        for(let not of nots)
+            if(not.isRead)count++;
+        return count;
+    }
     return (
         <div>
             <Header />
@@ -141,7 +147,7 @@ export default function User() {
                     <a http="" onClick={() => ul(0)}>My Bids</a>
                     <a http=""  onClick={() => ul(1)}>My Auctions</a>
                     <a http=""  onClick={() => ul(2)}>
-                        <Badge color="primary" badgeContent={notification.length} showZero>
+                        <Badge color="primary" badgeContent={getnewNofcount(notification)}>
                             <span >Notifications</span>
                         </Badge>
                     </a>

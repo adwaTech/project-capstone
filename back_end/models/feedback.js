@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const feedbackSchema = mongoose.Schema({
     userId:{
-        type:String,
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'user',
         required:true
     },
     date:{

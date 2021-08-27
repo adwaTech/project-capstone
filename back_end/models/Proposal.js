@@ -19,11 +19,13 @@ const proposal = mongoose.Schema({
         required: true,
     },
     ownerId: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'user',
         required: true,
     },
     auctionId: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'auction',
         required: true,
     },
     proposalDocument: {

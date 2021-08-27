@@ -15,11 +15,13 @@ const payment = mongoose.Schema({
         required: true,
     },
     payer: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'user',
         required: true,
     },
     payee: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'user',
         required: true
     },
     description: {

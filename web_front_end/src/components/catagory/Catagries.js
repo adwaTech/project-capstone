@@ -79,7 +79,7 @@ export default function Catagory(props) {
     const allAuction = useSelector((state) => state.AuctionsReducer.allAuction);
     const allexcept = useSelector((state) => state.AuctionsReducer.allexcept);
     const token = useSelector((state) => state.AccountReducer.token);
-    const user=useSelector((state)=>state.AccountReducer.user);
+    const user = useSelector((state)=>state.AccountReducer.user);
 
     const [numTodesplay, setNumTodesplay] = React.useState(0);
 
@@ -113,19 +113,19 @@ export default function Catagory(props) {
     function myMap() {
         let array = [];
         let catagoryauction = [];
-        console.log(allAuction[0].auction == "car");
+        console.log(allAuction[0].auctionName == "car");
         if (!token) {
-            catagoryauction = [...allAuction.filter(item => item.auction.auctionCategory == type.toLowerCase())];
-            console.log(catagoryauction);
+            catagoryauction = [...allAuction.filter(item => item.auctionCategory == type.toLowerCase())];
+            
         }
         if (token) {
-            catagoryauction = allexcept.filter(item => item.auction.auctionCategory == type.toString().toLowerCase());
+            catagoryauction = allexcept.filter(item => item.auctionCategory == type.toString().toLowerCase());
         }
         if (catagoryauction.length > 0) {
             for (let i = numTodesplay; i < 12 + numTodesplay; i++) {
                 if (i < catagoryauction.length)
                     array.push(<div className="product-item" key={catagoryauction[i]._id}>
-                        <img src={`http://localhost:5000/${catagoryauction[i].auction.images[0]}`} alt="" />
+                        <img src={`http://localhost:5000/${catagoryauction[i].images[0]}`} alt="" />
                         {console.log(catagoryauction[i])}
                         <div className="rate">
                             {rate.map((rate, i) => (
@@ -136,7 +136,7 @@ export default function Catagory(props) {
                         <div className="product-discription">
                             <p>{catagoryauction[i].auctionName}</p>
                             <Timer
-                                initialTime={timer(catagoryauction[i].auction.deadline)}
+                                initialTime={timer(catagoryauction[i].deadline)}
                                 lastUnit="d"
                                 direction="backward"
                             >
@@ -149,8 +149,8 @@ export default function Catagory(props) {
                                     </React.Fragment>
                                 )}
                             </Timer>
-                            <p>{catagoryauction[i].auction.condition}</p>
-                            <p>min amount :{catagoryauction[i].auction.minAmount}</p>
+                            <p>{catagoryauction[i].condition}</p>
+                            <p>min amount :{catagoryauction[i].minAmount}</p>
                             <p style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", margin: "10px" }}>
                                 <Button
                                     onClick={

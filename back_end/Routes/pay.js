@@ -4,11 +4,29 @@ const types = require("../models/types");
 const { UserModel } = require("../models/Users");
 async function pay(payer, amount, payee, type) {
     if (payer.balance < amount) return false;
+    if (type == types.paymentType.bidWon && payer.balance < amount + amount * types.fee.winnerFeePercentage) return false;
     if (payer === payee) return false;
     if (!payee)
         payee = await UserModel.findById(types.systemUserId);
     payer.balance = payer.balance - amount;
     payee.balance = payee.balance + amount;
+    if (type === types.paymentType.bidWon) {
+        const systemPayee = UserModel.findById(types.systemUserId);
+        const tax = amount * types.fee.winnerFeePercentage;
+        payer.balance = payer.balance - tax
+        systemPayee.balance = systemPayee.balance + tax
+        await systemPayee.save();
+        await Payment({
+            transactionType: types.paymentType.bidWonTax,
+            amount: tax,
+            payer: payer._id,
+            payee: systemPayee._id,
+            description: {
+                payerNewBalance: payer.balance,
+                payeeNewBalance: systemPayee.balance
+            }
+        }).save();
+    }
     await payer.save().catch(err => {
         return false;
     })

@@ -73,7 +73,14 @@ router.post("/register", (req, res, next) => {
     })
 }, RegisterRoute);
 router.post("/login", upload.any(), LoginRoute);
-router.put("/updateCustomer", passport.authenticate('jwt', { session: false }), updateCustomerRoute);
+router.put("/updateCustomer", passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    upload.single('profileImage')(req, res, (err) => {
+        if (err) return res.status(400).send({
+            error: 'Invalid file'
+        })
+        next();
+    })
+}, updateCustomerRoute);
 router.post('/bid', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     upload.single('proposalDocument')(req, res, (err) => {
         if (err) return res.status(400).send({

@@ -53,7 +53,7 @@ export default function MyBid() {
                     myauction
                         ? myauction.map((auction, index) => (
                             <>
-                                <div className="table-cell cell-feature">{auction.auctionId}</div>
+                                <div className="table-cell cell-feature">{auction.auctionId.auctionName}</div>
                                 <div className="table-cell">
                                     {
                                         auction.status === "pending"
@@ -82,10 +82,6 @@ export default function MyBid() {
                         ))
                         : null
                 }
-
-
-
-
             </div>
         </div>
     );
