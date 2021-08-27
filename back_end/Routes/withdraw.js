@@ -13,6 +13,9 @@ module.exports = async (req, res) => {
                 errorStackTrace: e
             })
         }
+        if(user.balance < value) return res.status(403).send({
+            error:'Insufficient balance'
+        });
         switch (req.body.type) {
             case types.paymentMethod.cbeBirr:
                 user.balance = user.balance - value
