@@ -125,7 +125,7 @@ export default function Catagory(props) {
             for (let i = numTodesplay; i < 12 + numTodesplay; i++) {
                 if (i < catagoryauction.length)
                     array.push(<div className="product-item" key={catagoryauction[i]._id}>
-                        <img src={`http://localhost:5000/${catagoryauction[i].images[0]}`} alt="" />
+                        <img src={`http://localhost:5000/auctions/${catagoryauction[i].images[0]}`} alt="" />
                         {console.log(catagoryauction[i])}
                         <div className="rate">
                             {rate.map((rate, i) => (
@@ -185,7 +185,8 @@ export default function Catagory(props) {
             className="products-item-section"
         >
             {array}
-            <div style={{
+            {(catagoryauction.length>0 && catagoryauction.length >12 )
+            ?<div style={{
                 display: "flex",
             }}>
                 <Button style={{
@@ -195,12 +196,14 @@ export default function Catagory(props) {
                     alignItem: "center",
                     textAlign: "center"
                 }}
+                disabled={numTodesplay} 
                     onClick={() => {
                         if(numTodesplay>0)
                         setNumTodesplay(numTodesplay - 12);
                     }}
                     color="primary" variant="outlined">Prev</Button>
                 <Button
+                    disabled={true}
                     style={{
                         width: "100px",
                         height: "40px",
@@ -214,7 +217,7 @@ export default function Catagory(props) {
                         setNumTodesplay(numTodesplay + 12);
                     }}
                     color="primary" variant="outlined">Next</Button>
-            </div>
+            </div>:null}
             
         </div>
     }

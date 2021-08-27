@@ -128,7 +128,8 @@ export default function Products() {
         for (let i = startindex; i < 6 + startindex; i++) {
             if (i < product.length)
                 array.push(<div className="product-item" key={product[i]._id}>
-                    <img src={`http://localhost:5000/${product[i].images[0]}`} alt="" />
+                    {console.log(product)}
+                    <img src={`http://localhost:5000/auctions/${product[i].images?product[i].images[0]:null}`} alt="" />
                     <div className="rate">
                         {rate.map((rate, i) => (
                             // rate <= product[i].rating ? <RateIcon key={i} style={{ color: "orange" }} /> :
@@ -181,11 +182,13 @@ export default function Products() {
                 </div>)
 
         }
+        
         return <div
             className="products-item-section"
         >
             {array}
-            <div style={{
+            {(product.length>0 && product.length >6 )
+            ?<div style={{
                 display: "flex",
             }}>
                 <Button style={{
@@ -194,13 +197,15 @@ export default function Products() {
                     justifyContent:"center",
                     alignItem:"center",
                     textAlign:"center"
-                }} 
+                }}
+                disabled={startindex===0} 
                 onClick={() => {
                     if(numTodesplay>0)
                     setNumTodesplay(numTodesplay - 6);
                 }}
                 color="primary" variant="outlined">Prev</Button>
                 <Button
+                    disabled={startindex+6 >=product.length}
                     style={{
                         width:"100px",
                         height:"40px",
@@ -214,7 +219,7 @@ export default function Products() {
                         setNumTodesplay(numTodesplay + 6);
                     }}
                     color="primary" variant="outlined">Next</Button>
-            </div>
+            </div>:null}
         </div>
     }
     return (

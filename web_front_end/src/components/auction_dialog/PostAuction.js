@@ -134,7 +134,7 @@ export default function Register({ match, history }) {
     }
     if (activeStep === 1) {
       validation2();
-      if (state.images.length > 0 && state.bidFee) {
+      if (state.images && state.bidFee) {
         setActiveStep(activeStep + 1);
       }
     }
@@ -156,7 +156,7 @@ export default function Register({ match, history }) {
     owner: '',
     auctionType: 'live',
     auctionCategory: 'land',
-    images: [],
+    images: '',
     condition: 'new',
     extendedDescription: null,
     deadline: new Date(),
@@ -199,10 +199,10 @@ export default function Register({ match, history }) {
     }
   }
   function validation2() {
-    if (state.images.length === 0) {
+    if (state.images==='') {
       setimages({ message: "this field is required", haveError: true });
     }
-    if (state.images.length > 0) {
+    if (state.images) {
       setimages({ message: "", haveError: false });
     }
     if (state.bidFee === '') {
@@ -316,22 +316,37 @@ export default function Register({ match, history }) {
         return <React.Fragment>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6} >
-              <div >
+              {/* <div >
                 <p>upload image of item</p>
                 <FileUploader
                   maxSize={100}
                   multiline
                   handleChange={(e) => {
-                    setState({ ...state, images: state.images.concat(e) });
+                    setState({ ...state, images: state.images});
                   }}
                   name="file" types={fileTypes} />
                 <div>{state.images.length > 0 ? <div>
-                  {state.images.map((i, index) => (<span key={index}>{i.name}</span>))}
+                  {state.images.name}
                 </div> : "no files uploaded yet"}</div>
                 <p style={{ color: "red" }}>
                   {images.haveError ? images.message : null}
                 </p>
-              </div>
+              </div> */}
+              <div >
+                  <p>upload image of item</p>
+                  <FileUploader
+                    maxSize={50}
+                    handleChange={(e) => {
+                      setState({ ...state, images: e });
+                    }}
+                    name="file" types={fileTypes} />
+                  <p>{state.images ? `File name: ${state.images.name}` : "no files uploaded yet"}</p>
+                  <p>
+                  <p style={{ color: "red" }}>
+                    {images.haveError ? images.message : null}
+                  </p>
+                  </p>
+                </div>
             </Grid>
             <Grid item xs={12} sm={6}>
               <FormControl className={classes.margin} error={bidFee.haveError} >

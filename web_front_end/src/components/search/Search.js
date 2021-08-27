@@ -93,8 +93,8 @@ export default function Search(props) {
                 <article class="recipe">
                     <div class="pizza-box">
                         <img src={auctiontype === 'first_name' || auctiontype === 'last_name' || auctiontype === 'city'
-                            ? `http://localhost:5000/${auction.profileImage}` :
-                            auction.images ? `http://localhost:5000/${auction.images[0]}` : ''}
+                            ? `http://localhost:5000/users/${auction.profileImage}` :
+                            auction.images ? `http://localhost:5000/auctions/${auction.images[0]}` : ''}
                             width="1500" height="100%" alt="" />
                     </div>
                     <div class="recipe-content">
