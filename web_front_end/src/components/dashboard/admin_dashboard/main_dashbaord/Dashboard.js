@@ -17,7 +17,6 @@ import {
 } from '@material-ui/icons';
 import {
   Card,
-  CardAvatar,
   CardIcon,
   CardBody,
   CardFooter,

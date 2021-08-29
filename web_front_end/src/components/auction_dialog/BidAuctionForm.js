@@ -1,12 +1,9 @@
 import React from 'react';
 import CloseIcon from '@material-ui/icons/Close';
-import { withStyles } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import { useSelector, useDispatch } from 'react-redux';
-import { Dialog, DialogContent, TextField, Grid, Slide, CircularProgress } from '@material-ui/core';
+import { Dialog, DialogContent, TextField, Grid, CircularProgress } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import Alert from '@material-ui/lab/Alert';
 import { Link } from 'react-router-dom';
@@ -18,18 +15,7 @@ import { FileUploader } from "react-drag-drop-files";
 
 
 
-const styles = (theme) => ({
-    root: {
-        margin: 0,
-        padding: theme.spacing(2),
-    },
-    closeButton: {
-        position: 'absolute',
-        right: theme.spacing(1),
-        top: theme.spacing(1),
-        color: theme.palette.grey[500],
-    },
-});
+
 const useStyles = makeStyles({
     addCartBtn: {
         borderRadius: "20px"
@@ -75,9 +61,7 @@ const useStyles = makeStyles({
         textAlign: "center"
     }
 })
-const Transition = React.forwardRef(function Transition(props, ref) {
-    return <Slide direction="up" ref={ref} {...props} />;
-});
+
 
 const fileTypes = ["jpg", "png", "gif", 'jpeg', 'svg', 'pdf'];
 
@@ -105,7 +89,7 @@ export default function BidAuctionForm(props) {
     const user = useSelector((state) => state.AccountReducer.user);
     const [des, setDes] = React.useState({ message: "", haveError: false });
     const [amount, setAmount] = React.useState({ message: "", haveError: false });
-    const [propDoc, setPropDoc] = React.useState({ message: "", haveError: false });
+    // const [propDoc, setPropDoc] = React.useState({ message: "", haveError: false });
     const [CPO, setCPO] = React.useState({ message: "", haveError: false });
     function validation() {
         if (state.description === '') {
@@ -120,15 +104,15 @@ export default function BidAuctionForm(props) {
         if (state.amount) {
             setAmount({ message: "", haveError: false })
         }
-        if (state.proposalDocument === '') {
-            setPropDoc({ message: "this field is required", haveError: true })
-        }
-        if (state.proposalDocument) {
-            setPropDoc({ message: "", haveError: false })
-        }
-        if (state.proposalDocument === '') {
-            setPropDoc({ message: "this field is required", haveError: true })
-        }
+        // if (state.proposalDocument === '') {
+        //     setPropDoc({ message: "this field is required", haveError: true })
+        // }
+        // if (state.proposalDocument) {
+        //     setPropDoc({ message: "", haveError: false })
+        // }
+        // if (state.proposalDocument === '') {
+        //     setPropDoc({ message: "this field is required", haveError: true })
+        // }
         if (state.cpo) {
             setCPO({ message: "", haveError: false })
         }
@@ -175,7 +159,7 @@ export default function BidAuctionForm(props) {
                     : null
             }
             <DialogContent >
-                <Grid spacing={3}>
+                <Grid >
                     <Grid item xs={12} sm={12}>
                         <TextField
                             required

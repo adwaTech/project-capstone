@@ -12,12 +12,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { strings } from '../../language/language';
 import Timer from 'react-compound-timer';
 import BidAuctionForm from '../auction_dialog/BidAuctionForm';
-import Slide from '@material-ui/core/Slide';
+
 import {
     AllAuctionAction,
-    PopularAuctionAction,
     LatestAuctionAction,
-    AllExceptAuctionAction,
 } from '../../redux-state-managment/Actions';
 import DetailDialog from './Detail';
 
@@ -67,9 +65,6 @@ const useStyles = makeStyles({
         textAlign: "center"
     }
 })
-const Transition = React.forwardRef(function Transition(props, ref) {
-    return <Slide direction="up" ref={ref} {...props} />;
-});
 
 export default function Products() {
     const dispatch = useDispatch();
@@ -79,7 +74,7 @@ export default function Products() {
 
 
     const allAuction = useSelector((state) => state.AuctionsReducer.allAuction);
-    const allexcept = useSelector((state) => state.AuctionsReducer.allexcept);
+    // const allexcept = useSelector((state) => state.AuctionsReducer.allexcept);
     
     const latestAuction = useSelector((state) => state.AuctionsReducer.latestAuction);
     const [numTodesplay, setNumTodesplay] = React.useState(0);
@@ -89,18 +84,14 @@ export default function Products() {
     const lang = useSelector((state) => state.LanguageReducer.language);
 
     React.useEffect(() => {
-
-    }, [lang]);
-    React.useEffect(async () => {
-        if (num == 1) {
-            await dispatch(AllAuctionAction());
-            await dispatch(LatestAuctionAction());
+        if (num === 1) {
+             dispatch(AllAuctionAction());
+            dispatch(LatestAuctionAction());
             // dispatch(AllExceptAuctionAction());
             
             setNum(2)
         }
-    });
-    console.log(allAuction);
+    },[lang,setNum,dispatch,num]);
     var loading = true;
     if (allAuction.length > 0) {
 
@@ -117,10 +108,10 @@ export default function Products() {
     const Auctions = [
         allAuction,
         latestAuction,
-        allAuction.filter((item) => item.auctionType == "live"),
-        allAuction.filter((item) => item.auctionType == "sealed"),
-        allAuction.filter((item) => item.condition == "used"),
-        allAuction.filter((item) => item.condition == "new"),
+        allAuction.filter((item) => item.auctionType === "live"),
+        allAuction.filter((item) => item.auctionType === "sealed"),
+        allAuction.filter((item) => item.condition === "used"),
+        allAuction.filter((item) => item.condition === "new"),
     ];
     const [index, setIndex] = React.useState(3);            
     function myMap(product, startindex) {
@@ -128,7 +119,7 @@ export default function Products() {
         for (let i = startindex; i < 6 + startindex; i++) {
             if (i < product.length)
                 array.push(<div className="product-item" key={product[i]._id}>
-                    {console.log(product)}
+                    
                     <img src={`http://localhost:5000/auctions/${product[i].images?product[i].images[0]:null}`} alt="" />
                     <div className="rate">
                         {rate.map((rate, i) => (
@@ -170,7 +161,8 @@ export default function Products() {
                                         setData(product[i]);
                                     }
                                 }
-                                className="cartbtn" color="primary" className={classes.addCartBtn} variant="outlined">
+                                // className="cartbtn"
+                                 color="primary" className={classes.addCartBtn} variant="outlined">
                                 <CartIcon />
                             </Button>
                             

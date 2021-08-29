@@ -10,13 +10,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import Navbar from "./components/Navbars/Navbar";
 import Footer from "./components/Footer/Footer";
 import Sidebar from "./components/Sidebar/Sidebar";
-import FixedPlugin from "./components/FixedPlugin/FixedPlugin";
 
 import routes from "./routes";
 
 import styles from "./adminStyle";
 
-import bgImage from "../../../assets/images/bird-wallpaper-1366x768-002.jpg";
 import logo from "../../../assets/images/bird-wallpaper-1366x768-002.jpg";
 
 let ps;
@@ -44,23 +42,23 @@ const useStyles = makeStyles(styles);
 export default function Admin({ ...rest }) {
   const classes = useStyles();
   const mainPanel = React.createRef();
-  const [image, setImage] = React.useState(bgImage);
-  const [color, setColor] = React.useState("blue");
-  const [fixedClasses, setFixedClasses] = React.useState("dropdown show");
+  // const [image, setImage] = React.useState(bgImage);
+  // const [color, setColor] = React.useState("blue");
+  // const [fixedClasses, setFixedClasses] = React.useState("dropdown show");
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const handleImageClick = (image) => {
-    setImage(image);
-  };
-  const handleColorClick = (color) => {
-    setColor(color);
-  };
-  const handleFixedClick = () => {
-    if (fixedClasses === "dropdown") {
-      setFixedClasses("dropdown show");
-    } else {
-      setFixedClasses("dropdown");
-    }
-  };
+  // const handleImageClick = (image) => {
+  //   setImage(image);
+  // };
+  // const handleColorClick = (color) => {
+  //   setColor(color);
+  // };
+  // const handleFixedClick = () => {
+  //   if (fixedClasses === "dropdown") {
+  //     setFixedClasses("dropdown show");
+  //   } else {
+  //     setFixedClasses("dropdown");
+  //   }
+  // };
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -97,7 +95,7 @@ export default function Admin({ ...rest }) {
         
         handleDrawerToggle={handleDrawerToggle}
         open={mobileOpen}
-        color={color}
+        // color={color}
         {...rest}
       />
       <div className={classes.mainPanel} ref={mainPanel}>

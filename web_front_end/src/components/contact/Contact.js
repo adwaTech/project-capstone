@@ -11,8 +11,6 @@ import Header from '../header/Header';
 import Footer from '../footer/Footer'
 import {strings} from '../../language/language';
 import {useSelector} from 'react-redux'
-
-import { string } from 'prop-types'
 import ScrollToTop from '../../scrollTop/ScrollToTop';
 
 export default function Contact() {
@@ -90,22 +88,22 @@ export default function Contact() {
                 <div class="social-media">
                     <p>{strings.connectwithus} :</p>
                     <div class="social-icons">
-                    <a href="#">
+                    <a href="http://localhost:3000/">
                         <i class="fab fa-facebook-f">
                             <FaceBookIcon/>
                         </i>
                     </a>
-                    <a href="#">
+                    <a href="http://localhost:3000/">">
                         <i class="fab fa-twitter">
                             <Twitter/>
                         </i>
                     </a>
-                    <a href="#">
+                    <a href="http://localhost:3000/">">
                         <i class="fab fa-instagram">
                             <Instagram/>
                         </i>
                     </a>
-                    <a href="#">
+                    <a href="http://localhost:3000/">">
                         <i class="fab fa-linkedin-in">
                             <LinkedIn/>
                         </i>

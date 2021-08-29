@@ -6,7 +6,7 @@ import MobileDetect from "mobile-detect";
 
 import Card from "./card";
 import Carousel from "react-multi-carousel";
-import"./carousel-with-custom-dots.css";
+import "./carousel-with-custom-dots.css";
 import "./style.css";
 import "react-multi-carousel/lib/styles.css";
 import Land from '../../assets/images/gozha-net-xDrxJCdedcI-unsplash.jpg';
@@ -42,13 +42,13 @@ class Index extends Component {
   render() {
     const { classes } = this.props;
     const images = [
-        Land,
-        House,
-        Vehicle,
-        Electronics,
-        Service,
-        Rare,
-        Old,
+      Land,
+      House,
+      Vehicle,
+      Electronics,
+      Service,
+      Rare,
+      Old,
     ];
     const texts = [
       "Land",
@@ -87,12 +87,12 @@ class Index extends Component {
     };
     return (
       <div className={classes.root}>
-        
+
         <Carousel
-          
+
           swipeable={false}
           draggable={false}
-          
+
           responsive={responsive}
           ssr
           infinite={false}
@@ -101,8 +101,8 @@ class Index extends Component {
           containerClass="first-carousel-container container"
           deviceType={this.props.deviceType}
         >
-          {fakerData.map(card => {
-            return <Card isMoving={this.state.isMoving} {...card} />;
+          {fakerData.map((card,index) => {
+            return <Card key={index} isMoving={this.state.isMoving} {...card} />;
           })}
         </Carousel>
       </div>

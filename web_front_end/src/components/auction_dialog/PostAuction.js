@@ -119,9 +119,8 @@ export default function Register({ match, history }) {
   // global states
   const error = useSelector((state) => state.PostAuctionReducer.error);
   const status = useSelector((state) => state.PostAuctionReducer.status);
-  const statusText = useSelector((state) => state.PostAuctionReducer.statusText);
+  
   const token = useSelector((state) => state.AccountReducer.token);
-  const postedauction = useSelector((state) => state.PostAuctionReducer.postedauction);
 
   const [activeStep, setActiveStep] = React.useState(0);
 
@@ -494,7 +493,7 @@ export default function Register({ match, history }) {
     if (token) {
       setProgress(false);
     }
-  }, [error, token])
+  }, [error, token,progress])
 
   return (
     <React.Fragment >
@@ -547,7 +546,7 @@ export default function Register({ match, history }) {
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={handleNext}
+                      
                       className={classes.button}
                       onClick={async () => {
                         validation3();

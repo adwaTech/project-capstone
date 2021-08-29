@@ -1,7 +1,6 @@
 import React from 'react'
 import Footer from '../footer/Footer'
 import Header from '../header/Header'
-import {Grid, Typography} from '@material-ui/core'
 import './ourService.css'
 import ScrollToTop from '../../scrollTop/ScrollToTop'
 function OurServices() {

@@ -1,14 +1,11 @@
 import React from 'react'
 import Image1 from '../../assets/images/undraw_services_5tv9.svg'
-import Image8 from '../../assets/images/PngItem_3205063.png';
-import Image7 from '../../assets/images/PngItem_3204975.png';
 import app1 from '../../assets/images/app1.png';
 import app2 from '../../assets/images/app2.png';
 import Mobile from '../../assets/images/balazs-ketyi-6ba_vdgx_go-unsplash.jpg';
 import './info.css';
 import {strings} from '../../language/language';
 import {useSelector} from 'react-redux'
-import { string } from 'prop-types';
 export default function HomeInfo() {
     const lang=useSelector((state)=>state.LanguageReducer.language)
     React.useEffect(()=>{
@@ -16,26 +13,26 @@ export default function HomeInfo() {
     },[lang]);
     return (
         <div>
-            <section class="about section bd-container" id="about">
-                <div class="about__container  bd-grid">
-                    <div class="about__data">
-                        <span class="section-subtitle about__initial">{strings.aboutUs}</span>
-                        <h2 class="section-title about__initial">{strings.des} <br/> {strings.des2}</h2>
-                        <p class="about__description">{strings.offerService}</p>
-                        <a href="#" class="button">{strings.history}</a>
+            <section className="about section bd-container" id="about">
+                <div className="about__container  bd-grid">
+                    <div className="about__data">
+                        <span className="section-subtitle about__initial">{strings.aboutUs}</span>
+                        <h2 className="section-title about__initial">{strings.des} <br/> {strings.des2}</h2>
+                        <p className="about__description">{strings.offerService}</p>
+                        {/* <a href="" className="button">{strings.history}</a> */}
                     </div>
 
-                    <img src={Image1} alt="" class="about__img"/>
+                    <img src={Image1} alt="" className="about__img"/>
                 </div>
             </section>
 
-            <section class="services section bd-container" id="services">
-                <span class="section-subtitle">{strings.offering}</span>
-                <h2 class="section-title">{strings.ourservices}</h2>
+            <section className="services section bd-container" id="services">
+                <span className="section-subtitle">{strings.offering}</span>
+                <h2 className="section-title">{strings.ourservices}</h2>
 
-                <div class="services__container  bd-grid">
-                    <div class="services__content">
-                        <svg class="services__img" xmlns="http://www.w3.org/2000/svg">
+                <div className="services__container  bd-grid">
+                    <div className="services__content">
+                        <svg className="services__img" xmlns="http://www.w3.org/2000/svg">
                             <path d="M45.3205 21.5702L44.6357 19.3163C43.7659 16.756 40.9852 15.3857 38.4249 
                             16.2556C36.9847 16.7449 35.8536 17.876 35.3643 19.3163L34.6795 21.5702C34.1032 
                             23.471 33.9823 25.4807 34.3264 27.4368C34.6403 29.0838 35.6859 30.4987 37.168 
@@ -96,13 +93,13 @@ export default function HomeInfo() {
                             16.8875 47.057C17.3045 47.4744 17.9811 47.4746 18.3984 47.0576C18.8157 
                             46.6405 18.816 45.964 18.3989 45.5466Z"/>
                         </svg>
-                        <h3 class="services__title">{strings.eservice}</h3>
-                        <p class="services__description">{strings.oursexelentservice}</p>
+                        <h3 className="services__title">{strings.eservice}</h3>
+                        <p className="services__description">{strings.oursexelentservice}</p>
                     </div>
 
-                    <div class="services__content">
-                        <svg class="services__img" xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0)">
+                    <div className="services__content">
+                        <svg className="services__img" xmlns="http://www.w3.org/2000/svg">
+                            <g clipPath="url(#clip0)">
                             <path d="M55.82 22.0395C55.5475 21.5164 54.9027 21.3132 54.3795 21.5855L54.3794 
                             21.5857L49.4885 24.1283H49.481L32.1524 33.1455L38.0258 14.5397C38.0258 14.5323 
                             38.0343 14.5269 38.0364 14.5184L39.6917 9.24302C39.8672 8.68077 39.5542 8.08249 
@@ -253,13 +250,13 @@ export default function HomeInfo() {
                             </clipPath>
                             </defs>
                         </svg>
-                        <h3 class="services__title">{strings.qulity}</h3>
-                        <p class="services__description">{strings.qulityservice}</p>
+                        <h3 className="services__title">{strings.qulity}</h3>
+                        <p className="services__description">{strings.qulityservice}</p>
                     </div>
 
-                    <div class="services__content">
-                        <svg class="services__img" xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0)">
+                    <div className="services__content">
+                        <svg className="services__img" xmlns="http://www.w3.org/2000/svg">
+                            <g clipPath="url(#clip0)">
                             <path d="M19.1978 49.6016C17.4308 49.6016 15.9981 51.0342 15.9981 52.8012C15.9981 54.5682 17.4308 
                             56.0008 19.1978 56.0008C20.9648 56.0008 22.3974 54.5682 22.3974 52.8012C22.3974 51.0342 20.9648 
                             49.6016 19.1978 49.6016ZM19.1978 53.8677C18.6088 53.8677 18.1312 53.3902 18.1312 52.8012C18.1312 
@@ -309,55 +306,55 @@ export default function HomeInfo() {
                                 </clipPath>
                                 </defs>
                         </svg>
-                        <h3 class="services__title">{strings.security}</h3>
-                        <p class="services__description">{strings.securityservices}</p>
+                        <h3 className="services__title">{strings.security}</h3>
+                        <p className="services__description">{strings.securityservices}</p>
                     </div>
                 </div>
             </section>
-            <section class="menu section bd-container" id="menu">
-                <span class="section-subtitle">{strings.special}</span>
-                <h2 class="section-title">{strings.LatestProducts}</h2>
+            <section className="menu section bd-container" id="menu">
+                <span className="section-subtitle">{strings.special}</span>
+                <h2 className="section-title">{strings.LatestProducts}</h2>
 
-                <div class="menu__container bd-grid">
-                    <div class="menu__content">
-                        <img src={Image1} alt="" class="about__img"/>
-                        <h3 class="menu__name">{strings.landbole}</h3>
-                        <span class="menu__detail">{strings.private}</span>
-                        <span class="menu__preci">$22M</span>
-                        <a href="#" class="button menu__button"><i class='bx bx-cart-alt'></i></a>
+                <div className="menu__container bd-grid">
+                    <div className="menu__content">
+                        <img src={Image1} alt="" className="about__img"/>
+                        <h3 className="menu__name">{strings.landbole}</h3>
+                        <span className="menu__detail">{strings.private}</span>
+                        <span className="menu__preci">$22M</span>
+                        {/* <a href="#" className="button menu__button"><i className='bx bx-cart-alt'></i></a> */}
                     </div>
 
-                    <div class="menu__content">
-                        <img src={Image1} alt="" class="about__img"/>
-                        <h3 class="menu__name">{strings.landbole}</h3>
-                        <span class="menu__detail">{strings.private}</span>
-                        <span class="menu__preci">$22M</span>
-                        <a href="#" class="button menu__button"><i class='bx bx-cart-alt'></i></a>
+                    <div className="menu__content">
+                        <img src={Image1} alt="" className="about__img"/>
+                        <h3 className="menu__name">{strings.landbole}</h3>
+                        <span className="menu__detail">{strings.private}</span>
+                        <span className="menu__preci">$22M</span>
+                        {/* <a href="#" className="button menu__button"><i className='bx bx-cart-alt'></i></a> */}
                     </div>
                     
-                    <div class="menu__content">
-                        <img src={Image1} alt="" class="about__img"/>
-                        <h3 class="menu__name">{strings.landbole}</h3>
-                        <span class="menu__detail">{strings.private}</span>
-                        <span class="menu__preci">$22M</span>
-                        <a href="#" class="button menu__button"><i class='bx bx-cart-alt'></i></a>
+                    <div className="menu__content">
+                        <img src={Image1} alt="" className="about__img"/>
+                        <h3 className="menu__name">{strings.landbole}</h3>
+                        <span className="menu__detail">{strings.private}</span>
+                        <span className="menu__preci">$22M</span>
+                        {/* <a href="#" className="button menu__button"><i className='bx bx-cart-alt'></i></a> */}
                     </div>
                 </div>
             </section>
 
-            <section class="app section bd-container">
-                <div class="app__container bd-grid">
-                    <div class="app__data">
-                        <span class="section-subtitle app__initial">{strings.app}</span>
-                        <h2 class="section-title app__initial">{strings.appavailable}</h2>
-                        <p class="app__description">{strings.findandDownload}</p>
-                        <div class="app__stores">
-                            <a href="#"><img src={app1} alt="" class="about__img"/></a>
-                            <a href="#"><img src={app2} alt="" class="about__img"/></a>
+            <section className="app section bd-container">
+                <div className="app__container bd-grid">
+                    <div className="app__data">
+                        <span className="section-subtitle app__initial">{strings.app}</span>
+                        <h2 className="section-title app__initial">{strings.appavailable}</h2>
+                        <p className="app__description">{strings.findandDownload}</p>
+                        <div className="app__stores">
+                            <a href="http://localhost:3000"><img src={app1} alt="" className="about__img"/></a>
+                            <a href="http://localhost:3000"><img src={app2} alt="" className="about__img"/></a>
                         </div>
                     </div>
 
-                    <img src={Mobile} alt="" class="about__img"/>
+                    <img src={Mobile} alt="" className="about__img"/>
                 </div>
             </section>
         </div>

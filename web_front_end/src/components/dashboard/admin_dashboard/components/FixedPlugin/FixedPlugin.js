@@ -1,21 +1,14 @@
 
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 
-import imagine1 from "../../../../../assets/images/bird-wallpaper-1366x768-002.jpg";
-import imagine2 from "../../../../../assets/images/bird-wallpaper-1366x768-002.jpg";
-import imagine3 from "../../../../../assets/images/bird-wallpaper-1366x768-002.jpg";
-import imagine4 from "../../../../../assets/images/bird-wallpaper-1366x768-002.jpg";
 
 
 import Button from "../../components/CustomButtons/Button.js";
 
 
 export default function FixedPlugin(props) {
-  const [classes, setClasses] = React.useState("dropdown show");
-  const [bg_checked, setBg_checked] = React.useState(true);
-  const [bgImage, setBgImage] = React.useState(props.bgImage);
   const handleClick = () => {
     props.handleFixedClick();
   };

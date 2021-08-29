@@ -1,10 +1,10 @@
 import React from 'react';
 import './myauction.css';
 import moment from 'moment';
-import {
-    AuctionerAuctionAction,
-} from '../../redux-state-managment/Actions';
-import { useDispatch, useSelector } from 'react-redux';
+// import {
+//     AuctionerAuctionAction,
+// } from '../../redux-state-managment/Actions';
+import {  useSelector } from 'react-redux';
 import Badge from '@material-ui/core/Badge';
 import { withStyles } from '@material-ui/core/styles';
 import HorzMore from '@material-ui/icons/MoreHoriz';
@@ -22,14 +22,13 @@ const StyledBadge = withStyles(theme => ({
 
 
 export default function MyAuction() {
-    const dispatch = useDispatch();
 
     const AuctioneerAuction = useSelector((state) => state.AuctionsReducer.AuctioneerAuction);
-    const user = useSelector((state) => state.AccountReducer.user);
+    // const user = useSelector((state) => state.AccountReducer.user);
     const [open,setOpen]=React.useState(false);
     const [data,setData]=React.useState(null)
 
-    const [num, setNum] = React.useState(1);
+    // const [num, setNum] = React.useState(1);
     
 
     return (

@@ -1,9 +1,8 @@
 import React from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles} from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import { useSelector, useDispatch } from 'react-redux';
 import { Dialog, DialogContent } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import moment from 'moment';
@@ -60,7 +59,6 @@ const DialogTitle = withStyles(styles)((props) => {
 });
 
 export default function DetailDialog(props) {
-  console.log(props)
   const classes = useStyles();
   const [open_bid_dialog, setOpen_bid_dialog] = React.useState(false);
   return (

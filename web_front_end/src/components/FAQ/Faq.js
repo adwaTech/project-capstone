@@ -12,16 +12,16 @@ function Faq() {
     const [open3,setOpen3]=useState(false)
     const [open4,setOpen4]=useState(false)
     const handleClick=(e)=>{
-          if(e=='1'){
+          if(e==='1'){
             setOpen(!open)
           }
-          if(e=='2'){
+          if(e==='2'){
             setOpen2(!open2)
           }
-          if(e=='3'){
+          if(e==='3'){
             setOpen3(!open3)
           }
-          if(e=='4'){
+          if(e==='4'){
             setOpen4(!open4)
           }
             

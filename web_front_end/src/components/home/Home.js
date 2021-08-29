@@ -1,4 +1,4 @@
-import React, { Profiler } from 'react';
+import React from 'react';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
 import ImageSlider from '../catagroy_slider/Slider';
@@ -11,33 +11,20 @@ import SignIn from '../../assets/images/signin.svg';
 import win from '../../assets/images/win.svg';
 import bid from '../../assets/images/bid.svg';
 import { strings } from '../../language/language';
-import { useSelector, useDispatch } from 'react-redux';
-import {
-    AllAuctionAction,
-    PopularAuctionAction,
-    LatestAuctionAction,
-    AllExceptAuctionAction,
-} from '../../redux-state-managment/Actions';
+import { useSelector,} from 'react-redux';
+
 import ScrollButton from '../scrollToTop/ScrollToTop';
 
-import {
-    makeStyles
 
-} from '@material-ui/core';
 import {
     Link
 } from 'react-router-dom'
 import ScrollToTop from '../../scrollTop/ScrollToTop';
 import PostAuction from '../auction_dialog/PostAuction';
 import AuctionDialog from '../auction_dialog/AuctionDialog';
-const useStyles = makeStyles({
-    catagoryBtn: {
-        borderColor: "#5C7795"
-    },
-})
 
 export default function Home() {
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const lang = useSelector((state) => state.LanguageReducer.language)
     const token = useSelector((state) => state.AccountReducer.token);
     React.useEffect(() => {
@@ -64,19 +51,19 @@ export default function Home() {
                                     }
                                 }
                             >
-                                <div class="home-icon">
-                                    <div class="roof">
-                                        <div class="roof-edge"></div>
+                                <div className="home-icon">
+                                    <div className="roof">
+                                        <div className="roof-edge"></div>
                                     </div>
-                                    <div class="front"></div>
+                                    <div className="front"></div>
                                 </div>
                             </li>
                             <Link to="/profile">
                                 <li>
-                                    <div class="about-icon">
-                                        <div class="head">
-                                            <div class="eyes"></div>
-                                            <div class="beard"></div>
+                                    <div className="about-icon">
+                                        <div className="head">
+                                            <div className="eyes"></div>
+                                            <div className="beard"></div>
                                         </div>
                                     </div>
                                 </li>
@@ -90,26 +77,26 @@ export default function Home() {
                     <span>{strings.towin}</span>
                 </div>
                 <div >
-                    <div class="menu__container bd-grid ">
-                        <div class="menu__content">
-                            <img src={SignIn} alt="" class="about__img" />
-                            <h3 class="menu__name"></h3>
-                            <span class="menu__detail">{strings.signup}</span>
-                            <span class="menu__preci"></span>
+                    <div className="menu__container bd-grid ">
+                        <div className="menu__content">
+                            <img src={SignIn} alt="" className="about__img" />
+                            {/* <h3 className="menu__name"></h3> */}
+                            <span className="menu__detail">{strings.signup}</span>
+                            <span className="menu__preci"></span>
 
                         </div>
-                        <div class="menu__content">
-                            <img src={bid} alt="" class="about__img" />
-                            <h3 class="menu__name"></h3>
-                            <span class="menu__detail">{strings.bid}</span>
-                            <span class="menu__preci"></span>
+                        <div className="menu__content">
+                            <img src={bid} alt="" className="about__img" />
+                            {/* <h3 className="menu__name"></h3> */}
+                            <span className="menu__detail">{strings.bid}</span>
+                            <span className="menu__preci"></span>
 
                         </div>
-                        <div class="menu__content">
-                            <img src={win} alt="" class="about__img" />
-                            <h3 class="menu__name"></h3>
-                            <span class="menu__detail">{strings.win}</span>
-                            <span class="menu__preci"></span>
+                        <div className="menu__content">
+                            <img src={win} alt="" className="about__img" />
+                            {/* <h3 className="menu__name"></h3> */}
+                            <span className="menu__detail">{strings.win}</span>
+                            <span className="menu__preci"></span>
                         </div>
 
                     </div>
@@ -122,17 +109,17 @@ export default function Home() {
 
                     <Link id="gooey-button" to={token ? '/profile' : '/register'}>
                         {token ? "profile" : strings.CreateAccount}
-                        <span class="bubbles">
-                            <span class="bubble"></span>
-                            <span class="bubble"></span>
-                            <span class="bubble"></span>
-                            <span class="bubble"></span>
-                            <span class="bubble"></span>
-                            <span class="bubble"></span>
-                            <span class="bubble"></span>
-                            <span class="bubble"></span>
-                            <span class="bubble"></span>
-                            <span class="bubble"></span>
+                        <span className="bubbles">
+                            <span className="bubble"></span>
+                            <span className="bubble"></span>
+                            <span className="bubble"></span>
+                            <span className="bubble"></span>
+                            <span className="bubble"></span>
+                            <span className="bubble"></span>
+                            <span className="bubble"></span>
+                            <span className="bubble"></span>
+                            <span className="bubble"></span>
+                            <span className="bubble"></span>
                         </span>
                     </Link>
                 </div>

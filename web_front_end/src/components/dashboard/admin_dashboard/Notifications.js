@@ -124,21 +124,19 @@ export default function Notifications() {
         <h4 className={classes.cardTitleWhite}>Notifications</h4>
         <p className={classes.cardCategoryWhite}>
           M3K Auction{" "}
-          <a
-            target="_blank"
-            href="#"
+          <a href="http://localhost:3000/"
+            
           >
             M3K Auction
           </a>{" "}
           m3K Auction{" "}
-          <a
-            target="_blank"
-            href="#"
+          <a href="http://localhost:3000/"
+            
           >
             m3K Auction
           </a>
           . be part of us{" "}
-          <a href="#pablo" target="_blank">
+          <a href="http://localhost:3000/" >
             be part of us
           </a>
           .

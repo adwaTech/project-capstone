@@ -53,7 +53,7 @@ function MediaCard(props) {
                     <Star/>
                     <Star/>
                 </p>
-                <a href="#">{strings.seeMore}</a>
+                <a href="#star">{strings.seeMore}</a>
             </div>
       </CardActions>
     </Card>

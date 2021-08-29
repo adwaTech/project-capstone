@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { strings } from "../../language/language";
 import { FileUploader } from "react-drag-drop-files";
 import {
@@ -91,7 +91,7 @@ const fileTypes = ["jpg", "png", "gif",'jpeg'];
 
 const steps = [strings.personalinfo, strings.detail, strings.location];
 
-export default function Register({ match, history }) {
+export default function Register() {
   const lang = useSelector((state) => state.LanguageReducer.language);
   const [progress, setProgress] = React.useState(false);
 
@@ -99,8 +99,8 @@ export default function Register({ match, history }) {
   const classes = useStyles();
   // global states
   const error = useSelector((state) => state.AccountReducer.error);
-  const status = useSelector((state) => state.AccountReducer.status);
-  const statusText = useSelector((state) => state.AccountReducer.statusText);
+  // const status = useSelector((state) => state.AccountReducer.status);
+  // const statusText = useSelector((state) => state.AccountReducer.statusText);
   const token = useSelector((state) => state.AccountReducer.token);
   const user = useSelector((state) => state.AccountReducer.user);
 
@@ -131,6 +131,7 @@ export default function Register({ match, history }) {
       validate3step();
       if (state.latitute && state.longitute) {
         setActiveStep(activeStep + 1)
+        setDefaultLocation({})
       }
     }
 
@@ -280,7 +281,7 @@ export default function Register({ match, history }) {
       setemailMessage({ message: "this field is required", haveError: true })
     }
     if (state.email) {
-      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      var re = /^(([^<>()[\]\\.,;:\s@"]+(.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       // return re.test(String(state.email).toLowerCase());
       if (re.test(state.email.toLowerCase())) {
         setemailMessage({ message: "", haveError: false })
@@ -306,12 +307,12 @@ export default function Register({ match, history }) {
       setConpasswordMessage({ message: "this field is required", haveError: true })
     }
     if (state.conpassword) {
-      if (state.conpassword != state.password) {
+      if (state.conpassword !== state.password) {
         setConpasswordMessage({ message: "password and conpassword must be the same", haveError: true })
       }
       if (state.conpassword === state.password) {
         if (state.password.length > 8) {
-          var format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+          var format = /[ `!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/;
           var bool = format.test(state.password);
           if (bool) {
             if (/\d/.test(state.password)) {
@@ -675,7 +676,6 @@ export default function Register({ match, history }) {
                   onChange={(e) => {
                     setState({ ...state, city: e.target.value });
                   }}
-                  helperText="please white your city"
                   fullWidth
                   autoComplete="adiss abeba"
                 />
@@ -713,6 +713,12 @@ export default function Register({ match, history }) {
               <Grid>
                 lat:{state.latitute}
                 Log:{state.longitute}
+                {
+                  LatMessage?LatMessage:null
+                }
+                {
+                  LongMessage?LongMessage:null
+                }
               </Grid>
             </Grid>
           </React.Fragment>
@@ -743,9 +749,9 @@ export default function Register({ match, history }) {
             <Alert severity="error">{error}</Alert>
           ) : null}
           {token ? (
-            user.userType == "customer" ? (
+            user.userType === "customer" ? (
               <Redirect to="/profile" />
-            ) : user.userType == "admin" ? (
+            ) : user.userType === "admin" ? (
               <Redirect to="/admin" />
             ) : null
           ) : null}
@@ -784,7 +790,7 @@ export default function Register({ match, history }) {
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={handleNext}
+                      // onClick={handleNext}
                       className={classes.button}
                       onClick={onClickHandler}
                     >

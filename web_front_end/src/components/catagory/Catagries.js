@@ -7,10 +7,10 @@ import {
     makeStyles,
 } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
-import { strings } from '../../language/language';
+// import { strings } from '../../language/language';
 import Timer from 'react-compound-timer';
 import BidAuctionForm from '../auction_dialog/BidAuctionForm';
-import Slide from '@material-ui/core/Slide';
+
 import {
     AllAuctionAction,
     AllExceptAuctionAction
@@ -64,9 +64,6 @@ const useStyles = makeStyles({
         textAlign: "center"
     }
 })
-const Transition = React.forwardRef(function Transition(props, ref) {
-    return <Slide direction="up" ref={ref} {...props} />;
-});
 
 export default function Catagory(props) {
     const type = props.match.params.type;
@@ -88,14 +85,15 @@ export default function Catagory(props) {
     const lang = useSelector((state) => state.LanguageReducer.language);
 
    
-    React.useEffect(async () => {
-        if (num == 1) {
-            await dispatch(AllAuctionAction());
+    React.useEffect(() => {
+        if (num === 1) {
+             dispatch(AllAuctionAction());
+            setNum(2)
         }
         if(token){
-            await  dispatch(AllExceptAuctionAction(user._id));
+              dispatch(AllExceptAuctionAction(user._id));
         }
-    }, [allAuction,lang]);
+    }, [allAuction,lang,dispatch,num,token,user._id]);
     var loading = true;
     if (allAuction.length > 0) {
 
@@ -109,24 +107,23 @@ export default function Catagory(props) {
         const now = new Date().getTime();
         return date - now
     }
-    const [startindex, setStartindex] = React.useState(0);
+    // const [startindex, setStartindex] = React.useState(0);
     function myMap() {
         let array = [];
         let catagoryauction = [];
-        console.log(allAuction[0].auctionName == "car");
         if (!token) {
-            catagoryauction = [...allAuction.filter(item => item.auctionCategory == type.toLowerCase())];
+            catagoryauction = [...allAuction.filter(item => item.auctionCategory === type.toLowerCase())];
             
         }
         if (token) {
-            catagoryauction = allexcept.filter(item => item.auctionCategory == type.toString().toLowerCase());
+            catagoryauction = allexcept.filter(item => item.auctionCategory === type.toString().toLowerCase());
         }
         if (catagoryauction.length > 0) {
             for (let i = numTodesplay; i < 12 + numTodesplay; i++) {
                 if (i < catagoryauction.length)
                     array.push(<div className="product-item" key={catagoryauction[i]._id}>
                         <img src={`http://localhost:5000/auctions/${catagoryauction[i].images[0]}`} alt="" />
-                        {console.log(catagoryauction[i])}
+                        
                         <div className="rate">
                             {rate.map((rate, i) => (
                                 // rate <= catagoryauction[i].rating ? <RateIcon key={i} style={{ color: "orange" }} /> :
@@ -167,7 +164,8 @@ export default function Catagory(props) {
                                             setData(catagoryauction[i]);
                                         }
                                     }
-                                    className="cartbtn" color="primary" className={classes.addCartBtn} variant="outlined">
+                                    // className="cartbtn" 
+                                    color="primary" className={classes.addCartBtn} variant="outlined">
                                     <CartIcon />
                                 </Button>
 

@@ -30,16 +30,14 @@ const StyledBadge = withStyles((theme) => ({
 }))(Badge);
 
 const defaultLocation = { lat: 8.9806, lng: 38.7578 };
-const DefaultZoom = 13;
+// const DefaultZoom = 13;
 export default function Search(props) {
-    // location
-    const [location, setLocation] = React.useState(defaultLocation);
-    const [zoom, setZoom] = React.useState(DefaultZoom);
+   
     
     // type
     const auctionsWithName = useSelector((state) => state.SearchAuctionReducer.auctionsWithName);
     const auctionsWithCategory = useSelector((state) => state.SearchAuctionReducer.auctionsWithCategory);
-    const cities = useSelector((state) => state.SearchAuctionReducer.cities);
+    // const cities = useSelector((state) => state.SearchAuctionReducer.cities);
     const usersWithFirstName = useSelector((state) => state.SearchAuctionReducer.usersWithFirstName);
     const usersWithLastName = useSelector((state) => state.SearchAuctionReducer.usersWithLastName);
 
@@ -51,39 +49,40 @@ export default function Search(props) {
     const [date, setDate] = React.useState('');
     React.useEffect(() => {
         if (type === 'name') {
-            const au = auctionsWithName.filter(auction => auction._id == id);
+            const au = auctionsWithName.filter(auction => auction._id === id);
             setAuction(au[0]);
             timer(au[0].deadline)
             setAuctionType('name')
         }
         if (type === 'first_name') {
-            const au = usersWithFirstName.filter(auction => auction._id == id);
+            const au = usersWithFirstName.filter(auction => auction._id === id);
             setAuction(au[0]);
             setAuctionType('first_name')
         }
         if (type === 'last_name') {
-            const au = usersWithLastName.filter(auction => auction._id == id);
+            const au = usersWithLastName.filter(auction => auction._id === id);
             setAuction(au[0]);
             setAuctionType('last_name')
         }
         if (type === 'catagory') {
-            const au = auctionsWithCategory.filter(auction => auction._id == id);
+            const au = auctionsWithCategory.filter(auction => auction._id === id);
             setAuction(au[0]);
             setAuctionType('catagory')
         }
         if (type === 'city') {
-            const au = auctionsWithName.filter(auction => auction._id == id);
+            const au = auctionsWithName.filter(auction => auction._id === id);
             setAuction(au[0]);
             setAuctionType('city')
         }
 
 
-    }, id);
+    }, [id,auctionsWithCategory,auctionsWithName,usersWithFirstName,usersWithLastName,type]);
     function timer(end) {
         let date;
         date = new Date(end.toString()).getTime();
         const now = new Date().getTime();
         const d = date - now;
+        setDate(d);
         return d;
     }
     const [open_bid_dialog, setOpen_bid_dialog] = React.useState(false);
@@ -133,11 +132,11 @@ export default function Search(props) {
                             </span>
                         </p>
 
-                        <h1 class="recipe-title"><a href="#">
+                        <h1 class="recipe-title">
                             {auctiontype === 'first_name' || auctiontype === 'last_name' || auctiontype === 'city' ?
                                 '' : auction.auctionName
                             }
-                        </a></h1>
+                        </h1>
 
                         <p class="recipe-metadata">
                             <span class="recipe-rating">★★★★<span>☆</span></span>

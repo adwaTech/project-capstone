@@ -8,7 +8,6 @@ import {
   warningColor,
   dangerColor,
   whiteColor,
-  grayColor,
   blackColor,
 } from "../../../../assets/jss/material-dashboard-react.js";
 

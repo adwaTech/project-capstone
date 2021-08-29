@@ -1,4 +1,4 @@
-import { CardMedia, Container, Typography,Grid,Card,CardContent } from '@material-ui/core'
+
 import React,{useEffect} from 'react'
 import './about.css'
 import Backgorundd from '../../assets/images/shape.png'
@@ -9,7 +9,6 @@ import Aos from 'aos'
 import 'aos/dist/aos.css'
 import {strings} from '../../language/language';
 import {useSelector} from 'react-redux'
-import { string } from 'prop-types'
 import ScrollToTop from '../../scrollTop/ScrollToTop'
 
 export default function About() {
@@ -32,7 +31,7 @@ export default function About() {
             <div style={{color: 'rgb(30,51,34,0.9)'}}>
                 <div className="aboutus">
                     <div className="backgroundDiv">
-                        <img src={Backgorundd} height="300px" width='300px'/>
+                        <img alt="" src={Backgorundd} height="300px" width='300px'/>
                     </div>
                     <div data-aos='flip-left' className="contentDiv">
                         <p className="headers">{strings.About}</p>
@@ -47,24 +46,24 @@ export default function About() {
                             <div className="grids">
                                 <div className='twogrids'>
                                     <div data-aos='fade-up' className="gridItems">
-                                        <img className="image" src={Theman}/>
+                                        <img alt="" className="image" src={Theman}/>
                                         <p className="nameof">{strings.mesi}</p>
                                         <p className="expertize">{strings.softwareengineer}</p>
                                     </div> 
                                     <div data-aos='fade-down' className="gridItems">
-                                        <img className="image" src={Theman}/>
+                                        <img alt="" className="image" src={Theman}/>
                                         <p className="nameof">{strings.miki}</p>
                                         <p className="expertize">{strings.softwareengineer}</p>
                                     </div> 
                                 </div>
                                 <div className='twogrids'>
                                     <div data-aos='fade-up' className="gridItems">
-                                        <img className="image" src={Theman}/>
+                                        <img alt="" className="image" src={Theman}/>
                                         <p className="nameof">{strings.menge}</p>
                                         <p className="expertize">{strings.softwareengineer}</p>
                                     </div> 
                                     <div data-aos='fade-down' className="gridItems">
-                                        <img className="image" src={Theman}/>
+                                        <img alt="" className="image" src={Theman}/>
                                         <p className="nameof">{strings.kira}</p>
                                         <p className="expertize">{strings.softwareengineer}</p>
                                     </div> 

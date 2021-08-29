@@ -84,8 +84,8 @@ export default function MediaControlCard(props) {
   return (
     <div>
         {
-          list.map(data=>(
-            <div>
+          list.map((data,index)=>(
+            <div key={index}>
                <Card className={classes.root}>
                 <div className={classes.details}>
               <CardContent className={classes.content}>

@@ -44,6 +44,18 @@ let initialState = {
     Notification_error:'',
     Notification_status:'',
     Notification_statusText:'',
+
+    // deposite
+    deposit:'',
+    deposit_error:'',
+    deposit_status:'',
+    deposit_statusText:'',
+
+    // withdraw
+    withdraw:'',
+    withdraw_error:'',
+    withdraw_status:'',
+    withdraw_statusText:'',
 }
 
 export const AccountReducer = (state = initialState, action) => {
@@ -295,6 +307,88 @@ export const getNotificationReducer = (state = initialState, action) => {
         //         bidstatus: '',
         //         bidstatusText: ''
         //     }
+        default:
+            return {
+                ...state
+            }
+    }
+
+}
+export const DepositReducer = (state = initialState, action) => {
+    switch (action.type) {
+        case Constant.DEPOSIT:
+            if (action.payload.status === 200) {
+                return {
+                    ...state,
+                    deposit: action.payload.data.bid,
+                    deposit_status: action.payload.status,
+                    deposit_statusText: action.payload.statusText
+                }
+            }
+            else if (action.payload.status === 401) {
+                return {
+                    ...state,
+                    deposit_error: action.payload.data,
+                    deposit_status: action.payload.status,
+                    deposit_statusText: action.payload.statusText
+                }
+            }
+            else {
+                return {
+                    ...state,
+                    deposit_error: action.payload.data,
+                    deposit_status: action.payload.status,
+                    deposit_statusText: action.payload.statusText
+                }
+            }
+        case Constant.DEPOSITCLEANUP:
+            return {
+                ...state,
+                deposit_error: '',
+                deposit_status: '',
+                deposit_statusText: ''
+            }
+        default:
+            return {
+                ...state
+            }
+    }
+
+}
+export const WithDrawReducer = (state = initialState, action) => {
+    switch (action.type) {
+        case Constant.WITHDRAW:
+            if (action.payload.status === 200) {
+                return {
+                    ...state,
+                    withdraw: action.payload.data.bid,
+                    withdraw_status: action.payload.status,
+                    withdraw_statusText: action.payload.statusText
+                }
+            }
+            else if (action.payload.status === 401) {
+                return {
+                    ...state,
+                    withdraw_error: action.payload.data,
+                    withdraw_status: action.payload.status,
+                    withdraw_statusText: action.payload.statusText
+                }
+            }
+            else {
+                return {
+                    ...state,
+                    withdraw_error: action.payload.data,
+                    withdraw_status: action.payload.status,
+                    withdraw_statusText: action.payload.statusText
+                }
+            }
+        case Constant.WITHDRAWCLEANUP:
+            return {
+                ...state,
+               withdraw_error: '',
+               withdraw_status: '',
+               withdraw_statusText: ''
+            }
         default:
             return {
                 ...state

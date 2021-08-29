@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles, CircularProgress, Dialog } from '@material-ui/core';
+import { makeStyles, CircularProgress } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
@@ -59,7 +59,6 @@ export default function SignIn() {
   React.useEffect(() => {
 
   }, [lang]);
-  const classes = useStyles();
 
   return (
     <div className="main-login-page">
@@ -77,11 +76,9 @@ function Login({ match, history }) {
     password: '1234',
   };
   const [progress, setProgress] = React.useState(false);
-  const bool = false;
   const [state, setState] = React.useState(initialState)
   // global states
   const error = useSelector((state) => state.AccountReducer.error);
-  const status = useSelector((state) => state.AccountReducer.status);
   const statusText = useSelector((state) => state.AccountReducer.statusText);
   const token = useSelector((state) => state.AccountReducer.token);
   const user = useSelector((state) => state.AccountReducer.user);
@@ -123,7 +120,7 @@ function Login({ match, history }) {
     if(token){
       setProgress(false);
     }
-  },[error])
+  },[error,token])
   return (
     <Container maxWidth="xs" className={classes.container} >
       <CssBaseline />
@@ -150,9 +147,9 @@ function Login({ match, history }) {
         }
         {
           token
-            ? (user.userType == "customer"
+            ? (user.userType === "customer"
               ? <Redirect to='/profile' />
-              : user.userType == "admin"
+              : user.userType === "admin"
                 ? <Redirect to="/admin" />
                 : null)
             : null
@@ -220,28 +217,6 @@ function Login({ match, history }) {
           </Grid>
         </div>
       </div>
-      {/* <Progress open={progress} setOpen={setProgress} /> */}
     </Container>
-  )
-}
-
-function Progress(props) {
-  const error = useSelector((state) => state.AccountReducer.error);
-  const token = useSelector((state) => state.AccountReducer.token);
-  function progresscheck() {
-    if (error.length > 0) {
-      props.setOpen(false);
-    }
-    if (token) {
-      props.setOpen(false);
-    }
-  }
-  return (
-    <Dialog open={props.open} >
-      {progresscheck()}
-      <div style={{ width: "100px", height: "100px", display: "flex", background: "black", opacity: 0.5, border: "none", boxShadow: 'none' }}>
-        <CircularProgress style={{ margin: "30px" }} />
-      </div>
-    </Dialog>
   )
 }

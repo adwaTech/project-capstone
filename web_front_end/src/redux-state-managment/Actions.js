@@ -74,7 +74,7 @@ export const LanguageAction = (language) => async (dispatch) => {
 export const LogoutAction = () => async (dispatch) => {
     const data = {
         data: {
-            user: {},
+            user: { },
             token: '',
             status: '',
         }
@@ -316,9 +316,9 @@ export const GetAuctionAuctionAction = (token) => async (dispatch) => {
         const response = await axiosInstance.get(`/getBids`, {
 
             params: {
-                type: "owner", 
+                type: "owner",
             }
-        },{
+        }, {
             validateStatus: function (status) {
                 return status < 600
             }
@@ -370,4 +370,100 @@ export const GetNotificationAuctionAction = (token) => async (dispatch) => {
             payload: data,
         })
     }
+}
+export const DepositAuctionAction = (userData, token) => async (dispatch) => {
+    const data = {
+        data: {
+            error: "Please check your network connection",
+        },
+        status: 404,
+        statusText: "Network Error"
+    }
+    try {
+        const axiosInstance = axios.create({
+            baseURL: "http://localhost:5000",
+            timeout: 5000,
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        const response = await axiosInstance.post(`/deposit`, userData, {
+            validateStatus: function (status) {
+                return status < 600
+            }
+        },
+        );
+        dispatch({
+            type: Constant.DEPOSIT,
+            payload: response,
+        })
+    }
+    catch (error) {
+        dispatch({
+            type: Constant.DEPOSIT,
+            payload: data,
+        })
+    }
+}
+export const DepositCleanUpAction = () => async (dispatch) => {
+    const data = {
+        data: {
+            error: "",
+        },
+        status: '',
+        statusText: ""
+    }
+    dispatch({
+        type: Constant.DEPOSITCLEANUP,
+        payload: data,
+    })
+}
+export const WithdrawAuctionAction = (userData, token) => async (dispatch) => {
+    const data = {
+        data: {
+            error: "Please check your network connection",
+        },
+        status: 404,
+        statusText: "Network Error"
+    }
+    try {
+        const axiosInstance = axios.create({
+            baseURL: "http://localhost:5000",
+            timeout: 5000,
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        const response = await axiosInstance.post(`/withdraw`, userData, {
+            validateStatus: function (status) {
+                return status < 600
+            }
+        },
+        );
+        dispatch({
+            type: Constant.WITHDRAW,
+            payload: response,
+        })
+    }
+    catch (error) {
+        dispatch({
+            type: Constant.WITHDRAW,
+            payload: data,
+        })
+    }
+}
+export const WithdrawCleanUpAction = () => async (dispatch) => {
+    const data = {
+        data: {
+            error: "",
+        },
+        status: '',
+        statusText: ""
+    }
+    dispatch({
+        type: Constant.WITHDRAWCLEANUP,
+        payload: data,
+    })
 }
