@@ -11,6 +11,7 @@ import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import BidAuctionForm from '../auction_dialog/BidAuctionForm';
+import {BACKENDURL} from '../../redux-state-managment/Constants'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -126,7 +127,7 @@ export default function DetailDialog(props) {
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               <img
                 className={classes.cover}
-                src={`http://localhost:5000/auctions/${props.data.images?props.data.images[0]:null}`}
+                src={`${BACKENDURL}/auctions/${props.data.images?props.data.images[0]:null}`}
                 alt="Product images"
               />
               {props.detail?null:<div className={classes.controls}>

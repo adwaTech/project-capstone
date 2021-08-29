@@ -59,7 +59,7 @@ const User = mongoose.Schema({
     },
     balance:{
         type:Number,
-        default:0
+        default:0   
     }
 })
 module.exports.UserModel = mongoose.model('user', User);

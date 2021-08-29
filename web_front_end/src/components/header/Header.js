@@ -3,7 +3,6 @@ import './header.css'
 import { NavLink, useLocation } from 'react-router-dom';
 import { Button, makeStyles, withStyles } from '@material-ui/core';
 import PhoneIcon from '@material-ui/icons/Phone'
-import PersonIcon from '@material-ui/icons/Person';
 
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
@@ -22,6 +21,7 @@ import Poppers from "@material-ui/core/Popper";
 import Button1 from "../../components/dashboard/admin_dashboard/components/CustomButtons/Button.js";
 import styles from "../../components/dashboard/admin_dashboard/assets/jss/material-dashboard-react/components/headerLinksStyle.js";
 import Timer from 'react-compound-timer';
+import { BACKENDURL } from '../../redux-state-managment/Constants'
 
 
 import {
@@ -133,7 +133,7 @@ export default function Header() {
                 header2[0].classList.toggle('sticky', window.scrollY > 0);
             }
         });
-    },[loc,location])
+    }, [loc, location])
     const token = useSelector((state) => state.AccountReducer.token);
     const user = useSelector((state) => state.AccountReducer.user);
 
@@ -190,7 +190,7 @@ export default function Header() {
                         <div className={loc === '/' ? "right-top-header" : "right-top-header2"}>
                             <span>
                                 <a href="http://localhost:3000/">
-                                    <PhoneIcon />
+                                    <PhoneIcon color="#000"/>
                                     <p>{strings.CustomerSupport}</p>
                                 </a>
                             </span>
@@ -226,14 +226,12 @@ export default function Header() {
                                                 vertical: 'bottom',
                                                 horizontal: 'right',
                                             }}
-                                            badgeContent={<SmallAvatar alt="" src={`http://localhost:5000/users/${user.idPhoto}`} />}
+                                            badgeContent={<SmallAvatar alt="" src={`${BACKENDURL}/users/${user.idPhoto}`} />}
                                         >
-                                            <Avatar alt="" src={`http://localhost:5000/user/${user.profileImage}`} />
+                                            <Avatar alt="" src={`${BACKENDURL}/user/${user.profileImage}`} />
                                         </Badge>
                                     </Link>
-                                    : <Link to="/profile">
-                                        <PersonIcon color="primary" className="personIcon" style={{ color: "#000" }} />
-                                    </Link>
+                                    : null
                             }
 
                             <div style={{ marginRight: "50px" }}>
@@ -282,13 +280,11 @@ export default function Header() {
                                                     vertical: 'bottom',
                                                     horizontal: 'right',
                                                 }}
-                                                badgeContent={<SmallAvatar alt="" src={`http://localhost:5000/${user.idPhoto}`} />}
+                                                badgeContent={<SmallAvatar alt="" src={`${BACKENDURL}/${user.idPhoto}`} />}
                                             >
-                                                <Avatar alt="" src={`http://localhost:5000/${user.profileImage}`} />
+                                                <Avatar alt="" src={`${BACKENDURL}/${user.profileImage}`} />
                                             </Badge>
-                                            : <Link to="/profile">
-                                                <PersonIcon color="primary" className="personIcon" style={{ color: "#000" }} />
-                                            </Link>
+                                            : null
                                     }
                                 </li>
                                 <li className="scoll-screen">
@@ -382,7 +378,7 @@ export default function Header() {
                                                                                     alignItems: "center",
                                                                                     textAlign: "center"
                                                                                 }}>
-                                                                                {auction.images ? <Avatar alt="" src={`http://localhost:5000/${auction.images[0]}`} className={classes.large} /> : null}
+                                                                                {auction.images ? <Avatar alt="" src={`${BACKENDURL}/${auction.images[0]}`} className={classes.large} /> : null}
                                                                                 <span>{auction.auctionName}</span>
                                                                                 <span>{auction.auctionType}</span>
                                                                             </div>
@@ -429,7 +425,7 @@ export default function Header() {
                                                                         className={classes1.dropdownItem}
                                                                     >
                                                                         <div className="searched-auction">
-                                                                            {auction.images ? <Avatar alt="" src={`http://localhost:5000/${auction.images[0]}`} className={classes.large} /> : null}
+                                                                            {auction.images ? <Avatar alt="" src={`${BACKENDURL}/${auction.images[0]}`} className={classes.large} /> : null}
                                                                             <span>{auction.auctionName}</span>
                                                                             <span>{auction.auctionType}</span>
                                                                             <div style={{
@@ -474,7 +470,7 @@ export default function Header() {
                                                                         className={classes1.dropdownItem}
                                                                     >
                                                                         <div className="searched-auction">
-                                                                            <Avatar alt="" src={`http://localhost:5000/${auction.profileImage}`} className={classes.large} />
+                                                                            <Avatar alt="" src={`${BACKENDURL}/${auction.profileImage}`} className={classes.large} />
                                                                             <span>{auction.city}</span>
                                                                         </div>
                                                                     </MenuItem>
@@ -491,7 +487,7 @@ export default function Header() {
                                                                         className={classes1.dropdownItem}
                                                                     >
                                                                         <div className="searched-auction">
-                                                                            <Avatar alt="" src={`http://localhost:5000/${auction.profileImage}`} className={classes.large} />
+                                                                            <Avatar alt="" src={`${BACKENDURL}/${auction.profileImage}`} className={classes.large} />
                                                                             <span>{auction.firstName}&nbsp;{auction.lastName}</span>
                                                                         </div>
                                                                     </MenuItem>
@@ -508,7 +504,7 @@ export default function Header() {
                                                                         className={classes1.dropdownItem}
                                                                     >
                                                                         <div className="searched-auction">
-                                                                            <Avatar alt="" src={`http://localhost:5000/${auction.profileImage}`} className={classes.large} />
+                                                                            <Avatar alt="" src={`${BACKENDURL}/${auction.profileImage}`} className={classes.large} />
                                                                             <span>{auction.firstName}&nbsp;{auction.lastName}</span>
                                                                         </div>
                                                                     </MenuItem>

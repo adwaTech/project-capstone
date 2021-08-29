@@ -12,6 +12,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { strings } from '../../language/language';
 import Timer from 'react-compound-timer';
 import BidAuctionForm from '../auction_dialog/BidAuctionForm';
+import {BACKENDURL} from '../../redux-state-managment/Constants';
 
 import {
     AllAuctionAction,
@@ -120,7 +121,7 @@ export default function Products() {
             if (i < product.length)
                 array.push(<div className="product-item" key={product[i]._id}>
                     
-                    <img src={`http://localhost:5000/auctions/${product[i].images?product[i].images[0]:null}`} alt="" />
+                    <img src={`${BACKENDURL}/auctions/${product[i].images?product[i].images[0]:null}`} alt="" />
                     <div className="rate">
                         {rate.map((rate, i) => (
                             // rate <= product[i].rating ? <RateIcon key={i} style={{ color: "orange" }} /> :

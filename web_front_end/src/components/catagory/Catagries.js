@@ -16,6 +16,7 @@ import {
     AllExceptAuctionAction
 } from '../../redux-state-managment/Actions';
 import DetailDialog from '../catagroy_slider/Detail';
+import {BACKENDURL} from '../../redux-state-managment/Constants'
 
 
 
@@ -122,7 +123,7 @@ export default function Catagory(props) {
             for (let i = numTodesplay; i < 12 + numTodesplay; i++) {
                 if (i < catagoryauction.length)
                     array.push(<div className="product-item" key={catagoryauction[i]._id}>
-                        <img src={`http://localhost:5000/auctions/${catagoryauction[i].images[0]}`} alt="" />
+                        <img src={`${BACKENDURL}/auctions/${catagoryauction[i].images[0]}`} alt="" />
                         
                         <div className="rate">
                             {rate.map((rate, i) => (

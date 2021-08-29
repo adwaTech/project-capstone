@@ -70,8 +70,6 @@ export default function Deposite(props) {
 
 
     // for bid 
-    const bidstatus = useSelector((state) => state.bidAuctionReducer.bidstatus);
-    const biderror = useSelector((state) => state.bidAuctionReducer.biderror);
 
     const dispatch = useDispatch();
 
@@ -83,7 +81,8 @@ export default function Deposite(props) {
     const [state, setState] = React.useState(intialState)
     const token = useSelector((state) => state.AccountReducer.token);
     
-    const deposit_error = useSelector((state) => state.DepositReducer.deposit_status);
+    const deposit_error = useSelector((state) => state.DepositReducer.withdraw_error);
+    const deposit_status = useSelector((state) => state.DepositReducer.withdraw_status);
     
 
     const [amount, setAmount] = React.useState({ message: "", haveError: false });
@@ -98,13 +97,13 @@ export default function Deposite(props) {
     }
     const [progress, setProgress] = React.useState(false);
     React.useEffect(() => {
-        if (biderror) {
+        if (deposit_error) {
             setProgress(false);
         }
         if (token) {
             setProgress(false);
         }
-    }, [biderror, token])
+    }, [deposit_error, token])
 
     return (
         <Dialog
@@ -122,13 +121,13 @@ export default function Deposite(props) {
             </div>
 
             {
-                biderror
+                deposit_error
                     ? <Alert severity="error">
                         {deposit_error ? deposit_error : null}</Alert>
                     : null
             }
             {
-                bidstatus === 200
+                deposit_status === 200
                     ? <Alert severity="success">amount is successfuly deposited</Alert>
                     : null
             }

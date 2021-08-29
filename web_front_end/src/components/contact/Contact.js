@@ -93,17 +93,17 @@ export default function Contact() {
                             <FaceBookIcon/>
                         </i>
                     </a>
-                    <a href="http://localhost:3000/">">
+                    <a href="http://localhost:3000/">
                         <i class="fab fa-twitter">
                             <Twitter/>
                         </i>
                     </a>
-                    <a href="http://localhost:3000/">">
+                    <a href="http://localhost:3000/">
                         <i class="fab fa-instagram">
                             <Instagram/>
                         </i>
                     </a>
-                    <a href="http://localhost:3000/">">
+                    <a href="http://localhost:3000/">
                         <i class="fab fa-linkedin-in">
                             <LinkedIn/>
                         </i>

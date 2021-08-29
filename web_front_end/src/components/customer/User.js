@@ -16,7 +16,9 @@ import {
     GetNotificationAuctionAction
 } from '../../redux-state-managment/Actions';
 import Badge from '@material-ui/core/Badge';
-import Deposite from '../payment/Deposite';
+import Deposite from '../payment/Deposit';
+import Withdraw from '../payment/Withdraw';
+import {BACKENDURL} from '../../redux-state-managment/Constants'
 
 
 
@@ -114,10 +116,12 @@ export default function User() {
             if(not.isRead)count++;
         return count;
     }
-    const [open,setOpenDeposit]=React.useState(false);
+    const [openDeposit,setOpenDeposit]=React.useState(false);
+    const [openWithdraw,setOpenWithdraw]=React.useState(false);
     return (
         <div>
-            <Deposite open={open} setOpen={setOpenDeposit}/>
+            <Deposite open={openDeposit} setOpen={setOpenDeposit}/>
+            <Withdraw open={openWithdraw} setOpen={setOpenWithdraw}/>
             <Header />
             {/* <BidAuction/> */}
             <AuctionDialog
@@ -164,7 +168,7 @@ export default function User() {
                         <div className="card">
                             <div className="ds-top"></div>
                             <div className="avatar-holder">
-                                <img src={`http://localhost:5000/users/${user.profileImage}`} alt="" />
+                                <img src={`${BACKENDURL}/users/${user.profileImage}`} alt="" />
                             </div>
                             <div className="name">
                                 <a href="http://localhost:3000/profile" >{user.firstName} {user.lastName}</a>
@@ -220,6 +224,9 @@ export default function User() {
                                             borderColor: "#00B0FF"
                                         }} variant="outlined" >Deposite</Button>
                                     <Button fullWidth
+                                    onClick={()=>{
+                                        setOpenWithdraw(true);
+                                    }}
                                         style={{
                                             paddingLeft: "20px", paddingRight: "20px", color: "#00B0FF",
                                             borderColor: "#00B0FF"
