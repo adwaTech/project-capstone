@@ -383,10 +383,10 @@ export default function Register({ match, history }) {
     formData.append("idPhoto", state.idPhoto);
     formData.append("idNo", state.idNumber);
     await dispatch(RegisterAction(formData));
-    setState(initialState);
+    // setState(initialState);
     setTimeout(function () {
       dispatch(AccountCheckoutAction());
-    }, 3000);
+    }, 10000);
   }
 
   function getStepContent(step) {

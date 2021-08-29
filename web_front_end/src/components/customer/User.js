@@ -174,7 +174,7 @@ export default function User() {
                         <div className="card">
                             <div className="ds-top"></div>
                             <div className="avatar-holder">
-                                <img src={`http://localhost:5000/${user.profileImage}`} alt="" />
+                                <img src={`http://localhost:5000/users/${user.profileImage}`} alt="" />
                             </div>
                             <div className="name">
                                 <a href="" target="_blank">{user.firstName} {user.lastName}</a>

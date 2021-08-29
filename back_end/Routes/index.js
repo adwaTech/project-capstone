@@ -56,6 +56,7 @@ const upload = multer({
 router.use(sync);
 // Customer routes
 router.post("/register", (req, res, next) => {
+    console.log(req.body)
     upload.fields(
         [{
             name: 'profileImage',

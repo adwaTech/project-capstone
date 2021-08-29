@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const { validateBody, createModel } = require('./toolFuntions');
 const saltRounds = 10;
 module.exports = async (req, res) => {
+    console.log(req.body);
     if (req.files) {
         if (req.files['idPhoto'])
             req.body.idPhoto = req.files['idPhoto'][0].filename;
