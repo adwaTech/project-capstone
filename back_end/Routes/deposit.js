@@ -13,6 +13,9 @@ module.exports = async (req, res) => {
                 errorStackTrace: e
             })
         }
+        if (value <= 0) return res.status(400).send({
+            error: 'Invalid value'
+        });
         switch (req.body.type) {
             case types.paymentMethod.cbeBirr:
                 // set user balance temporarly

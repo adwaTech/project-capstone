@@ -14,12 +14,12 @@ import {
     GetAuctionAuctionAction,
     AuctionerAuctionAction,
     GetNotificationAuctionAction,
-    
+
 } from '../../redux-state-managment/Actions';
 import Badge from '@material-ui/core/Badge';
 import Deposite from '../payment/Deposit';
 import Withdraw from '../payment/Withdraw';
-import {BACKENDURL} from '../../redux-state-managment/Constants'
+import { BACKENDURL } from '../../redux-state-managment/Constants'
 
 
 
@@ -29,30 +29,14 @@ import {BACKENDURL} from '../../redux-state-managment/Constants'
 
 export default function User() {
     const dispatch = useDispatch();
-    React.useEffect(() => {
-        // const target = {
-        //     clicked: 0,
-        //     currentFollowers: 90,
-        //     btn: document.querySelector("a.btn"),
-        //     fw: document.querySelector("span.followers")
-        // };
-
-        // const follow = () => {
-        //     target.clicked += 1;
-        //     target.btn.innerHTML = 'Following <i className="fas fa-user-times"></i>';
-
-        //     if (target.clicked % 2 === 0) {
-        //         target.currentFollowers -= 1;
-        //         target.btn.innerHTML = 'Follow <i className="fas fa-user-plus"></i>';
-        //     }
-        //     else {
-        //         target.currentFollowers += 1;
-        //     }
-
-        //     target.fw.textContent = target.currentFollowers;
-        //     target.btn.classList.toggle("following");
-        // }
-    });
+    const user = useSelector((state) => state.AccountReducer.user);
+    const [charinfo,setChartinfo]=React.useState({
+        won:0,
+        loss:0,
+        waitingresult:0,
+        pending:0,
+    })
+    
     const [num, setNum] = React.useState(1);
     const token = useSelector((state) => state.AccountReducer.token);
 
@@ -80,14 +64,35 @@ export default function User() {
             underlines[i].style.transform = 'translate3d(' + index * 100 + '%,0,0)';
         }
     }
-    const user = useSelector((state) => state.AccountReducer.user);
-    // const balance = useSelector((state) => state.AccountReducer.balance);
-    console.log(user);
+    
+
 
     const [component, setComponent] = React.useState('Bid');
     const AuctioneerAuction = useSelector((state) => state.AuctionsReducer.AuctioneerAuction);
     const myauction = useSelector((state) => state.getBidReducer.getbid_auctions);
     const notification = useSelector((state) => state.getNotificationReducer.Notification);
+    
+    function MyBidChart() {
+        if (myauction.length > 0) {
+            let won = myauction.filter((auction) => auction.status === "won");
+            let loss = myauction.filter((auction) => auction.status === "loss");
+            let pending = myauction.filter((auction) => auction.status === "pending");
+            console.log(pending)
+            let waitingresult = myauction.filter((auction) => auction.status === "waitingresult");
+            let total = myauction.length;
+
+            let wonLength=(won.length*100)/total;
+            let lossLength=(loss.length*100)/total;
+            let pendingLength=(pending.length*100)/total;
+            let waitingresultLength=(waitingresult.length*100)/total;
+            setChartinfo({
+                won:wonLength,
+                pending:pendingLength,
+                waitingresult:waitingresultLength,
+                loss:lossLength
+            })
+        }
+    }
 
     function renderComponents() {
         switch (component) {
@@ -114,18 +119,23 @@ export default function User() {
     // dialog box
     const [openforPost, setOpen] = React.useState(false);
     const [dialogComp, setDialogComp] = React.useState('');
-    function getnewNofcount(nots){
+    function getnewNofcount(nots) {
         let count = 0;
-        for(let not of nots)
-            if(not.isRead)count++;
+        for (let not of nots)
+            if (not.isRead) count++;
         return count;
     }
-    const [openDeposit,setOpenDeposit]=React.useState(false);
-    const [openWithdraw,setOpenWithdraw]=React.useState(false);
+    const [openDeposit, setOpenDeposit] = React.useState(false);
+    const [openWithdraw, setOpenWithdraw] = React.useState(false);
+
+    React.useEffect(() => {
+        
+        MyBidChart();
+    },[charinfo,myauction]);
     return (
         <div>
-            <Deposite open={openDeposit} setOpen={setOpenDeposit}/>
-            <Withdraw open={openWithdraw} setOpen={setOpenWithdraw}/>
+            <Deposite open={openDeposit} setOpen={setOpenDeposit} />
+            <Withdraw open={openWithdraw} setOpen={setOpenWithdraw} />
             <Header />
             {/* <BidAuction/> */}
             <AuctionDialog
@@ -134,23 +144,23 @@ export default function User() {
                 component={dialogComp === 'Post' ? <PostAuction /> : <BidAuction />} />
             <div className="profile-page">
                 <nav className="full">
-
+                    {}
                     <div className="underline1"></div>
                     <div className="underline1"></div>
                     <div className="underline"></div>
                     <a href="#mybid" onClick={() => ul(0)}>My Bids</a>
-                    <a href="#myauction"  onClick={() => ul(1)}>My Auctions</a>
+                    <a href="#myauction" onClick={() => ul(1)}>My Auctions</a>
                     <a href="#notification"  >
                         <Badge onClick={() => ul(2)} color="primary" badgeContent={getnewNofcount(notification)}>
                             <span >Notifications</span>
                         </Badge>
                     </a>
-                    <a href="#win"  >
+                    {/* <a href="#win"  >
                         <span onClick={() => ul(3)}>Win</span>
                     </a>
                     <a href="#lost"  >
                         <span onClick={() => ul(4)}>lost</span>
-                    </a>
+                    </a> */}
                 </nav>
 
                 <div className="user-side-bar-btn">
@@ -193,32 +203,46 @@ export default function User() {
                                 </div>
                             </div>
                             <div className="ds-skill">
-                                <h6>Activities<i className="fa fa-code" aria-hidden="true"></i></h6>
+                                <h6>Bids Information chart<i className="fa fa-code" aria-hidden="true"></i></h6>
                                 <div className="skill html">
-                                    <h6><i className="fab fa-html5"></i> Total Auction </h6>
-                                    <div className="bar bar-html">
-                                        <p>95%</p>
+                                    <h6><i className="fab fa-html5"></i> Pending </h6>
+                                    <div className="bar bar-html" style={{
+                                        width:`${charinfo.pending}%`
+                                    }}>
+                                        <p>{charinfo.pending}%</p>
                                     </div>
                                 </div>
                                 <div className="skill css">
-                                    <h6><i className="fab fa-css3-alt"></i> Total Bid </h6>
-                                    <div className="bar bar-css">
-                                        <p>90%</p>
+                                    <h6><i className="fab fa-css3-alt"></i> Won </h6>
+                                    <div className="bar bar-css" style={{
+                                        width:`${charinfo.won}%`
+                                    }}>
+                                        <p>${charinfo.won}%</p>
                                     </div>
                                 </div>
                                 <div className="skill javascript">
-                                    <h6><i className="fab fa-js"></i> Total Win </h6>
-                                    <div className="bar bar-js">
-                                        <p>75%</p>
+                                    <h6><i className="fab fa-js"></i> Loss </h6>
+                                    <div className="bar bar-js" style={{
+                                        width:`${charinfo.loss}%`
+                                    }}>
+                                        <p>${charinfo.loss}%</p>
+                                    </div>
+                                </div>
+                                <div className="skill javascript">
+                                    <h6><i className="fab fa-js"></i> waitingresult </h6>
+                                    <div className="bar bar-js" style={{
+                                        width:`${charinfo.waitingresult}%`
+                                    }}>
+                                        <p>${charinfo.waitingresult}%</p>
                                     </div>
                                 </div>
                                 <div style={{
                                     margin: "auto"
                                 }}>
                                     <Button fullWidth
-                                    onClick={()=>{
-                                        setOpenDeposit(true);
-                                    }}
+                                        onClick={() => {
+                                            setOpenDeposit(true);
+                                        }}
                                         style={{
                                             marginTop: "20px",
                                             marginBottom: "20px",
@@ -228,9 +252,9 @@ export default function User() {
                                             borderColor: "#00B0FF"
                                         }} variant="outlined" >Deposite</Button>
                                     <Button fullWidth
-                                    onClick={()=>{
-                                        setOpenWithdraw(true);
-                                    }}
+                                        onClick={() => {
+                                            setOpenWithdraw(true);
+                                        }}
                                         style={{
                                             paddingLeft: "20px", paddingRight: "20px", color: "#00B0FF",
                                             borderColor: "#00B0FF"

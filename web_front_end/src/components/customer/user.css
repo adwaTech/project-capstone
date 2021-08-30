@@ -181,17 +181,17 @@
     background: white;
   }
   .profile-page  .card .ds-skill .skill .bar-html {
-    width: 95%;
+    /* width: 95%; */
     animation: htmlSkill 1s;
     animation-delay: 0.4s;
   }
   .profile-page .card .ds-skill .skill .bar-css {
-    width: 90%;
+    /* width: 90%; */
     animation: cssSkill 2s;
     animation-delay: 0.4s;
   }
   .profile-page  .card .ds-skill .skill .bar-js {
-    width: 75%;
+    /* width: 75%; */
     animation: jsSkill 3s;
     animation-delay: 0.4s;
   }
