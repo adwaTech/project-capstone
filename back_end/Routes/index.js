@@ -22,6 +22,7 @@ const passport = require('passport');
 const getNotificationsRoute = require('./getNotifications');
 const setNotificationRoute = require('./setNotification');
 const sync = require('./sync');
+const { customerProfile, getUser } = require('./profile');
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         switch (req.route.path) {
@@ -91,6 +92,7 @@ router.post('/bid', passport.authenticate('jwt', { session: false }), (req, res,
     })
 }, bidForAuctionRoute);
 router.get('/getAuctions', getAuctionsRoute);
+router.get('/profile',passport.authenticate('jwt', { session: false }), upload.any(),customerProfile);
 router.get('/getBids', passport.authenticate('jwt', { session: false }), getBidsRoute);
 router.get('/getNotifications', passport.authenticate('jwt', { session: false }), getNotificationsRoute);
 router.post('/setNotification', passport.authenticate('jwt', { session: false }), upload.any(), setNotificationRoute)
@@ -112,7 +114,7 @@ router.post('/deposit', passport.authenticate('jwt', { session: false }), upload
 // Admin routes
 router.get("/getFeedbacks", passport.authenticate('jwt', { session: false }), upload.any(), getFeedbacks);
 router.put("/approveAuction", passport.authenticate('jwt', { session: false }), upload.any(), approveAuction);
-
+router.get("/getUser",passport.authenticate('jwt', { session: false }), upload.any(),getUser);
 // Common routes
 router.delete("/deleteCustomer", passport.authenticate('jwt', { session: false }), deleteCustomerRoute);
 module.exports = router;

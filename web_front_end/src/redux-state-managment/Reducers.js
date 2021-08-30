@@ -73,7 +73,6 @@ export const AccountReducer = (state = initialState, action) => {
                 return {
                     ...state,
                     user: action.payload.data.user,
-                    balance:action.payload.data.user.balance,
                     token: action.payload.data.token,
                     status: action.payload.status,
                     statusText: action.payload.statusText
@@ -86,6 +85,22 @@ export const AccountReducer = (state = initialState, action) => {
                     statusText: action.payload.statusText
                 }
             }
+        case Constant.USERPROFILE:
+            console.log(action.payload);
+            if (action.payload.status === 200) {
+                return {
+                    ...state,
+                    user: action.payload.data,
+                }
+            }else{
+                return {
+                    ...state,
+                    error: action.payload.data.error,
+                    status: action.payload.status,
+                    statusText: action.payload.statusText
+                }
+            }
+            
         case Constant.LOGOUT:
             return {
                 ...state,
@@ -388,7 +403,7 @@ export const WithDrawReducer = (state = initialState, action) => {
             else if (action.payload.status === 401) {
                 return {
                     ...state,
-                    withdraw_error: action.payload.data,
+                    withdraw_error: action.payload.data.error,
                     withdraw_status: action.payload.status,
                     withdraw_statusText: action.payload.statusText
                 }
@@ -396,7 +411,7 @@ export const WithDrawReducer = (state = initialState, action) => {
             else {
                 return {
                     ...state,
-                    withdraw_error: action.payload.data,
+                    withdraw_error: action.payload.data.error,
                     withdraw_status: action.payload.status,
                     withdraw_statusText: action.payload.statusText
                 }

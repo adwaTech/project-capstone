@@ -13,7 +13,8 @@ import MyBid from './MyBid';
 import {
     GetAuctionAuctionAction,
     AuctionerAuctionAction,
-    GetNotificationAuctionAction
+    GetNotificationAuctionAction,
+    
 } from '../../redux-state-managment/Actions';
 import Badge from '@material-ui/core/Badge';
 import Deposite from '../payment/Deposit';
@@ -80,7 +81,8 @@ export default function User() {
         }
     }
     const user = useSelector((state) => state.AccountReducer.user);
-    const balance = useSelector((state) => state.AccountReducer.balance);
+    // const balance = useSelector((state) => state.AccountReducer.balance);
+    console.log(user);
 
     const [component, setComponent] = React.useState('Bid');
     const AuctioneerAuction = useSelector((state) => state.AuctionsReducer.AuctioneerAuction);
@@ -187,7 +189,7 @@ export default function User() {
                                 </div>
                                 <div className="ds posts">
                                     <h6 title="Number of posts">Amount<i className="fas fa-comments"></i></h6>
-                                    <p>{balance}</p>
+                                    <p>{user.balance}</p>
                                 </div>
                             </div>
                             <div className="ds-skill">

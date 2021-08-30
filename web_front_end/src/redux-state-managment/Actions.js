@@ -442,6 +442,7 @@ export const WithdrawAuctionAction = (userData, token) => async (dispatch) => {
             }
         },
         );
+        // console.log(response);
         dispatch({
             type: Constant.WITHDRAW,
             payload: response,
@@ -474,4 +475,40 @@ export const UpdateBalanceAction = (userData,operator) => async (dispatch) => {
         payload: userData,
         operator:operator
     })
+}
+
+export const ProfileAuctionAction = (token) => async (dispatch) => {
+    const data = {
+        data: {
+            error: "Please check your network connection",
+        },
+        status: 404,
+        statusText: "Network Error"
+    }
+    try {
+        const axiosInstance = axios.create({
+            baseURL: "http://localhost:5000",
+            timeout: 5000,
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        const response = await axiosInstance.get(`/profile`, {
+            validateStatus: function (status) {
+                return status < 600
+            }
+        },
+        );
+        dispatch({
+            type: Constant.USERPROFILE,
+            payload: response,
+        })
+    }
+    catch (error) {
+        dispatch({
+            type: Constant.USERPROFILE,
+            payload: data,
+        })
+    }
 }

@@ -13,7 +13,8 @@ import FormControl from '@material-ui/core/FormControl';
 import {
     WithdrawAuctionAction,
     WithdrawCleanUpAction,
-    UpdateBalanceAction
+    // UpdateBalanceAction
+    ProfileAuctionAction,
 } from '../../redux-state-managment/Actions';
 
 
@@ -104,10 +105,11 @@ export default function Withdraw(props) {
             setProgress(false);
         }
         if(withdraw_status===200){
-            dispatch(UpdateBalanceAction(state.value,"sub"));
+            dispatch(ProfileAuctionAction(token));
+            // dispatch(UpdateBalanceAction(state.value,"sub"));
         }
 
-    }, [withdraw_error, withdraw_status,dispatch,state.value])
+    }, [withdraw_error, withdraw_status,dispatch,state.value,token])
 
     return (
         <Dialog
@@ -185,6 +187,7 @@ export default function Withdraw(props) {
                                         dispatch(WithdrawCleanUpAction());
                                         setState(intialState);
                                     }, 5000);
+                                    
                                 }
 
                             }}

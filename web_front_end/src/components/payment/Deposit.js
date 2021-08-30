@@ -13,7 +13,8 @@ import FormControl from '@material-ui/core/FormControl';
 import {
     DepositAuctionAction,
     DepositCleanUpAction,
-    UpdateBalanceAction
+    // UpdateBalanceAction
+    ProfileAuctionAction
 } from '../../redux-state-managment/Actions';
 
 
@@ -105,9 +106,10 @@ export default function Deposite(props) {
             setProgress(false);
         }
         if(deposit_status===200){
-            dispatch(UpdateBalanceAction(state.value,"add"));
+            dispatch(ProfileAuctionAction(token));
+            // dispatch(UpdateBalanceAction(state.value,"add"));
         }
-    }, [deposit_error, deposit_status,dispatch,state.value])
+    }, [deposit_error, deposit_status,dispatch,state.value,token])
 
     return (
         <Dialog
@@ -184,8 +186,10 @@ export default function Deposite(props) {
                                     setTimeout(function () {
                                         
                                         dispatch(DepositCleanUpAction());
+                                        dispatch(ProfileAuctionAction(token));
                                         setState(intialState);
                                     }, 5000);
+                                    
                                     
                                 }
 

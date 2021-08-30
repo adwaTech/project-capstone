@@ -20,7 +20,8 @@ export const DEPOSIT="DEPOSIT";
 export const WITHDRAW="WITHDRAW";
 export const DEPOSITCLEANUP="DEPOSITCLEANUP";
 export const WITHDRAWCLEANUP='WITHDRAWCLEANUP';
-export const UPDATEBALANCE="UPDATEBALANCE"
+export const UPDATEBALANCE="UPDATEBALANCE";
+export const USERPROFILE="USERPROFILE";
 export const BACKENDURL="http://localhost:5000";
 
 
