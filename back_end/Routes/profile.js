@@ -1,8 +1,8 @@
 const types = require('../models/types');
 const { UserModel } = require('../models/Users');
 
-module.exports.customerProfile = (req, res) => {
-    return res.send(req.user);
+module.exports.customerProfile = async (req, res) => {
+    return res.send(await UserModel.findById(req.user._id));
 }
 module.exports.getUser = async (req, res) => {
     if (req.user.userType == types.userType[1]) {
