@@ -1,27 +1,37 @@
 const crypto = require("crypto");
 const algorithm = "aes-256-cbc";
-
-// generate 16 bytes of random data
-const initVector = crypto.randomBytes(16);
-
-// secret key generate 32 bytes of random data
-const Securitykey = crypto.randomBytes(32);
-module.exports.encrypt = (message) => {
-    // the cipher function
-    const cipher = crypto.createCipheriv(algorithm, Securitykey, initVector);
-
-    // encrypt the message
-    // input encoding
-    // output encoding
-    let encryptedData = cipher.update(message, "utf-8", "hex");
-    encryptedData += cipher.final("hex");
-    return encryptedData;
+const secret = 'appSecretKey';
+const rounds = 9921;
+const keySize = 32;
+const salt = crypto.createHash('sha1').update(secret).digest("hex");
+function encryptData(data) {
+    try {
+        let iv = crypto.randomBytes(16);
+        let key = crypto.pbkdf2Sync(secret, salt, rounds, keySize, 'sha512');
+        let cipher = crypto.createCipheriv(algorithm, Buffer.from(key), iv);
+        let encryptedData = Buffer.concat([cipher.update(JSON.stringify(data)), cipher.final()]);
+        return iv.toString('base64') + ':' + encryptedData.toString('base64');
+    }
+    catch (err) {
+        console.error(err)
+        return false;
+    }
 }
-// the decipher function
-module.exports.decrypt = (encryptedData) => {
-    const decipher = crypto.createDecipheriv(algorithm, Securitykey, initVector);
-    let decryptedData = decipher.update(encryptedData, "hex", "utf-8");
-
-    decryptedData += decipher.final("utf8");
-    return decryptedData;
+function decryptData(encData) {
+    try {
+        let textParts = encData.split(':');
+        let iv = Buffer.from(textParts.shift(), 'base64');
+        let encryptedData = Buffer.from(textParts.join(':'), 'base64');
+        let key = crypto.pbkdf2Sync(secret, salt, rounds, keySize, 'sha512');
+        let decipher = crypto.createDecipheriv(algorithm, Buffer.from(key), iv);
+        let decryptedData = decipher.update(encryptedData);
+        decryptedData = Buffer.concat([decryptedData, decipher.final()]);
+        return JSON.parse(decryptedData.toString());
+    }
+    catch (err) {
+        console.error(err)
+        return false;
+    }
 }
+module.exports.encrypt = encryptData;
+module.exports.decrypt = decryptData;

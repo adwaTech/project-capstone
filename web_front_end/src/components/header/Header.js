@@ -190,7 +190,7 @@ export default function Header() {
                         <div className={loc === '/' ? "right-top-header" : "right-top-header2"}>
                             <span>
                                 <a href="http://localhost:3000/">
-                                    <PhoneIcon color="#000"/>
+                                    <PhoneIcon color="#000" />
                                     <p>{strings.CustomerSupport}</p>
                                 </a>
                             </span>
@@ -228,7 +228,7 @@ export default function Header() {
                                             }}
                                             badgeContent={<SmallAvatar alt="" src={`${BACKENDURL}/users/${user.idPhoto}`} />}
                                         >
-                                            <Avatar alt="" src={`${BACKENDURL}/user/${user.profileImage}`} />
+                                            <Avatar alt="" src={`${BACKENDURL}/users/${user.profileImage}`} />
                                         </Badge>
                                     </Link>
                                     : null
@@ -274,16 +274,18 @@ export default function Header() {
                                 <li className="scoll-screen">
                                     {
                                         token
-                                            ? <Badge
-                                                overlap="circular"
-                                                anchorOrigin={{
-                                                    vertical: 'bottom',
-                                                    horizontal: 'right',
-                                                }}
-                                                badgeContent={<SmallAvatar alt="" src={`${BACKENDURL}/${user.idPhoto}`} />}
-                                            >
-                                                <Avatar alt="" src={`${BACKENDURL}/${user.profileImage}`} />
-                                            </Badge>
+                                            ? <Link to="/profile">
+                                                <Badge
+                                                    overlap="circular"
+                                                    anchorOrigin={{
+                                                        vertical: 'bottom',
+                                                        horizontal: 'right',
+                                                    }}
+                                                    badgeContent={<SmallAvatar alt="" src={`${BACKENDURL}/users/${user.idPhoto}`} />}
+                                                >
+                                                    <Avatar alt="" src={`${BACKENDURL}/users/${user.profileImage}`} />
+                                                </Badge>
+                                            </Link>
                                             : null
                                     }
                                 </li>

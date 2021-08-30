@@ -17,6 +17,7 @@ import {BACKENDURL} from '../../redux-state-managment/Constants';
 import {
     AllAuctionAction,
     LatestAuctionAction,
+    AllExceptAuctionAction
 } from '../../redux-state-managment/Actions';
 import DetailDialog from './Detail';
 
@@ -75,24 +76,27 @@ export default function Products() {
 
 
     const allAuction = useSelector((state) => state.AuctionsReducer.allAuction);
-    // const allexcept = useSelector((state) => state.AuctionsReducer.allexcept);
-    
+    const allexcept = useSelector((state) => state.AuctionsReducer.allexcept);
+    const token = useSelector((state) => state.AccountReducer.token);
+    const user = useSelector((state) => state.AccountReducer.user);
+
     const latestAuction = useSelector((state) => state.AuctionsReducer.latestAuction);
     const [numTodesplay, setNumTodesplay] = React.useState(0);
 
     
 
     const lang = useSelector((state) => state.LanguageReducer.language);
-
     React.useEffect(() => {
         if (num === 1) {
-             dispatch(AllAuctionAction());
-            dispatch(LatestAuctionAction());
-            // dispatch(AllExceptAuctionAction());
+            dispatch(AllAuctionAction());
+            if(token){
+                dispatch(AllExceptAuctionAction(user._id));
+            }
             
             setNum(2)
         }
-    },[lang,setNum,dispatch,num]);
+        
+    },[lang,setNum,dispatch,num,token,user]);
     var loading = true;
     if (allAuction.length > 0) {
 
@@ -106,15 +110,24 @@ export default function Products() {
         const now = new Date().getTime();
         return date - now
     }
+    function whichtorender(){
+        if(token){
+            return allexcept
+        }
+        else{
+            return allAuction
+        }
+    }
     const Auctions = [
-        allAuction,
+        whichtorender(),
         latestAuction,
-        allAuction.filter((item) => item.auctionType === "live"),
-        allAuction.filter((item) => item.auctionType === "sealed"),
-        allAuction.filter((item) => item.condition === "used"),
-        allAuction.filter((item) => item.condition === "new"),
+        whichtorender().filter((item) => item.auctionType === "live"),
+        whichtorender().filter((item) => item.auctionType === "sealed"),
+        whichtorender().filter((item) => item.condition === "used"),
+        whichtorender().filter((item) => item.condition === "new"),
     ];
-    const [index, setIndex] = React.useState(3);            
+    const [index, setIndex] = React.useState(3); 
+             
     function myMap(product, startindex) {
         let array = [];
         for (let i = startindex; i < 6 + startindex; i++) {

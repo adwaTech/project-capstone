@@ -193,14 +193,7 @@ export default function Register() {
     message: '',
     haveError: false
   });
-  const [LatMessage, setLatMessage] = React.useState({
-    message: '',
-    haveError: false
-  });
-  const [LongMessage, setLongMessage] = React.useState({
-    message: '',
-    haveError: false
-  });
+
   const [Usertypemessage, setUsertypemessage] = React.useState({
     message: '',
     haveError: false
@@ -352,19 +345,6 @@ export default function Register() {
     }
   }
   const validate3step = () => {
-    if (state.latitute === '') {
-      setLatMessage({ message: "this field is required", haveError: true })
-    }
-    if (state.latitute) {
-      setLatMessage({ message: "", haveError: false })
-    }
-    if (state.longitute === '') {
-      setLongMessage({ message: "this field is required", haveError: true })
-    }
-    if (state.longitute) {
-      setLongMessage({ message: "", haveError: false })
-    }
-
   }
 
   const onClickHandler = async () => {
@@ -374,8 +354,8 @@ export default function Register() {
     formData.append("lastName", state.lastname);
     formData.append("sex", state.sex);
     formData.append("profileImage", state.profileImage);
-    formData.append("latitute", state.latitute);
-    formData.append("longitute", state.longitute);
+    formData.append("latitude", state.latitute);
+    formData.append("longtude", state.longitute);
     formData.append("userType", state.usertype);
     formData.append("phone", state.phone);
     formData.append("email", state.email);
@@ -713,12 +693,6 @@ export default function Register() {
               <Grid>
                 lat:{state.latitute}
                 Log:{state.longitute}
-                {
-                  LatMessage?LatMessage:null
-                }
-                {
-                  LongMessage?LongMessage:null
-                }
               </Grid>
             </Grid>
           </React.Fragment>

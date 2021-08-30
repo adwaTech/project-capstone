@@ -12,7 +12,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import {
     DepositAuctionAction,
-    DepositCleanUpAction
+    DepositCleanUpAction,
+    UpdateBalanceAction
 } from '../../redux-state-managment/Actions';
 
 
@@ -80,9 +81,9 @@ export default function Deposite(props) {
     }
     const [state, setState] = React.useState(intialState)
     const token = useSelector((state) => state.AccountReducer.token);
-    
-    const deposit_error = useSelector((state) => state.DepositReducer.withdraw_error);
-    const deposit_status = useSelector((state) => state.DepositReducer.withdraw_status);
+
+    const deposit_error = useSelector((state) => state.DepositReducer.deposit_error);
+    const deposit_status = useSelector((state) => state.DepositReducer.deposit_status);
     
 
     const [amount, setAmount] = React.useState({ message: "", haveError: false });
@@ -97,13 +98,16 @@ export default function Deposite(props) {
     }
     const [progress, setProgress] = React.useState(false);
     React.useEffect(() => {
+        if (deposit_status) {
+            setProgress(false);
+        }
         if (deposit_error) {
             setProgress(false);
         }
-        if (token) {
-            setProgress(false);
+        if(deposit_status===200){
+            dispatch(UpdateBalanceAction(state.value,"add"));
         }
-    }, [deposit_error, token])
+    }, [deposit_error, deposit_status,dispatch,state.value])
 
     return (
         <Dialog
@@ -162,12 +166,13 @@ export default function Deposite(props) {
                             autoComplete="amount"
                             value={state.value}
                             onChange={(e) => {
-                                setState({ ...state, amount: e.target.value })
+                                setState({ ...state, value: e.target.value })
                             }}
                         />
                     </Grid>
                     <Grid className={classes.dialogbtn2}>
                         <Button
+                            disabled={deposit_status}
                             color="primary"
                             variant="contained"
                             onClick={async () => {
@@ -177,9 +182,11 @@ export default function Deposite(props) {
                                     setProgress(true);
                                     await dispatch(DepositAuctionAction(state,token));
                                     setTimeout(function () {
+                                        
                                         dispatch(DepositCleanUpAction());
                                         setState(intialState);
                                     }, 5000);
+                                    
                                 }
 
                             }}

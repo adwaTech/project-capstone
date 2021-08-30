@@ -85,14 +85,14 @@ export default function DetailDialog(props) {
                   <h5>Min Amount:</h5> <Typography variant="subtitle2">{props.data?props.data.minAmount:null}</Typography>
                 </div>
                 <div >
-                  <h5>Min CPO:</h5> <Typography variant="subtitle2">{props.data?props.data.minCPO:null}</Typography>
+                  <h5>Min CPO:</h5> <Typography variant="subtitle2">{props.data?props.data.minCpo:null}</Typography>
                 </div>
                 <div >
                   <h5>Owner:</h5> <Typography variant="subtitle2">{props.data.owner?props.data.owner.firstName:null}&nbsp; {props.data.owner?props.data.owner.lastName:null}</Typography>
                 </div>
                 <div >
                   <h5>Type:</h5> <Typography variant="subtitle2">
-                    {props.data?props.dataType:null}
+                    {props.data?props.data.auctionType:null}
                   </Typography>
                 </div>
                 <div>
@@ -117,7 +117,7 @@ export default function DetailDialog(props) {
                 <h5>Number of Bids:</h5> <Typography variant="subtitle2">{props.data?(props.data.proposals ? props.data.proposals.length : 0):null}</Typography>
               </div>
               <Typography  >
-                <h5>Approval:</h5> <Typography variant="subtitle2">{props.data?props.data.approval:null}</Typography>
+                <h5>Approval:</h5> <Typography variant="subtitle2">{props.data?toString(props.data.approval):null}</Typography>
               </Typography>
               <div >
                 <h5>Status:</h5> <Typography variant="subtitle2">{props.data?props.data.status:null}</Typography>

@@ -12,7 +12,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import {
     WithdrawAuctionAction,
-    WithdrawCleanUpAction
+    WithdrawCleanUpAction,
+    UpdateBalanceAction
 } from '../../redux-state-managment/Actions';
 
 
@@ -99,10 +100,14 @@ export default function Withdraw(props) {
         if (withdraw_error) {
             setProgress(false);
         }
-        if (token) {
+        if (withdraw_status) {
             setProgress(false);
         }
-    }, [withdraw_error, token])
+        if(withdraw_status===200){
+            dispatch(UpdateBalanceAction(state.value,"sub"));
+        }
+
+    }, [withdraw_error, withdraw_status,dispatch,state.value])
 
     return (
         <Dialog
@@ -161,12 +166,13 @@ export default function Withdraw(props) {
                             autoComplete="amount"
                             value={state.value}
                             onChange={(e) => {
-                                setState({ ...state, amount: e.target.value })
+                                setState({ ...state, value: e.target.value })
                             }}
                         />
                     </Grid>
                     <Grid className={classes.dialogbtn2}>
                         <Button
+                            disabled={withdraw_status}
                             color="primary"
                             variant="contained"
                             onClick={async () => {
@@ -182,7 +188,7 @@ export default function Withdraw(props) {
                                 }
 
                             }}
-                        >{progress ? <span><CircularProgress color="#ffffff" /> Loading</span> : "Submite Bid"}</Button>
+                        >{progress ? <span><CircularProgress color="#ffffff" /> Loading</span> : "withdraw"}</Button>
                     </Grid>
                 </Grid>
             </DialogContent >

@@ -72,8 +72,8 @@ function Login({ match, history }) {
   const dispatch = useDispatch();
   const classes = useStyles();
   const initialState = {
-    email: 'menge',
-    password: '1234',
+    email: '',
+    password: '',
   };
   const [progress, setProgress] = React.useState(false);
   const [state, setState] = React.useState(initialState)

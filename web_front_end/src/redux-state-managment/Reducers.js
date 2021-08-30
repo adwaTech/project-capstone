@@ -6,14 +6,16 @@ let initialState = {
         password: '',
         error: []
     },
-    user: {},
+    user: { },
     token: '',
     error: '',
     status: '',
     statusText: '',
     language: 'en',
     whichBtn: '',
-    postauction: {},
+    postauction: { },
+    balance:'',
+
     // autions types
     allAuction: [],
     allexcept: [],
@@ -22,10 +24,11 @@ let initialState = {
     popularAuction: [],
     latestAuction: [],
     AuctioneerAuction: [],
-    bid: {},
+    bid: { },
     biderror: '',
     bidstatus: '',
     bidstatusText: '',
+
     // search
     auctionsWithName: [],
     auctionsWithCategory: [],
@@ -34,28 +37,28 @@ let initialState = {
     usersWithLastName: [],
 
     // getbid
-    getbid_auctions:[],
-    getbid_error:'',
-    getbid_status:'',
-    getbid_statusText:'',
+    getbid_auctions: [],
+    getbid_error: '',
+    getbid_status: '',
+    getbid_statusText: '',
 
     // get notification
-    Notification:[],
-    Notification_error:'',
-    Notification_status:'',
-    Notification_statusText:'',
+    Notification: [],
+    Notification_error: '',
+    Notification_status: '',
+    Notification_statusText: '',
 
     // deposite
-    deposit:'',
-    deposit_error:'',
-    deposit_status:'',
-    deposit_statusText:'',
+    deposit: '',
+    deposit_error: '',
+    deposit_status: '',
+    deposit_statusText: '',
 
     // withdraw
-    withdraw:'',
-    withdraw_error:'',
-    withdraw_status:'',
-    withdraw_statusText:'',
+    withdraw: '',
+    withdraw_error: '',
+    withdraw_status: '',
+    withdraw_statusText: '',
 }
 
 export const AccountReducer = (state = initialState, action) => {
@@ -70,6 +73,7 @@ export const AccountReducer = (state = initialState, action) => {
                 return {
                     ...state,
                     user: action.payload.data.user,
+                    balance:action.payload.data.user.balance,
                     token: action.payload.data.token,
                     status: action.payload.status,
                     statusText: action.payload.statusText
@@ -85,8 +89,9 @@ export const AccountReducer = (state = initialState, action) => {
         case Constant.LOGOUT:
             return {
                 ...state,
-                user: {},
-                token: ''
+                user: { },
+                token: '',
+                balance:''
             }
         case Constant.ACCOUNTCHECKOUT:
             return {
@@ -95,6 +100,20 @@ export const AccountReducer = (state = initialState, action) => {
                 status: '',
                 statusText: ''
             }
+        case Constant.UPDATEBALANCE:
+            if(action.operator==="add"){
+                return {
+                    ...state,
+                    balance: parseFloat(state.balance) + parseFloat(action.payload)
+                }
+            }
+            if(action.operator==="sub"){
+                return {
+                    ...state,
+                    balance: parseFloat(state.balance) - parseFloat(action.payload)
+                }
+            }
+            break;
         default:
             return {
                 ...state
@@ -258,7 +277,7 @@ export const getBidReducer = (state = initialState, action) => {
             if (action.payload.status === 200) {
                 return {
                     ...state,
-                   getbid_auctions: action.payload.data,
+                    getbid_auctions: action.payload.data,
                 }
             }
             else {
@@ -289,7 +308,7 @@ export const getNotificationReducer = (state = initialState, action) => {
             if (action.payload.status === 200) {
                 return {
                     ...state,
-                   Notification: action.payload.data,
+                    Notification: action.payload.data,
                 }
             }
             else {
@@ -385,9 +404,9 @@ export const WithDrawReducer = (state = initialState, action) => {
         case Constant.WITHDRAWCLEANUP:
             return {
                 ...state,
-               withdraw_error: '',
-               withdraw_status: '',
-               withdraw_statusText: ''
+                withdraw_error: '',
+                withdraw_status: '',
+                withdraw_statusText: ''
             }
         default:
             return {

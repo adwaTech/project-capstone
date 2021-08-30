@@ -467,3 +467,11 @@ export const WithdrawCleanUpAction = () => async (dispatch) => {
         payload: data,
     })
 }
+export const UpdateBalanceAction = (userData,operator) => async (dispatch) => {
+    
+    dispatch({
+        type: Constant.UPDATEBALANCE,
+        payload: userData,
+        operator:operator
+    })
+}
