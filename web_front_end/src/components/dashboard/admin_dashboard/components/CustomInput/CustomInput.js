@@ -45,7 +45,7 @@ export default function CustomInput(props) {
     step: inputProps && inputProps.step ? inputProps.step : undefined,
   };
   return (
-    <FormControl
+    <FormControl 
       {...formControlProps}
       className={formControlProps.className + " " + classes.formControl}
     >
@@ -54,16 +54,21 @@ export default function CustomInput(props) {
           className={classes.labelRoot + labelClasses}
           htmlFor={id}
           {...labelProps}
+          onChange={props.onChange}
+          value={props.value}
         >
           {labelText}
         </InputLabel>
       ) : null}
+      {console.log(props.value)}
       <Input
         classes={{
           root: marginTop,
           disabled: classes.disabled,
           underline: underlineClasses,
         }}
+        onChange={props.onChange}
+        value={props.value}
         id={id}
         {...inputProps}
         inputProps={newInputProps}
@@ -73,7 +78,7 @@ export default function CustomInput(props) {
       ) : success ? (
         <Check className={classes.feedback + " " + classes.labelRootSuccess} />
       ) : null}
-    </FormControl>
+    </FormControl >
   );
 }
 

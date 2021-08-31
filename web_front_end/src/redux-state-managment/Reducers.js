@@ -14,7 +14,7 @@ let initialState = {
     language: 'en',
     whichBtn: '',
     postauction: { },
-    balance:'',
+    balance: '',
 
     // autions types
     allAuction: [],
@@ -86,13 +86,12 @@ export const AccountReducer = (state = initialState, action) => {
                 }
             }
         case Constant.USERPROFILE:
-            console.log(action.payload);
             if (action.payload.status === 200) {
                 return {
                     ...state,
                     user: action.payload.data,
                 }
-            }else{
+            } else {
                 return {
                     ...state,
                     error: action.payload.data.error,
@@ -100,13 +99,27 @@ export const AccountReducer = (state = initialState, action) => {
                     statusText: action.payload.statusText
                 }
             }
-            
+        case Constant.UPDATEPROFILE:
+            console.log(action.payload)
+            if (action.payload.status === 200) {
+                return {
+                    ...state,
+                    user: action.payload.data,
+                }
+            } else {
+                return {
+                    ...state,
+                    error: action.payload.data.error,
+                    status: action.payload.status,
+                    statusText: action.payload.statusText
+                }
+            }
         case Constant.LOGOUT:
             return {
                 ...state,
                 user: { },
                 token: '',
-                balance:''
+                balance: ''
             }
         case Constant.ACCOUNTCHECKOUT:
             return {
@@ -116,13 +129,13 @@ export const AccountReducer = (state = initialState, action) => {
                 statusText: ''
             }
         case Constant.UPDATEBALANCE:
-            if(action.operator==="add"){
+            if (action.operator === "add") {
                 return {
                     ...state,
                     balance: parseFloat(state.balance) + parseFloat(action.payload)
                 }
             }
-            if(action.operator==="sub"){
+            if (action.operator === "sub") {
                 return {
                     ...state,
                     balance: parseFloat(state.balance) - parseFloat(action.payload)

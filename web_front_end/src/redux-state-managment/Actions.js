@@ -468,12 +468,12 @@ export const WithdrawCleanUpAction = () => async (dispatch) => {
         payload: data,
     })
 }
-export const UpdateBalanceAction = (userData,operator) => async (dispatch) => {
-    
+export const UpdateBalanceAction = (userData, operator) => async (dispatch) => {
+
     dispatch({
         type: Constant.UPDATEBALANCE,
         payload: userData,
-        operator:operator
+        operator: operator
     })
 }
 
@@ -511,4 +511,41 @@ export const ProfileAuctionAction = (token) => async (dispatch) => {
             payload: data,
         })
     }
+}
+export const UpdateCustomerAction = (userData,token) => async (dispatch) => {
+    const data = {
+        data: {
+            error: "Please check your network connection",
+        },
+        status: 404,
+        statusText: "Network Error"
+    }
+    try {
+
+        const axiosInstance = axios.create({
+            baseURL: "http://localhost:5000",
+            timeout: 5000,
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        const response = await axiosInstance.put(`/updateCustomer`, userData, {
+            validateStatus: function (status) {
+                return status < 600
+            }
+        },
+        );
+        console.log(response);
+        dispatch({
+            type: Constant.UPDATEPROFILE,
+            payload: response,
+        })
+    } catch (error) {
+        dispatch({
+            type: Constant.UPDATEPROFILE,
+            payload: data
+        })
+    }
+
 }
