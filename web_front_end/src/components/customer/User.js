@@ -9,7 +9,7 @@ import PostAuction from '../auction_dialog/PostAuction';
 import BidAuction from '../auction_dialog/BidAuction';
 import Notification from './Notification';
 import MyAuction from './MyAuction';
-import MyBid from './MyBid';
+// import MyBid from './MyBid';
 import {
     GetAuctionAuctionAction,
     AuctionerAuctionAction,
@@ -20,7 +20,7 @@ import Badge from '@material-ui/core/Badge';
 import Deposite from '../payment/Deposit';
 import Withdraw from '../payment/Withdraw';
 import { BACKENDURL } from '../../redux-state-managment/Constants'
-
+import UserBidInfo from './UserBidInfo';
 
 
 
@@ -53,12 +53,6 @@ export default function User() {
         if (index === 2) {
             dispatch(GetNotificationAuctionAction(token));
             setComponent("Notifications")
-        }
-        if (index === 3) {
-            setComponent("Win")
-        }
-        if (index === 4) {
-            setComponent("Lost")
         }
         for (var i = 0; i < underlines.length; i++) {
             underlines[i].style.transform = 'translate3d(' + index * 100 + '%,0,0)';
@@ -103,15 +97,11 @@ export default function User() {
                     dispatch(GetNotificationAuctionAction(token))
                     setNum(2)
                 }
-                return <MyBid />
+                return <UserBidInfo data={myauction} />
             case "Auction":
                 return <MyAuction />
             case "Notifications":
-                return <Notification />
-            case "Win":
-                return <Win />;
-            case "Lost":
-                return <Win />
+                return <Notification/>;
             default:
                 return;
         }
@@ -129,8 +119,9 @@ export default function User() {
     const [openWithdraw, setOpenWithdraw] = React.useState(false);
 
     React.useEffect(() => {
-        
-        MyBidChart();
+        setInterval(() => {
+            MyBidChart();
+        }, 10000); 
     },[charinfo,myauction]);
     return (
         <div>
@@ -144,7 +135,6 @@ export default function User() {
                 component={dialogComp === 'Post' ? <PostAuction /> : <BidAuction />} />
             <div className="profile-page">
                 <nav className="full">
-                    {}
                     <div className="underline1"></div>
                     <div className="underline1"></div>
                     <div className="underline"></div>
@@ -155,12 +145,6 @@ export default function User() {
                             <span >Notifications</span>
                         </Badge>
                     </a>
-                    {/* <a href="#win"  >
-                        <span onClick={() => ul(3)}>Win</span>
-                    </a>
-                    <a href="#lost"  >
-                        <span onClick={() => ul(4)}>lost</span>
-                    </a> */}
                 </nav>
 
                 <div className="user-side-bar-btn">
@@ -271,113 +255,6 @@ export default function User() {
                 </div>
             </div>
             <Footer />
-        </div>
-    )
-}
-
-
-
-
-
-
-function Win() {
-    return (
-        <div className="bidTable">
-            <div className="table">
-                <div className="table-cell"></div>
-                <div className="table-cell plattform">
-                    <h3>Wins</h3>
-                    <a href="#wins" className="btn">Wins</a>
-                </div>
-                <div className="table-cell enterprise">
-                    <h3>Loses</h3>
-                    <a href="#lost" className="btn">Loses</a>
-                </div>
-                <div className="table-cell cell-feature">Land</div>
-                <div className="table-cell">
-                    <svg width="18" height="18" viewBox="0 0 18 18" xmlns="#">
-                        <title>check_blue</title>
-                        <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd" />
-                    </svg>
-                </div>
-                <div className="table-cell">
-                    <svg className="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="#">
-                        <title>check_blue</title>
-                        <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd" />
-                    </svg>
-                </div>
-                <div className="table-cell cell-feature">Car</div>
-                <div className="table-cell">
-                    <svg width="18" height="18" viewBox="0 0 18 18" xmlns="#">
-                        <title>check_blue</title>
-                        <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd" />
-                    </svg>
-                </div>
-                <div className="table-cell">
-                    <svg className="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="#">
-                        <title>check_blue</title>
-                        <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd" />
-                    </svg>
-                </div>
-                <div className="table-cell cell-feature">Land</div>
-                <div className="table-cell">
-                    <svg width="18" height="18" viewBox="0 0 18 18" xmlns="#">
-                        <title>check_blue</title>
-                        <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd" />
-                    </svg>
-                </div>
-                <div className="table-cell">
-                    <svg className="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="#">
-                        <title>check_blue</title>
-                        <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd" />
-                    </svg>
-                </div>
-                <div className="table-cell cell-feature">Road Constraction</div>
-                <div className="table-cell">
-                    <svg width="18" height="18" viewBox="0 0 18 18" xmlns="#">
-                        <title>check_blue</title>
-                        <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd" />
-                    </svg>
-                </div>
-                <div className="table-cell">
-                    <svg className="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="#">
-                        <title>check_blue</title>
-                        <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd" />
-                    </svg>
-                </div>
-                <div className="table-cell cell-feature">Mobile Phone</div>
-                <div className="table-cell"></div>
-                <div className="table-cell">
-                    <svg className="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="#">
-                        <title>check_blue</title>
-                        <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" />
-                    </svg>
-                </div>
-                <div className="table-cell cell-feature">Farm Land</div>
-                <div className="table-cell"></div>
-                <div className="table-cell">
-                    <svg className="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="#">
-                        <title>check_blue</title>
-                        <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd" />
-                    </svg>
-                </div>
-                <div className="table-cell cell-feature">Car</div>
-                <div className="table-cell"></div>
-                <div className="table-cell">
-                    <svg className="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="#">
-                        <title>check_blue</title>
-                        <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd" />
-                    </svg>
-                </div>
-                <div className="table-cell cell-feature">House</div>
-                <div className="table-cell"></div>
-                <div className="table-cell">
-                    <svg className="enterprise-check" width="18" height="18" viewBox="0 0 18 18" xmlns="#">
-                        <title>check_blue</title>
-                        <path d="M6.116 14.884c.488.488 1.28.488 1.768 0l10-10c.488-.488.488-1.28 0-1.768s-1.28-.488-1.768 0l-9.08 9.15-4.152-4.15c-.488-.488-1.28-.488-1.768 0s-.488 1.28 0 1.768l5 5z" fill="limegreen" fillRule="evenodd" />
-                    </svg>
-                </div>
-            </div>
         </div>
     )
 }

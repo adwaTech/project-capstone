@@ -1,0 +1,29 @@
+auctionId:
+approval: false
+auctionCategory: "vehicle"
+auctionName: "Car"
+auctionType: "sealed"
+bidFee: 100
+briefDescription: "House (also called House, M.D.) is an American medical drama television series that originally ran on the Fox network for eight seasons"
+condition: "used"
+deadline: "2021-09-24T13:17:00.000Z"
+extendedDescription: "House (also called House, M.D.) is an American medical drama television series that originally ran on the Fox network for eight seasons"
+images: ["1630329596152.jpg"]
+latitude: "8.984330235320613"
+longtude: "38.738402264404286"
+minAmount: 9999
+minCpo: 1000
+owner: "612cc36688f97c2cfffb6035"
+postedOn: "2021-08-30T11:50:54.291Z"
+startDate: "2021-08-30T13:17:35.000Z"
+status: "open"
+__v: 1
+_id: "612cdafc453a0942c2b8448c"
+__proto__: Object
+cpo: 1001
+description: "lsdfg"
+ownerId: "612cc29288f97c2cfffb6022"
+proposalType: "sealed"
+status: "pending"
+submittedOn: "2021-08-30T11:50:54.298Z"
+__v: 0
