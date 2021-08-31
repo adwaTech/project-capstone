@@ -33,7 +33,7 @@ const customInputStyle = {
   },
   labelRoot: {
     ...defaultFont,
-    color: grayColor[3] + " !important",
+    color: 'rgba(0,0,0,0.7)' + " !important",
     fontWeight: "400",
     fontSize: "14px",
     lineHeight: "1.42857",

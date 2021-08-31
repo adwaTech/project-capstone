@@ -21,6 +21,7 @@ import Deposite from '../payment/Deposit';
 import Withdraw from '../payment/Withdraw';
 import { BACKENDURL } from '../../redux-state-managment/Constants'
 import UserBidInfo from './UserBidInfo';
+import UserProfile from '../dashboard/admin_dashboard/UserProfile';
 
 
 
@@ -30,13 +31,13 @@ import UserBidInfo from './UserBidInfo';
 export default function User() {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.AccountReducer.user);
-    const [charinfo,setChartinfo]=React.useState({
-        won:0,
-        loss:0,
-        waitingresult:0,
-        pending:0,
+    const [charinfo, setChartinfo] = React.useState({
+        won: 0,
+        loss: 0,
+        waitingresult: 0,
+        pending: 0,
     })
-    
+
     const [num, setNum] = React.useState(1);
     const token = useSelector((state) => state.AccountReducer.token);
 
@@ -54,18 +55,22 @@ export default function User() {
             dispatch(GetNotificationAuctionAction(token));
             setComponent("Notifications")
         }
+        if (index === 3) {
+            dispatch(GetNotificationAuctionAction(token));
+            setComponent("Profile")
+        }
         for (var i = 0; i < underlines.length; i++) {
             underlines[i].style.transform = 'translate3d(' + index * 100 + '%,0,0)';
         }
     }
-    
+
 
 
     const [component, setComponent] = React.useState('Bid');
     const AuctioneerAuction = useSelector((state) => state.AuctionsReducer.AuctioneerAuction);
     const myauction = useSelector((state) => state.getBidReducer.getbid_auctions);
     const notification = useSelector((state) => state.getNotificationReducer.Notification);
-    
+
     function MyBidChart() {
         if (myauction.length > 0) {
             let won = myauction.filter((auction) => auction.status === "won");
@@ -75,15 +80,15 @@ export default function User() {
             let waitingresult = myauction.filter((auction) => auction.status === "waitingresult");
             let total = myauction.length;
 
-            let wonLength=(won.length*100)/total;
-            let lossLength=(loss.length*100)/total;
-            let pendingLength=(pending.length*100)/total;
-            let waitingresultLength=(waitingresult.length*100)/total;
+            let wonLength = (won.length * 100) / total;
+            let lossLength = (loss.length * 100) / total;
+            let pendingLength = (pending.length * 100) / total;
+            let waitingresultLength = (waitingresult.length * 100) / total;
             setChartinfo({
-                won:wonLength,
-                pending:pendingLength,
-                waitingresult:waitingresultLength,
-                loss:lossLength
+                won: wonLength,
+                pending: pendingLength,
+                waitingresult: waitingresultLength,
+                loss: lossLength
             })
         }
     }
@@ -101,7 +106,9 @@ export default function User() {
             case "Auction":
                 return <MyAuction />
             case "Notifications":
-                return <Notification/>;
+                return <Notification />;
+            case "Profile":
+                return <UserProfile data={user}/>;
             default:
                 return;
         }
@@ -121,8 +128,8 @@ export default function User() {
     React.useEffect(() => {
         setInterval(() => {
             MyBidChart();
-        }, 10000); 
-    },[charinfo,myauction]);
+        }, 10000);
+    }, [charinfo, myauction]);
     return (
         <div>
             <Deposite open={openDeposit} setOpen={setOpenDeposit} />
@@ -144,6 +151,12 @@ export default function User() {
                         <Badge onClick={() => ul(2)} color="primary" badgeContent={getnewNofcount(notification)}>
                             <span >Notifications</span>
                         </Badge>
+                    </a>
+                    <a href="#update"  >
+                        <span onClick={() => ul(3)}>update profile</span>
+                    </a>
+                    <a href="#lost"  >
+                        <span onClick={() => ul(4)}>lost</span>
                     </a>
                 </nav>
 
@@ -191,7 +204,7 @@ export default function User() {
                                 <div className="skill html">
                                     <h6><i className="fab fa-html5"></i> Pending </h6>
                                     <div className="bar bar-html" style={{
-                                        width:`${charinfo.pending}%`
+                                        width: `${charinfo.pending}%`
                                     }}>
                                         <p>{charinfo.pending}%</p>
                                     </div>
@@ -199,7 +212,7 @@ export default function User() {
                                 <div className="skill css">
                                     <h6><i className="fab fa-css3-alt"></i> Won </h6>
                                     <div className="bar bar-css" style={{
-                                        width:`${charinfo.won}%`
+                                        width: `${charinfo.won}%`
                                     }}>
                                         <p>${charinfo.won}%</p>
                                     </div>
@@ -207,7 +220,7 @@ export default function User() {
                                 <div className="skill javascript">
                                     <h6><i className="fab fa-js"></i> Loss </h6>
                                     <div className="bar bar-js" style={{
-                                        width:`${charinfo.loss}%`
+                                        width: `${charinfo.loss}%`
                                     }}>
                                         <p>${charinfo.loss}%</p>
                                     </div>
@@ -215,7 +228,7 @@ export default function User() {
                                 <div className="skill javascript">
                                     <h6><i className="fab fa-js"></i> waitingresult </h6>
                                     <div className="bar bar-js" style={{
-                                        width:`${charinfo.waitingresult}%`
+                                        width: `${charinfo.waitingresult}%`
                                     }}>
                                         <p>${charinfo.waitingresult}%</p>
                                     </div>
