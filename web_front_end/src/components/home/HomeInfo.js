@@ -1,5 +1,8 @@
 import React from 'react'
 import Image1 from '../../assets/images/undraw_services_5tv9.svg'
+import Image2 from '../../assets/images/car.svg'
+import Image3 from '../../assets/images/mobile.svg'
+import Image4 from '../../assets/images/road.svg'
 import app1 from '../../assets/images/app1.png';
 import app2 from '../../assets/images/app2.png';
 import Mobile from '../../assets/images/balazs-ketyi-6ba_vdgx_go-unsplash.jpg';
@@ -313,30 +316,24 @@ export default function HomeInfo() {
             </section>
             <section className="menu section bd-container" id="menu">
                 <span className="section-subtitle">{strings.special}</span>
-                <h2 className="section-title">{strings.LatestProducts}</h2>
+                <h2 className="section-title">Popular Catagories</h2>
 
                 <div className="menu__container bd-grid">
                     <div className="menu__content">
-                        <img src={Image1} alt="" className="about__img"/>
-                        <h3 className="menu__name">{strings.landbole}</h3>
-                        <span className="menu__detail">{strings.private}</span>
-                        <span className="menu__preci">$22M</span>
+                        <img src={Image2} alt="" className="about__img"/>
+                        <span className="menu__preci">Cars</span>
                         {/* <a href="#" className="button menu__button"><i className='bx bx-cart-alt'></i></a> */}
                     </div>
 
                     <div className="menu__content">
-                        <img src={Image1} alt="" className="about__img"/>
-                        <h3 className="menu__name">{strings.landbole}</h3>
-                        <span className="menu__detail">{strings.private}</span>
-                        <span className="menu__preci">$22M</span>
+                        <img src={Image3} alt="" className="about__img"/>
+                        <span className="menu__preci">Mobile</span>
                         {/* <a href="#" className="button menu__button"><i className='bx bx-cart-alt'></i></a> */}
                     </div>
                     
                     <div className="menu__content">
-                        <img src={Image1} alt="" className="about__img"/>
-                        <h3 className="menu__name">{strings.landbole}</h3>
-                        <span className="menu__detail">{strings.private}</span>
-                        <span className="menu__preci">$22M</span>
+                        <img src={Image4} alt="" className="about__img"/>
+                        <span className="menu__preci">Road Constraction</span>
                         {/* <a href="#" className="button menu__button"><i className='bx bx-cart-alt'></i></a> */}
                     </div>
                 </div>

@@ -76,7 +76,7 @@ export default function User() {
             let won = myauction.filter((auction) => auction.status === "won");
             let loss = myauction.filter((auction) => auction.status === "loss");
             let pending = myauction.filter((auction) => auction.status === "pending");
-            console.log(pending)
+            
             let waitingresult = myauction.filter((auction) => auction.status === "waitingresult");
             let total = myauction.length;
 
@@ -137,6 +137,7 @@ export default function User() {
             <Header />
             {/* <BidAuction/> */}
             <AuctionDialog
+                type={dialogComp}
                 openforPost={openforPost}
                 setOpen={setOpen}
                 component={dialogComp === 'Post' ? <PostAuction /> : <BidAuction />} />
@@ -145,10 +146,19 @@ export default function User() {
                     <div className="underline1"></div>
                     <div className="underline1"></div>
                     <div className="underline"></div>
-                    <a href="#mybid" onClick={() => ul(0)}>My Bids</a>
-                    <a href="#myauction" onClick={() => ul(1)}>My Auctions</a>
+                    <a href="#mybid" onClick={() => ul(0)}>
+                        <Badge onClick={() => ul(2)} color="primary" badgeContent={myauction.length}>
+                            <span >My Bids</span>
+                        </Badge>
+                    </a>
+                    <a href="#myauction" onClick={() => ul(1)}>
+                        
+                        <Badge onClick={() => ul(2)} color="primary" badgeContent={AuctioneerAuction.length}>
+                            <span >My Auctions</span>
+                        </Badge>
+                        </a>
                     <a href="#notification"  >
-                        <Badge onClick={() => ul(2)} color="primary" badgeContent={getnewNofcount(notification)}>
+                        <Badge onClick={() => ul(2)} color="primary" badgeContent={notification.length}>
                             <span >Notifications</span>
                         </Badge>
                     </a>

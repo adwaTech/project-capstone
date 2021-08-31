@@ -100,7 +100,6 @@ export const AccountReducer = (state = initialState, action) => {
                 }
             }
         case Constant.UPDATEPROFILE:
-            console.log(action.payload)
             if (action.payload.status === 200) {
                 return {
                     ...state,
@@ -333,6 +332,22 @@ export const getBidReducer = (state = initialState, action) => {
 export const getNotificationReducer = (state = initialState, action) => {
     switch (action.type) {
         case Constant.GET_NOTIFICATION:
+            console.log(action.payload)
+            if (action.payload.status === 200) {
+                return {
+                    ...state,
+                    Notification: action.payload.data,
+                }
+            }
+            else {
+                return {
+                    ...state,
+                    Notification_error: action.payload.data.error,
+                    Notification_status: action.payload.status,
+                    Notification_statusText: action.payload.statusText
+                }
+            }
+        case Constant.SHOWNOTIFICATION:
             if (action.payload.status === 200) {
                 return {
                     ...state,

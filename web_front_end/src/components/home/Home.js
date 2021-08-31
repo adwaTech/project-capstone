@@ -11,7 +11,7 @@ import SignIn from '../../assets/images/signin.svg';
 import win from '../../assets/images/win.svg';
 import bid from '../../assets/images/bid.svg';
 import { strings } from '../../language/language';
-import { useSelector,} from 'react-redux';
+import { useSelector, } from 'react-redux';
 
 import ScrollButton from '../scrollToTop/ScrollToTop';
 
@@ -22,6 +22,7 @@ import {
 import ScrollToTop from '../../scrollTop/ScrollToTop';
 import PostAuction from '../auction_dialog/PostAuction';
 import AuctionDialog from '../auction_dialog/AuctionDialog';
+import BidAuction from '../auction_dialog/BidAuction'
 
 export default function Home() {
     // const dispatch = useDispatch();
@@ -30,48 +31,23 @@ export default function Home() {
     React.useEffect(() => {
 
     }, [lang]);
-    const [open, setOpen] = React.useState(false);
+    const [openforPost, setOpen] = React.useState(false);
+    const [dialogComp, setDialogComp] = React.useState('');
+
     return (
         <div className="home">
-            <AuctionDialog component={<PostAuction />} openforPost={open} setOpen={setOpen} />
+            <AuctionDialog
+                type={dialogComp}
+                openforPost={openforPost}
+                setOpen={setOpen}
+                component={dialogComp === 'Post' ? <PostAuction /> : <BidAuction />} />
             <ScrollToTop />
             <Header />
             <div className="svgimage">
                 <img src={WaveImage} alt="" />
             </div>
-            {token ?
-                <div className="user-dashboard">
-                    <nav>
-                        <ul>
-                            <li
-                                onClick={
-                                    () => {
-                                        console.log("button is clicked")
-                                        setOpen(true)
-                                    }
-                                }
-                            >
-                                <div className="home-icon">
-                                    <div className="roof">
-                                        <div className="roof-edge"></div>
-                                    </div>
-                                    <div className="front"></div>
-                                </div>
-                            </li>
-                            <Link to="/profile">
-                                <li>
-                                    <div className="about-icon">
-                                        <div className="head">
-                                            <div className="eyes"></div>
-                                            <div className="beard"></div>
-                                        </div>
-                                    </div>
-                                </li>
-                            </Link>
-                        </ul>
-                    </nav>
-                </div> : null}
-            <div className="easy-steps">
+            
+            {token === '' ? <div className="easy-steps">
                 <div>
                     <h5>{strings.HowItWorks}</h5>
                     <span>{strings.towin}</span>
@@ -102,8 +78,8 @@ export default function Home() {
                     </div>
                 </div>
             </div>
-
-            <div className="front-image">
+                : null}
+            <div className="front-image" style={{ top: token ? "-250px" : 0 }}>
                 <div className="banner-title">
                     <h4>{strings.description1}</h4>
 
@@ -122,7 +98,59 @@ export default function Home() {
                             <span className="bubble"></span>
                         </span>
                     </Link>
+                    <div style={{
+                        margin: "50px"
+                        
+                    }}>
+                        {
+                            token ?
+                                <div>
+                                    <div id="gooey-button" onClick={() => {
+                                        setOpen(!openforPost);
+                                        setDialogComp('Post')
+                                    }}>
+                                        Post Auction
+                                        <span className="bubbles">
+                                            <span className="bubble"></span>
+                                            <span className="bubble"></span>
+                                            <span className="bubble"></span>
+                                            <span className="bubble"></span>
+                                            <span className="bubble"></span>
+                                            <span className="bubble"></span>
+                                            <span className="bubble"></span>
+                                            <span className="bubble"></span>
+                                            <span className="bubble"></span>
+                                            <span className="bubble"></span>
+                                        </span>
+                                    </div>
+                                    <Link style={{
+                                        margin: "50px"
+                                    }} id="gooey-button"
+                                        onClick={() => {
+                                            setOpen(!openforPost);
+                                            setDialogComp('Bid')
+                                        }}
+                                    >
+                                        Catagories List
+                                        <span className="bubbles">
+                                            <span className="bubble"></span>
+                                            <span className="bubble"></span>
+                                            <span className="bubble"></span>
+                                            <span className="bubble"></span>
+                                            <span className="bubble"></span>
+                                            <span className="bubble"></span>
+                                            <span className="bubble"></span>
+                                            <span className="bubble"></span>
+                                            <span className="bubble"></span>
+                                            <span className="bubble"></span>
+                                        </span>
+                                    </Link>
+                                </div>
+                                : null
+                        }
+                    </div>
                 </div>
+
                 <div className="home-image1">
                     <img src={Image1} alt="" />
                 </div>

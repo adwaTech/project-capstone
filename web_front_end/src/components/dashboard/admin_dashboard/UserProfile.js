@@ -64,7 +64,7 @@ export default function UserProfile(props) {
     conpassword: "",
     firstname: props.data.firstName,
     lastname: props.data.lastName,
-    idNumber: props.data.idNumber,
+    idNumber: props.data.idNo,
     idPhoto: props.data.idPhoto,
     sex: "male",
     phone: props.data.phone,
@@ -85,7 +85,7 @@ export default function UserProfile(props) {
   const error = useSelector((state) => state.AccountReducer.error);
   const user = useSelector((state) => state.AccountReducer.user);
 
-  const [progress,setProgress]=React.useState(false);
+  const [progress, setProgress] = React.useState(false);
   React.useEffect(() => {
     if (error) {
       setProgress(false);
@@ -288,26 +288,33 @@ export default function UserProfile(props) {
             <CardFooter>
               <Button
                 onClick={async () => {
-                  setProgress(true);
-                  const formData = new FormData();
-                  formData.append("firstName", state.firstname);
-                  formData.append("lastName", state.lastname);
-                  formData.append("sex", state.sex);
-                  formData.append("profileImage", state.profileImage);
-                  formData.append("latitude", state.latitute);
-                  formData.append("longtude", state.longitute);
-                  formData.append("userType", state.usertype);
-                  formData.append("phone", state.phone);
-                  formData.append("email", state.email);
-                  formData.append("password", state.password);
-                  formData.append("city", state.city);
-                  formData.append("idPhoto", state.idPhoto);
-                  formData.append("idNo", state.idNumber);
-                  await dispatch(UpdateCustomerAction(formData, token));
-                  // setState(initialState);
-                  setTimeout(function () {
-                    dispatch(AccountCheckoutAction());
-                  }, 10000);
+                  if (state.firstname && state.lastname  && state.city && state.profileImage) {
+                    
+                      setProgress(true);
+                      const formData = new FormData();
+                      formData.append("firstName", state.firstname);
+                      formData.append("lastName", state.lastname);
+                      formData.append("sex", state.sex);
+                      formData.append("profileImage", state.profileImage);
+                      formData.append("latitude", state.latitute);
+                      formData.append("longtude", state.longitute);
+                      formData.append("userType", state.usertype);
+                      formData.append("phone", state.phone);
+                      formData.append("email", state.email);
+                      formData.append("city", state.city);
+                      formData.append("idPhoto", state.idPhoto);
+                      formData.append("idNo", state.idNumber);
+                      if(state.password){
+                        if(state.conpassword===state.password){
+                          formData.append("password", state.password);
+                        }
+                      }
+                      await dispatch(UpdateCustomerAction(formData, token));
+                      // setState(initialState);
+                      setTimeout(function () {
+                        dispatch(AccountCheckoutAction());
+                      }, 10000);
+                  }
                 }}
                 color="info">Update Profile</Button>
             </CardFooter>

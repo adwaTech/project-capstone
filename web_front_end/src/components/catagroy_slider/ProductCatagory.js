@@ -242,7 +242,7 @@ export default function Products() {
                 <img src={Image7} alt="" width="40px" height="40px" />
             </div>
             <div className="section-name">
-                <h2 >Latest Products</h2>
+                <h2 >Products</h2>
                 <hr />
                 <div className="product-type">
                     <span
