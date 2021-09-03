@@ -2,6 +2,7 @@
 using namepspace std;
 int main(){
   cout<<"hello world";
+  bug fix
   cout<<"Greetings!!!"<<endl;
   cout<<"how are you, from roskee";
   cout<<"This is a new change roskee has made";
