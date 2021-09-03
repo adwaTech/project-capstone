@@ -11,7 +11,7 @@ import SignIn from '../../assets/images/signin.svg';
 import win from '../../assets/images/win.svg';
 import bid from '../../assets/images/bid.svg';
 import { strings } from '../../language/language';
-import { useSelector, } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
 
 import ScrollButton from '../scrollToTop/ScrollToTop';
 
@@ -22,18 +22,32 @@ import {
 import ScrollToTop from '../../scrollTop/ScrollToTop';
 import PostAuction from '../auction_dialog/PostAuction';
 import AuctionDialog from '../auction_dialog/AuctionDialog';
-import BidAuction from '../auction_dialog/BidAuction'
+import BidAuction from '../auction_dialog/BidAuction';
+import {
+    AllAuctionAction,
+    AllExceptAuctionAction
+} from '../../redux-state-managment/Actions';
 
 export default function Home() {
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
     const lang = useSelector((state) => state.LanguageReducer.language)
     const token = useSelector((state) => state.AccountReducer.token);
-    React.useEffect(() => {
+    const user = useSelector((state) => state.AccountReducer.user);
 
+    const [num,setNum]=React.useState(1)
+    React.useEffect(() => {
+        if(num===1){
+            dispatch(AllAuctionAction());
+            if(token){
+                dispatch(AllExceptAuctionAction(user._id));
+            }
+            setNum(2);
+        }
     }, [lang]);
     const [openforPost, setOpen] = React.useState(false);
     const [dialogComp, setDialogComp] = React.useState('');
 
+    
     return (
         <div className="home">
             <AuctionDialog

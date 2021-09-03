@@ -59,8 +59,17 @@ let initialState = {
     withdraw_error: '',
     withdraw_status: '',
     withdraw_statusText: '',
+
+    // admin
+    approve:'',
+    approve_error: '',
+    approve_status: '',
+    approve_statusText: '',
+
 }
 
+
+// user
 export const AccountReducer = (state = initialState, action) => {
     switch (action.type) {
         case Constant.ACCOUNT:
@@ -450,6 +459,41 @@ export const WithDrawReducer = (state = initialState, action) => {
                 withdraw_error: '',
                 withdraw_status: '',
                 withdraw_statusText: ''
+            }
+        default:
+            return {
+                ...state
+            }
+    }
+
+}
+
+// admin
+export const ApproveAuctionReducer = (state = initialState, action) => {
+    switch (action.type) {
+        case Constant.APPROVEAUCTION:
+            if (action.payload.status === 200) {
+                return {
+                    ...state,
+                    approve: action.payload.data.bid,
+                    approve_status: action.payload.status,
+                    approve_statusText: action.payload.statusText
+                }
+            }
+            else {
+                return {
+                    ...state,
+                    approve_error: action.payload.data.error,
+                    approve_status: action.payload.status,
+                    approve_statusText: action.payload.statusText
+                }
+            }
+        case Constant.APPROVEAUCTION:
+            return {
+                ...state,
+                approve_error: '',
+                approve_status: '',
+                approve_statusText: ''
             }
         default:
             return {

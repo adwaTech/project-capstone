@@ -573,7 +573,6 @@ export const ShowNotificationAction = (userData,token) => async (dispatch) => {
             }
         },
         );
-        console.log(response);
         dispatch({
             type: Constant.SHOWNOTIFICATION,
             payload: response,
@@ -581,6 +580,43 @@ export const ShowNotificationAction = (userData,token) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: Constant.SHOWNOTIFICATION,
+            payload: data
+        })
+    }
+
+}
+export const ApproveAuctionAction = (userData,token) => async (dispatch) => {
+    const data = {
+        data: {
+            error: "Please check your network connection",
+        },
+        status: 404,
+        statusText: "Network Error"
+    }
+    try {
+
+        const axiosInstance = axios.create({
+            baseURL: "http://localhost:5000",
+            timeout: 5000,
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        const response = await axiosInstance.put(`/approveAuction`, {auctionId: userData}, {
+            validateStatus: function (status) {
+                return status < 600
+            }
+        },
+        );
+        console.log(response);
+        dispatch({
+            type: Constant.APPROVEAUCTION,
+            payload: response,
+        })
+    } catch (error) {
+        dispatch({
+            type: Constant.APPROVEAUCTION,
             payload: data
         })
     }
