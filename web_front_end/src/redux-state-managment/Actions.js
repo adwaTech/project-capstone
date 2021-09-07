@@ -639,7 +639,7 @@ export const GetuserAction = (token) => async (dispatch) => {
                 'Content-Type': 'application/json'
             }
         });
-        const response = await axiosInstance.get(`/getUser`, {
+        const response = await axiosInstance.get(`/getUsers`, {
             validateStatus: function (status) {
                 return status < 600
             }

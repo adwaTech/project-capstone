@@ -9,7 +9,7 @@ import HorzMore from '@material-ui/icons/MoreHoriz';
 import Detail from '../../catagroy_slider/Detail';
 import Approve from '@material-ui/icons/ThumbUp';
 import DeleteAuction from '@material-ui/icons/Delete';
-import IconButton from '@material-ui/core/IconButton'
+import IconButton from '@material-ui/core/IconButton';
 
 import {
   Card,
@@ -23,7 +23,13 @@ import {
   AllAuctionAction,
   GetuserAction
 
-} from '../../../redux-state-managment/Actions'
+} from '../../../redux-state-managment/Actions';
+import Avatar from '@material-ui/core/Avatar';
+import {BACKENDURL} from '../../../redux-state-managment/Constants';
+import {Link} from 'react-router-dom';
+import {
+  Edit
+} from '@material-ui/icons'
 
 const styles = {
   cardCategoryWhite: {
@@ -84,37 +90,46 @@ export default function TableList() {
         <GridItem xs={12} sm={12} md={12}>
           <Card>
             <CardHeader color="info">
-              <h4 className={classes.cardTitleWhite}>Aution Table</h4>
+              <h4 className={classes.cardTitleWhite}>Customer Table</h4>
               <p className={classes.cardCategoryWhite}>
-                Approve Auction
+                Manage Customer
               </p>
             </CardHeader>
             <CardBody>
-              {allAuction ? <Table
+              {customers ? <Table
                 tableHeaderColor="infoy"
                 tableHead={["first name", "last name",
-                  "city", "latitude", "longitude", "sex", "phone number", "email", "id number","profile Pic"]}
+                  "city", "latitude", "longitude", "sex", "phone number", "email", "id number","profile Pic","id image"]}
                 tableData=
-                {allAuction.filter(auction=>auction.approval===false).map(auction => [
-                  auction.auctionName, auction.auctionCategory,
-                  auction.bidFee, auction.condition,
-                  auction.owner ? auction.owner.firstName : "", auction.minAmount,
-                  <IconButton
-                  onClick={async () => {
-                    await setData(auction);
-                    setOpen(true);
-                  }}
-                  >
-                    <HorzMore/>
-                  </IconButton>,
-                  <IconButton
+                {customers.map(customer => [
+                  customer.firstName, customer.lastName,
+                  customer.city, customer.latitude,
+                  customer.longitude ,
+                  customer.sex,
+                  customer.phone,
+                  customer.email,
+                  customer.idNo,
+                  <Avatar src={`${BACKENDURL}/users/${customer.profileImage}`}>
+
+                  </Avatar>,
+                  <Avatar src={`${BACKENDURL}/users/${customer.idPhoto}`}>
+
+                  </Avatar>,
+                  
+                  <Link  to={{
+                    pathname: "/admin/user",
+                    state: {customer}
+               }}
+               >
+                    <IconButton
                   onClick={async ()=>{
-                    await dispatch(ApproveAuctionAction(auction._id,token));
-                    dispatch(AllAuctionAction());
+                    // await dispatch(ApproveAuctionAction(auction._id,token));
+                    // dispatch(AllAuctionAction());
                   }}
                   >
-                    <Approve color="primary"/>
-                  </IconButton>,
+                    <Edit color="primary"/>
+                  </IconButton>
+                  </Link>,
                   <IconButton onClick={()=>{
                     dispatch(AllAuctionAction());
                   }}>

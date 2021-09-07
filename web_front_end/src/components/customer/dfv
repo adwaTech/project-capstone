@@ -1,18 +1,16 @@
-amount: "21323343"
-auctionId: "612cdb45453a0942c2b8449a"
-cpo: 12334545
-description: "12323434"
-ownerId:
-    city: "Addis Abeba"
-    firstName: "Mengistu"
-    lastName: "Berihie"
-    profileImage: "1630323346569.jpg"
-    sex: "male"
-    userType: "customer"
-    _id: "612cc29288f97c2cfffb6022"
-    __proto__: Object
-proposalType: "live"
-status: "pending"
-submittedOn: "2021-09-07T13:45:27.359Z"
+balance: 81423988
+city: "Addis Abeba"
+email: "miki@g.com"
+firstName: "Mengistu"
+idNo: "ets0827/10"
+idPhoto: "1630323346585.png"
+lastName: "Berihie"
+latitude: 9.010440806607646
+longtude: 38.81273164062499
+password: "$2b$10$gUJwNRVGxGL.0qzNSYpEKuo/nMPy.RDWpK1YrgT58/5PsMygR61sa"
+phone: "+251926970261"
+profileImage: "1630323346569.jpg"
+sex: "male"
+userType: "customer"
 __v: 0
-_id: "6137708319e8b18a0567687d"
+_id: "612cc29288f97c2cfffb6022"
