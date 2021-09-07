@@ -28,6 +28,8 @@ module.exports = async (req, res) => {
     let error = '';
     if (req.query.type)
         switch (req.query.type) {
+            case 'allx':
+                return res.send(await findAuctions({}));
             case 'all':
                 return res.send(await findAuctions({
                     status: 'open'

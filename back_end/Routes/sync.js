@@ -49,18 +49,21 @@ module.exports = (req, res, next) => {
                 for (proposalId of auction.proposals) {
                     proposal = await proposalModel.findById(proposalId);
                     proposal.status = 'waitingresult';
-                    if (proposal.type = types.proposalType[1])
+                    if (proposal.type == types.proposalType[1])
                         proposal.amount = decrypt(proposal.amount);
                     await proposal.save();
                 }
                 await auction.save();
                 // prepare notification
                 let participants = [];
-                for (proposal of auction.proposals)
-                    participants.push({
-                        userId: (await proposalModel.findById(proposal)).ownerId
-                    })
-				participants.push(auction.owner);
+                for (proposal of auction.proposals) {
+                    let id = (await proposalModel.findById(proposal)).ownerId;
+                    if (!participants.every((element)=>element.ownerId!=id))
+                        participants.push({
+                            userId: id
+                        })
+                }
+                participants.push(auction.owner);
                 const notification = createModel({
                     notificationType: types.notificationType.auctionDueDate,
                     auctionId: auction._id,
