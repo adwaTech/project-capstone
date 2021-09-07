@@ -14,11 +14,11 @@ export default function Notification() {
         }}>
             {
                 notification.map((note,index)=>(
-                    <Alert variant="outlined" fullWidth style={{ marginBottom: '10px' }} severity="info">This is an error alert — check it out!</Alert>
+                    <Alert variant="outlined" fullWidth style={{ marginBottom: '10px' }} severity="info">{note.title}</Alert>
                 ))
             }
             {
-                notification
+                notification.length<=0
                 ?<Alert fullWidth style={{ marginBottom: '10px' }} severity="info" variant="outlined">you have no notification</Alert>
                 :null
             }
