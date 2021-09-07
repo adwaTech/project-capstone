@@ -1,26 +1,18 @@
-approval: false
-auctionCategory: "electronics"
-auctionName: "Mobile"
-auctionType: "live"
-bidFee: 1232
-briefDescription: "House (also called House, M.D.) is an American medical drama television series that originally ran on the Fox network for eight seasons"
-condition: "used"
-deadline: "2021-09-17T13:19:00.000Z"
-extendedDescription: "House (also called House, M.D.) is an American medical drama television series that originally ran on the Fox network for eight seasons"
-images: ["1630329669334.jpg"]
-latitude: "8.970256874094588"
-longtude: "38.7226094177246"
-minAmount: 123432
-minCpo: 12122
-owner: {userType: "customer", _id: "612cc36688f97c2cfffb6035", firstName: "Mengistu", lastName: "Berhe", sex: "male", …}
-postedOn: "2021-08-30T11:50:54.291Z"
-proposals: Array(3)
-0: "6137708319e8b18a0567687d"
-1: "613771b319e8b18a056768fa"
-2: "613771c219e8b18a0567690c"
-length: 3
-__proto__: Array(0)
-startDate: "2021-08-30T18:19:53.000Z"
-status: "open"
-__v: 3
-_id: "612cdb45453a0942c2b8449a"
+amount: "21323343"
+auctionId: "612cdb45453a0942c2b8449a"
+cpo: 12334545
+description: "12323434"
+ownerId:
+    city: "Addis Abeba"
+    firstName: "Mengistu"
+    lastName: "Berihie"
+    profileImage: "1630323346569.jpg"
+    sex: "male"
+    userType: "customer"
+    _id: "612cc29288f97c2cfffb6022"
+    __proto__: Object
+proposalType: "live"
+status: "pending"
+submittedOn: "2021-09-07T13:45:27.359Z"
+__v: 0
+_id: "6137708319e8b18a0567687d"

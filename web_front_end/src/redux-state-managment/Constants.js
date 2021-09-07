@@ -27,6 +27,7 @@ export const SHOWNOTIFICATION="SHOWNOTIFICATION";
 export const APPROVEAUCTION="APROVEAUCTION";
 export const GETUSER="GETUSER";
 export const SETWINNER='SETWINNER';
+export const SETWINNERCLEAR="SETWINNERCLEAR";
 
 
 export const BACKENDURL="http://localhost:5000";

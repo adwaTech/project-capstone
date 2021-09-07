@@ -44,7 +44,13 @@ module.exports = async (req, res) => {
                 })
             case 'auctioneer':
                 if (req.query.auctioneer)
-                    return res.send(await findAuctions({ owner: req.query.auctioneer }));
+                    return res.send(await findAuctions({ owner: req.query.auctioneer }).populate({
+                        path: 'proposals',
+                        populate: {
+                            path: 'ownerId',
+                            select: 'firstName lastName sex city userType profileImage'
+                        }
+                    }));
                 return res.status(400).send({
                     error: requiredParamError('auctioneer')
                 })

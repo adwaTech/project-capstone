@@ -139,6 +139,7 @@ export default function DetailDialog(props) {
                 onClick={
                   () => {
                     setWinnerDialog(true);
+                    props.setOpen(false)
                   }
                 }
                 fullWidth variant="contained" color="primary">Set Winner</Button>
@@ -149,7 +150,7 @@ export default function DetailDialog(props) {
                   onClick={
                     () => {
                       setOpen_bid_dialog(true);
-                      
+                      props.setOpen(false)
                     }
                   }
                   fullWidth variant="contained" color="primary">Bid</Button>

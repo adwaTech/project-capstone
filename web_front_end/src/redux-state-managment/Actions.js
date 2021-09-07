@@ -692,3 +692,16 @@ export const SetWinnerAuctionAction = (userData, token) => async (dispatch) => {
         })
     }
 }
+export const SetwinnerCleanUpAction = () => async (dispatch) => {
+    const data = {
+        data: {
+            error: "",
+        },
+        status: '',
+        statusText: ""
+    }
+    dispatch({
+        type: Constant.SETWINNERCLEAR,
+        payload: data,
+    })
+}

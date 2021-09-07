@@ -60,6 +60,7 @@ module.exports = (req, res, next) => {
                     participants.push({
                         userId: (await proposalModel.findById(proposal)).ownerId
                     })
+				participants.push(auction.owner);
                 const notification = createModel({
                     notificationType: types.notificationType.auctionDueDate,
                     auctionId: auction._id,

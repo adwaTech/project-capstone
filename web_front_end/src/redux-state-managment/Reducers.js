@@ -555,13 +555,13 @@ export const SetWinnerReducer = (state = initialState, action) => {
                     winner_statusText: action.payload.statusText
                 }
             }
-        // case Constant.CLEANUPwinner_AUCTION:
-        //     return {
-        //         ...state,
-        //         biderror: '',
-        //         bidstatus: '',
-        //         bidstatusText: ''
-        //     }
+        case Constant.SETWINNERCLEAR:
+            return {
+                ...state,
+                winner_error: '',
+                    winner_status: '',
+                    winner_statusText: ''
+            }
         default:
             return {
                 ...state
