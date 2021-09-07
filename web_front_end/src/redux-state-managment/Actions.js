@@ -567,12 +567,13 @@ export const ShowNotificationAction = (userData,token) => async (dispatch) => {
                 'Content-Type': 'application/json'
             }
         });
-        const response = await axiosInstance.put(`/setNotification`, userData, {
+        const response = await axiosInstance.post(`/setNotification`, {notificationId: userData}, {
             validateStatus: function (status) {
                 return status < 600
             }
         },
         );
+        console.log(response);
         dispatch({
             type: Constant.SHOWNOTIFICATION,
             payload: response,
@@ -609,7 +610,6 @@ export const ApproveAuctionAction = (userData,token) => async (dispatch) => {
             }
         },
         );
-        console.log(response);
         dispatch({
             type: Constant.APPROVEAUCTION,
             payload: response,
@@ -621,4 +621,74 @@ export const ApproveAuctionAction = (userData,token) => async (dispatch) => {
         })
     }
 
+}
+export const GetuserAction = (token) => async (dispatch) => {
+    const data = {
+        data: {
+            error: "Please check your network connection",
+        },
+        status: 404,
+        statusText: "Network Error"
+    }
+    try {
+        const axiosInstance = axios.create({
+            baseURL: "http://localhost:5000",
+            timeout: 5000,
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        const response = await axiosInstance.get(`/getUser`, {
+            validateStatus: function (status) {
+                return status < 600
+            }
+        },
+        );
+        dispatch({
+            type: Constant.GETUSER,
+            payload: response,
+        })
+    }
+    catch (error) {
+        dispatch({
+            type: Constant.GETUSER,
+            payload: data,
+        })
+    }
+}
+export const SetWinnerAuctionAction = (userData, token) => async (dispatch) => {
+    const data = {
+        data: {
+            error: "Please check your network connection",
+        },
+        status: 404,
+        statusText: "Network Error"
+    }
+    try {
+        const axiosInstance = axios.create({
+            baseURL: "http://localhost:5000",
+            timeout: 5000,
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        const response = await axiosInstance.post(`/setWinner`, userData, {
+            validateStatus: function (status) {
+                return status < 600
+            }
+        },
+        );
+        dispatch({
+            type: Constant.SETWINNER,
+            payload: response,
+        })
+    }
+    catch (error) {
+        dispatch({
+            type: Constant.SETWINNER,
+            payload: data,
+        })
+    }
 }

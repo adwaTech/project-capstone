@@ -25,6 +25,8 @@ export const USERPROFILE="USERPROFILE";
 export const UPDATEPROFILE="UPDATEPROFILE";
 export const SHOWNOTIFICATION="SHOWNOTIFICATION";
 export const APPROVEAUCTION="APROVEAUCTION";
+export const GETUSER="GETUSER";
+export const SETWINNER='SETWINNER';
 
 
 export const BACKENDURL="http://localhost:5000";

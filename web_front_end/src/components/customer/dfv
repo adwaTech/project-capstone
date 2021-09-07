@@ -1,21 +1,26 @@
 approval: false
-auctionCategory: "vehicle"
-auctionName: "Car"
+auctionCategory: "electronics"
+auctionName: "Mobile"
 auctionType: "live"
-bidFee: 200
-briefDescription: "A car (or automobile) is a wheeled motor vehicle used for transportation. Most definitions of cars say that they run primarily on roads, seat one to eight "
-condition: "new"
-deadline: "2021-09-15T11:50:00.000Z"
-extendedDescription: "A car (or automobile) is a wheeled motor vehicle used for transportation. Most definitions of cars say that they run primarily on roads, seat one to eight "
-images: ["1630324348537.jpg"]
-latitude: "8.983652013572332"
-longtude: "38.73634232788085"
-minAmount: 10000
-minCpo: 1000
-owner: {userType: "customer", _id: "612cc29288f97c2cfffb6022", firstName: "Mengistu", lastName: "Berihie", sex: "male", …}
+bidFee: 1232
+briefDescription: "House (also called House, M.D.) is an American medical drama television series that originally ran on the Fox network for eight seasons"
+condition: "used"
+deadline: "2021-09-17T13:19:00.000Z"
+extendedDescription: "House (also called House, M.D.) is an American medical drama television series that originally ran on the Fox network for eight seasons"
+images: ["1630329669334.jpg"]
+latitude: "8.970256874094588"
+longtude: "38.7226094177246"
+minAmount: 123432
+minCpo: 12122
+owner: {userType: "customer", _id: "612cc36688f97c2cfffb6035", firstName: "Mengistu", lastName: "Berhe", sex: "male", …}
 postedOn: "2021-08-30T11:50:54.291Z"
-proposals: []
-startDate: "2021-08-30T17:50:14.000Z"
+proposals: Array(3)
+0: "6137708319e8b18a0567687d"
+1: "613771b319e8b18a056768fa"
+2: "613771c219e8b18a0567690c"
+length: 3
+__proto__: Array(0)
+startDate: "2021-08-30T18:19:53.000Z"
 status: "open"
-__v: 0
-_id: "612cc67c453a0942c2b8432f"
+__v: 3
+_id: "612cdb45453a0942c2b8449a"

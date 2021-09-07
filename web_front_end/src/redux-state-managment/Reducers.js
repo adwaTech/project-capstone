@@ -60,12 +60,23 @@ let initialState = {
     withdraw_status: '',
     withdraw_statusText: '',
 
-    // admin
+    // admin prove
     approve:'',
     approve_error: '',
     approve_status: '',
     approve_statusText: '',
 
+    // users for admin
+    admin_users:[],
+    user_error:'',
+    user_status: '',
+    user_statusText: '',
+
+    //winner
+    winner:'',
+    winner_error:'',
+    winner_status:'',
+    winner_statusText:'',
 }
 
 
@@ -341,7 +352,6 @@ export const getBidReducer = (state = initialState, action) => {
 export const getNotificationReducer = (state = initialState, action) => {
     switch (action.type) {
         case Constant.GET_NOTIFICATION:
-            console.log(action.payload)
             if (action.payload.status === 200) {
                 return {
                     ...state,
@@ -360,7 +370,7 @@ export const getNotificationReducer = (state = initialState, action) => {
             if (action.payload.status === 200) {
                 return {
                     ...state,
-                    Notification: action.payload.data,
+                    // Notification: action.payload.data,
                 }
             }
             else {
@@ -495,6 +505,63 @@ export const ApproveAuctionReducer = (state = initialState, action) => {
                 approve_status: '',
                 approve_statusText: ''
             }
+        default:
+            return {
+                ...state
+            }
+    }
+
+}
+export const getUsersReducer = (state = initialState, action) => {
+    switch (action.type) {
+        case Constant.GETUSER:
+            if (action.payload.status === 200) {
+                return {
+                    ...state,
+                    admin_users: action.payload.data,
+                }
+            }
+            else {
+                return {
+                    ...state,
+                    admin_users_error: action.payload.data.error,
+                    admin_users_status: action.payload.status,
+                    admin_users_statusText: action.payload.statusText
+                }
+            }
+        default:
+            return {
+                ...state
+            }
+    }
+
+}
+export const SetWinnerReducer = (state = initialState, action) => {
+    switch (action.type) {
+        case Constant.SETWINNER:
+            if (action.payload.status === 200) {
+                return {
+                    ...state,
+                    winner: action.payload.data,
+                    winner_status: action.payload.status,
+                    winner_statusText: action.payload.statusText
+                }
+            }
+            else {
+                return {
+                    ...state,
+                    winner_error: action.payload.data.error,
+                    winner_status: action.payload.status,
+                    winner_statusText: action.payload.statusText
+                }
+            }
+        // case Constant.CLEANUPwinner_AUCTION:
+        //     return {
+        //         ...state,
+        //         biderror: '',
+        //         bidstatus: '',
+        //         bidstatusText: ''
+        //     }
         default:
             return {
                 ...state

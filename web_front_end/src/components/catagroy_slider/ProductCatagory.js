@@ -126,6 +126,7 @@ export default function Products() {
         whichtorender().filter((item) => item.condition === "used"),
         whichtorender().filter((item) => item.condition === "new"),
     ];
+
     const [index, setIndex] = React.useState(0);
 
     function myMap(product, startindex) {
@@ -136,12 +137,12 @@ export default function Products() {
                     array.push(<div className="product-item" key={product[i]._id}>
 
                         <img src={`${BACKENDURL}/auctions/${product[i].images ? product[i].images[0] : null}`} alt="" />
-                        <div className="rate">
+                        {/* <div className="rate">
                             {rate.map((rate, i) => (
                                 // rate <= product[i].rating ? <RateIcon key={i} style={{ color: "orange" }} /> :
                                 <RateIcon key={i} />
                             ))}
-                        </div>
+                        </div> */}
                         <div className="product-discription">
                             <p>{product[i].auctionName}</p>
                             <Timer
@@ -169,7 +170,7 @@ export default function Products() {
                                         }
                                     }
                                     color="primary" variant="contained">See More</Button>
-                                <Button
+                                <Button 
                                     onClick={
                                         () => {
                                             setOpen_bid_dialog(!open_bid_dialog);
@@ -178,7 +179,7 @@ export default function Products() {
                                     }
                                     // className="cartbtn"
                                     color="primary" className={classes.addCartBtn} variant="outlined">
-                                    <CartIcon />
+                                    Bid
                                 </Button>
 
 
@@ -270,7 +271,6 @@ export default function Products() {
                     <span
                         onClick={
                             () => {
-
                                 setIndex(2)
                             }
                         }

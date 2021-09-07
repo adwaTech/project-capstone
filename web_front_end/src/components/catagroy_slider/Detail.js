@@ -11,7 +11,8 @@ import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import BidAuctionForm from '../auction_dialog/BidAuctionForm';
-import {BACKENDURL} from '../../redux-state-managment/Constants'
+import {BACKENDURL} from '../../redux-state-managment/Constants';
+import SetWinner from '../customer/SetWinnder'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -62,8 +63,10 @@ const DialogTitle = withStyles(styles)((props) => {
 export default function DetailDialog(props) {
   const classes = useStyles();
   const [open_bid_dialog, setOpen_bid_dialog] = React.useState(false);
+  const [winnerDialog,setWinnerDialog] = React.useState(false);
   return (
     <div>
+      <SetWinner open={winnerDialog} setOpen={setWinnerDialog} data={props.data}/>
       <Dialog open={props.open}>
         <DialogTitle onClose={() => props.setOpen(!props.open)}>
           Auction Detail
@@ -130,11 +133,22 @@ export default function DetailDialog(props) {
                 src={`${BACKENDURL}/auctions/${props.data.images?props.data.images[0]:null}`}
                 alt="Product images"
               />
-              {props.detail?null:<div className={classes.controls}>
+              {props.detail?
+              <div className={classes.controls}>
+              <Button
+                onClick={
+                  () => {
+                    setWinnerDialog(true);
+                  }
+                }
+                fullWidth variant="contained" color="primary">Set Winner</Button>
+            </div>
+              :
+              <div className={classes.controls}>
                 <Button
                   onClick={
                     () => {
-                      setOpen_bid_dialog(!open_bid_dialog);
+                      setOpen_bid_dialog(true);
                       
                     }
                   }

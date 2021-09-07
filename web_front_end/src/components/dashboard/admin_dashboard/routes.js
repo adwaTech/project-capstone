@@ -1,11 +1,8 @@
 
 import {
   LibraryBooks,
-  BubbleChart,
   LocationOn,
   Notifications,
-  Unarchive,
-  Language,
   Dashboard,
   Person,
   CheckOutlined,
@@ -22,6 +19,7 @@ import Icons from "./Icons.js";
 import Maps from "./Maps.js";
 import NotificationsPage from "./Notifications.js";
 import CustomerInfo from "./CustomerInfo/CustomerInfo";
+import Customer from './Customer'
 
 
 const dashboardRoutes = [
@@ -42,9 +40,9 @@ const dashboardRoutes = [
   },
   {
     path: "/typography",
-    name: "Managment",
+    name: "Customer",
     icon: LibraryBooks,
-    component: Typography,
+    component: Customer,
     layout: "/admin",
   },
   {

@@ -21,7 +21,7 @@ import Deposite from '../payment/Deposit';
 import Withdraw from '../payment/Withdraw';
 import { BACKENDURL } from '../../redux-state-managment/Constants'
 import UserBidInfo from './UserBidInfo';
-import UserProfile from '../dashboard/admin_dashboard/UserProfile';
+import UserProfile from './UserProfile';
 
 
 
@@ -70,6 +70,16 @@ export default function User() {
     const AuctioneerAuction = useSelector((state) => state.AuctionsReducer.AuctioneerAuction);
     const myauction = useSelector((state) => state.getBidReducer.getbid_auctions);
     const notification = useSelector((state) => state.getNotificationReducer.Notification);
+    function note(){
+        let array=[]
+        if(notification){
+            notification.map(n=>{
+                array.push(n.participants.filter(p=>p.isRead===false))
+            })
+        }
+        console.log(array);
+        return array;
+    }
 
     function MyBidChart() {
         if (myauction.length > 0) {
@@ -116,12 +126,7 @@ export default function User() {
     // dialog box
     const [openforPost, setOpen] = React.useState(false);
     const [dialogComp, setDialogComp] = React.useState('');
-    function getnewNofcount(nots) {
-        let count = 0;
-        for (let not of nots)
-            if (not.isRead) count++;
-        return count;
-    }
+    
     const [openDeposit, setOpenDeposit] = React.useState(false);
     const [openWithdraw, setOpenWithdraw] = React.useState(false);
 
@@ -158,16 +163,16 @@ export default function User() {
                         </Badge>
                         </a>
                     <a href="#notification"  >
-                        <Badge onClick={() => ul(2)} color="primary" badgeContent={notification.length}>
+                        <Badge onClick={() => ul(2)} color="primary" badgeContent={note().length}>
                             <span >Notifications</span>
                         </Badge>
                     </a>
                     <a href="#update"  >
                         <span onClick={() => ul(3)}>update profile</span>
                     </a>
-                    <a href="#lost"  >
+                    {/* <a href="#lost"  >
                         <span onClick={() => ul(4)}>lost</span>
-                    </a>
+                    </a> */}
                 </nav>
 
                 <div className="user-side-bar-btn">

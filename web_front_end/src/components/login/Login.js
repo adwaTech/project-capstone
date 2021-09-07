@@ -56,9 +56,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
   const lang = useSelector((state) => state.LanguageReducer.language)
-  React.useEffect(() => {
-
-  }, [lang]);
 
   return (
     <div className="main-login-page">

@@ -12,7 +12,8 @@ import {
     getNotificationReducer,
     DepositReducer,
     WithDrawReducer,
-    ApproveAuctionReducer
+    ApproveAuctionReducer,
+    getUsersReducer
 } from './Reducers';
 
 
@@ -29,7 +30,8 @@ const reducer = combineReducers({
     getNotificationReducer,
     DepositReducer,
     WithDrawReducer,
-    ApproveAuctionReducer
+    ApproveAuctionReducer,
+    getUsersReducer
 });
 
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(...middleware)));

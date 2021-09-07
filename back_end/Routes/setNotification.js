@@ -5,7 +5,7 @@ module.exports = async (req, res) => {
         const notification = await NotificationModel.findById(req.body.notificationId);
         if (notification) {
             const x = [];
-            const index = notification.participants.findIndex((value) => value.userId === req.user._id);
+            const index = notification.participants.findIndex((value) => value.userId == req.user._id);
             if (index === -1) return res.status(400).send({
                 error: 'This notification doesn\'t belong this user'
             })

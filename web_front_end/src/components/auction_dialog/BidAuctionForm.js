@@ -125,10 +125,10 @@ export default function BidAuctionForm(props) {
         if (biderror) {
             setProgress(false);
         }
-        if (token) {
+        if (bidstatus) {
             setProgress(false);
         }
-    }, [biderror, token])
+    }, [biderror, bidstatus])
     return (
         <Dialog
             open={props.open}

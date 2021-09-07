@@ -9,6 +9,7 @@ import Badge from '@material-ui/core/Badge';
 import { withStyles } from '@material-ui/core/styles';
 import HorzMore from '@material-ui/icons/MoreHoriz';
 import DetailDialog from '../catagroy_slider/Detail';
+import IconButton from '@material-ui/core/IconButton'
 
 const StyledBadge = withStyles(theme => ({
     badge: {
@@ -75,7 +76,7 @@ export default function MyAuction() {
                                             setData(auction)
                                             setOpen(true);
                                         }}
-                                        ><HorzMore/></td>
+                                        ><IconButton><HorzMore/></IconButton></td>
                                     </tr>
                                 ))
                                 :<tr>you have no auction yet</tr>
