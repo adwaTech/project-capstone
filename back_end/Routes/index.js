@@ -22,7 +22,8 @@ const passport = require('passport');
 const getNotificationsRoute = require('./getNotifications');
 const setNotificationRoute = require('./setNotification');
 const sync = require('./sync');
-const { customerProfile, getUser } = require('./profile');
+const { customerProfile, getUser, getUsers } = require('./profile');
+const deleteAuction = require('./deleteAuction');
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         switch (req.route.path) {
@@ -115,6 +116,8 @@ router.post('/deposit', passport.authenticate('jwt', { session: false }), upload
 router.get("/getFeedbacks", passport.authenticate('jwt', { session: false }), upload.any(), getFeedbacks);
 router.put("/approveAuction", passport.authenticate('jwt', { session: false }), upload.any(), approveAuction);
 router.get("/getUser",passport.authenticate('jwt', { session: false }), upload.any(),getUser);
+router.get("/getUsers",passport.authenticate('jwt', { session: false }), upload.any(),getUsers);
+router.put("/deleteAuction",passport.authenticate('jwt', { session: false }), upload.any(),deleteAuction);
 // Common routes
 router.delete("/deleteCustomer", passport.authenticate('jwt', { session: false }), deleteCustomerRoute);
 module.exports = router;

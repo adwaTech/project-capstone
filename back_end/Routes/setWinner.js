@@ -12,10 +12,10 @@ module.exports = async (req, res) => {
             if (!auction) return res.status(400).send({
                 error: `No auction with id '${req.body.auctionId}' was found`
             })
-            if (auction.owner !== req.user._id) return res.status(403).send({
+            if (auction.owner != req.user._id) return res.status(403).send({
                 error: 'You are not authorized for this auction'
             })
-            if (auction.status !== types.auctionStatus.ended) return res.status(404).send({
+            if (auction.status != types.auctionStatus.ended) return res.status(404).send({
                 error: 'This auction is open or archieved'
             })
             if (!auction.proposals.includes(req.body.proposalId))

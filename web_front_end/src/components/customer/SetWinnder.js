@@ -64,12 +64,21 @@ console.log(winner);
     fullWidth
     maxWidth="lg"
     >
-    <Button color="secondary" variant="contained" onClick={()=>{
+    <Button  color="secondary" variant="contained" 
+    style={{
+        width:"100px"
+    }}
+    onClick={()=>{
         props.setOpen(false);
     }}>
         <Close/>
     </Button>
-    <Button color="primary" variant="contained" onClick={()=>{
+    <Button 
+    style={{
+        marginTop:"10px",
+        width:"100px"
+    }}
+    color="primary" variant="contained" onClick={()=>{
         if(selectedValue==''){
             setMessage("select on person or company before set the winner")
         }else{
@@ -99,48 +108,50 @@ console.log(winner);
                     ? <Alert severity="success">your request to set winner is done</Alert>
                     : null
             }
-    
-      <List>
-        {props.data?props.data.proposals
-        ?props.data.proposals.map((Array,i) => (
-            <div>
-            <ListItem button onClick={() => {}} key={i}>
-              <ListItemAvatar>
-                <Avatar className={classes.avatar} src={`${BACKENDURL}/users/${Array.ownerId.profileImage}`} alt="">
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary={Array.ownerId.firstName +" "+Array.ownerId.lastName} />
-              <ListItemText primary={Array.amount} />
-              <ListItemText primary={Array.ownerId.city} />
-              <ListItemText primary={Array.cpo} />
-              <ListItemText primary={Array._id} />
-              <GreenRadio
-                  checked={selectedValue==Array._id}
-                  onChange={(event)=>{
-                      setSelectedValue(event.target.value);
-                  }}
-                  value={Array._id}
-                  name="radio-button-demo"
-              />
-            </ListItem>
-            </div>
-          )):null
-        :null}
+        {
+            props.data?props.data.status==="ended"?
+            <List>
+                {props.data?props.data.proposals
+                ?props.data.proposals.map((Array,i) => (
+                    <div>
+                    <ListItem button onClick={() => {}} key={i}>
+                    <ListItemAvatar>
+                        <Avatar className={classes.avatar} src={`${BACKENDURL}/users/${Array.ownerId?Array.ownerId.profileImage:null}`} alt="">
+                        </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText primary={Array.ownerId?Array.ownerId.firstName:null +" "+ Array.ownerId.ownerId?Array.ownerId.lastName:null} />
+                    <ListItemText primary={Array.amount} />
+                    <ListItemText primary={Array.ownerId?Array.ownerId.city:null} />
+                    <ListItemText primary={Array.cpo} />
+                    <GreenRadio
+                        checked={selectedValue==Array._id}
+                        onChange={(event)=>{
+                            setSelectedValue(event.target.value);
+                        }}
+                        value={Array._id}
+                        name="radio-button-demo"
+                    />
+                    </ListItem>
+                    </div>
+                )):null
+                :null}
 
-        <ListItem autoFocus button onClick={() =>{}}>
-          <ListItemAvatar>
-            <Avatar>
-              <Search />
-            </Avatar>
-          </ListItemAvatar>
-          <TextField
-          onChange={(e)=>{
+                <ListItem autoFocus button onClick={() =>{}}>
+                <ListItemAvatar>
+                    <Avatar>
+                    <Search />
+                    </Avatar>
+                </ListItemAvatar>
+                <TextField
+                onChange={(e)=>{
 
-          }}
-           variant="outlined" fullWidth placeholder="search" label="search"></TextField>
-        </ListItem>
-      </List>
-    </div>
+                }}
+                variant="outlined" fullWidth placeholder="search" label="search"></TextField>
+                </ListItem>
+            </List>
+            :<Alert severity="info">you cannot set a winner for auction that doesnot ended</Alert>:null}
+        
+   </div>
     </Dialog>
   );
 }
