@@ -9,6 +9,7 @@ import 'package:auction_mobile/your_auctions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
+import 'api/api.dart';
 import 'category_browser.dart';
 import 'components/about.dart';
 import 'components/login.dart';
@@ -26,6 +27,7 @@ class _AuctionAppState extends State<AuctionApp> with TickerProviderStateMixin {
   TabController _categoryTabController, _productsTabController;
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   bool isLoggedIn = false;
+  API api = API.getInstance();
   void initState() {
     super.initState();
     _categoryTabController =

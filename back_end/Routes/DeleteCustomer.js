@@ -6,6 +6,7 @@ const { UserModel } = require("../models/Users")
 module.exports = async (req, res) => {
     const user = await UserModel.findById(req.user._id);
     if (user.userType === types.userType[1]) { // if admin
+        console.log(req.body)
         if (req.body.userId) {
             // check every auction and proposal for this user
             const deletable = await UserModel.findById(req.body.userId);

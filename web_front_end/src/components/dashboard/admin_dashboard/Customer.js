@@ -171,6 +171,7 @@ export default function TableList() {
           await dispatch(DeleteCustomerAction({userId: data._id},token));
           setTimeout(function () {
             dispatch(DeleteAccountCleanUpAction());
+            setOpen(false);
         }, 6000);
         }}
         color="secondary">{progress?<span><CircularProgress color="primary"/>loading</span>:"Delete"}</Button></Alert>

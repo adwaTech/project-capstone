@@ -12,7 +12,10 @@ module.exports = async (req, res) => {
         req.body.profileImage = req.file.filename;
     if (user.userType === types.userType[1]) { // admin can edit any customer
         if (req.body.userId) {
-            const editable = UserModel.findById(req.body.userId);
+            const editable = await UserModel.findById(req.body.userId);
+            if (!editable) return res.status(404).send({
+                error: 'No user was found with this id'
+            });
             updateModel(req.body, editable, UserSchema, [
                 'firstName',
                 'lastName',

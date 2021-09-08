@@ -722,7 +722,7 @@ export const DeleteCustomerAction = (userData, token) => async (dispatch) => {
                 'Content-Type': 'application/json'
             }
         });
-        const response = await axiosInstance.delete(`/deleteCustomer`, userData, {
+        const response = await axiosInstance.put(`/deleteCustomer`, userData, {
             validateStatus: function (status) {
                 return status < 600
             }
