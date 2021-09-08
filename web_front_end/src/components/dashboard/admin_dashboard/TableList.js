@@ -9,7 +9,10 @@ import HorzMore from '@material-ui/icons/MoreHoriz';
 import Detail from '../../catagroy_slider/Detail';
 import Approve from '@material-ui/icons/ThumbUp';
 import DeleteAuction from '@material-ui/icons/Delete';
-import IconButton from '@material-ui/core/IconButton'
+import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Dialog from '@material-ui/core/Dialog'
 
 import {
   Card,
@@ -17,7 +20,8 @@ import {
   CardBody
 } from './Cards';
 import { useDispatch, useSelector } from 'react-redux';
-import Alert from '@material-ui/lab/Alert'
+import Alert from '@material-ui/lab/Alert';
+import { CircularProgress } from "@material-ui/core";
 import {
 
   ApproveAuctionAction,
@@ -76,8 +80,8 @@ export default function TableList() {
     }
   }, [allAuction])
 
-  const delete_auction_status = useSelector((state) => state.DeletAccountReducer.delete_auction_status);
-  const delete_auction_error = useSelector((state) => state.DeletAccountReducer.delete_auction_error);
+  const delete_auction_status = useSelector((state) => state.DeletAuctionReducer.delete_auction_status);
+  const delete_auction_error = useSelector((state) => state.DeletAuctionReducer.delete_auction_error);
 
   const [progress, setProgress] = React.useState(false);
   React.useEffect(() => {
@@ -94,6 +98,8 @@ export default function TableList() {
 
   const [open, setOpen] = React.useState(false);
   const [data, setData] = React.useState({ });
+  const [openDEl,setOpenDel]=React.useState(false);
+  const [auctionId,setAuctionId]=React.useState('')
   return (
     <div>
       <Detail open={open} setOpen={setOpen} data={data} />
@@ -107,16 +113,7 @@ export default function TableList() {
                 Approve Auction
               </p>
             </CardHeader>
-            {
-              delete_auction_error
-                ? <Alert severity="error">{delete_auction_error}</Alert>
-                : null
-            }
-            {
-              delete_auction_status === 200
-                ? <Alert severity="success">user is successfuly deleted</Alert>
-                : null
-            }
+            
             <CardBody>
               {allAuction ? <Table
                 tableHeaderColor="infoy"
@@ -143,15 +140,9 @@ export default function TableList() {
                   >
                     <Approve color="primary" />
                   </IconButton>,
-                  <IconButton onClick={async () => {
-                    setProgress(true);
-                    await dispatch(DeleteAuction({ auctionId: auction._id }, token));
-                    setTimeout(function () {
-                      dispatch(DeleteAuctionCleanUpAction());
-                      setOpen(false);
-                    }, 6000);
-                    dispatch(AllAuctionAction());
-
+                  <IconButton onClick={() => {
+                    setAuctionId(auction._id )
+                    setOpenDel(true)
                   }}>
                     <DeleteAuction color="secondary" />
                   </IconButton>
@@ -161,7 +152,34 @@ export default function TableList() {
           </Card>
         </GridItem>
       </GridContainer>
-
+      <Dialog open={openDEl}>
+        <DialogTitle>
+          <IconButton onClick={()=>setOpenDel(false)}>x</IconButton>
+        </DialogTitle>
+        {
+              delete_auction_error
+                ? <Alert severity="error">{delete_auction_error}</Alert>
+                : null
+            }
+            {
+              delete_auction_status === 200
+                ? <Alert severity="success">Auction is successfuly deleted</Alert>
+                : null
+            }
+        <Alert severity='warning'>are you sure? <Button 
+        variant="contained"
+        onClick={async ()=>{
+          setProgress(true);
+                    await dispatch(DeleteAuctionAction({ auctionId: auctionId }, token));
+                    setTimeout(function () {
+                      dispatch(DeleteAuctionCleanUpAction());
+                      setOpenDel(false);
+                    }, 6000);
+                    dispatch(AllAuctionAction());
+        }}
+        color="secondary">{progress?<span><CircularProgress color="primary"/>loading</span>:"Delete"}</Button></Alert>
+      </Dialog>
+    
     </div>
   );
 }

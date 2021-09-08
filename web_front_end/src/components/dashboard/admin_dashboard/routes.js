@@ -61,9 +61,9 @@ const dashboardRoutes = [
   },
   {
     path: "/maps",
-    name: "Maps",
+    name: "Customer Location",
     icon: LocationOn,
-    component: Maps,
+    component:<h1>hello</h1>,
     layout: "/admin",
   },
   {

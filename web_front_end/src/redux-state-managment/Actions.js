@@ -776,6 +776,7 @@ export const DeleteAuctionAction = (userData, token) => async (dispatch) => {
             }
         },
         );
+        console.log(response);
         dispatch({
             type: Constant.DELETEAUCTION,
             payload: response,

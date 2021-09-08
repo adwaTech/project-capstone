@@ -176,6 +176,7 @@ export default function TableList() {
         }}
         color="secondary">{progress?<span><CircularProgress color="primary"/>loading</span>:"Delete"}</Button></Alert>
       </Dialog>
+    
     </div>
   );
 }
