@@ -19,7 +19,8 @@ import Icons from "./Icons.js";
 import Maps from "./Maps.js";
 import NotificationsPage from "./Notifications.js";
 import CustomerInfo from "./CustomerInfo/CustomerInfo";
-import Customer from './Customer'
+import Customer from './Customer';
+import Auction_map from './Auction_map';
 
 
 const dashboardRoutes = [
@@ -56,7 +57,7 @@ const dashboardRoutes = [
     path: "/feedback",
     name: "FeedBacks",
     icon: Feedback,
-    component: Dashboard,
+    component: NotificationsPage,
     layout: "/admin",
   },
   {
@@ -67,10 +68,10 @@ const dashboardRoutes = [
     layout: "/admin",
   },
   {
-    path: "/notifications",
-    name: "Notifications",
+    path: "/auction_location",
+    name: "Auctions_location",
     icon: Notifications,
-    component: NotificationsPage,
+    component: Auction_map,
     layout: "/admin",
   },
   {

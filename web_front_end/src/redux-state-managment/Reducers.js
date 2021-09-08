@@ -18,6 +18,7 @@ let initialState = {
 
     // autions types
     allAuction: [],
+    overallauction:[],
     allexcept: [],
     idAuction: [],
     catagoryAuction: [],
@@ -263,6 +264,11 @@ export const AuctionsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 AuctioneerAuction: action.payload
+            }
+        case Constant.GETALLAUCTION:
+            return {
+                ...state,
+                overallauction: action.payload
             }
         default:
             return {

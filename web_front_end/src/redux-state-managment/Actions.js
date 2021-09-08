@@ -802,3 +802,18 @@ export const DeleteAuctionCleanUpAction = () => async (dispatch) => {
         payload: data,
     })
 }
+export const GetAllAuctionAction = () => async (dispatch) => {
+
+    const response = await axios.get(`http://localhost:5000/getAuctions`,
+        {
+            params: { type: "allx" }
+        }, {
+        validateStatus: function (status) {
+            return status < 600
+        }
+    })
+    dispatch({
+        type: Constant.GETALLAUCTION,
+        payload: response.data,
+    })
+}
