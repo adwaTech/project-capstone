@@ -119,5 +119,5 @@ router.get("/getUser",passport.authenticate('jwt', { session: false }), upload.a
 router.get("/getUsers",passport.authenticate('jwt', { session: false }), upload.any(),getUsers);
 router.put("/deleteAuction",passport.authenticate('jwt', { session: false }), upload.any(),deleteAuction);
 // Common routes
-router.delete("/deleteCustomer", passport.authenticate('jwt', { session: false }), deleteCustomerRoute);
+router.delete("/deleteCustomer", passport.authenticate('jwt', { session: false }),upload.any(), deleteCustomerRoute);
 module.exports = router;
