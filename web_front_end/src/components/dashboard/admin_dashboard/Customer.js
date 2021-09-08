@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // core components
@@ -10,7 +10,8 @@ import Detail from '../../catagroy_slider/Detail';
 import Approve from '@material-ui/icons/ThumbUp';
 import DeleteAuction from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
-
+import Input from '@material-ui/core/Input';
+import SearchIcon from '@material-ui/icons/Search'
 import {
   Card,
   CardHeader,
@@ -78,7 +79,7 @@ export default function TableList() {
   const delete_status = useSelector((state) => state.DeletAccountReducer.delete_status);
   const delete_error = useSelector((state) => state.DeletAccountReducer.delete_error);
   console.log(delete_error)
-
+ const [filtered,setFiltered]=useState(null)
   const [num, setNum] = React.useState(1);
 
   const [progress, setProgress] = React.useState(false);
@@ -96,16 +97,40 @@ export default function TableList() {
   console.log(customers);
   const [open, setOpen] = React.useState(false);
   const [data, setData] = React.useState({ });
+
+  const handleSearchChange=(searchText)=>{
+    if (searchText !== null) {
+      searchText=searchText.toLowerCase();
+      const filteredItems = customers.filter((item) =>
+      (
+        
+          item.firstName.toLowerCase().includes(searchText)||
+          item.lastName.toLowerCase().includes(searchText) ||
+          item.city.toLowerCase().includes(searchText) ||
+          item.sex.toLowerCase().includes(searchText) ||
+          item.phone.toLowerCase().includes(searchText)||
+          item.email.toLowerCase().includes(searchText) 
+      ));
+      console.log('this are the processTypes',filteredItems)
+      setFiltered(filteredItems);
+   }}
+   const filteredList = () => (filtered !== null ? filtered : customers);
   return (
     <div>
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
           <Card>
-            <CardHeader color="info">
-              <h4 className={classes.cardTitleWhite}>Customer Table</h4>
-              <p className={classes.cardCategoryWhite}>
-                Manage Customer
-              </p>
+            <CardHeader color="info" style={{display:'flex',flexDirection:'row',justifyContent:'space-between'}}>
+              <div>
+                  <h4 className={classes.cardTitleWhite}>Customer Table</h4>
+                  <p className={classes.cardCategoryWhite}>
+                    Manage Customer
+                  </p>
+              </div>
+              <div style={{display:'flex',flexDirection:'row',justifyContent:'space-between',marginRight:'20px'}}>
+                  <Input type='text' style={{color:'white'}} onChange={(e)=>handleSearchChange(e.target.value)}></Input>
+                  <SearchIcon/>
+              </div>
             </CardHeader>
             <CardBody>
               {customers ? <Table
@@ -113,7 +138,7 @@ export default function TableList() {
                 tableHead={["first name", "last name",
                   "city", "latitude", "longitude", "sex", "phone number", "email", "id number","profile Pic","id image"]}
                 tableData=
-                {customers.map(customer => [
+                {filteredList().map(customer => [
                   customer.firstName, customer.lastName,
                   customer.city, customer.latitude,
                   customer.longitude ,
