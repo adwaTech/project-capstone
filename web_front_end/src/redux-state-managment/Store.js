@@ -15,7 +15,8 @@ import {
     ApproveAuctionReducer,
     getUsersReducer,
     SetWinnerReducer,
-    DeletAccountReducer
+    DeletAccountReducer,
+    DeletAuctionReducer
 } from './Reducers';
 
 
@@ -35,7 +36,8 @@ const reducer = combineReducers({
     ApproveAuctionReducer,
     getUsersReducer,
     SetWinnerReducer,
-    DeletAccountReducer
+    DeletAccountReducer,
+    DeletAuctionReducer
 });
 
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(...middleware)));

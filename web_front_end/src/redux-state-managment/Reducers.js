@@ -78,11 +78,17 @@ let initialState = {
     winner_status:'',
     winner_statusText:'',
 
-    // delete
+    // delete user
     delete:'',
     delete_error:'',
     delete_status:'',
     delete_statusText:'',
+
+    // delete auction
+    delete_auction:'',
+    delete_auction_error:'',
+    delete_auction_status:'',
+    delete_auction_statusText:'',
 }
 
 
@@ -600,6 +606,39 @@ export const DeletAccountReducer = (state = initialState, action) => {
                     delete_error:'',
                     delete_status: '',
                     delete_statusText: ''
+            }
+        default:
+            return {
+                ...state
+            }
+    }
+
+}
+export const DeletAuctionReducer = (state = initialState, action) => {
+    switch (action.type) {
+        case Constant.DELETEAUCTION:
+            if (action.payload.status === 200) {
+                return {
+                    ...state,
+                    delete_auction: action.payload.data,
+                    delete_auction_status: action.payload.status,
+                    delete_auction_statusText: action.payload.statusText
+                }
+            }
+            else {
+                return {
+                    ...state,
+                    delete_auction_error: action.payload.data.error,
+                    delete_auction_status: action.payload.status,
+                    delete_auction_statusText: action.payload.statusText
+                }
+            }
+        case Constant.DELETEAUCTIONCLEANUP:
+            return {
+                ...state,
+                    delete_auction_error:'',
+                    delete_auction_status: '',
+                    delete_auction_statusText: ''
             }
         default:
             return {

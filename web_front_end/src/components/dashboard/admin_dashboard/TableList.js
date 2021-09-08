@@ -16,11 +16,14 @@ import {
   CardHeader,
   CardBody
 } from './Cards';
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
+import Alert from '@material-ui/lab/Alert'
 import {
 
   ApproveAuctionAction,
   AllAuctionAction,
+  DeleteAuctionAction,
+  DeleteAuctionCleanUpAction
 
 } from '../../../redux-state-managment/Actions'
 
@@ -71,7 +74,23 @@ export default function TableList() {
       dispatch(AllAuctionAction());
       setNum(2);
     }
-  },[allAuction])
+  }, [allAuction])
+
+  const delete_auction_status = useSelector((state) => state.DeletAccountReducer.delete_auction_status);
+  const delete_auction_error = useSelector((state) => state.DeletAccountReducer.delete_auction_error);
+
+  const [progress, setProgress] = React.useState(false);
+  React.useEffect(() => {
+    if (delete_auction_error) {
+      setProgress(false);
+    }
+    if (delete_auction_status) {
+      setProgress(false);
+    }
+    if (num == 1) {
+      dispatch(AllAuctionAction(token))
+    }
+  }, [delete_auction_error, delete_auction_status])
 
   const [open, setOpen] = React.useState(false);
   const [data, setData] = React.useState({ });
@@ -88,34 +107,51 @@ export default function TableList() {
                 Approve Auction
               </p>
             </CardHeader>
+            {
+              delete_auction_error
+                ? <Alert severity="error">{delete_auction_error}</Alert>
+                : null
+            }
+            {
+              delete_auction_status === 200
+                ? <Alert severity="success">user is successfuly deleted</Alert>
+                : null
+            }
             <CardBody>
               {allAuction ? <Table
                 tableHeaderColor="infoy"
                 tableHead={["Auction Name", "auctionCategory",
                   "bid Fee", "condition", "owner", "minAmount", "", "Approve", ""]}
                 tableData=
-                {allAuction.filter(auction=>auction.approval===false).map(auction => [
+                {allAuction.filter(auction => auction.approval === false).map(auction => [
                   auction.auctionName, auction.auctionCategory,
                   auction.bidFee, auction.condition,
                   auction.owner ? auction.owner.firstName : "", auction.minAmount,
                   <IconButton
-                  onClick={async () => {
-                    await setData(auction);
-                    setOpen(true);
-                  }}
+                    onClick={async () => {
+                      await setData(auction);
+                      setOpen(true);
+                    }}
                   >
-                    <HorzMore/>
+                    <HorzMore />
                   </IconButton>,
                   <IconButton
-                  onClick={async ()=>{
-                    await dispatch(ApproveAuctionAction(auction._id,token));
-                    dispatch(AllAuctionAction());
-                  }}
+                    onClick={async () => {
+                      await dispatch(ApproveAuctionAction(auction._id, token));
+                      dispatch(AllAuctionAction());
+                    }}
                   >
-                    <Approve color="primary"/>
+                    <Approve color="primary" />
                   </IconButton>,
-                  <IconButton onClick={()=>{
+                  <IconButton onClick={async () => {
+                    setProgress(true);
+                    await dispatch(DeleteAuction({ auctionId: auction._id }, token));
+                    setTimeout(function () {
+                      dispatch(DeleteAuctionCleanUpAction());
+                      setOpen(false);
+                    }, 6000);
                     dispatch(AllAuctionAction());
+
                   }}>
                     <DeleteAuction color="secondary" />
                   </IconButton>
