@@ -18,9 +18,8 @@ import {
 } from './Cards';
 import { useDispatch, useSelector } from 'react-redux'
 import {
-
-  ApproveAuctionAction,
-  AllAuctionAction,
+  DeleteAccountCleanUpAction,
+  DeleteCustomerAction,
   GetuserAction
 
 } from '../../../redux-state-managment/Actions';
@@ -28,8 +27,15 @@ import Avatar from '@material-ui/core/Avatar';
 import {BACKENDURL} from '../../../redux-state-managment/Constants';
 import {Link} from 'react-router-dom';
 import {
+  Button, CircularProgress,
+
+} from '@material-ui/core';
+import {
   Edit
 } from '@material-ui/icons'
+import { Dialog ,DialogTitle} from "@material-ui/core";
+
+import {Alert } from '@material-ui/lab'
 
 const styles = {
   cardCategoryWhite: {
@@ -67,26 +73,32 @@ export default function TableList() {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  // const user = useSelector((state) => state.AccountReducer.user);
   const token = useSelector((state) => state.AccountReducer.token);
-  const allAuction = useSelector((state) => state.AuctionsReducer.allAuction);
   const customers = useSelector((state) => state.getUsersReducer.admin_users);
+  const delete_status = useSelector((state) => state.DeletAccountReducer.delete_status);
+  const delete_error = useSelector((state) => state.DeletAccountReducer.delete_error);
+  console.log(delete_error)
+
   const [num, setNum] = React.useState(1);
 
-  React.useEffect(() => {
-    // dispatch(AllAuctionAction());
-    if (num === 1) {
-      dispatch(GetuserAction(token));
-      setNum(2);
-    }
-  },[allAuction])
+  const [progress, setProgress] = React.useState(false);
+    React.useEffect(() => {
+        if (delete_error) {
+            setProgress(false);
+        }
+        if (delete_status) {
+            setProgress(false);
+        }
+        if(num==1){
+          dispatch(GetuserAction(token))
+        }
+    }, [delete_error, delete_status])
   console.log(customers);
   const [open, setOpen] = React.useState(false);
   const [data, setData] = React.useState({ });
   return (
     <div>
       <GridContainer>
-        {/* {RenderTable()} */}
         <GridItem xs={12} sm={12} md={12}>
           <Card>
             <CardHeader color="info">
@@ -122,16 +134,13 @@ export default function TableList() {
                }}
                >
                     <IconButton
-                  onClick={async ()=>{
-                    // await dispatch(ApproveAuctionAction(auction._id,token));
-                    // dispatch(AllAuctionAction());
-                  }}
-                  >
-                    <Edit color="primary"/>
-                  </IconButton>
+                    >
+                      <Edit color="primary"/>
+                    </IconButton>
                   </Link>,
                   <IconButton onClick={()=>{
-                    dispatch(AllAuctionAction());
+                    setOpen(true);
+                    setData(customer)
                   }}>
                     <DeleteAuction color="secondary" />
                   </IconButton>
@@ -141,7 +150,31 @@ export default function TableList() {
           </Card>
         </GridItem>
       </GridContainer>
-
+      <Dialog open={open}>
+        <DialogTitle>
+          <IconButton onClick={()=>setOpen(false)}>X</IconButton>
+        </DialogTitle>
+        {
+            delete_error
+                ? <Alert severity="error">{delete_error}</Alert>
+                : null
+        }
+        {
+            delete_status === 200
+                ? <Alert severity="success">user is successfuly deleted</Alert>
+                : null
+        }
+        <Alert severity='warning'>are you sure? <Button 
+        variant="contained"
+        onClick={async ()=>{
+          setProgress(true);
+          await dispatch(DeleteCustomerAction({userId: data._id},token));
+          setTimeout(function () {
+            dispatch(DeleteAccountCleanUpAction());
+        }, 6000);
+        }}
+        color="secondary">{progress?<span><CircularProgress color="primary"/>loading</span>:"Delete"}</Button></Alert>
+      </Dialog>
     </div>
   );
 }

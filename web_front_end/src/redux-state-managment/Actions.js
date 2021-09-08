@@ -705,3 +705,52 @@ export const SetwinnerCleanUpAction = () => async (dispatch) => {
         payload: data,
     })
 }
+export const DeleteCustomerAction = (userData, token) => async (dispatch) => {
+    const data = {
+        data: {
+            error: "Please check your network connection",
+        },
+        status: 404,
+        statusText: "Network Error"
+    }
+    try {
+        const axiosInstance = axios.create({
+            baseURL: "http://localhost:5000",
+            timeout: 5000,
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        const response = await axiosInstance.delete(`/deleteCustomer`, userData, {
+            validateStatus: function (status) {
+                return status < 600
+            }
+        },
+        );
+        console.log(response);
+        dispatch({
+            type: Constant.DELETEACCOUNT,
+            payload: response,
+        })
+    }
+    catch (error) {
+        dispatch({
+            type: Constant.DELETEACCOUNT,
+            payload: data,
+        })
+    }
+}
+export const DeleteAccountCleanUpAction = () => async (dispatch) => {
+    const data = {
+        data: {
+            error: "",
+        },
+        status: '',
+        statusText: ""
+    }
+    dispatch({
+        type: Constant.DELETEACCOUNTCLEANUP,
+        payload: data,
+    })
+}

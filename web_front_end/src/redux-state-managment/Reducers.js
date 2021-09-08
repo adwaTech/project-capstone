@@ -77,6 +77,12 @@ let initialState = {
     winner_error:'',
     winner_status:'',
     winner_statusText:'',
+
+    // delete
+    delete:'',
+    delete_error:'',
+    delete_status:'',
+    delete_statusText:'',
 }
 
 
@@ -561,6 +567,39 @@ export const SetWinnerReducer = (state = initialState, action) => {
                 winner_error: '',
                     winner_status: '',
                     winner_statusText: ''
+            }
+        default:
+            return {
+                ...state
+            }
+    }
+
+}
+export const DeletAccountReducer = (state = initialState, action) => {
+    switch (action.type) {
+        case Constant.DELETEACCOUNT:
+            if (action.payload.status === 200) {
+                return {
+                    ...state,
+                    delete: action.payload.data,
+                    delete_status: action.payload.status,
+                    delete_statusText: action.payload.statusText
+                }
+            }
+            else {
+                return {
+                    ...state,
+                    delete_error: action.payload.data.error,
+                    delete_status: action.payload.status,
+                    delete_statusText: action.payload.statusText
+                }
+            }
+        case Constant.DELETEACCOUNTCLEANUP:
+            return {
+                ...state,
+                    delete_error:'',
+                    delete_status: '',
+                    delete_statusText: ''
             }
         default:
             return {
