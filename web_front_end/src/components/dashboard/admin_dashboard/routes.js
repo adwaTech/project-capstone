@@ -60,10 +60,10 @@ const dashboardRoutes = [
     layout: "/admin",
   },
   {
-    path: "/maps",
+    path: "/customer_location",
     name: "Customer Location",
     icon: LocationOn,
-    component:<h1>hello</h1>,
+    component:Maps,
     layout: "/admin",
   },
   {
