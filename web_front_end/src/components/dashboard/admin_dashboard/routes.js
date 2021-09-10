@@ -33,26 +33,26 @@ const dashboardRoutes = [
   },
   
   {
-    path: "/table",
+    path: "/aprovements",
     name: "Aprovements",
     icon: CheckOutlined,
     component: TableList,
     layout: "/admin",
   },
   {
-    path: "/typography",
+    path: "/customer",
     name: "Customer",
     icon: LibraryBooks,
     component: Customer,
     layout: "/admin",
   },
-  {
-    path: "/icons",
-    name: "Payment",
-    icon: Money,
-    component: Icons,
-    layout: "/admin",
-  },
+  // {
+  //   path: "/payment",
+  //   name: "Payment",
+  //   icon: Money,
+  //   component: Icons,
+  //   layout: "/admin",
+  // },
   {
     path: "/feedback",
     name: "FeedBacks",
@@ -82,7 +82,7 @@ const dashboardRoutes = [
     layout: "/admin",
   },
   {
-    path: "/user",
+    path: "/profile",
     name: "profile",
     icon: Person,
     component: UserProfile,

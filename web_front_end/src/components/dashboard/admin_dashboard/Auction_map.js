@@ -13,12 +13,7 @@ import DetailDialog from '../../catagroy_slider/Detail';
 import { useDispatch,useSelector } from 'react-redux';
 
 
-const mapStateToProps = state => ({
-  
-});
-const mapDispatchToProps = () => ({
-  allauctiondispatch: GetAllAuctionAction
-});
+
 export function MapContainer(props) {
   const dispatch=useDispatch();
   const [state, setState] = React.useState({

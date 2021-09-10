@@ -1,10 +1,8 @@
 import React from "react";
 import ChartistGraph from "react-chartist";
 import {
-  Store,
-  Warning,
-  DateRange,
   LocalOffer,
+  Feedback,
   ArrowUpward,
   AccessTime,
   Accessibility,
@@ -13,11 +11,13 @@ import {
   Update,
   Cloud,
   Money,
-  Today
+  Today,
+  People,
+  Gavel
+
 } from '@material-ui/icons';
 import {
   Card,
-  CardAvatar,
   CardIcon,
   CardBody,
   CardFooter,
@@ -30,7 +30,7 @@ import GridContainer from "./Grid/GridContainer";
 import Table from "./Table/Table";
 import Tasks from "./Tasks/Tasks";
 import CustomTabs from "./CustomTabs/CustomTabs";
-import Danger from "../components/Typography/Danger";
+import Info from "../components/Typography/Info";
 
 
 import { bugs, website, server } from "./general.js";
@@ -40,6 +40,12 @@ import {
   emailsSubscriptionChart,
   completedTasksChart,
 } from "./charts.js";
+import {
+  GetAllAuctionAction,
+  GetuserAction,
+  GetFeedbackAction
+} from '../../../../redux-state-managment/Actions';
+import {useSelector,useDispatch} from 'react-redux';
 
 import styles from "./dashboardStyle.js";
 
@@ -47,6 +53,16 @@ import styles from "./dashboardStyle.js";
 const useStyles = makeStyles(styles);
 
 export default function Dashboard() {
+  const dispatch=useDispatch();
+  const allauction=useSelector(state=> state.AuctionsReducer.overallauction);
+  const customers = useSelector((state) => state.getUsersReducer.admin_users);
+  const feedbacks = useSelector((state) => state.SendFeedBackReducer.feedbacks);
+  const token= useSelector(state=>state.AccountReducer.token)
+  React.useEffect(async ()=>{
+    await dispatch(GetAllAuctionAction());
+    dispatch(GetuserAction(token));
+    dispatch(GetFeedbackAction(token));
+  },[])
   const classes = useStyles();
   return (
     <div>
@@ -55,20 +71,20 @@ export default function Dashboard() {
           <Card>
             <CardHeader color="info" stats icon>
               <CardIcon color="info">
-                <Today/>
+                <People/>
               </CardIcon>
-              <p className={classes.cardCategory}>Number of customer</p>
+              <p className={classes.cardCategory}>Number of Users</p>
               <h3 className={classes.cardTitle}>
-                1000 <small>per day</small>
+                {customers.length} <small></small>
               </h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
-                <Danger>
-                  <Warning />
-                </Danger>
+                <Info>
+                  <People />
+                </Info>
                 <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                  See Feedback 
+                  Number of user  
                 </a>
               </div>
             </CardFooter>
@@ -79,15 +95,17 @@ export default function Dashboard() {
           <Card>
             <CardHeader color="info" stats icon>
               <CardIcon color="info">
-                <Store />
+                <Gavel />
               </CardIcon>
-              <p className={classes.cardCategory}>Revenue</p>
-              <h3 className={classes.cardTitle}>$34,245</h3>
+              <p className={classes.cardCategory}>Total Auction</p>
+              <h3 className={classes.cardTitle}>{allauction.length}</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
-                <DateRange />
-                Last 24 Hours
+                <Info>
+                <Gavel />
+                </Info>
+                Total Auction
               </div>
             </CardFooter>
           </Card>
@@ -96,15 +114,17 @@ export default function Dashboard() {
           <Card>
             <CardHeader color="info" stats icon>
               <CardIcon color="info">
-                <Money/>
+                <Feedback/>
               </CardIcon>
-              <p className={classes.cardCategory}>Fixed Issues</p>
-              <h3 className={classes.cardTitle}>75</h3>
+              <p className={classes.cardCategory}>Feedback</p>
+              <h3 className={classes.cardTitle}>{feedbacks.length}</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
-                <LocalOffer />
-                fix the issue
+                <Info>
+                <Feedback />
+                </Info>
+                Total Feed back from customer
               </div>
             </CardFooter>
           </Card>
@@ -113,15 +133,17 @@ export default function Dashboard() {
           <Card>
             <CardHeader color="info" stats icon>
               <CardIcon color="info">
-                <Accessibility />
+                <Gavel />
               </CardIcon>
-              <p className={classes.cardCategory}>Number of Customer</p>
-              <h3 className={classes.cardTitle}>100000</h3>
+              <p className={classes.cardCategory}>Approved Auctions</p>
+              <h3 className={classes.cardTitle}>{allauction.filter(a=>a.approval).length}</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
-                <Update />
-                Updated
+                <Info>
+                <Gavel />
+                </Info>
+                Total Approved Auction
               </div>
             </CardFooter>
           </Card>
@@ -132,20 +154,21 @@ export default function Dashboard() {
           <Card chart>
             <CardHeader color="info">
               <ChartistGraph
+              
                 className="ct-chart"
-                data={dailySalesChart.data}
+                data={allauction}
                 type="Line"
                 options={dailySalesChart.options}
                 listener={dailySalesChart.animation}
               />
             </CardHeader>
             <CardBody>
-              <h4 className={classes.cardTitle}>Daily Customer</h4>
+              <h4 className={classes.cardTitle}>auction</h4>
               <p className={classes.cardCategory}>
                 <span className={classes.successText}>
                   <ArrowUpward className={classes.upArrowCardCategory} /> 55%
                 </span>{" "}
-                increase in today Auction.
+                increase in this year Auction.
               </p>
             </CardBody>
             <CardFooter chart>

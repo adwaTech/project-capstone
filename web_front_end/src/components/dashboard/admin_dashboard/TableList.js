@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // core components
@@ -13,6 +13,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog'
+import SearchIcon from "@material-ui/icons/Search";
+import { Input } from "@material-ui/core";
 
 import {
   Card,
@@ -71,7 +73,7 @@ export default function TableList() {
   const token = useSelector((state) => state.AccountReducer.token);
   const allAuction = useSelector((state) => state.AuctionsReducer.allAuction);
   const [num, setNum] = React.useState(1);
-
+  const [filtered,setFiltered]=useState(null)
   React.useEffect(() => {
     // dispatch(AllAuctionAction());
     if (num === 1) {
@@ -95,7 +97,23 @@ export default function TableList() {
       dispatch(AllAuctionAction(token))
     }
   }, [delete_auction_error, delete_auction_status])
-
+  const handleSearchChange=(searchText)=>{
+    if (searchText !== null) {
+      searchText=searchText?searchText.toLowerCase():'';
+      const filteredItems = allAuction.filter((item) =>
+      (
+        
+          item.firstName.toLowerCase().includes(searchText)||
+          item.lastName.toLowerCase().includes(searchText) ||
+          item.city.toLowerCase().includes(searchText) ||
+          item.sex.toLowerCase().includes(searchText) ||
+          item.phone.toLowerCase().includes(searchText)||
+          item.email.toLowerCase().includes(searchText) 
+      ));
+      console.log('this are the processTypes',filteredItems)
+      setFiltered(filteredItems);
+   }}
+  const filteredList = () => (filtered !== null ? filtered : allAuction);
   const [open, setOpen] = React.useState(false);
   const [data, setData] = React.useState({ });
   const [openDEl,setOpenDel]=React.useState(false);
@@ -107,11 +125,17 @@ export default function TableList() {
         {/* {RenderTable()} */}
         <GridItem xs={12} sm={12} md={12}>
           <Card>
-            <CardHeader color="info">
-              <h4 className={classes.cardTitleWhite}>Aution Table</h4>
-              <p className={classes.cardCategoryWhite}>
-                Approve Auction
-              </p>
+            <CardHeader color="info" style={{display:'flex',flexDirection:'row',justifyContent:'space-between'}}>
+             <div>
+                 <h4 className={classes.cardTitleWhite}>Aution Table</h4>
+                  <p className={classes.cardCategoryWhite}>
+                    Approve Auction
+                  </p>
+             </div>
+              <div style={{display:'flex',flexDirection:'row',justifyContent:'space-between',marginRight:'20px'}}>
+                  <Input type='text' style={{color:'white'}} onChange={(e)=>handleSearchChange(e.target.value)}></Input>
+                  <SearchIcon/>
+              </div>
             </CardHeader>
             
             <CardBody>
@@ -120,7 +144,7 @@ export default function TableList() {
                 tableHead={["Auction Name", "auctionCategory",
                   "bid Fee", "condition", "owner", "minAmount", "", "Approve", ""]}
                 tableData=
-                {allAuction.filter(auction => auction.approval === false).map(auction => [
+                {filteredList().filter(auction => auction.approval === false).map(auction => [
                   auction.auctionName, auction.auctionCategory,
                   auction.bidFee, auction.condition,
                   auction.owner ? auction.owner.firstName : "", auction.minAmount,

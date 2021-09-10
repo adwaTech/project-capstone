@@ -21,6 +21,7 @@ import OurServices from './components/ourservices/OurServices';
 import Faq from './components/FAQ/Faq';
 import PrivacyPolicy from './components/privacy-policy/PrivacyPolicy';
 import howToPost from './components/howToPost/howToPost';
+import HowToBid from './components/howToBid/HowToBid';
 import paymentOptions from './components/paymentOptions/paymentOptions';
 import { CookiesProvider,withCookies } from 'react-cookie';
 
@@ -47,7 +48,7 @@ function App() {
               <Route exact path="/privacy-policy" component={PrivacyPolicy} />
               <Route exact path="/frequently-asked-questions" component={Faq} />
               <Route exact path="/how-to-post" component={howToPost} />
-              <Route exact path="/how-to-bid" component={OurServices} />
+              <Route exact path="/how-to-bid" component={HowToBid} />
               <Route exact path="/payment-options" component={paymentOptions} />
               <ProtectedRoute exact path="/admin" component={DashBoardIndex} />
               <ProtectedRoute exact path="/profile" component={User} />
