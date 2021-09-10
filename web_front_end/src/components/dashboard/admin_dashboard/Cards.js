@@ -158,6 +158,7 @@ export  function CardIcon(props) {
       "info",
       "primary",
       "rose",
+      "white"
     ]),
     children: PropTypes.node,
   };

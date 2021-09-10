@@ -18,7 +18,7 @@ let initialState = {
 
     // autions types
     allAuction: [],
-    overallauction:[],
+    overallauction: [],
     allexcept: [],
     idAuction: [],
     catagoryAuction: [],
@@ -62,40 +62,42 @@ let initialState = {
     withdraw_statusText: '',
 
     // admin prove
-    approve:'',
+    approve: '',
     approve_error: '',
     approve_status: '',
     approve_statusText: '',
 
     // users for admin
-    admin_users:[],
-    user_error:'',
+    admin_users: [],
+    user_error: '',
     user_status: '',
     user_statusText: '',
 
     //winner
-    winner:'',
-    winner_error:'',
-    winner_status:'',
-    winner_statusText:'',
+    winner: '',
+    winner_error: '',
+    winner_status: '',
+    winner_statusText: '',
 
     // delete user
-    delete:'',
-    delete_error:'',
-    delete_status:'',
-    delete_statusText:'',
+    delete: '',
+    delete_error: '',
+    delete_status: '',
+    delete_statusText: '',
 
     // delete auction
-    delete_auction:'',
-    delete_auction_error:'',
-    delete_auction_status:'',
-    delete_auction_statusText:'',
+    delete_auction: '',
+    delete_auction_error: '',
+    delete_auction_status: '',
+    delete_auction_statusText: '',
 
     // feedback;
-    feedbacks:'',
-    feedbacks_error:'',
-    feedbacks_status:'',
-    feedbacks_statusText:'',
+    feedbacks: '',
+    feedbacks_error: '',
+    feedbacks_status: '',
+    feedbacks_statusText: '',
+
+
 }
 
 
@@ -583,8 +585,8 @@ export const SetWinnerReducer = (state = initialState, action) => {
             return {
                 ...state,
                 winner_error: '',
-                    winner_status: '',
-                    winner_statusText: ''
+                winner_status: '',
+                winner_statusText: ''
             }
         default:
             return {
@@ -615,9 +617,9 @@ export const DeletAccountReducer = (state = initialState, action) => {
         case Constant.DELETEACCOUNTCLEANUP:
             return {
                 ...state,
-                    delete_error:'',
-                    delete_status: '',
-                    delete_statusText: ''
+                delete_error: '',
+                delete_status: '',
+                delete_statusText: ''
             }
         default:
             return {
@@ -648,9 +650,9 @@ export const DeletAuctionReducer = (state = initialState, action) => {
         case Constant.DELETEAUCTIONCLEANUP:
             return {
                 ...state,
-                    delete_auction_error:'',
-                    delete_auction_status: '',
-                    delete_auction_statusText: ''
+                delete_auction_error: '',
+                delete_auction_status: '',
+                delete_auction_statusText: ''
             }
         default:
             return {
@@ -683,6 +685,11 @@ export const SendFeedBackReducer = (state = initialState, action) => {
                 feedbacks_error: '',
                 feedbacks_status: '',
                 feedbacks_statusText: ''
+            }
+        case Constant.GETFEEDBACK:
+            return {
+                ...state,
+                feedbacks: action.payload.data,
             }
         default:
             return {

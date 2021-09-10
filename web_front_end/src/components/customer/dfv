@@ -1,21 +1,6 @@
-approval: true
-auctionCategory: "vehicle"
-auctionName: "Car"
-auctionType: "live"
-bidFee: 200
-briefDescription: "A car (or automobile) is a wheeled motor vehicle used for transportation. Most definitions of cars say that they run primarily on roads, seat one to eight "
-condition: "new"
-deadline: "2021-09-15T11:50:00.000Z"
-extendedDescription: "A car (or automobile) is a wheeled motor vehicle used for transportation. Most definitions of cars say that they run primarily on roads, seat one to eight "
-images: ["1630324348537.jpg"]
-latitude: "8.983652013572332"
-longtude: "38.73634232788085"
-minAmount: 10000
-minCpo: 1000
-owner: null
-postedOn: "2021-08-30T11:50:54.291Z"
-proposals: []
-startDate: "2021-08-30T17:50:14.000Z"
-status: "open"
+date: "2021-09-10T11:18:49.715Z"
+email: "m@g.com"
+feedback: "selam selam"
+userId: null
 __v: 0
-_id: "612cc67c453a0942c2b8432f"
+_id: "613b4cdcf7739a6f2c4e6f89"

@@ -7,12 +7,25 @@ import GridContainer from "./main_dashbaord/Grid/GridContainer.js";
 import Button from "./components/CustomButtons/Button.js";
 import SnackbarContent from "./components/Snackbar/SnackbarContent.js";
 import Snackbar from "./components/Snackbar/Snackbar.js";
+import { Feedback } from "@material-ui/icons";
+import Info from "./components/Typography/Info"
+import {
+
+  GetFeedbackAction
+
+} from '../../../redux-state-managment/Actions'
+import { CircularProgress } from "@material-ui/core";
+import { useDispatch, useSelector } from 'react-redux';
+import moment from 'moment'
 
 import {
   Card,
   CardHeader,
-  CardBody
+  CardFooter,
+  CardBody,
+  CardIcon
 } from './Cards';
+import styles1 from "./main_dashbaord/dashboardStyle";
 
 const styles = {
   cardCategoryWhite: {
@@ -45,9 +58,17 @@ const styles = {
 };
 
 const useStyles = makeStyles(styles);
+const useStyles1 = makeStyles(styles1)
 
 export default function Notifications() {
+  const dispatch = useDispatch();
+  const feedbacks = useSelector((state) => state.SendFeedBackReducer.feedbacks);
+  const token = useSelector((state) => state.AccountReducer.token);
+  React.useEffect(() => {
+    dispatch(GetFeedbackAction(token));
+  }, [])
   const classes = useStyles();
+  const classes1 = useStyles1();
   const [tl, setTL] = React.useState(false);
   const [tc, setTC] = React.useState(false);
   const [tr, setTR] = React.useState(false);
@@ -120,91 +141,90 @@ export default function Notifications() {
   };
   return (
     <Card>
+      {console.log(feedbacks)}
       <CardHeader color="info">
-        <h4 className={classes.cardTitleWhite}>Notifications</h4>
-        <p className={classes.cardCategoryWhite}>
-          M3K Auction{" "}
-          <a
-            target="_blank"
-            href="#"
-          >
-            M3K Auction
-          </a>{" "}
-          m3K Auction{" "}
-          <a
-            target="_blank"
-            href="#"
-          >
-            m3K Auction
-          </a>
-          . be part of us{" "}
-          <a href="#pablo" target="_blank">
-            be part of us
-          </a>
-          .
-        </p>
+        <h4 className={classes.cardTitleWhite}>Feedbacks from customers</h4>
+
       </CardHeader>
       <CardBody>
         <GridContainer>
           <GridItem xs={12} sm={12} md={6}>
-            <h5>User Notifications</h5>
-            <br />
-            <SnackbarContent message={"This is a plain notification"} />
-            <SnackbarContent
-              message={"This is a notification with close button."}
-              close
-            />
-            <SnackbarContent
-              message={"This is a notification with close button and icon."}
-              close
-              icon={AddAlert}
-            />
-            <SnackbarContent
-              message={
-                "This is a notification with close button and icon and have many lines. You can see that the icon and the close button are always vertically aligned. This is a beautiful notification. So you don't have to worry about the style."
-              }
-              close
-              icon={AddAlert}
-            />
+            <h5>Random user Feedbacks</h5>
+            {
+              feedbacks ?
+                feedbacks.filter(f => f.userId === null).map(feedback => (
+                  <Card>
+                    <CardHeader stats icon>
+                      <CardIcon color="info">
+                        From :{feedback.email}
+                      </CardIcon>
+                      <p className={classes1.cardCategory}> </p>
+                      <h3 className={classes1.cardTitle}>
+                        <small>{feedback.date}</small>
+                      </h3>
+                    </CardHeader>
+                    <CardFooter stats>
+                      <div className={classes1.stats}>
+                        <Info>
+                          <Feedback />
+                        </Info>
+                        <p>
+                          {feedback.feedback}
+                        </p>
+                      </div>
+                    </CardFooter>
+                  </Card>
+
+                ))
+                :
+                <SnackbarContent
+                  message={
+                    `there is no registered user feedback yet`
+                  }
+                  close
+                  color="info"
+                />
+            }
+
+
+
           </GridItem>
           <GridItem xs={12} sm={12} md={6}>
-            <h5>Notifications States</h5>
+            <h5>Register User Feedback</h5>
             <br />
-            <SnackbarContent
-              message={
-                'INFO - This is a regular notification made with color="info"'
-              }
-              close
-              color="info"
-            />
-            <SnackbarContent
-              message={
-                'SUCCESS - This is a regular notification made with color="success"'
-              }
-              close
-              color="success"
-            />
-            <SnackbarContent
-              message={
-                'WARNING - This is a regular notification made with color="warning"'
-              }
-              close
-              color="warning"
-            />
-            <SnackbarContent
-              message={
-                'DANGER - This is a regular notification made with color="danger"'
-              }
-              close
-              color="danger"
-            />
-            <SnackbarContent
-              message={
-                'PRIMARY - This is a regular notification made with color="primary"'
-              }
-              close
-              color="primary"
-            />
+            {
+              feedbacks ?
+                feedbacks.filter(f => f.userId !== null).map(feedback => (
+                  <Card>
+                    <CardHeader stats icon>
+                      <CardIcon color="info">
+                        From :{feedback.email}
+                      </CardIcon>
+                      <p className={classes1.cardCategory}> </p>
+                      <h3 className={classes1.cardTitle}>
+                        <small>{feedback.date}</small>
+                      </h3>
+                    </CardHeader>
+                    <CardFooter stats>
+                      <div className={classes1.stats}>
+                        <Info>
+                          <Feedback />
+                        </Info>
+                        <p>
+                          {feedback.feedback}
+                        </p>
+                      </div>
+                    </CardFooter>
+                  </Card>
+            )):
+                <SnackbarContent
+                  message={
+                    `there is no registered user feedback yet`
+                  }
+                  close
+                  color="info"
+                />
+                }
           </GridItem>
         </GridContainer>
         <br />

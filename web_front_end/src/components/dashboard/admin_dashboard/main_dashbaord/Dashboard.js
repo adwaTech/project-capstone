@@ -73,6 +73,7 @@ export default function Dashboard() {
               </div>
             </CardFooter>
           </Card>
+        
         </GridItem>
         <GridItem xs={12} sm={6} md={3}>
           <Card>
