@@ -68,7 +68,15 @@ export default function DetailDialog(props) {
     <div>
       <SetWinner open={winnerDialog} setOpen={setWinnerDialog} data={props.data}/>
       <Dialog open={props.open}>
-        <DialogTitle onClose={() => props.setOpen(!props.open)}>
+        <DialogTitle onClose={() => {
+          if(props.map){
+            props.setOpen({open:false})
+          }
+          else{
+            props.setOpen(!props.open)
+          }
+          
+        }}>
           Auction Detail
         </DialogTitle>
         <DialogContent dividers>

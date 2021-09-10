@@ -1,16 +1,21 @@
-balance: 81423988
-city: "Addis Abeba"
-email: "miki@g.com"
-firstName: "Mengistu"
-idNo: "ets0827/10"
-idPhoto: "1630323346585.png"
-lastName: "Berihie"
-latitude: 9.010440806607646
-longtude: 38.81273164062499
-password: "$2b$10$gUJwNRVGxGL.0qzNSYpEKuo/nMPy.RDWpK1YrgT58/5PsMygR61sa"
-phone: "+251926970261"
-profileImage: "1630323346569.jpg"
-sex: "male"
-userType: "customer"
+approval: true
+auctionCategory: "vehicle"
+auctionName: "Car"
+auctionType: "live"
+bidFee: 200
+briefDescription: "A car (or automobile) is a wheeled motor vehicle used for transportation. Most definitions of cars say that they run primarily on roads, seat one to eight "
+condition: "new"
+deadline: "2021-09-15T11:50:00.000Z"
+extendedDescription: "A car (or automobile) is a wheeled motor vehicle used for transportation. Most definitions of cars say that they run primarily on roads, seat one to eight "
+images: ["1630324348537.jpg"]
+latitude: "8.983652013572332"
+longtude: "38.73634232788085"
+minAmount: 10000
+minCpo: 1000
+owner: null
+postedOn: "2021-08-30T11:50:54.291Z"
+proposals: []
+startDate: "2021-08-30T17:50:14.000Z"
+status: "open"
 __v: 0
-_id: "612cc29288f97c2cfffb6022"
+_id: "612cc67c453a0942c2b8432f"

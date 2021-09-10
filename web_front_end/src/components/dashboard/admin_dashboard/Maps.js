@@ -1,102 +1,143 @@
-import React from "react";
+import { Dialog, DialogTitle, IconButton ,DialogContent, Backdrop} from '@material-ui/core';
+import { Map, InfoWindow, Marker, GoogleApiWrapper, Polyline } from 'google-maps-react';
+import { Component } from 'react';
+import { connect } from 'react-redux';
+import {
+  GetuserAction
+} from '../../../redux-state-managment/Actions';
+import {
+  BACKENDURL
+} from '../../../redux-state-managment/Constants'
+import './map.css';
 
-const Maps = () => {
-  const mapRef = React.useRef(null);
-  React.useEffect(() => {
-    let google = window.google;
-    let map = mapRef.current;
-    let lat = "40.748817";
-    let lng = "-73.985428";
-    const myLatlng = new google.maps.LatLng(lat, lng);
-    const mapOptions = {
-      zoom: 12,
-      center: myLatlng,
-      scrollwheel: false,
-      zoomControl: true,
-      styles: [
-        {
-          featureType: "water",
-          stylers: [{ saturation: 43 }, { lightness: -11 }, { hue: "#0088ff" }],
-        },
-        {
-          featureType: "road",
-          elementType: "geometry.fill",
-          stylers: [
-            { hue: "#ff0000" },
-            { saturation: -100 },
-            { lightness: 99 },
-          ],
-        },
-        {
-          featureType: "road",
-          elementType: "geometry.stroke",
-          stylers: [{ color: "#808080" }, { lightness: 54 }],
-        },
-        {
-          featureType: "landscape.man_made",
-          elementType: "geometry.fill",
-          stylers: [{ color: "#ece2d9" }],
-        },
-        {
-          featureType: "poi.park",
-          elementType: "geometry.fill",
-          stylers: [{ color: "#ccdca1" }],
-        },
-        {
-          featureType: "road",
-          elementType: "labels.text.fill",
-          stylers: [{ color: "#767676" }],
-        },
-        {
-          featureType: "road",
-          elementType: "labels.text.stroke",
-          stylers: [{ color: "#ffffff" }],
-        },
-        { featureType: "poi", stylers: [{ visibility: "off" }] },
-        {
-          featureType: "landscape.natural",
-          elementType: "geometry.fill",
-          stylers: [{ visibility: "on" }, { color: "#b8cb93" }],
-        },
-        { featureType: "poi.park", stylers: [{ visibility: "on" }] },
-        {
-          featureType: "poi.sports_complex",
-          stylers: [{ visibility: "on" }],
-        },
-        { featureType: "poi.medical", stylers: [{ visibility: "on" }] },
-        {
-          featureType: "poi.business",
-          stylers: [{ visibility: "simplified" }],
-        },
-      ],
-    };
 
-    map = new google.maps.Map(map, mapOptions);
+const mapStateToProps = state => ({
+  users: state.getUsersReducer.admin_users,
+  token: state.AccountReducer.token
+});
+const mapDispatchToProps = () => ({
+  getuser: GetuserAction
+});
+export class MapContainer extends Component {
 
-    const marker = new google.maps.Marker({
-      position: myLatlng,
-      map: map,
-      animation: google.maps.Animation.DROP,
-      title: "M3K Auction!",
+  state = {
+    showingInfoWindow: false,
+    activeMarker: { },
+    selectedPlace: { },
+    open:false,
+    data:''
+  };
+  componentDidMount() {
+    this.props.getuser(this.props.token)
+  }
+  onMarkerClick = (props, marker, e) =>
+    this.setState({
+      selectedPlace: props,
+      activeMarker: marker,
+      showingInfoWindow: true
     });
 
-    const contentString =
-      '<div class="info-window-content"><h2>M3K Auction</h2>' +
-      "<p>for better future .</p></div>";
+  onMapClicked = (props) => {
+    if (this.state.showingInfoWindow) {
+      this.setState({
+        showingInfoWindow: false,
+        activeMarker: null
+      })
+    }
+  };
 
-    const infowindow = new google.maps.InfoWindow({
-      content: contentString,
-    });
+  render() {
+    return (
+      <div>
+        <Map google={this.props.google}
+          initialCenter={{
+            lat: 8.9806,
+            lng: 38.7578,
+          }}
+          zoom={6}
+          onClick={this.onMapClicked}>
+          {
+            this.props.users.length > 0 ?
+              this.props.users.map(user => (
+                <Marker key={user._id}
+                  onClick={() => {
+                    this.setState({...this.state,open:true,data:user})
+                  }}
+                  title={user.firstName + " " + user.lastName}
+                  name={user.city}
+                  position={{ lat: user.latitude, lng: user.longtude }} />
+              ))
+              : null
+          }
 
-    google.maps.event.addListener(marker, "click", function () {
-      infowindow.open(map, marker);
-    });
-  });
-  return (
-    <>
-      <div style={{ height: `100vh` }} ref={mapRef}></div>
-    </>
-  );
-};
+          <InfoWindow
+            marker={this.state.activeMarker}
+            visible={this.state.showingInfoWindow}>
+            <div>
+              <h1>{this.state.selectedPlace.name}</h1>
+            </div>
+          </InfoWindow>
+        </Map>
+        <Dialog open={this.state.open}>
+          <DialogTitle>
+            <IconButton
+            onClick={()=>{
+              this.setState({...this.state,open:false})
+            }}
+            >x</IconButton>
+            </DialogTitle>
+            <DialogContent>
+                <div className="userInfo-dialog">
+                <div class="container">
+                    <div class="card">
+                      <div class="card-header">
+                        <img src={`${BACKENDURL}/users/${this.state.data?this.state.data.idPhoto:null}`} alt="rover" />
+                      </div>
+                      <div class="card-body">
+                        <span class="tag tag-teal">
+                          {this.state.data?this.state.data.firstName:null} 	
+                          &nbsp;
+                          {this.state.data?this.state.data.lastName:null}
+                          </span>
+                        <h4>
+                          {this.state.data?this.state.data.email:null}
+                        </h4>
+                        <p>
+                        {this.state.data?this.state.data.sex:null}
+                        </p>
+                        <p>
+                        {this.state.data?this.state.data.city:null}
+                        </p>
+                        <div class="user">
+                          <img src={`${BACKENDURL}/users/${this.state.data?this.state.data.profileImage:null}`} alt="user" />
+                          <div class="user-info">
+                            <h5>
+                            {this.state.data?this.state.data.firstName:null} 	
+                            &nbsp;
+                            {this.state.data?this.state.data.lastName:null}
+                            </h5>
+                            <small>
+                            {this.state.data?this.state.data.phone:null}
+                            </small>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+  
 
-export default Maps;
+                </div>
+                </div>
+            </DialogContent>
+        </Dialog>
+      </div>
+    )
+  }
+}
+const conn = connect(
+  mapStateToProps,
+  mapDispatchToProps()
+)(MapContainer);
+
+export default GoogleApiWrapper({
+  apiKey: ("AIzaSyD07E1VvpsN_0FvsmKAj4nK9GnLq-9jtj8")
+})(conn);
