@@ -109,7 +109,7 @@ router.post('/postAuction', passport.authenticate('jwt', { session: false }), (r
         next();
     })
 }, postAuctionRoute);
-router.post('/sendFeedback', passport.authenticate('jwt', { session: false }), upload.any(), sendFeedbackRoute);
+router.post('/sendFeedback', upload.any(), sendFeedbackRoute);
 router.post('/withdraw', passport.authenticate('jwt', { session: false }), upload.any(), withdrawRoute);
 router.post('/deposit', passport.authenticate('jwt', { session: false }), upload.any(), depositRoute);
 // Admin routes

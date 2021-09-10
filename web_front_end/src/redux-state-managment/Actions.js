@@ -817,3 +817,51 @@ export const GetAllAuctionAction = () => async (dispatch) => {
         payload: response.data,
     })
 }
+export const FeedbackAction = (userData, token) => async (dispatch) => {
+    const data = {
+        data: {
+            error: "Please check your network connection",
+        },
+        status: 404,
+        statusText: "Network Error"
+    }
+    try {
+        const axiosInstance = axios.create({
+            baseURL: "http://localhost:5000",
+            timeout: 5000,
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        const response = await axiosInstance.post(`/sendFeedback`, userData, {
+            validateStatus: function (status) {
+                return status < 600
+            }
+        },
+        );
+        dispatch({
+            type: Constant.SENDFEEDBACK,
+            payload: response,
+        })
+    }
+    catch (error) {
+        dispatch({
+            type: Constant.SENDFEEDBACK,
+            payload: data,
+        })
+    }
+}
+export const FeedbackCleanUpAction = () => async (dispatch) => {
+    const data = {
+        data: {
+            error: "",
+        },
+        status: '',
+        statusText: ""
+    }
+    dispatch({
+        type: Constant.CLEANFEEDBACK,
+        payload: data,
+    })
+}

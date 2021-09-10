@@ -2,6 +2,9 @@
 .userInfo-dialog {
   box-sizing: border-box;
 }
+.map-area{
+  width: 40%;
+}
 .userInfo-dialog {
   display: flex;
   justify-content: center;

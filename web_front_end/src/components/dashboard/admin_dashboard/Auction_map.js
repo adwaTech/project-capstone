@@ -52,8 +52,9 @@ export function MapContainer(props) {
   const [open,setOpen]=React.useState(false);
 
   return (
-    <div>
+    <div >
       <Map google={props.google}
+        style={{outerWidth:1000}}
         initialCenter={{
           lat: 8.9806,
           lng: 38.7578,

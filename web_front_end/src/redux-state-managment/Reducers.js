@@ -90,6 +90,12 @@ let initialState = {
     delete_auction_error:'',
     delete_auction_status:'',
     delete_auction_statusText:'',
+
+    // feedback;
+    feedbacks:'',
+    feedbacks_error:'',
+    feedbacks_status:'',
+    feedbacks_statusText:'',
 }
 
 
@@ -645,6 +651,38 @@ export const DeletAuctionReducer = (state = initialState, action) => {
                     delete_auction_error:'',
                     delete_auction_status: '',
                     delete_auction_statusText: ''
+            }
+        default:
+            return {
+                ...state
+            }
+    }
+
+}
+export const SendFeedBackReducer = (state = initialState, action) => {
+    switch (action.type) {
+        case Constant.SENDFEEDBACK:
+            if (action.payload.status === 200) {
+                return {
+                    ...state,
+                    feedbacks: action.payload.data,
+                    feedbacks_status: action.payload.status,
+                    feedbacks_statusText: action.payload.statusText
+                }
+            } else {
+                return {
+                    ...state,
+                    feedbacks_error: action.payload.data.error,
+                    feedbacks_status: action.payload.status,
+                    feedbacks_statusText: action.payload.statusText
+                }
+            }
+        case Constant.CLEANFEEDBACK:
+            return {
+                ...state,
+                feedbacks_error: '',
+                feedbacks_status: '',
+                feedbacks_statusText: ''
             }
         default:
             return {
