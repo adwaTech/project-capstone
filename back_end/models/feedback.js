@@ -3,7 +3,9 @@ const feedbackSchema = mongoose.Schema({
     userId:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'user',
-        required:true
+    },
+    email:{
+        type:String,
     },
     date:{
         type:Date,
@@ -13,13 +15,13 @@ const feedbackSchema = mongoose.Schema({
         type:String,
         required:true
     },
-    newResponse:{
-        type:Boolean,
-        default:false
-    },
-    response:{
-        type:String
-    }
+    // newResponse:{
+    //     type:Boolean,
+    //     default:false
+    // },
+    // response:{
+    //     type:String
+    // }
 })
 
 module.exports.feedbackSchema = feedbackSchema;
