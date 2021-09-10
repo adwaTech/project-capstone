@@ -70,7 +70,7 @@ export default function DetailDialog(props) {
       <Dialog open={props.open}>
         <DialogTitle onClose={() => {
           if(props.map){
-            props.setOpen({open:false})
+            props.setOpen(false)
           }
           else{
             props.setOpen(!props.open)
@@ -153,7 +153,10 @@ export default function DetailDialog(props) {
                 fullWidth variant="contained" color="primary">Set Winner</Button>
             </div>
               :
-              <div className={classes.controls}>
+                props.admin
+                ?null
+                :
+                <div className={classes.controls}>
                 <Button
                   onClick={
                     () => {
@@ -168,6 +171,7 @@ export default function DetailDialog(props) {
         </DialogContent>
 
       </Dialog>
+      
       <BidAuctionForm open={open_bid_dialog} data={props.data} setOpen={setOpen_bid_dialog} />
     </div>
   )
