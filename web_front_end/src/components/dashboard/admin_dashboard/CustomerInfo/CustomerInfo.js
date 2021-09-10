@@ -1,19 +1,20 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Close from "@material-ui/icons/Close";
-import Check from "@material-ui/icons/Check";
 import GridItem from "../main_dashbaord/Grid/GridItem.js";
 import GridContainer from "../main_dashbaord/Grid/GridContainer.js";
-import Danger from "../components/Typography/Danger.js";
-import Success from "../components/Typography/Success.js";
+import {useSelector,useDispatch} from 'react-redux';
+
 
 import Button from "../components/CustomButtons/Button.js";
 import {
     CardHeader,
     CardBody,
     Card,
-
 } from '../Cards'
+import {
+  GetAllAuctionAction,
+  GetuserAction
+} from '../../../../redux-state-managment/Actions';
 
 const styles = {
   cardCategoryWhite: {
@@ -84,7 +85,17 @@ const styles = {
 
 const useStyles = makeStyles(styles);
 
-export default function UpgradeToPro() {
+
+export default function 
+UpgradeToPro({history}) {
+  const dispatch=useDispatch();
+  const allauction=useSelector(state=> state.AuctionsReducer.overallauction);
+  const customers = useSelector((state) => state.getUsersReducer.admin_users);
+  const token= useSelector(state=>state.AccountReducer.token)
+  React.useEffect(async ()=>{
+    await dispatch(GetAllAuctionAction());
+    dispatch(GetuserAction(token));
+  },[])
   const classes = useStyles();
   return (
     <GridContainer justify="center">
@@ -95,7 +106,7 @@ export default function UpgradeToPro() {
               M3K Auction
             </h4>
             <p className={classes.cardCategoryWhite}>
-            New Messages and feedback from customer
+            Total Auction Info  
             </p>
           </CardHeader>
           <CardBody>
@@ -104,99 +115,60 @@ export default function UpgradeToPro() {
                 <thead>
                   <tr>
                     <th />
-                    <th className={classes.center}>Auctions</th>
-                    <th className={classes.center}>Questions</th>
+                    <th className={classes.center}>In Number</th>
+                    {/* <th className={classes.center}>In Quality</th> */}
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>Components</td>
-                    <td className={classes.center}>30</td>
-                    <td className={classes.center}>200</td>
+                    <td>Auctions</td>
+                    <td className={classes.center}>{allauction.length}{console.log(allauction.length)}</td>
+                    {/* <td className={classes.center}>{}</td> */}
                   </tr>
                   <tr>
-                    <td>type</td>
-                    <td className={classes.center}>2</td>
-                    <td className={classes.center}>10</td>
+                    <td>Users</td>
+                    <td className={classes.center}>{customers.length}</td>
+                    {/* <td className={classes.center}>10</td> */}
                   </tr>
                   <tr>
-                    <td>close</td>
-                    <td className={classes.center}>7</td>
-                    <td className={classes.center}>28</td>
+                    <td>Auctions With Status open</td>
+                    <td className={classes.center}>{allauction.filter(a=>a.status==='open').length}</td>
+                    {/* <td className={classes.center}>28</td> */}
                   </tr>
                   <tr>
-                    <td>some thing here</td>
-                    <td className={classes.center}>
-                      <Danger>
-                        <Close />
-                      </Danger>
-                    </td>
-                    <td className={classes.center}>
-                      <Success>
-                        <Check />
-                      </Success>
-                    </td>
+                    <td>Auctions With Status Ended</td>
+                    <td className={classes.center}>{allauction.filter(a=>a.status==='ended').length}</td>
+                    {/* <td className={classes.center}>28</td> */}
+                  
                   </tr>
                   <tr>
-                    <td>
-                      
-                    </td>
-                    <td className={classes.center}>
-                      <Danger>
-                        <Close />
-                      </Danger>
-                    </td>
-                    <td className={classes.center}>
-                      <Success>
-                        <Check />
-                      </Success>
-                    </td>
+                    <td>Auctions With Status waitingresult</td>
+                    <td className={classes.center}>{allauction.filter(a=>a.status==='archieved').length}</td>
+                    {/* <td className={classes.center}>28</td> */}
                   </tr>
-                  <tr>
-                    <td>Customer Info</td>
-                    <td className={classes.center}>
-                      <Danger>
-                        <Close />
-                      </Danger>
-                    </td>
-                    <td className={classes.center}>
-                      <Success>
-                        <Check />
-                      </Success>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Add Support</td>
-                    <td className={classes.center}>
-                      <Danger>
-                        <Close />
-                      </Danger>
-                    </td>
-                    <td className={classes.center}>
-                      <Success>
-                        <Check />
-                      </Success>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td />
-                    <td className={classes.center}>Document</td>
-                    <td className={classes.center}>Managment</td>
-                  </tr>
+                  
                   <tr>
                     <td />
                     <td className={classes.center}>
-                      <Button round disabled>
-                        27/21/21
+                      <Button round color="info"
+                      onClick={()=>{
+                        history.push("/admin/auction_location");
+                      }}
+                     
+                      >
+                        find customer on map
                       </Button>
                     </td>
                     <td className={classes.center}>
                       <Button
                         round
-                        color="danger"
-                        href="#"
+                        color="info"
+                        onClick={()=>{
+                          history.push("/admin/customer_location");
+                        }}
+                       
                       >
-                        Approvment
+                        find auction on map
                       </Button>
                     </td>
                   </tr>

@@ -77,7 +77,7 @@ export default function TableList() {
   const customers = useSelector((state) => state.getUsersReducer.admin_users);
   const delete_status = useSelector((state) => state.DeletAccountReducer.delete_status);
   const delete_error = useSelector((state) => state.DeletAccountReducer.delete_error);
-  console.log(delete_error)
+
 
   const [num, setNum] = React.useState(1);
 
@@ -93,7 +93,6 @@ export default function TableList() {
           dispatch(GetuserAction(token))
         }
     }, [delete_error, delete_status])
-  console.log(customers);
   const [open, setOpen] = React.useState(false);
   const [data, setData] = React.useState({ });
   return (

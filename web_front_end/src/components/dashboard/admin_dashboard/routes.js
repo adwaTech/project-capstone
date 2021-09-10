@@ -14,13 +14,13 @@ import {
 import  DashboardPage from './main_dashbaord/Dashboard';
 import UserProfile  from './UserProfile.js';
 import TableList from "./TableList.js";
-import Typography from "./Typography/Typography.js";
 import Icons from "./Icons.js";
 import Maps from "./Maps.js";
 import NotificationsPage from "./Notifications.js";
 import CustomerInfo from "./CustomerInfo/CustomerInfo";
 import Customer from './Customer';
 import Auction_map from './Auction_map';
+import {Gavel} from '@material-ui/icons'
 
 
 const dashboardRoutes = [
@@ -75,9 +75,9 @@ const dashboardRoutes = [
     layout: "/admin",
   },
   {
-    path: "/customer-info",
-    name: "Customer Info",
-    icon: PermDeviceInformation,
+    path: "/total-auction-info",
+    name: "Total Auction Info",
+    icon: Gavel,
     component: CustomerInfo,
     layout: "/admin",
   },
