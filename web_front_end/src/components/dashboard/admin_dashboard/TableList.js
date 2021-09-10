@@ -9,16 +9,12 @@ import HorzMore from '@material-ui/icons/MoreHoriz';
 import Detail from '../../catagroy_slider/Detail';
 import Approve from '@material-ui/icons/ThumbUp';
 import DeleteAuction from '@material-ui/icons/Delete';
-<<<<<<< HEAD
-import IconButton from '@material-ui/core/IconButton'
-import Input from '@material-ui/core/Input';
-import SearchIcon from '@material-ui/icons/Search'
-=======
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog'
->>>>>>> ae297987df08fc61a1a089af260c6c565be488fa
+import SearchIcon from "@material-ui/icons/Search";
+import { Input } from "@material-ui/core";
 
 import {
   Card,
@@ -77,7 +73,7 @@ export default function TableList() {
   const token = useSelector((state) => state.AccountReducer.token);
   const allAuction = useSelector((state) => state.AuctionsReducer.allAuction);
   const [num, setNum] = React.useState(1);
-
+  const [filtered,setFiltered]=useState(null)
   React.useEffect(() => {
     // dispatch(AllAuctionAction());
     if (num === 1) {
