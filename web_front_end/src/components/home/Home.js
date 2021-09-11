@@ -11,7 +11,8 @@ import SignIn from '../../assets/images/signin.svg';
 import win from '../../assets/images/win.svg';
 import bid from '../../assets/images/bid.svg';
 import { strings } from '../../language/language';
-import { useSelector,useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { Button } from '@material-ui/core';
 
 import ScrollButton from '../scrollToTop/ScrollToTop';
 
@@ -34,11 +35,11 @@ export default function Home() {
     const token = useSelector((state) => state.AccountReducer.token);
     const user = useSelector((state) => state.AccountReducer.user);
 
-    const [num,setNum]=React.useState(1)
+    const [num, setNum] = React.useState(1)
     React.useEffect(() => {
-        if(num===1){
+        if (num === 1) {
             dispatch(AllAuctionAction());
-            if(token){
+            if (token) {
                 dispatch(AllExceptAuctionAction(user._id));
             }
             setNum(2);
@@ -47,7 +48,7 @@ export default function Home() {
     const [openforPost, setOpen] = React.useState(false);
     const [dialogComp, setDialogComp] = React.useState('');
 
-    
+
     return (
         <div className="home">
             <AuctionDialog
@@ -60,7 +61,7 @@ export default function Home() {
             <div className="svgimage">
                 <img src={WaveImage} alt="" />
             </div>
-            
+
             {token === '' ? <div className="easy-steps">
                 <div>
                     <h5>{strings.HowItWorks}</h5>
@@ -93,10 +94,14 @@ export default function Home() {
                 </div>
             </div>
                 : null}
+            <Link className="a" to="/map/auction">
+                <Button variant="outlined" color="primary">
+                    Find Auction By Location
+                </Button>
+            </Link>
             <div className="front-image" style={{ top: token ? "-250px" : 0 }}>
                 <div className="banner-title">
                     <h4>{strings.description1}</h4>
-
                     <Link id="gooey-button" to={token ? '/profile' : '/register'}>
                         {token ? "profile" : strings.CreateAccount}
                         <span className="bubbles">
@@ -114,7 +119,7 @@ export default function Home() {
                     </Link>
                     <div style={{
                         margin: "50px"
-                        
+
                     }}>
                         {
                             token ?

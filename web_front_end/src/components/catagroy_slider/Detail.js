@@ -12,7 +12,8 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import BidAuctionForm from '../auction_dialog/BidAuctionForm';
 import {BACKENDURL} from '../../redux-state-managment/Constants';
-import SetWinner from '../customer/SetWinnder'
+import SetWinner from '../customer/SetWinnder';
+import {useSelector} from 'react-redux'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -64,6 +65,7 @@ export default function DetailDialog(props) {
   const classes = useStyles();
   const [open_bid_dialog, setOpen_bid_dialog] = React.useState(false);
   const [winnerDialog,setWinnerDialog] = React.useState(false);
+  const user = useSelector((state) => state.AccountReducer.user);
   return (
     <div>
       <SetWinner open={winnerDialog} setOpen={setWinnerDialog} data={props.data}/>
@@ -154,6 +156,31 @@ export default function DetailDialog(props) {
             </div>
               :
                 props.admin
+                ?null
+                :
+                <div className={classes.controls}>
+                <Button
+                  onClick={
+                    () => {
+                      setOpen_bid_dialog(true);
+                      props.setOpen(false)
+                    }
+                  }
+                  fullWidth variant="contained" color="primary">Bid</Button>
+              </div>}
+              {props.detail?
+              <div className={classes.controls}>
+              <Button
+                onClick={
+                  () => {
+                    setWinnerDialog(true);
+                    props.setOpen(false)
+                  }
+                }
+                fullWidth variant="contained" color="primary">Set Winner</Button>
+            </div>
+              :
+                user.userType==="admin"
                 ?null
                 :
                 <div className={classes.controls}>

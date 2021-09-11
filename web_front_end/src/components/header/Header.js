@@ -260,6 +260,7 @@ export default function Header() {
                                 <li>
                                     <NavLink className="a" to="/contact">{strings.Contact}</NavLink>
                                 </li>
+                                
                                 <li >
                                     <NavLink className="a" to="">{strings.Auctions}<ArrowDownward
                                         style={{ marginTop: "4px" }} /></NavLink>
@@ -289,6 +290,7 @@ export default function Header() {
                                             : null
                                     }
                                 </li>
+                                
                                 <li className="scoll-screen">
                                     <FormControl >
                                         <Select

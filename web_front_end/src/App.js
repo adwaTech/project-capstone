@@ -23,8 +23,10 @@ import PrivacyPolicy from './components/privacy-policy/PrivacyPolicy';
 import howToPost from './components/howToPost/howToPost';
 import HowToBid from './components/howToBid/HowToBid';
 import paymentOptions from './components/paymentOptions/paymentOptions';
-import { CookiesProvider,withCookies } from 'react-cookie';
-
+import { CookiesProvider, withCookies } from 'react-cookie';
+import Auction_map from './components/dashboard/admin_dashboard/Auction_map';
+import Header from './components/header/Header';
+import Footer from './components/footer/Footer';  
 
 
 function App() {
@@ -39,6 +41,11 @@ function App() {
             <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/home" component={Home} />
+              <Route exact path="/map/auction" >
+                  <Header/>
+                  <div style={{position:"relative",top:"150px",width:"100%"}}></div>
+                  <Auction_map/>
+              </Route>
               <Route exact path="/contact" component={Contact} />
               <Route exact path="/register" component={Register} />
               <Route exact path="/about" component={About} />

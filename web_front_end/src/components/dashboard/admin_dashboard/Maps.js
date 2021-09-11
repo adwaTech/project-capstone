@@ -109,7 +109,7 @@ export class MapContainer extends Component {
                         <p>
                         {this.state.data?this.state.data.city:null}
                         </p>
-                        <Button 
+                        {/* <Button 
                         color="secondary"
                         onClick={()=>{
 
@@ -120,7 +120,7 @@ export class MapContainer extends Component {
                           this.setOpen(false)
                         }}
                         color="primary"
-                        ><Edit/>Edit</Button>
+                        ><Edit/>Edit</Button> */}
                         <div class="user">
                           <img src={`${BACKENDURL}/users/${this.state.data?this.state.data.profileImage:null}`} alt="user" />
                           <div class="user-info">
