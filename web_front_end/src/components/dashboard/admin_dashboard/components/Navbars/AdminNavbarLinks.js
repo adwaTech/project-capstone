@@ -14,19 +14,60 @@ import Notifications from "@material-ui/icons/Notifications";
 import Button from "../../components/CustomButtons/Button.js";
 import { Avatar } from "@material-ui/core";
 import { Link } from 'react-router-dom'
+import { strings } from '../../../../../language/language';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 import styles from "../../assets/jss/material-dashboard-react/components/headerLinksStyle.js";
 
 import {
   LogoutAction,
-  GetFeedbackAction
+  GetFeedbackAction,
+  LanguageAction
 } from '../../../../../redux-state-managment/Actions';
 import {
   BACKENDURL
 } from '../../../../../redux-state-managment/Constants';
 import { useSelector, useDispatch } from 'react-redux';
+
+import { withStyles,InputBase } from '@material-ui/core';
 const useStyles = makeStyles(styles);
 
+const BootstrapInput = withStyles((theme) => ({
+  root: {
+      'label + &': {
+          marginTop: theme.spacing(3),
+      },
+  },
+  input: {
+      borderRadius: 4,
+      color: "black",
+      position: 'relative',
+      backgroundColor: theme.palette.background.paper,
+      border: '1px solid #ced4da',
+      fontSize: 16,
+      padding: '5px 26px 2px 22px',
+      transition: theme.transitions.create(['border-color', 'box-shadow']),
+      // Use the system font instead of the default Roboto font.
+      fontFamily: [
+          '-apple-system',
+          'BlinkMacSystemFont',
+          '"Segoe UI"',
+          'Roboto',
+          '"Helvetica Neue"',
+          'Arial',
+          'sans-serif',
+          '"Apple Color Emoji"',
+          '"Segoe UI Emoji"',
+          '"Segoe UI Symbol"',
+      ].join(','),
+      '&:focus': {
+          borderRadius: 4,
+          borderColor: '#80bdff',
+          boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
+      },
+  },
+}))(InputBase);
 
 export default function AdminNavbarLinks() {
   const classes = useStyles();
@@ -40,6 +81,7 @@ export default function AdminNavbarLinks() {
       setOpenNotification(event.currentTarget);
     }
   };
+  const [Lang, setLang] = React.useState('en');
   const handleCloseNotification = () => {
     setOpenNotification(null);
   };
@@ -62,6 +104,28 @@ export default function AdminNavbarLinks() {
   }, [])
   return (
     <div>
+      <div className={classes.manager}>
+      <FormControl >
+        <Select
+          labelId="demo-customized-select-label"
+          id="demo-customized-select"
+          value={Lang}
+          color="primary"
+          onChange={(e) => {
+            strings.setLanguage(e.target.value);
+            dispatch(LanguageAction(e.target.value))
+            setLang(e.target.value)
+          }}
+          input={<BootstrapInput />}
+        >
+          <MenuItem value="en">English</MenuItem>
+          <MenuItem value="am">አማርኛ</MenuItem>
+          <MenuItem value="or">Oromifa</MenuItem>
+          <MenuItem value="ti">ትግርኛ</MenuItem>
+          <MenuItem value="so">Somali</MenuItem>
+        </Select>
+      </FormControl>
+      </div>
       {/* <div className={classes.searchWrapper}>
         <CustomInput
           formControlProps={{
@@ -225,12 +289,12 @@ export default function AdminNavbarLinks() {
         </Poppers>
 
       </div>
-      
+
       <span className={classes.manager}>
         Admin
       </span>
       <div className={classes.manager}>
-        <Avatar  src={`${BACKENDURL}/users/${user.profileImage}`}>
+        <Avatar src={`${BACKENDURL}/users/${user.profileImage}`}>
         </Avatar>
       </div>
     </div>

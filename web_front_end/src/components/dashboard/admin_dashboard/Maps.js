@@ -1,4 +1,4 @@
-import { Dialog, DialogTitle, IconButton ,DialogContent, Backdrop} from '@material-ui/core';
+import { Dialog, DialogTitle, IconButton ,DialogContent, Backdrop, Button} from '@material-ui/core';
 import { Map, InfoWindow, Marker, GoogleApiWrapper, Polyline } from 'google-maps-react';
 import { Component } from 'react';
 import { connect } from 'react-redux';
@@ -9,6 +9,7 @@ import {
   BACKENDURL
 } from '../../../redux-state-managment/Constants'
 import './map.css';
+import {Delete,Edit} from '@material-ui/icons'
 
 
 const mapStateToProps = state => ({
@@ -108,6 +109,18 @@ export class MapContainer extends Component {
                         <p>
                         {this.state.data?this.state.data.city:null}
                         </p>
+                        <Button 
+                        color="secondary"
+                        onClick={()=>{
+
+                        }}
+                        ><Delete/> Delete</Button>
+                        <Button
+                        onClick={()=>{
+                          this.setOpen(false)
+                        }}
+                        color="primary"
+                        ><Edit/>Edit</Button>
                         <div class="user">
                           <img src={`${BACKENDURL}/users/${this.state.data?this.state.data.profileImage:null}`} alt="user" />
                           <div class="user-info">
@@ -129,6 +142,7 @@ export class MapContainer extends Component {
                 </div>
             </DialogContent>
         </Dialog>
+        
       </div>
     )
   }

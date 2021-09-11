@@ -99,7 +99,7 @@ export default function TableList() {
   }, [delete_auction_error, delete_auction_status])
   const handleSearchChange=(searchText)=>{
     if (searchText !== null) {
-      searchText=searchText?searchText.toLowerCase():'';
+      searchText=searchText.length>0?searchText.toLowerCase():'';
       const filteredItems = allAuction.filter((item) =>
       (
         

@@ -1,17 +1,12 @@
 import React from "react";
 import ChartistGraph from "react-chartist";
 import {
-  LocalOffer,
   Feedback,
   ArrowUpward,
   AccessTime,
-  Accessibility,
   BugReport,
   Code,
-  Update,
   Cloud,
-  Money,
-  Today,
   People,
   Gavel
 
@@ -31,39 +26,149 @@ import Table from "./Table/Table";
 import Tasks from "./Tasks/Tasks";
 import CustomTabs from "./CustomTabs/CustomTabs";
 import Info from "../components/Typography/Info";
+import { Doughnut, Bar, Line } from 'react-chartjs-2';
+
 
 
 import { bugs, website, server } from "./general.js";
 
-import {
-  dailySalesChart,
-  emailsSubscriptionChart,
-  completedTasksChart,
-} from "./charts.js";
+
 import {
   GetAllAuctionAction,
   GetuserAction,
   GetFeedbackAction
 } from '../../../../redux-state-managment/Actions';
-import {useSelector,useDispatch} from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import styles from "./dashboardStyle.js";
+import moment from "moment";
 
 
 const useStyles = makeStyles(styles);
 
+
 export default function Dashboard() {
-  const dispatch=useDispatch();
-  const allauction=useSelector(state=> state.AuctionsReducer.overallauction);
+  const dispatch = useDispatch();
+  const allauction = useSelector(state => state.AuctionsReducer.overallauction);
   const customers = useSelector((state) => state.getUsersReducer.admin_users);
   const feedbacks = useSelector((state) => state.SendFeedBackReducer.feedbacks);
-  const token= useSelector(state=>state.AccountReducer.token)
-  React.useEffect(async ()=>{
+  const token = useSelector(state => state.AccountReducer.token)
+  React.useEffect(async () => {
     await dispatch(GetAllAuctionAction());
-    dispatch(GetuserAction(token));
-    dispatch(GetFeedbackAction(token));
-  },[])
+    await dispatch(GetuserAction(token));
+    await dispatch(GetFeedbackAction(token));
+
+  }, [])
   const classes = useStyles();
+  const [state, setState] = React.useState({
+    labels: ['open', 'ended', 'archieved'],
+    datasets: [
+      {
+        label: 'Rainfall',
+        backgroundColor: [
+          '#B21F00',
+          '#C9DE00',
+          '#2FDE00',
+          '#00A6B4',
+          '#6800B4'
+        ],
+        hoverBackgroundColor: [
+          '#501800',
+          '#4B5000',
+          '#175000',
+          '#003350',
+          '#35014F'
+        ],
+        data: [0, 0, 0]
+      }
+    ]
+  });
+  const [state1, setState1] = React.useState({
+    labels: ['land', 'house', 'vehicle', 'electronics', 'service', 'rare', 'oldies'],
+    datasets: [
+      {
+        label: 'Auction With Catagory',
+        backgroundColor: 'rgba(75,192,192,1)',
+        borderColor: 'rgba(0,0,0,1)',
+        borderWidth: 2,
+        data: [65, 59, 80, 81, 56]
+      }
+    ]
+  });
+  const [state2, setState2] = React.useState({
+    labels: ['random user', 'registered user'],
+      datasets: [
+        {
+          label: 'Feedback',
+          fill: false,
+          lineTension: 0.5,
+          backgroundColor: 'rgba(75,192,192,1)',
+          borderColor: 'rgba(0,0,0,1)',
+          borderWidth: 2,
+        data: [0, 0]
+      }
+    ]
+  });
+  React.useEffect(() => {
+    setState({
+      labels: ['open', 'ended', 'archieved'],
+      datasets: [
+        {
+          label: 'Rainfall',
+          backgroundColor: [
+            '#B21F00',
+            '#C9DE00',
+            '#2FDE00',
+            '#00A6B4',
+            '#6800B4'
+          ],
+          hoverBackgroundColor: [
+            '#501800',
+            '#4B5000',
+            '#175000',
+            '#003350',
+            '#35014F'
+          ],
+          data: [allauction.filter(a => a.status === "open").length, allauction.filter(a => a.status === "ended").length, allauction.filter(a => a.status === "archieved").length]
+        }
+      ]
+    });
+    setState1({
+      labels: ['land', 'house', 'vehicle', 'electronics', 'service', 'rare', 'oldies'],
+      datasets: [
+        {
+          label: 'AC',
+          backgroundColor: 'rgba(75,192,192,1)',
+          borderColor: 'rgba(0,0,0,1)',
+          borderWidth: 2,
+          data: [
+            allauction.filter(a => a.auctionCategory === "land").length,
+            allauction.filter(a => a.auctionCategory === "house").length,
+            allauction.filter(a => a.auctionCategory === "vehicle").length,
+            allauction.filter(a => a.auctionCategory === "electronics").length,
+            allauction.filter(a => a.auctionCategory === "service").length,
+            allauction.filter(a => a.auctionCategory === "rare").length,
+            allauction.filter(a => a.auctionCategory === "oldies").length
+          ]
+        }
+      ]
+    })
+    setState2({
+      labels: ['random user', 'registered user'],
+      datasets: [
+        {
+          label: 'Feedback',
+          fill: false,
+          lineTension: 0.5,
+          backgroundColor: 'rgba(75,192,192,1)',
+          borderColor: 'rgba(0,0,0,1)',
+          borderWidth: 2,
+          data: [feedbacks?feedbacks.filter(a=>a.userId===null).length:0, feedbacks?feedbacks.filter(a=>a.userId).length:0]
+        }
+      ]
+    })
+  }, [allauction,feedbacks])
+  
   return (
     <div>
       <GridContainer>
@@ -71,7 +176,7 @@ export default function Dashboard() {
           <Card>
             <CardHeader color="info" stats icon>
               <CardIcon color="info">
-                <People/>
+                <People />
               </CardIcon>
               <p className={classes.cardCategory}>Number of Users</p>
               <h3 className={classes.cardTitle}>
@@ -84,12 +189,12 @@ export default function Dashboard() {
                   <People />
                 </Info>
                 <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                  Number of user  
+                  Number of user
                 </a>
               </div>
             </CardFooter>
           </Card>
-        
+
         </GridItem>
         <GridItem xs={12} sm={6} md={3}>
           <Card>
@@ -103,7 +208,7 @@ export default function Dashboard() {
             <CardFooter stats>
               <div className={classes.stats}>
                 <Info>
-                <Gavel />
+                  <Gavel />
                 </Info>
                 Total Auction
               </div>
@@ -114,7 +219,7 @@ export default function Dashboard() {
           <Card>
             <CardHeader color="info" stats icon>
               <CardIcon color="info">
-                <Feedback/>
+                <Feedback />
               </CardIcon>
               <p className={classes.cardCategory}>Feedback</p>
               <h3 className={classes.cardTitle}>{feedbacks.length}</h3>
@@ -122,7 +227,7 @@ export default function Dashboard() {
             <CardFooter stats>
               <div className={classes.stats}>
                 <Info>
-                <Feedback />
+                  <Feedback />
                 </Info>
                 Total Feed back from customer
               </div>
@@ -136,12 +241,12 @@ export default function Dashboard() {
                 <Gavel />
               </CardIcon>
               <p className={classes.cardCategory}>Approved Auctions</p>
-              <h3 className={classes.cardTitle}>{allauction.filter(a=>a.approval).length}</h3>
+              <h3 className={classes.cardTitle}>{allauction.filter(a => a.approval).length}</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
                 <Info>
-                <Gavel />
+                  <Gavel />
                 </Info>
                 Total Approved Auction
               </div>
@@ -152,79 +257,99 @@ export default function Dashboard() {
       <GridContainer>
         <GridItem xs={12} sm={12} md={4}>
           <Card chart>
-            <CardHeader color="info">
-              <ChartistGraph
-              
-                className="ct-chart"
-                data={allauction}
-                type="Line"
-                options={dailySalesChart.options}
-                listener={dailySalesChart.animation}
+            <CardHeader color="">
+              <Doughnut
+                data={state}
+                options={{
+                  title: {
+                    display: true,
+                    text: 'Total Auction Status',
+                    fontSize: 20
+                  },
+                  legend: {
+                    display: true,
+                    position: 'right'
+                  }
+                }}
               />
             </CardHeader>
             <CardBody>
-              <h4 className={classes.cardTitle}>auction</h4>
+              <h4 className={classes.cardTitle}>Total Auction Status</h4>
               <p className={classes.cardCategory}>
                 <span className={classes.successText}>
-                  <ArrowUpward className={classes.upArrowCardCategory} /> 55%
+                  <ArrowUpward className={classes.upArrowCardCategory} /> {allauction.length}
                 </span>{" "}
-                increase in this year Auction.
+                Status of Auctions
               </p>
             </CardBody>
             <CardFooter chart>
               <div className={classes.stats}>
-                <AccessTime /> updated 4 minutes ago    
+                <AccessTime /> {moment(Date.now()).format()}
               </div>
             </CardFooter>
           </Card>
         </GridItem>
         <GridItem xs={12} sm={12} md={4}>
           <Card chart>
-            <CardHeader color="info">
-              <ChartistGraph
-                className="ct-chart"
-                data={emailsSubscriptionChart.data}
-                type="Bar"
-                options={emailsSubscriptionChart.options}
-                responsiveOptions={emailsSubscriptionChart.responsiveOptions}
-                listener={emailsSubscriptionChart.animation}
+            <CardHeader color="">
+              <Bar
+                data={state1}
+                options={{
+                  title: {
+                    display: true,
+                    text: 'Auction With Catagories',
+                    fontSize: 20
+                  },
+                  legend: {
+                    display: true,
+                    position: 'right'
+                  }
+                }}
               />
             </CardHeader>
             <CardBody>
-              <h4 className={classes.cardTitle}>Email Subscriptions</h4>
-              <p className={classes.cardCategory}>Last Campaign Performance</p>
+              <h4 className={classes.cardTitle}>Catagories of Auction</h4>
+              <p className={classes.cardCategory}>out of {allauction.length} </p>
             </CardBody>
             <CardFooter chart>
               <div className={classes.stats}>
-                <AccessTime /> campaign sent 2 days ago
+                <AccessTime /> {moment(Date.now()).format()}
               </div>
             </CardFooter>
           </Card>
         </GridItem>
         <GridItem xs={12} sm={12} md={4}>
           <Card chart>
-            <CardHeader color="info">
-              <ChartistGraph
-                className="ct-chart"
-                data={completedTasksChart.data}
-                type="Line"
-                options={completedTasksChart.options}
-                listener={completedTasksChart.animation}
+            <CardHeader color="">
+              <Line
+                data={state2}
+                options={{
+                  title: {
+                    display: true,
+                    text: 'Feedback',
+                    fontSize: 20
+                  },
+                  legend: {
+                    display: true,
+                    position: 'right'
+                  }
+                }}
               />
             </CardHeader>
             <CardBody>
-              <h4 className={classes.cardTitle}>Completed Tasks</h4>
-              <p className={classes.cardCategory}>Last Campaign Performance</p>
+              <h4 className={classes.cardTitle}>Feedback</h4>
+              <p className={classes.cardCategory}>out of {customers.length}</p>
             </CardBody>
             <CardFooter chart>
               <div className={classes.stats}>
-                <AccessTime /> campaign sent 2 days ago
+                <AccessTime /> {moment(Date.now()).format()}
               </div>
             </CardFooter>
           </Card>
         </GridItem>
+      
       </GridContainer>
-      <GridContainer>
+      {/* <GridContainer>
         <GridItem xs={12} sm={12} md={6}>
           <CustomTabs
             title="Tasks:"
@@ -271,7 +396,7 @@ export default function Dashboard() {
             <CardHeader color="info">
               <h4 className={classes.cardTitleWhite}>New Bids</h4>
               <p className={classes.cardCategoryWhite}>
-                Todays Bid Info 
+                Todays Bid Info
               </p>
             </CardHeader>
             <CardBody>
@@ -289,6 +414,7 @@ export default function Dashboard() {
           </Card>
         </GridItem>
       </GridContainer>
+     */}
     </div>
   );
 }

@@ -11,8 +11,12 @@ import { useSelector, useDispatch } from "react-redux";
 import Button1 from '@material-ui/core/Button'
 import {
   UpdateCustomerAction,
-  AccountCheckoutAction
+  AccountCheckoutAction,DeleteCustomerAction,
+  DeleteAccountCleanUpAction
 } from '../../../redux-state-managment/Actions';
+import {Alert } from '@material-ui/lab'
+import { CircularProgress,DialogTitle } from "@material-ui/core";
+import IconButton from '@material-ui/core/IconButton';
 import {
   BACKENDURL
 } from '../../../redux-state-managment/Constants'
@@ -82,9 +86,13 @@ export default function UserProfile(props) {
 
   const token = useSelector((state) => state.AccountReducer.token);
   const error = useSelector((state) => state.AccountReducer.error);
+  const delete_status = useSelector((state) => state.DeletAccountReducer.delete_status);
+  const delete_error = useSelector((state) => state.DeletAccountReducer.delete_error);
   
 
   const [progress, setProgress] = React.useState(false);
+  const [opend,setOpend]= React.useState(false)
+
   return (
     <div>
       <GridContainer>
@@ -310,7 +318,15 @@ export default function UserProfile(props) {
               <h6 className={classes.cardCategory}>{state.phone}</h6>
               <h6 className={classes.cardCategory}>{state.city}</h6>
               <h6 className={classes.cardCategory}>{state.sex}</h6>
-              <Button color="danger" round>
+              <Button 
+              onClick={async ()=>{
+                setOpend(true);
+                
+              }}
+              color="danger" 
+              round
+              
+              >
                 Delete Account
               </Button>
             </CardBody>
@@ -332,6 +348,34 @@ export default function UserProfile(props) {
           />
         </div>
       </Dialog>
+      <Dialog open={opend}>
+        <DialogTitle>
+          <IconButton onClick={()=>setOpend(false)}>X</IconButton>
+        </DialogTitle>
+        {
+            delete_error
+                ? <Alert severity="error">{delete_error}</Alert>
+                : null
+        }
+        {
+            delete_status === 200
+                ? <Alert severity="success">user is successfuly deleted</Alert>
+                : null
+        }
+        <Alert severity='warning'>are you sure? <Button 
+        variant="contained"
+        onClick={async ()=>{
+          setProgress(true);
+          await dispatch(DeleteCustomerAction({userId: data._id},token));
+          setTimeout(function () {
+            dispatch(DeleteAccountCleanUpAction());
+            setOpen(false);
+            props.history.push('/admin/customer');
+        }, 6000);
+        }}
+        color="danger">{progress?<span><CircularProgress color="primary"/>loading</span>:"Delete"}</Button></Alert>
+      </Dialog>
+    
     </div>
   );
 }

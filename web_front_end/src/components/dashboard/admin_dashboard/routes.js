@@ -69,7 +69,7 @@ const dashboardRoutes = [
   },
   {
     path: "/auction_location",
-    name: "Auctions_location",
+    name: "Auctions location",
     icon: Notifications,
     component: Auction_map,
     layout: "/admin",

@@ -5,9 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import GridItem from "./main_dashbaord/Grid/GridItem.js";
 import GridContainer from "./main_dashbaord/Grid/GridContainer.js";
 import Table from "./main_dashbaord/Table/Table.js";
-import HorzMore from '@material-ui/icons/MoreHoriz';
-import Detail from '../../catagroy_slider/Detail';
-import Approve from '@material-ui/icons/ThumbUp';
+
 import DeleteAuction from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import Input from '@material-ui/core/Input';
@@ -152,7 +150,7 @@ export default function TableList() {
                   </Avatar>,
                   
                   <Link  to={{
-                    pathname: "/admin/user",
+                    pathname: "/admin/profile",
                     state: {customer}
                }}
                >
