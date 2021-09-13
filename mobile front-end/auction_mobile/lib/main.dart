@@ -4,12 +4,15 @@ import 'package:auction_mobile/live_auctions_view.dart';
 import 'package:auction_mobile/post_auction.dart';
 import 'package:auction_mobile/product_browser.dart';
 import 'package:auction_mobile/profile.dart';
+import 'package:auction_mobile/providers/main_session_provider.dart';
 import 'package:auction_mobile/search_view.dart';
 import 'package:auction_mobile/your_auctions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:provider/provider.dart';
 
 import 'api/api.dart';
+import 'api/auction.dart';
 import 'category_browser.dart';
 import 'components/about.dart';
 import 'components/login.dart';
@@ -31,7 +34,7 @@ class _AuctionAppState extends State<AuctionApp> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     _categoryTabController =
-        TabController(initialIndex: 0, length: 6, vsync: this);
+        TabController(initialIndex: 0, length: 7, vsync: this);
     _productsTabController =
         TabController(initialIndex: 0, length: 3, vsync: this);
   }
@@ -40,10 +43,17 @@ class _AuctionAppState extends State<AuctionApp> with TickerProviderStateMixin {
       debugShowCheckedModeBanner: false,
       title: 'M3K Auction',
       theme: ThemeData(primarySwatch: Colors.teal),
-      home: (!isLoggedIn)?LoginPage():Scaffold(
+      home: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_)=>SessionProvider()),
+          StreamProvider<int>.value(value:Stream<int>.periodic(Duration(seconds: 1),(i)=>i+1), initialData: 0)
+        ],
+        child:Consumer<SessionProvider>(
+          builder:(context,sessionProvider,child)=>(!sessionProvider.isLoggedIn)?LoginPage():Scaffold(
           key: _scaffoldKey,
           drawer: DrawerComponent(),
-          body: CustomScrollView(
+          body:
+          CustomScrollView(
             physics: BouncingScrollPhysics(),
             slivers: [
               SliverAppBar(
@@ -179,5 +189,7 @@ class _AuctionAppState extends State<AuctionApp> with TickerProviderStateMixin {
                 ]),
               )
             ],
-          )));
+          )
+          ))
+          ));
 }

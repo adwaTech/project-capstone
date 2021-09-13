@@ -1,10 +1,12 @@
+import 'package:auction_mobile/api/auction.dart';
 import 'package:flutter/material.dart';
 
 import '../product_preview.dart';
 
 class ProductTile extends StatelessWidget {
   final int index;
-  ProductTile(this.index);
+  final Auction auction;
+  ProductTile(this.index,this.auction);
   Widget build(BuildContext context) => Hero(
         tag: 'hero$index',
         child: Card(
@@ -27,12 +29,12 @@ class ProductTile extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Text('Auction Title',
+                                Text(auction.name,
                                     style: TextStyle(fontSize: 20)),
                                 Row(
                                   children: [
-                                    Expanded(flex: 1, child: Text('Deadline')),
-                                    Expanded(flex: 1, child: Text('2013'))
+                                    Expanded(flex: 1, child: Text(auction.deadline.toString())),
+                                    Expanded(flex: 1, child: Text(auction.postedOn.toString()))
                                   ],
                                 ),
                                 Row(

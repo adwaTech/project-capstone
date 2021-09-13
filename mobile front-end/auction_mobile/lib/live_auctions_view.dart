@@ -38,8 +38,9 @@ class LiveAuctionsBrowser extends StatelessWidget {
                     alignment: Alignment.bottomRight,
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => CategoryViewer()));
+                        // TODO: add appropriate navigator
+                        // Navigator.of(context).push(MaterialPageRoute(
+                        //     builder: (context) => CategoryViewer()));
                       },
                       child: Text('Show all'),
                     ),

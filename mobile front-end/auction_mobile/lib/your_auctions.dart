@@ -18,7 +18,7 @@ class _YourAuctionsState extends State<YourAuctions> {
           ),
           SliverList(
             delegate: SliverChildBuilderDelegate(
-                (context, index) => ProductTile(index),
+                (context, index) => ProductTile(index,null),
                 childCount: 20),
           )
         ],
