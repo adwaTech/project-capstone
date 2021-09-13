@@ -1,6 +1,9 @@
 import 'package:auction_mobile/product_preview.dart';
+import 'package:auction_mobile/providers/stream_provider.dart';
 import 'package:flutter/material.dart';
 
+import 'api/api.dart';
+import 'api/auction.dart';
 import 'components/category_card.dart';
 import 'components/category_viewer.dart';
 import 'components/product_card.dart';
@@ -50,25 +53,54 @@ class ProductBrowser extends StatelessWidget {
                   controller: _productsTabController,
                   children: [
                     Tab(
-                      child: Container(
-                          height: 200,
-                          child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: 7,
-                              itemBuilder: (context, index) => Hero(
-                                  tag: 'latestproduct$index',
-                                  child: Product(() {
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                ProductPreview(
-                                                    'latestproduct$index')));
-                                  })))),
+                      // TODO: streambuilders should not be broadcast streams. Find another way to implement this
+                      child: StreamBuilder(
+                          stream: ApiStream<List<Auction>>(
+                              List.empty(), Duration(seconds: 2), (_) async {
+                            return await API
+                                .getInstance()
+                                .getAuctions({'type': 'latest'});
+                          }).stream.asBroadcastStream(),
+                          builder: (context, snapshot) => Container(
+                              height: 200,
+                              child: (snapshot.data == null)
+                                  ? Center(child: CircularProgressIndicator())
+                                  : (snapshot.data.length == 0)
+                                      ? Center(
+                                          child: Text('No data'),
+                                        )
+                                      : ListView.builder(
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: 7,
+                                          itemBuilder: (context, index) => Hero(
+                                              tag: 'latestproduct$index',
+                                              child: Product(() {
+                                                Navigator.of(context).push(
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            ProductPreview(
+                                                                'latestproduct$index',
+                                                                snapshot.data[index])));
+                                              }))))),
                     ),
                     Tab(
-                      child: Container(
+                        child: StreamBuilder(
+                      stream: ApiStream<List<Auction>>(
+                          List.empty(), Duration(seconds: 2), (_) async {
+                        return await API
+                            .getInstance()
+                            .getAuctions({'type': 'popular'});
+                      }).stream.asBroadcastStream(),
+                      builder: (context, snapshot) => Container(
                           height: 200,
-                          child: ListView.builder(
+                          child: (snapshot.data == null)
+                                  ? Center(child: CircularProgressIndicator())
+                                  : (snapshot.data.length == 0)
+                                      ? Center(
+                                          child: Text('No data'),
+                                        )
+                                      :
+                          ListView.builder(
                               scrollDirection: Axis.horizontal,
                               itemCount: 7,
                               itemBuilder: (context, index) => Hero(
@@ -77,24 +109,43 @@ class ProductBrowser extends StatelessWidget {
                                     Navigator.of(context).push(
                                         MaterialPageRoute(
                                             builder: (context) =>
+                                                // TODO: implement this
                                                 ProductPreview(
-                                                    'popularproduct$index')));
+                                                    'popularproduct$index',
+                                                    snapshot.data[index])));
                                   })))),
-                    ),
+                    )),
                     Tab(
-                      child: Container(
+                        child: StreamBuilder(
+                      stream: ApiStream<List<Auction>>(
+                          List.empty(), Duration(seconds: 2), (_) async {
+                        return await API
+                            .getInstance()
+                            .getAuctions({'type': 'popular'});
+                      }).stream.asBroadcastStream(),
+                      builder: (context, snapshot) => Container(
                           height: 200,
-                          child: ListView.builder(
+                          child: 
+                          (snapshot.data == null)
+                                  ? Center(child: CircularProgressIndicator())
+                                  : (snapshot.data.length == 0)
+                                      ? Center(
+                                          child: Text('No data'),
+                                        )
+                                      :ListView.builder(
                               scrollDirection: Axis.horizontal,
                               itemCount: 7,
                               itemBuilder: (context, index) => Hero(
                                   tag: 'recommendedproduct$index',
                                   child: Product(() {
-                                    Navigator.of(context).push(MaterialPageRoute(
-                                        builder: (context) => ProductPreview(
-                                            'recommendedproduct$index')));
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ProductPreview(
+                                                    'recommendedproduct$index',
+                                                    snapshot.data[index])));
                                   })))),
-                    ),
+                    )),
                   ],
                 ),
               ),

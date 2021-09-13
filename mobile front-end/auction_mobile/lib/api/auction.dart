@@ -3,8 +3,10 @@ import 'package:auction_mobile/api/object_id.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'enums.dart';
+
 class Auction {
   Auction.fromJson(Map<String, dynamic> json) {
+    id = json['_id'];
     name = json['auctionName'];
     briefDescription = json['briefDescription'];
     extendedDescription = json['extendedDescription'];
@@ -14,14 +16,14 @@ class Auction {
     bidFee = json['bidFee'];
     minAmount = json['minAmount'];
     minCpo = json['minCpo'];
-    owner = ObjectId(ObjectType.User,json['owner']);
-    if(json['proposals'] is List)
-      proposals = ObjectId.fromList(ObjectType.Proposal,json['proposals']);
+    owner = ObjectId(ObjectType.User, json['owner']);
+    if (json['proposals'] is List)
+      proposals = ObjectId.fromList(ObjectType.Proposal, json['proposals']);
     deadline = DateTime.parse(json['deadline']);
     postedOn = DateTime.parse(json['postedOn']);
     approval = json['approval'];
     auctionType = getAuctionType(json['auctionType']);
-    if(auctionType==AuctionType.Live)
+    if (auctionType == AuctionType.Live)
       startDate = DateTime.parse(json['startDate']);
     images = ImageViewer.fromList(json['images']);
     condition = getAuctionCondition(json['condition']);
@@ -29,6 +31,7 @@ class Auction {
   }
   Map<String, dynamic> toJson() {
     Map<String, dynamic> json = Map<String, dynamic>();
+    if (id != null) json['_id'] = id;
     json['auctionName'] = name;
     json['briefDescription'] = briefDescription;
     json['extendedDescription'] = extendedDescription;
@@ -50,6 +53,8 @@ class Auction {
     json['status'] = getAuctionStatusString(status);
     return json;
   }
+
+  String id;
   String name, briefDescription, extendedDescription, latitude, longtude;
   String auctionCategory;
   double bidFee, minAmount, minCpo;
@@ -85,13 +90,16 @@ class Auction {
               ? AuctionStatus.Archieved
               : AuctionStatus.Inactive;
   @override
-  String toString(){
+  String toString() {
     return 'An Auction with '
-    'name: $name'
-    'category: $auctionCategory'
-    'type: $auctionType';
+        'name: $name'
+        'category: $auctionCategory'
+        'type: $auctionType';
   }
-  static Iterable<Auction> filterCategory(AsyncSnapshot<List<Auction>> snapshot,String category){
-      return snapshot.data.skipWhile((value) => value.auctionCategory!=category);
+
+  static Iterable<Auction> filterCategory(
+      AsyncSnapshot<List<Auction>> snapshot, String category) {
+    return snapshot.data
+        .skipWhile((value) => value.auctionCategory != category);
   }
 }

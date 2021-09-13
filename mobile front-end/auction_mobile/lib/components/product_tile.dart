@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 
 import '../product_preview.dart';
 
+// TODO: add all backend information
 class ProductTile extends StatelessWidget {
   final int index;
   final Auction auction;
-  ProductTile(this.index,this.auction);
+  ProductTile(this.index, this.auction);
   Widget build(BuildContext context) => Hero(
         tag: 'hero$index',
         child: Card(
@@ -33,8 +34,14 @@ class ProductTile extends StatelessWidget {
                                     style: TextStyle(fontSize: 20)),
                                 Row(
                                   children: [
-                                    Expanded(flex: 1, child: Text(auction.deadline.toString())),
-                                    Expanded(flex: 1, child: Text(auction.postedOn.toString()))
+                                    Expanded(
+                                        flex: 1,
+                                        child:
+                                            Text(auction.deadline.toString())),
+                                    Expanded(
+                                        flex: 1,
+                                        child:
+                                            Text(auction.postedOn.toString()))
                                   ],
                                 ),
                                 Row(
@@ -66,7 +73,8 @@ class ProductTile extends StatelessWidget {
                                                         MaterialPageRoute(
                                                             builder: (context) =>
                                                                 ProductPreview(
-                                                                    'hero$index')));
+                                                                    'hero$index',
+                                                                    auction)));
                                                   },
                                                   child: Text('Preview')))))
                                 ]))

@@ -66,6 +66,9 @@ module.exports = async (req, res) => {
                 return res.status(400).send({
                     error: requiredParamError('category')
                 })
+			case 'live':
+                    return res.send(await findAuctions({ auctionType: 'live', status: 'open' }));
+                
             case 'id':
                 if (req.query.id) {
                     const auction = await AuctionModel.findById(req.query.id).catch(err => error = err)

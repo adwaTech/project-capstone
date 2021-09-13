@@ -1,3 +1,4 @@
+import 'package:auction_mobile/api/user.dart';
 import 'package:auction_mobile/providers/stream_provider.dart';
 import 'package:dio/dio.dart';
 
@@ -14,6 +15,8 @@ class API {
 
   Stream<List<Auction>> auctionStream;
   String _authToken;
+  User _user;
+  User get user => _user;
   Dio _dio;
   String get authToken => _authToken;
   API._() {
@@ -32,6 +35,7 @@ class API {
       Response<dynamic> response = await _dio
           .post('/login', data: {'email': email, 'password': password});
       _authToken = response.data['token'];
+      _user = User.fromJson(response.data['user']);
       print('Login success');
       return true;
     } catch (e) {
@@ -44,7 +48,7 @@ class API {
     }
   }
 
-  Stream<List<Auction>> getAuctionStream() =>auctionStream;
+  Stream<List<Auction>> getAuctionStream() => auctionStream;
   Future<List<Auction>> getAuctions(Map<String, dynamic> query) async {
     print('getting Auctions');
     try {

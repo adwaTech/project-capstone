@@ -1,14 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'api/auction.dart';
+
+// TODO: Add all required backend information
 class ProductPreview extends StatelessWidget {
   final String heroTag;
-  ProductPreview(this.heroTag);
+  final Auction auction;
+  ProductPreview(this.heroTag, this.auction);
   Widget build(BuildContext context) => Hero(
-        tag: heroTag,
-        child: Stack(
-          children:[
-            CustomScrollView(
+      tag: heroTag,
+      child: Stack(children: [
+        CustomScrollView(
           physics: BouncingScrollPhysics(),
           slivers: [
             SliverAppBar(
@@ -17,7 +20,7 @@ class ProductPreview extends StatelessWidget {
               stretchTriggerOffset: 200,
               expandedHeight: 300,
               backgroundColor: Colors.teal[800],
-              title: Text(heroTag),
+              title: Text(auction.name),
               flexibleSpace: FlexibleSpaceBar(
                   collapseMode: CollapseMode.parallax,
                   background: DecoratedBox(
@@ -65,9 +68,9 @@ class ProductPreview extends StatelessWidget {
                                     child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(heroTag,
+                                    Text(auction.name,
                                         style: TextStyle(fontSize: 20)),
-                                    Text('1200 Birr',
+                                    Text('${auction.minAmount}',
                                         style: TextStyle(fontSize: 20)),
                                     Text(heroTag,
                                         style: TextStyle(fontSize: 20)),
@@ -127,30 +130,25 @@ class ProductPreview extends StatelessWidget {
           ],
         ),
         Padding(
-          padding:EdgeInsets.all(10),
-          child:Align(
-          alignment:Alignment.bottomRight,
-          child:Material(
-            elevation: 10,
-            borderRadius: BorderRadius.circular(50),
-            color: Colors.teal,
-            child:InkWell(
-              
-              borderRadius: BorderRadius.circular(50),
-              onTap: (){
-
-              },
-            child: Container(
-            
-              width: 100,
-              height: 50,
-              decoration: BoxDecoration(
-                color: Colors.transparent,
-                borderRadius: BorderRadius.circular(50)
-              ),
-              child:Center(child:Text('Bid Now',style:TextStyle(color: Colors.white)))
-            )),
-          )))
-          ])
-      );
+            padding: EdgeInsets.all(10),
+            child: Align(
+                alignment: Alignment.bottomRight,
+                child: Material(
+                  elevation: 10,
+                  borderRadius: BorderRadius.circular(50),
+                  color: Colors.teal,
+                  child: InkWell(
+                      borderRadius: BorderRadius.circular(50),
+                      onTap: () {},
+                      child: Container(
+                          width: 100,
+                          height: 50,
+                          decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(50)),
+                          child: Center(
+                              child: Text('Bid Now',
+                                  style: TextStyle(color: Colors.white))))),
+                )))
+      ]));
 }

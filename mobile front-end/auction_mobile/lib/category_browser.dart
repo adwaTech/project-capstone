@@ -67,7 +67,7 @@ class _CategoriesBrowserState extends State<CategoriesBrowser> {
               StreamBuilder<List<Auction>>(
                         stream: ApiStream<List<Auction>>(List.empty(),Duration(seconds: 2),(_) async {
                           return await API.getInstance().getAuctions({
-                            'type':'allx'
+                            'type':'all'
                           });
                         }).stream,
                         builder:(context,AsyncSnapshot<List<Auction>> snapshot)=>Container(
@@ -92,7 +92,7 @@ class _CategoriesBrowserState extends State<CategoriesBrowser> {
                                   Product.alternative(Auction.filterCategory(snapshot, 'land').elementAt(index),() {
                                     Navigator.of(context).push(MaterialPageRoute(
                                         builder: (context) => ProductPreview(
-                                            'landproduct$index')));
+                                            'landproduct$index',Auction.filterCategory(snapshot, 'land').elementAt(index))));
                                   })
                                   ))),
                     ),
@@ -112,7 +112,7 @@ class _CategoriesBrowserState extends State<CategoriesBrowser> {
                                   Product.alternative(Auction.filterCategory(snapshot, 'house').elementAt(index),() {
                                     Navigator.of(context).push(MaterialPageRoute(
                                         builder: (context) => ProductPreview(
-                                            'houseproduct$index')));
+                                            'houseproduct$index',Auction.filterCategory(snapshot,'house').elementAt(index))));
                                   })
                                   ))),
                     ),
@@ -132,7 +132,7 @@ class _CategoriesBrowserState extends State<CategoriesBrowser> {
                                   Product.alternative(Auction.filterCategory(snapshot, 'electronics').elementAt(index),() {
                                     Navigator.of(context).push(MaterialPageRoute(
                                         builder: (context) => ProductPreview(
-                                            'electronicsproduct$index')));
+                                            'electronicsproduct$index',Auction.filterCategory(snapshot,'electronics').elementAt(index))));
                                   })
                                   ))),
                     ),
@@ -152,7 +152,7 @@ class _CategoriesBrowserState extends State<CategoriesBrowser> {
                                   Product.alternative(Auction.filterCategory(snapshot, 'vehicle').elementAt(index),() {
                                     Navigator.of(context).push(MaterialPageRoute(
                                         builder: (context) => ProductPreview(
-                                            'vehicleproduct$index')));
+                                            'vehicleproduct$index',Auction.filterCategory(snapshot,'vehicle').elementAt(index))));
                                   })
                                   ))),
                     ),
@@ -172,7 +172,7 @@ class _CategoriesBrowserState extends State<CategoriesBrowser> {
                                   Product.alternative(Auction.filterCategory(snapshot, 'service').elementAt(index),() {
                                     Navigator.of(context).push(MaterialPageRoute(
                                         builder: (context) => ProductPreview(
-                                            'serviceproduct$index')));
+                                            'serviceproduct$index',Auction.filterCategory(snapshot,'service').elementAt(index))));
                                   })
                                   ))),
                     ),
@@ -192,7 +192,7 @@ class _CategoriesBrowserState extends State<CategoriesBrowser> {
                                   Product.alternative(Auction.filterCategory(snapshot, 'rare').elementAt(index),() {
                                     Navigator.of(context).push(MaterialPageRoute(
                                         builder: (context) => ProductPreview(
-                                            'rareproduct$index')));
+                                            'rareproduct$index',Auction.filterCategory(snapshot,'rare').elementAt(index))));
                                   })
                                   ))),
                     ),
@@ -213,7 +213,7 @@ class _CategoriesBrowserState extends State<CategoriesBrowser> {
                                   Product.alternative(Auction.filterCategory(snapshot, 'oldies').elementAt(index),() {
                                     Navigator.of(context).push(MaterialPageRoute(
                                         builder: (context) => ProductPreview(
-                                            'oldiesproduct$index')));
+                                            'oldiesproduct$index',Auction.filterCategory(snapshot, 'oldies').elementAt(index))));
                                   })
                                   ))),
                     ),
