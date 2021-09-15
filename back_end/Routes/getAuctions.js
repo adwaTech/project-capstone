@@ -82,7 +82,13 @@ module.exports = async (req, res) => {
                         return res.send(await auction.populate({
                             path: 'owner',
                             select: 'firstName lastName sex city userType profileImage'
-                        }));
+                        }).populate({
+        path:'proposals',
+        populate:{
+            path:'ownerId',
+            select: 'firstName lastName sex city userType profileImage'
+        }
+    }));
                     return res.status(400).send({
                         error: 'Invalid id',
                         errorStackTrace: error
