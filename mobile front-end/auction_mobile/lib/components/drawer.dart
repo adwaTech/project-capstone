@@ -1,4 +1,6 @@
+import 'package:auction_mobile/api/api.dart';
 import 'package:auction_mobile/components/contact_us.dart';
+import 'package:auction_mobile/money.dart';
 import 'package:auction_mobile/post_auction.dart';
 import 'package:flutter/material.dart';
 
@@ -45,6 +47,11 @@ class DrawerComponent extends StatelessWidget {
             title: Text('Post Auction'),
           ),
           ListTile(
+            onTap: (){
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context)=>MoneyPage(API.getInstance().user.balance))
+              );
+            },
             leading: Icon(Icons.money),
             title: Text('Manage Account Balance'),
           ),

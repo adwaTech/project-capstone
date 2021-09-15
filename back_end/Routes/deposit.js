@@ -22,14 +22,14 @@ module.exports = async (req, res) => {
                 user.balance = user.balance + value
                 await user.save();
                 return res.send({
-                    code: '123456'
+                    newBalance:user.balance
                 })
             case types.paymentMethod.amole:
                 // set user balance temporarly
                 user.balance = user.balance + value
                 await user.save();
                 return res.send({
-                    api: 'API Reference'
+                    newBalance:user.balance
                 })
             default:
                 return res.status(400).send({

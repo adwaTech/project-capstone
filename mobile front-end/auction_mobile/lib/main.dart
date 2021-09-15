@@ -45,7 +45,7 @@ class _AuctionAppState extends State<AuctionApp> with TickerProviderStateMixin {
       theme: ThemeData(primarySwatch: Colors.teal),
       home: MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (_)=>SessionProvider()),
+          ChangeNotifierProvider(create: (_)=>API.getInstance().sessionProvider),
           StreamProvider<int>.value(value:Stream<int>.periodic(Duration(seconds: 1),(i)=>i+1), initialData: 0)
         ],
         child:Consumer<SessionProvider>(
