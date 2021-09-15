@@ -17,13 +17,17 @@ class API {
   String _authToken;
   User _user;
   User get user => _user;
+  static final String baseUrl = 'http://localhost:5000/';
+  static final String auctionImageUrl = 'http://localhost:5000/auctions/';
+  static final String userImageUrl = 'http://localhost:5000/users/';
+  static final String proposalImageUrl = 'http://localhost:5000/bids/';
   Dio _dio;
   String get authToken => _authToken;
   API._() {
     // setup authToken from sharedPreferences;
     _dio = Dio(BaseOptions(
       // TODO: Configure correct url path
-      baseUrl: 'http://localhost:5000/',
+      baseUrl: baseUrl,
     ));
     // auctionStream = ApiStream<List<Auction>>([], Duration(seconds: 2), (value) async {
     //   return await getAuctions({'type': 'all'});

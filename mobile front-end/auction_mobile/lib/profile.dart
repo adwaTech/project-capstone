@@ -1,5 +1,8 @@
+import 'package:auction_mobile/your_bids.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart';
+
+import 'api/api.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -40,8 +43,19 @@ class _ProfilePageState extends State<ProfilePage> {
                         margin: EdgeInsets.all(3),
                         decoration: BoxDecoration(
                             image: DecorationImage(
-                                image: AssetImage(
-                                    'assets/images/product_logo.jpg'),
+                                image: (API.getInstance().user.profileImage !=
+                                        null)
+                                    ? Image.network(
+                                        API.userImageUrl +
+                                            API
+                                                .getInstance()
+                                                .user
+                                                .profileImage
+                                                .imageSrc,
+                                        fit: BoxFit.cover,
+                                      )
+                                    : AssetImage(
+                                        'assets/images/product_logo.jpg'),
                                 fit: BoxFit.cover),
                             borderRadius: BorderRadius.circular(90)),
                         height: 100,
@@ -67,7 +81,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                 padding: EdgeInsets.all(10),
                                 child: Column(
                                   children: [
-                                    Text('Tolosa Gemechu'),
+                                    Text(API.getInstance().user.firstName +
+                                        ' ' +
+                                        API.getInstance().user.lastName),
                                     Divider(),
                                     Row(
                                       children: [
@@ -119,39 +135,47 @@ class _ProfilePageState extends State<ProfilePage> {
                               )),
                         ),
                         Divider(),
-                        Card(
-                            child: Container(
-                                height: 300,
-                                child: PieChart(
-                                  [
-                                    Series<_AuctionData, String>(
-                                        id: 'participation_series',
-                                        colorFn: (_, index) =>
-                                            _colorPalette[index].shadeDefault,
-                                        domainFn: (_AuctionData data, _) =>
-                                            data.type,
-                                        measureFn: (_AuctionData data, _) =>
-                                            data.count,
-                                        data: _data,
-                                        labelAccessorFn:
-                                            (_AuctionData data, _) =>
+                        InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => YourBids()));
+                            },
+                            child: Card(
+                                child: Container(
+                                    height: 300,
+                                    child: PieChart(
+                                      [
+                                        Series<_AuctionData, String>(
+                                            id: 'participation_series',
+                                            colorFn: (_, index) =>
+                                                _colorPalette[index]
+                                                    .shadeDefault,
+                                            domainFn: (_AuctionData data, _) =>
+                                                data.type,
+                                            measureFn: (_AuctionData data, _) =>
+                                                data.count,
+                                            data: _data,
+                                            labelAccessorFn: (_AuctionData data,
+                                                    _) =>
                                                 '${data.type} : ${data.count}')
-                                  ],
-                                  animate: true,
-                                  animationDuration: Duration(seconds: 1),
-                                  defaultRenderer:
-                                      ArcRendererConfig(arcRendererDecorators: [
-                                    ArcLabelDecorator(
-                                      labelPosition: ArcLabelPosition.inside,
-                                    )
-                                  ]),
-                                  behaviors: [
-                                    ChartTitle('Your Participation Data,'),
-                                    DatumLegend(
-                                        position: BehaviorPosition.end,
-                                        desiredMaxColumns: 1)
-                                  ],
-                                )))
+                                      ],
+                                      animate: true,
+                                      defaultInteractions: true,
+                                      animationDuration: Duration(seconds: 1),
+                                      defaultRenderer: ArcRendererConfig(
+                                          arcRendererDecorators: [
+                                            ArcLabelDecorator(
+                                              labelPosition:
+                                                  ArcLabelPosition.inside,
+                                            )
+                                          ]),
+                                      behaviors: [
+                                        ChartTitle('Your Participation Data,'),
+                                        DatumLegend(
+                                            position: BehaviorPosition.end,
+                                            desiredMaxColumns: 1)
+                                      ],
+                                    ))))
                       ],
                     ))),
           ],

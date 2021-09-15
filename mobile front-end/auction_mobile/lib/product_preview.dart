@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'api/api.dart';
 import 'api/auction.dart';
 
 // TODO: Add all required backend information
@@ -30,7 +31,12 @@ class ProductPreview extends StatelessWidget {
                             begin: Alignment.bottomCenter,
                             end: Alignment.center,
                             colors: [Colors.teal[800], Colors.transparent])),
-                    child: Image.asset(
+                    child: (auction.images !=null && auction.images.length>0)?
+                    Image.network(
+                      API.auctionImageUrl+auction.images[0].imageSrc,
+                      fit: BoxFit.cover
+                    )
+                    :Image.asset(
                       'assets/images/product_logo.jpg',
                       fit: BoxFit.cover,
                     ),

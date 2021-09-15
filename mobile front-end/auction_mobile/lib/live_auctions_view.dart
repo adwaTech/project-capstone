@@ -41,7 +41,7 @@ class LiveAuctionsBrowser extends StatelessWidget {
                         itemCount: snapshot.data.length,
                         itemBuilder: (context, index) => Hero(
                             tag: 'liveproduct$index',
-                            child: Product(() {
+                            child: Product(snapshot.data.skipWhile((value) => value.auctionType!=AuctionType.Live).elementAt(index),() {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) =>
                                       ProductPreview('liveproduct$index',snapshot.data.skipWhile((value) => value.auctionType!=AuctionType.Live).elementAt(index))));

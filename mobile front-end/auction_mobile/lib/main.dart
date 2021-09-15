@@ -52,6 +52,14 @@ class _AuctionAppState extends State<AuctionApp> with TickerProviderStateMixin {
           builder:(context,sessionProvider,child)=>(!sessionProvider.isLoggedIn)?LoginPage():Scaffold(
           key: _scaffoldKey,
           drawer: DrawerComponent(),
+          floatingActionButton: FloatingActionButton(
+            onPressed: (){
+              //TODO: post new auction button
+              Navigator.of(context).push(MaterialPageRoute(builder:(context)=>PostAuction()));
+            },
+            child: Icon(Icons.add),
+            heroTag: 'postAuction',
+          ),
           body:
           CustomScrollView(
             physics: BouncingScrollPhysics(),

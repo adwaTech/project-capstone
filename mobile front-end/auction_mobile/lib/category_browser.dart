@@ -89,7 +89,7 @@ class _CategoriesBrowserState extends State<CategoriesBrowser> {
                               itemBuilder: (context, index) => Hero(
                                   tag: 'landproduct$index',
                                   child: 
-                                  Product.alternative(Auction.filterCategory(snapshot, 'land').elementAt(index),() {
+                                  Product(Auction.filterCategory(snapshot, 'land').elementAt(index),() {
                                     Navigator.of(context).push(MaterialPageRoute(
                                         builder: (context) => ProductPreview(
                                             'landproduct$index',Auction.filterCategory(snapshot, 'land').elementAt(index))));
@@ -109,7 +109,7 @@ class _CategoriesBrowserState extends State<CategoriesBrowser> {
                               itemBuilder: (context, index) => Hero(
                                   tag: 'houseproduct$index',
                                   child: 
-                                  Product.alternative(Auction.filterCategory(snapshot, 'house').elementAt(index),() {
+                                  Product(Auction.filterCategory(snapshot, 'house').elementAt(index),() {
                                     Navigator.of(context).push(MaterialPageRoute(
                                         builder: (context) => ProductPreview(
                                             'houseproduct$index',Auction.filterCategory(snapshot,'house').elementAt(index))));
@@ -129,7 +129,7 @@ class _CategoriesBrowserState extends State<CategoriesBrowser> {
                               itemBuilder: (context, index) => Hero(
                                   tag: 'electronicsproduct$index',
                                   child: 
-                                  Product.alternative(Auction.filterCategory(snapshot, 'electronics').elementAt(index),() {
+                                  Product(Auction.filterCategory(snapshot, 'electronics').elementAt(index),() {
                                     Navigator.of(context).push(MaterialPageRoute(
                                         builder: (context) => ProductPreview(
                                             'electronicsproduct$index',Auction.filterCategory(snapshot,'electronics').elementAt(index))));
@@ -149,7 +149,7 @@ class _CategoriesBrowserState extends State<CategoriesBrowser> {
                               itemBuilder: (context, index) => Hero(
                                   tag: 'vehicleproduct$index',
                                   child: 
-                                  Product.alternative(Auction.filterCategory(snapshot, 'vehicle').elementAt(index),() {
+                                  Product(Auction.filterCategory(snapshot, 'vehicle').elementAt(index),() {
                                     Navigator.of(context).push(MaterialPageRoute(
                                         builder: (context) => ProductPreview(
                                             'vehicleproduct$index',Auction.filterCategory(snapshot,'vehicle').elementAt(index))));
@@ -169,7 +169,7 @@ class _CategoriesBrowserState extends State<CategoriesBrowser> {
                               itemBuilder: (context, index) => Hero(
                                   tag: 'serviceproduct$index',
                                   child: 
-                                  Product.alternative(Auction.filterCategory(snapshot, 'service').elementAt(index),() {
+                                  Product(Auction.filterCategory(snapshot, 'service').elementAt(index),() {
                                     Navigator.of(context).push(MaterialPageRoute(
                                         builder: (context) => ProductPreview(
                                             'serviceproduct$index',Auction.filterCategory(snapshot,'service').elementAt(index))));
@@ -189,7 +189,7 @@ class _CategoriesBrowserState extends State<CategoriesBrowser> {
                               itemBuilder: (context, index) => Hero(
                                   tag: 'rareproduct$index',
                                   child: 
-                                  Product.alternative(Auction.filterCategory(snapshot, 'rare').elementAt(index),() {
+                                  Product(Auction.filterCategory(snapshot, 'rare').elementAt(index),() {
                                     Navigator.of(context).push(MaterialPageRoute(
                                         builder: (context) => ProductPreview(
                                             'rareproduct$index',Auction.filterCategory(snapshot,'rare').elementAt(index))));
@@ -210,7 +210,7 @@ class _CategoriesBrowserState extends State<CategoriesBrowser> {
                               itemBuilder: (context, index) => Hero(
                                   tag: 'oldiesproduct$index',
                                   child: 
-                                  Product.alternative(Auction.filterCategory(snapshot, 'oldies').elementAt(index),() {
+                                  Product(Auction.filterCategory(snapshot, 'oldies').elementAt(index),() {
                                     Navigator.of(context).push(MaterialPageRoute(
                                         builder: (context) => ProductPreview(
                                             'oldiesproduct$index',Auction.filterCategory(snapshot, 'oldies').elementAt(index))));

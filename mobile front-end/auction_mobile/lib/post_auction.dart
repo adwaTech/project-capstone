@@ -9,7 +9,9 @@ class PostAuction extends StatefulWidget {
 class _PostAuctionState extends State<PostAuction> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Hero(
+      tag:'postAuction',
+      child:Scaffold(
         appBar: AppBar(
           title: Text('Post a new Auction'),
         ),
@@ -22,6 +24,6 @@ class _PostAuctionState extends State<PostAuction> {
               }))
             ],
           ),
-        ));
+        )));
   }
 }
