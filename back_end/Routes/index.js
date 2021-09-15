@@ -24,6 +24,7 @@ const setNotificationRoute = require('./setNotification');
 const sync = require('./sync');
 const { customerProfile, getUser, getUsers } = require('./profile');
 const deleteAuction = require('./deleteAuction');
+const generateTokenRoute = require('./generateToken');
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         switch (req.route.path) {
@@ -93,7 +94,7 @@ router.post('/bid', passport.authenticate('jwt', { session: false }), (req, res,
     })
 }, bidForAuctionRoute);
 router.get('/getAuctions', getAuctionsRoute);
-router.get('/profile',passport.authenticate('jwt', { session: false }), upload.any(),customerProfile);
+router.get('/profile', passport.authenticate('jwt', { session: false }), upload.any(), customerProfile);
 router.get('/getBids', passport.authenticate('jwt', { session: false }), getBidsRoute);
 router.get('/getNotifications', passport.authenticate('jwt', { session: false }), getNotificationsRoute);
 router.post('/setNotification', passport.authenticate('jwt', { session: false }), upload.any(), setNotificationRoute)
@@ -115,9 +116,10 @@ router.post('/deposit', passport.authenticate('jwt', { session: false }), upload
 // Admin routes
 router.get("/getFeedbacks", passport.authenticate('jwt', { session: false }), upload.any(), getFeedbacks);
 router.put("/approveAuction", passport.authenticate('jwt', { session: false }), upload.any(), approveAuction);
-router.get("/getUser",passport.authenticate('jwt', { session: false }), upload.any(),getUser);
-router.get("/getUsers",passport.authenticate('jwt', { session: false }), upload.any(),getUsers);
-router.put("/deleteAuction",passport.authenticate('jwt', { session: false }), upload.any(),deleteAuction);
+router.get("/getUser", passport.authenticate('jwt', { session: false }), upload.any(), getUser);
+router.get("/getUsers", passport.authenticate('jwt', { session: false }), upload.any(), getUsers);
+router.put("/deleteAuction", passport.authenticate('jwt', { session: false }), upload.any(), deleteAuction);
+router.get("/generateToken", passport.authenticate('jwt', { session: false }), upload.any(), generateTokenRoute);
 // Common routes
-router.delete("/deleteCustomer", passport.authenticate('jwt', { session: false }),upload.any(), deleteCustomerRoute);
+router.delete("/deleteCustomer", passport.authenticate('jwt', { session: false }), upload.any(), deleteCustomerRoute);
 module.exports = router;

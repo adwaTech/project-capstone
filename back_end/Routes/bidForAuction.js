@@ -42,19 +42,21 @@ module.exports = async (req, res) => {
         return res.status(400).send({
             error: 'amount is below minAmount'
         })
-    if (auction.minCpo) {
-        if (!proposal.cpo) return res.status(400).send({
-            error: 'minCPO is required for this auction'
-        })
-        if (auction.minCpo > proposal.cpo)
-            return res.status(400).send({
-                error: 'cpo is below minCPO'
-            })
-    }
     const duplicate = await proposalModel.find({
         ownerId: req.user._id,
         auctionId: req.body.auctionId
     })
+    if (duplicate.length == 0)
+        if (auction.minCpo) {
+            if (!proposal.cpo) return res.status(400).send({
+                error: 'minCPO is required for this auction'
+            })
+            if (auction.minCpo > proposal.cpo)
+                return res.status(400).send({
+                    error: 'cpo is below minCPO'
+                })
+        }
+
     if (duplicate.length > 0 && !(auction.allPay || auction.auctionType === types.auctionType[0]))
         return res.status(400).send({
             error: 'you can\'t bid twice for this auction'
