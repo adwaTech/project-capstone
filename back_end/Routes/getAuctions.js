@@ -78,7 +78,16 @@ module.exports = async (req, res) => {
             case 'id':
                 console.log(req.query.id)
                 if (req.query.id) {
-                    const auction = await AuctionModel.findById(req.query.id).catch(err => error = err)
+                    const auction = await AuctionModel.findById(req.query.id).populate({
+                            path: 'owner',
+                            select: 'firstName lastName sex city userType profileImage'
+                        }).populate({
+        path:'proposals',
+        populate:{
+            path:'ownerId',
+            select: 'firstName lastName sex city userType profileImage'
+        }
+    }).catch(err => error = err)
                     if (error == '')
                         return res.send(await auction.populate({
                             path: 'owner',
