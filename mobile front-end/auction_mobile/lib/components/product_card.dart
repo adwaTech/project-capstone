@@ -6,10 +6,8 @@ import 'package:flutter/material.dart';
 
 class Product extends StatelessWidget {
   final Function callback;
-  Auction auction=null;
-  Product.alternative(this.auction,this.callback);
-  // ignore: avoid_init_to_null
-  Product(this.callback);
+  final Auction auction;
+  Product(this.auction,this.callback);
   Widget build(BuildContext context) => Center(
       child: Material(
           child: InkWell(
@@ -27,7 +25,12 @@ class Product extends StatelessWidget {
                       SizedBox(
                         width: 200,
                         height: 130,
-                        child: Image.asset('assets/images/product_logo.jpg',
+                        child: (auction.images!=null && auction.images.length>0)?
+                        Image.network(
+                          API.auctionImageUrl+auction.images[0].imageSrc,
+                          fit: BoxFit.cover,
+                        )
+                        :Image.asset('assets/images/product_logo.jpg',
                             fit: BoxFit.cover),
                       ),
                       Divider(),

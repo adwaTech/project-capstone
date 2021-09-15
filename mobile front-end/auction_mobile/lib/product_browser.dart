@@ -74,7 +74,7 @@ class ProductBrowser extends StatelessWidget {
                                           itemCount: 7,
                                           itemBuilder: (context, index) => Hero(
                                               tag: 'latestproduct$index',
-                                              child: Product(() {
+                                              child: Product(snapshot.data[index],() {
                                                 Navigator.of(context).push(
                                                     MaterialPageRoute(
                                                         builder: (context) =>
@@ -105,11 +105,10 @@ class ProductBrowser extends StatelessWidget {
                               itemCount: 7,
                               itemBuilder: (context, index) => Hero(
                                   tag: 'popularproduct$index',
-                                  child: Product(() {
+                                  child: Product(snapshot.data[index],() {
                                     Navigator.of(context).push(
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                // TODO: implement this
                                                 ProductPreview(
                                                     'popularproduct$index',
                                                     snapshot.data[index])));
@@ -137,7 +136,7 @@ class ProductBrowser extends StatelessWidget {
                               itemCount: 7,
                               itemBuilder: (context, index) => Hero(
                                   tag: 'recommendedproduct$index',
-                                  child: Product(() {
+                                  child: Product(snapshot.data[index],() {
                                     Navigator.of(context).push(
                                         MaterialPageRoute(
                                             builder: (context) =>

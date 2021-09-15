@@ -16,6 +16,12 @@ function findAuctions(option) {
     return AuctionModel.find(option).populate({
         path: 'owner',
         select: 'firstName lastName sex city userType profileImage'
+    }).populate({
+        path:'proposals',
+        populate:{
+            path:'ownerId',
+            select: 'firstName lastName sex city userType profileImage'
+        }
     });
 }
 // async function getExpandedAuction(auction) {
