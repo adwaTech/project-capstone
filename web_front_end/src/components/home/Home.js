@@ -62,7 +62,7 @@ export default function Home() {
                 <img src={WaveImage} alt="" />
             </div>
 
-            {token === '' ? <div className="easy-steps">
+            {!token ? <div className="easy-steps">
                 <div>
                     <h5>{strings.HowItWorks}</h5>
                     <span>{strings.towin}</span>

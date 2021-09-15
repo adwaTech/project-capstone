@@ -79,7 +79,7 @@ export default function Products() {
     const allexcept = useSelector((state) => state.AuctionsReducer.allexcept);
     const token = useSelector((state) => state.AccountReducer.token);
     const user = useSelector((state) => state.AccountReducer.user);
-
+    console.log(allAuction)
     const latestAuction = useSelector((state) => state.AuctionsReducer.latestAuction);
     const [numTodesplay, setNumTodesplay] = React.useState(0);
 

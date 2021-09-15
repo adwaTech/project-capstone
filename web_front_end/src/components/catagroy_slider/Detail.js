@@ -19,10 +19,11 @@ import { Paper } from "@material-ui/core";
 import { TextInput } from "./TextInput.js";
 import { MessageLeft, MessageRight } from "./Message";
 
+
 const useStyles1 = makeStyles((theme: Theme) =>
   createStyles({
     paper: {
-      marginTop:"40px",
+      marginTop: "40px",
       display: "flex",
       alignItems: "center",
       flexDirection: "column",
@@ -123,7 +124,6 @@ export default function DetailDialog(props) {
           Auction Detail
         </DialogTitle>
         <DialogContent dividers>
-          {console.log(props.data)}
           <Card className={classes.root}>
             <div className={classes.details}>
               <CardContent className={classes.content}>
@@ -179,15 +179,15 @@ export default function DetailDialog(props) {
               </div>
 
             </CardContent>
-            
+
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               <img
                 className={classes.cover}
                 src={`${BACKENDURL}/auctions/${props.data.images ? props.data.images[0] : null}`}
                 alt="Product images"
               />
-              {props.detail ?
-                <div className={classes.controls}>
+              {props.detail
+                ? <div className={classes.controls}>
                   <Button
                     onClick={
                       () => {
@@ -197,11 +197,10 @@ export default function DetailDialog(props) {
                     }
                     fullWidth variant="contained" color="primary">Set Winner</Button>
                 </div>
-                :
-                props.admin
+                : props.admin
                   ? null
-                  : props.map === "map" ?
-                    <div className={classes.controls}>
+                  : props.map === "map" && props.data.auctionType!=="live"
+                    ? <div className={classes.controls}>
                       <Button
                         onClick={
                           () => {
@@ -210,7 +209,8 @@ export default function DetailDialog(props) {
                           }
                         }
                         fullWidth variant="contained" color="primary">Bid</Button>
-                    </div> : null}
+                    </div>
+                    : null}
               {props.detail ?
                 <div className={classes.controls}>
                   <Button
@@ -223,9 +223,9 @@ export default function DetailDialog(props) {
                     fullWidth variant="contained" color="primary">Set Winner</Button>
                 </div>
                 :
-                user?user.userType === "admin":null
+                user ? user.userType === "admin"
                   ? null
-                  :
+                  :props.data.auctionType!=="live"?
                   <div className={classes.controls}>
                     <Button
                       onClick={
@@ -235,51 +235,87 @@ export default function DetailDialog(props) {
                         }
                       }
                       fullWidth variant="contained" color="primary">Bid</Button>
-                  </div>}
+                  </div>
+                  : null :null}
+                {
+                  props.data
+                  ?props.data.auctionType==='live'
+                  ?props.data.proposals
+                  ?props.data.proposals.length>=0  
+                  ?props.data.proposals.filter(m => {
+                    if(m.ownerId)
+                    return m.ownerId._id === user._id
+                    else{
+                      return false
+                    }
+                  }).length===0
+                  ?
+                  <div className={classes.controls}>
+                    <Button
+                      onClick={
+                        () => {
+                          setOpen_bid_dialog(true);
+                          props.setOpen(false)
+                        }
+                      }
+                      fullWidth variant="contained" color="primary">Bid</Button>
+                  </div>
+                  :null:null:null:null:null
+                }
             </div>
             <CardContent>
-            {props.data ? props.data.auctionType === "live"?
-              <div className={classes1.container}>
-                <Paper className={classes1.paper} zDepth={2}>
-                  <Paper id="style-1" className={classes1.messagesBody}>
-                    <MessageLeft
-                      message="kjjkhdfa sdaf adf adas daf"
-                      timestamp="MM/DD 00:00"
-                      photoURL="ljkaj"
-                      displayName="Meseret"
-                      avatarDisp={true}
-                    />
-                    <MessageLeft
-                      message="kjjkhdfa sdaf adf adas daf"
-                      timestamp="MM/DD 00:00"
-                      photoURL=""
-                      displayName="Kirubel"
-                      avatarDisp={false}
-                    />
-                    <MessageRight
-                      message="213"
-                      timestamp="MM/DD 00:00"
-                      photoURL="213"
-                      displayName="Chala"
-                      avatarDisp={true}
-                    />
-                    <MessageRight
-                      message="123"
-                      timestamp="MM/DD 00:00"
-                      photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
-                      displayName="Zebene"
-                      avatarDisp={false}
-                    />
-                  </Paper>
-                  <TextInput />
-                </Paper>
-              </div>:null:null}
+              {props.data 
+              ? props.data.auctionType === "live" 
+                ?props.data.proposals
+                ?props.data.proposals.length>0
+                ? props.data.proposals.filter(m => {
+                  if(m.ownerId)
+                    return m.ownerId._id === user._id
+                    else{
+                      return false
+                    }
+                }).length>0
+                  ?
+                  <div className={classes1.container}>
+                    <Paper className={classes1.paper} zDepth={2}>
+                      <Paper id="style-1" className={classes1.messagesBody}>
+                        {
+                          props.data.proposals.length > 0
+                            ? props.data.proposals.map((p, i) => (
+                             i % 2 == 0? 
+                              <MessageLeft
+                                message={`${p.amount} birr`}
+                                timestamp={`${moment(p.submittedOn).format()}`}
+                                photoURL={`${BACKENDURL}/users/${p.ownerId.profileImage}`}
+                                displayName={`${p.ownerId.firstName + " " + p.ownerId.lastName}`}
+                                avatarDisp={true}
+                              />
+                              :<MessageRight
+                                message={`${p.amount} birr`}
+                                timestamp={`${moment(p.submittedOn).format()}`}
+                                photoURL={`${BACKENDURL}/users/${p.ownerId.profileImage}`}
+                                displayName={`${p.ownerId.firstName + " " + p.ownerId.lastName}`}
+                                avatarDisp={true}
+                            />
+                            ))
+                            : <div>no bid yet</div>
+                        }
+                      </Paper>
+                      <TextInput 
+                      onChange={()=>{
+
+                      }}/>
+                    </Paper>
+                  </div>
+                  : null:null:null
+                : null
+                : null}
 
             </CardContent>
 
-            
+
           </Card>
-          
+
         </DialogContent>
 
       </Dialog>

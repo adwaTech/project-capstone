@@ -146,7 +146,7 @@ export default function BidAuctionForm(props) {
             {
                 biderror
                     ? <Alert severity="error">
-                        {biderror===`bidder '${user._id}' is the owner of auction of id '${props.data._id}'`
+                        {biderror===`bidder '${user?user._id:null}' is the owner of auction of id '${props.data._id}'`
                         ?"you are the owner of this auction so you cannot bid.":biderror }
                         {biderror === "Unauthorized" ? "you must have an account to bid item" : null} &nbsp;{biderror === "Unauthorized"
                         ? <Link to="/login"><Button variant="contained" color="primary">Login</Button></Link>
