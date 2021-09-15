@@ -1,4 +1,5 @@
 import 'package:auction_mobile/api/user.dart';
+import 'package:auction_mobile/providers/main_session_provider.dart';
 import 'package:auction_mobile/providers/stream_provider.dart';
 import 'package:dio/dio.dart';
 
@@ -16,6 +17,7 @@ class API {
   Stream<List<Auction>> auctionStream;
   String _authToken;
   User _user;
+  SessionProvider sessionProvider;
   User get user => _user;
   static final String baseUrl = 'http://localhost:5000/';
   static final String auctionImageUrl = 'http://localhost:5000/auctions/';
@@ -24,6 +26,7 @@ class API {
   Dio _dio;
   String get authToken => _authToken;
   API._() {
+    sessionProvider = SessionProvider();
     // setup authToken from sharedPreferences;
     _dio = Dio(BaseOptions(
       // TODO: Configure correct url path
@@ -40,6 +43,7 @@ class API {
           .post('/login', data: {'email': email, 'password': password});
       _authToken = response.data['token'];
       _user = User.fromJson(response.data['user']);
+      sessionProvider.user = _user;
       print('Login success');
       return true;
     } catch (e) {
@@ -66,6 +70,61 @@ class API {
         print(e.message);
       } else
         print(e);
+      return null;
+    }
+  }
+
+  Future<double> deposit(double amount, String provider) async {
+    print(amount is double);
+    try {
+      Response<dynamic> response = await _dio
+          .post('/deposit',options: Options(
+            headers: {
+              'Authorization':'Bearer $_authToken'
+            }
+          ), data: {'value': amount, 'type': provider});
+
+      _user.balance = response.data['newBalance'];
+      sessionProvider.user = _user;
+      return response.data['newBalance'];
+    } catch (e) {
+      print('deposit failed');
+      print(e.response.data);
+    }
+  }
+
+  Future<double> withdraw(double amount, String provider) async {
+    try {
+      Response<dynamic> response = await _dio
+          .post('/withdraw',options:Options(
+            headers: {
+              'Authorization':'Bearer $_authToken'
+            }
+          ), data: {'value': amount, 'type': provider});
+      _user.balance = response.data['newBalance'];
+      sessionProvider.user = _user;
+      return response.data['newBalance'];
+    } catch (e) {
+      print('withdraw failed');
+      print(e);
+    }
+  }
+
+  Future<List<Auction>> searchAuctions(String query) async {
+    try {
+      Response<dynamic> response =
+          await _dio.get('/search', queryParameters: {'query': query});
+      // TODO: make generic search for all types
+      dynamic temp0 = response.data['auctionsWithName'];
+      dynamic temp1 = response.data['auctionsWithCategory'];
+      dynamic temp2 = response.data['auctionsWithBriefDescription'];
+      dynamic temp3 = response.data['auctionsWithExtendedDescription'];
+      dynamic temp = [...temp0, ...temp1, ...temp2, ...temp3];
+      return List.generate(
+          temp.length, (index) => Auction.fromJson(temp[index]));
+    } catch (e) {
+      print("couldn't search for term $query");
+      print(e);
       return null;
     }
   }

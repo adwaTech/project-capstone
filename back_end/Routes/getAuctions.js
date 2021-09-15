@@ -76,13 +76,20 @@ module.exports = async (req, res) => {
                     return res.send(await findAuctions({ auctionType: 'live', status: 'open' }));
                 
             case 'id':
+                console.log(req.query.id)
                 if (req.query.id) {
                     const auction = await AuctionModel.findById(req.query.id).catch(err => error = err)
                     if (error == '')
                         return res.send(await auction.populate({
                             path: 'owner',
                             select: 'firstName lastName sex city userType profileImage'
-                        }));
+                        }).populate({
+        path:'proposals',
+        populate:{
+            path:'ownerId',
+            select: 'firstName lastName sex city userType profileImage'
+        }
+    }));
                     return res.status(400).send({
                         error: 'Invalid id',
                         errorStackTrace: error

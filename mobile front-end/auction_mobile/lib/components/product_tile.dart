@@ -1,3 +1,4 @@
+import 'package:auction_mobile/api/api.dart';
 import 'package:auction_mobile/api/auction.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +19,12 @@ class ProductTile extends StatelessWidget {
               children: [
                 Container(
                     height: 150,
-                    child: Image.asset(
+                    child: (auction.images!=null && auction.images.length>0)?
+                    Image.network(
+                      API.auctionImageUrl+auction.images[0].imageSrc,
+                      fit: BoxFit.cover
+                    )
+                    :Image.asset(
                       'assets/images/product_logo.jpg',
                       fit: BoxFit.cover,
                     )),
