@@ -1,8 +1,8 @@
 import './App.css';
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Store from './redux-state-managment/Store';
-import { Provider } from 'react-redux';
+
+
 import ProtectedRoute from './components/protected-route/ProtectedRoute';
 import Register from './components/register/Index';
 import Login from './components/login/Login';
@@ -23,17 +23,25 @@ import PrivacyPolicy from './components/privacy-policy/PrivacyPolicy';
 import howToPost from './components/howToPost/howToPost';
 import HowToBid from './components/howToBid/HowToBid';
 import paymentOptions from './components/paymentOptions/paymentOptions';
-import { CookiesProvider, withCookies } from 'react-cookie';
+import { CookiesProvider, withCookies ,useCookies} from 'react-cookie';
 import Auction_map from './components/dashboard/admin_dashboard/Auction_map';
-import Header from './components/header/Header';
-import Footer from './components/footer/Footer';  
+import Header from './components/header/Header'; 
+import {SetCookieAction} from './redux-state-managment/Actions';
+import  {useDispatch} from 'react-redux';
 
 
 function App() {
+  const dispatch=useDispatch();
   const [sideToggle, setSideToggle] = React.useState(false)
+  const [cookiesUser, setCookieUser] = useCookies(['user']);
+  const [cookiesToken, setCookieToken] = useCookies(['token']);
+  React.useEffect(()=>{
+    dispatch(SetCookieAction({token:cookiesToken.token,user:cookiesUser.user}))
+  },[])
   return (
     <CookiesProvider>
-      <Provider store={Store}>
+      {console.log(cookiesToken.token)}
+      
         <ShowContext.Provider value={{ sideToggle, setSideToggle }}>
           <Router>
             <Drawer />
@@ -44,7 +52,14 @@ function App() {
               <Route exact path="/map/auction" >
                   <Header/>
                   <div style={{position:"relative",top:"150px",width:"100%"}}></div>
-                  <Auction_map/>
+                  <div style={{
+                    position:"absolute",
+                    top:"20vh",
+                    width:"100%",
+                    height:"90vh"
+                  }}>
+                    <Auction_map/>
+                  </div>
               </Route>
               <Route exact path="/contact" component={Contact} />
               <Route exact path="/register" component={Register} />
@@ -64,7 +79,6 @@ function App() {
             </Switch>
           </Router>
         </ShowContext.Provider>
-      </Provider>
     </CookiesProvider>
   );
 }

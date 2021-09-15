@@ -47,7 +47,7 @@ export default function Home() {
     }, [lang]);
     const [openforPost, setOpen] = React.useState(false);
     const [dialogComp, setDialogComp] = React.useState('');
-
+    
 
     return (
         <div className="home">
@@ -94,11 +94,7 @@ export default function Home() {
                 </div>
             </div>
                 : null}
-            <Link className="a" to="/map/auction">
-                <Button variant="outlined" color="primary">
-                    Find Auction By Location
-                </Button>
-            </Link>
+
             <div className="front-image" style={{ top: token ? "-250px" : 0 }}>
                 <div className="banner-title">
                     <h4>{strings.description1}</h4>
@@ -142,7 +138,7 @@ export default function Home() {
                                             <span className="bubble"></span>
                                         </span>
                                     </div>
-                                    <Link style={{
+                                    <div style={{
                                         margin: "50px"
                                     }} id="gooey-button"
                                         onClick={() => {
@@ -163,10 +159,15 @@ export default function Home() {
                                             <span className="bubble"></span>
                                             <span className="bubble"></span>
                                         </span>
-                                    </Link>
+                                    </div>
                                 </div>
                                 : null
                         }
+                        <Link className="a" to="/map/auction">
+                            <Button variant="outlined" color="primary">
+                                Find Auction By Location
+                            </Button>
+                        </Link>
                     </div>
                 </div>
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
@@ -11,9 +11,46 @@ import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import BidAuctionForm from '../auction_dialog/BidAuctionForm';
-import {BACKENDURL} from '../../redux-state-managment/Constants';
+import { BACKENDURL } from '../../redux-state-managment/Constants';
 import SetWinner from '../customer/SetWinnder';
-import {useSelector} from 'react-redux'
+import { useSelector } from 'react-redux';
+import { createStyles, Theme } from "@material-ui/core/styles";
+import { Paper } from "@material-ui/core";
+import { TextInput } from "./TextInput.js";
+import { MessageLeft, MessageRight } from "./Message";
+
+const useStyles1 = makeStyles((theme: Theme) =>
+  createStyles({
+    paper: {
+      marginTop:"40px",
+      display: "flex",
+      alignItems: "center",
+      flexDirection: "column",
+      position: "relative"
+    },
+    paper2: {
+      width: "80vw",
+      maxWidth: "500px",
+      display: "flex",
+      alignItems: "center",
+      flexDirection: "column",
+      position: "relative"
+    },
+    container: {
+      width: "500px",
+      height: "80%",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center"
+    },
+    messagesBody: {
+      width: "calc( 100% - 20px )",
+      margin: 10,
+      overflowY: "scroll",
+      height: "calc( 100% - 80px )"
+    }
+  })
+);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -63,142 +100,190 @@ const DialogTitle = withStyles(styles)((props) => {
 
 export default function DetailDialog(props) {
   const classes = useStyles();
+  const classes1 = useStyles1();
   const [open_bid_dialog, setOpen_bid_dialog] = React.useState(false);
-  const [winnerDialog,setWinnerDialog] = React.useState(false);
+  const [winnerDialog, setWinnerDialog] = React.useState(false);
   const user = useSelector((state) => state.AccountReducer.user);
   return (
     <div>
-      <SetWinner open={winnerDialog} setOpen={setWinnerDialog} data={props.data}/>
-      <Dialog open={props.open}>
+      <SetWinner open={winnerDialog} setOpen={setWinnerDialog} data={props.data} />
+      <Dialog
+        open={props.open}
+        maxWidth={props.data ? props.data.auctionType === "live" ? 'md' : 'sm' : 'sm'}
+      >
         <DialogTitle onClose={() => {
-          if(props.map){
+          if (props.map) {
             props.setOpen(false)
           }
-          else{
+          else {
             props.setOpen(!props.open)
           }
-          
+
         }}>
           Auction Detail
         </DialogTitle>
         <DialogContent dividers>
+          {console.log(props.data)}
           <Card className={classes.root}>
             <div className={classes.details}>
               <CardContent className={classes.content}>
                 <div >
-                  <h5>Name:</h5> <Typography variant="subtitle2">{props.data?props.data.auctionName:null}</Typography>
+                  <h5>Name:</h5> <Typography variant="subtitle2">{props.data ? props.data.auctionName : null}</Typography>
                 </div>
                 <div>
-                  <h5>Description:</h5> <Typography variant="subtitle2">{props.data?props.data.briefDescription:null}</Typography>
+                  <h5>Description:</h5> <Typography variant="subtitle2">{props.data ? props.data.briefDescription : null}</Typography>
                 </div>
                 <div >
-                  <h5>Bid Fee:</h5> <Typography variant="subtitle2">{props.data?props.data.bidFee:null}</Typography>
+                  <h5>Bid Fee:</h5> <Typography variant="subtitle2">{props.data ? props.data.bidFee : null}</Typography>
                 </div>
                 <div>
-                  <h5>Min Amount:</h5> <Typography variant="subtitle2">{props.data?props.data.minAmount:null}</Typography>
+                  <h5>Min Amount:</h5> <Typography variant="subtitle2">{props.data ? props.data.minAmount : null}</Typography>
                 </div>
                 <div >
-                  <h5>Min CPO:</h5> <Typography variant="subtitle2">{props.data?props.data.minCpo:null}</Typography>
+                  <h5>Min CPO:</h5> <Typography variant="subtitle2">{props.data ? props.data.minCpo : null}</Typography>
                 </div>
                 <div >
-                  <h5>Owner:</h5> <Typography variant="subtitle2">{props.data.owner?props.data.owner.firstName:null}&nbsp; {props.data.owner?props.data.owner.lastName:null}</Typography>
+                  <h5>Owner:</h5> <Typography variant="subtitle2">{props.data.owner ? props.data.owner.firstName : null}&nbsp; {props.data.owner ? props.data.owner.lastName : null}</Typography>
                 </div>
                 <div >
                   <h5>Type:</h5> <Typography variant="subtitle2">
-                    {props.data?props.data.auctionType:null}
+                    {props.data ? props.data.auctionType : null}
                   </Typography>
                 </div>
                 <div>
-                  <h5>Category:</h5> {props.data?props.data.auctionCategory:null}
+                  <h5>Category:</h5> {props.data ? props.data.auctionCategory : null}
                 </div>
               </CardContent>
             </div>
             <CardContent>
               <div >
-                <h5>Extended Description:</h5><Typography variant="subtitle2"> {props.data?props.data.extendedDescription:null}</Typography>
+                <h5>Extended Description:</h5><Typography variant="subtitle2"> {props.data ? props.data.extendedDescription : null}</Typography>
               </div>
               <div>
-                <h5>Start Date:</h5><Typography variant="subtitle2"> {moment(props.data?props.data.postedOn:Date.now()).format()}</Typography>
+                <h5>Start Date:</h5><Typography variant="subtitle2"> {moment(props.data ? props.data.postedOn : Date.now()).format()}</Typography>
               </div>
               <div>
-                <h5>Dedline Date:</h5><Typography variant="subtitle2"> {moment(props.data?props.data.deadline:Date.now()).format()}</Typography>
+                <h5>Dedline Date:</h5><Typography variant="subtitle2"> {moment(props.data ? props.data.deadline : Date.now()).format()}</Typography>
               </div>
               <div >
-                <h5>Condition:</h5> <Typography variant="subtitle2">{props.data?props.data.condition:null}</Typography>
+                <h5>Condition:</h5> <Typography variant="subtitle2">{props.data ? props.data.condition : null}</Typography>
               </div>
               <div >
-                <h5>Number of Bids:</h5> <Typography variant="subtitle2">{props.data?(props.data.proposals ? props.data.proposals.length : 0):null}</Typography>
+                <h5>Number of Bids:</h5> <Typography variant="subtitle2">{props.data ? (props.data.proposals ? props.data.proposals.length : 0) : null}</Typography>
               </div>
               <Typography  >
-                <h5>Approval:</h5> <Typography variant="subtitle2">{props.data?toString(props.data.approval):null}</Typography>
+                <h5>Approval:</h5> <Typography variant="subtitle2">{props.data ? toString(props.data.approval) : null}</Typography>
               </Typography>
               <div >
-                <h5>Status:</h5> <Typography variant="subtitle2">{props.data?props.data.status:null}</Typography>
+                <h5>Status:</h5> <Typography variant="subtitle2">{props.data ? props.data.status : null}</Typography>
               </div>
 
             </CardContent>
+            
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               <img
                 className={classes.cover}
-                src={`${BACKENDURL}/auctions/${props.data.images?props.data.images[0]:null}`}
+                src={`${BACKENDURL}/auctions/${props.data.images ? props.data.images[0] : null}`}
                 alt="Product images"
               />
-              {props.detail?
-              <div className={classes.controls}>
-              <Button
-                onClick={
-                  () => {
-                    setWinnerDialog(true);
-                    props.setOpen(false)
-                  }
-                }
-                fullWidth variant="contained" color="primary">Set Winner</Button>
-            </div>
-              :
+              {props.detail ?
+                <div className={classes.controls}>
+                  <Button
+                    onClick={
+                      () => {
+                        setWinnerDialog(true);
+                        props.setOpen(false)
+                      }
+                    }
+                    fullWidth variant="contained" color="primary">Set Winner</Button>
+                </div>
+                :
                 props.admin
-                ?null
-                :
+                  ? null
+                  : props.map === "map" ?
+                    <div className={classes.controls}>
+                      <Button
+                        onClick={
+                          () => {
+                            setOpen_bid_dialog(true);
+                            props.setOpen(false)
+                          }
+                        }
+                        fullWidth variant="contained" color="primary">Bid</Button>
+                    </div> : null}
+              {props.detail ?
                 <div className={classes.controls}>
-                <Button
-                  onClick={
-                    () => {
-                      setOpen_bid_dialog(true);
-                      props.setOpen(false)
+                  <Button
+                    onClick={
+                      () => {
+                        setWinnerDialog(true);
+                        props.setOpen(false)
+                      }
                     }
-                  }
-                  fullWidth variant="contained" color="primary">Bid</Button>
-              </div>}
-              {props.detail?
-              <div className={classes.controls}>
-              <Button
-                onClick={
-                  () => {
-                    setWinnerDialog(true);
-                    props.setOpen(false)
-                  }
-                }
-                fullWidth variant="contained" color="primary">Set Winner</Button>
-            </div>
-              :
-                user.userType==="admin"
-                ?null
+                    fullWidth variant="contained" color="primary">Set Winner</Button>
+                </div>
                 :
-                <div className={classes.controls}>
-                <Button
-                  onClick={
-                    () => {
-                      setOpen_bid_dialog(true);
-                      props.setOpen(false)
-                    }
-                  }
-                  fullWidth variant="contained" color="primary">Bid</Button>
-              </div>}
+                user?user.userType === "admin":null
+                  ? null
+                  :
+                  <div className={classes.controls}>
+                    <Button
+                      onClick={
+                        () => {
+                          setOpen_bid_dialog(true);
+                          props.setOpen(false)
+                        }
+                      }
+                      fullWidth variant="contained" color="primary">Bid</Button>
+                  </div>}
             </div>
+            <CardContent>
+            {props.data ? props.data.auctionType === "live"?
+              <div className={classes1.container}>
+                <Paper className={classes1.paper} zDepth={2}>
+                  <Paper id="style-1" className={classes1.messagesBody}>
+                    <MessageLeft
+                      message="kjjkhdfa sdaf adf adas daf"
+                      timestamp="MM/DD 00:00"
+                      photoURL="ljkaj"
+                      displayName="Meseret"
+                      avatarDisp={true}
+                    />
+                    <MessageLeft
+                      message="kjjkhdfa sdaf adf adas daf"
+                      timestamp="MM/DD 00:00"
+                      photoURL=""
+                      displayName="Kirubel"
+                      avatarDisp={false}
+                    />
+                    <MessageRight
+                      message="213"
+                      timestamp="MM/DD 00:00"
+                      photoURL="213"
+                      displayName="Chala"
+                      avatarDisp={true}
+                    />
+                    <MessageRight
+                      message="123"
+                      timestamp="MM/DD 00:00"
+                      photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
+                      displayName="Zebene"
+                      avatarDisp={false}
+                    />
+                  </Paper>
+                  <TextInput />
+                </Paper>
+              </div>:null:null}
+
+            </CardContent>
+
+            
           </Card>
+          
         </DialogContent>
 
       </Dialog>
-      
+
       <BidAuctionForm open={open_bid_dialog} data={props.data} setOpen={setOpen_bid_dialog} />
     </div>
   )

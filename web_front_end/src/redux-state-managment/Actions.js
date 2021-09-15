@@ -1,5 +1,8 @@
 import * as Constant from './Constants';
 import axios from 'axios';
+import {
+    BACKENDURL
+} from './Constants'
 
 export const LoginAction = (userData) => async (dispatch) => {
     const data = {
@@ -85,6 +88,10 @@ export const LogoutAction = () => async (dispatch) => {
     })
 }
 export const PostAuctionAction = (userData, token) => async (dispatch) => {
+    for (var pair of userData.entries())
+{
+ console.log(pair[0]+ ', '+ pair[1]); 
+}
     const data = {
         data: {
             error: "Please check your network connection",
@@ -93,13 +100,16 @@ export const PostAuctionAction = (userData, token) => async (dispatch) => {
         statusText: "Network Error"
     }
     try {
-        const axiosInstance = axios.create({
+        
+            const axiosInstance = axios.create({
             baseURL: "http://localhost:5000",
             timeout: 5000,
             headers: {
                 'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            }
+                // 'Content-Type': 'multipart/form-data'
+                'Content-Type': "multipart/form-data; charset=utf-8; boundary=" + Math.random().toString().substr(2)
+            },
+            
         });
         const response = await axiosInstance.post(`/postAuction`, userData, {
             validateStatus: function (status) {
@@ -117,6 +127,7 @@ export const PostAuctionAction = (userData, token) => async (dispatch) => {
             type: Constant.POSTAUCTION,
             payload: data,
         })
+        console.log(error);
     }
 }
 export const BidCleanUpAction = () => async (dispatch) => {
@@ -511,7 +522,7 @@ export const ProfileAuctionAction = (token) => async (dispatch) => {
         })
     }
 }
-export const UpdateCustomerAction = (userData,token) => async (dispatch) => {
+export const UpdateCustomerAction = (userData, token) => async (dispatch) => {
     const data = {
         data: {
             error: "Please check your network connection",
@@ -547,7 +558,7 @@ export const UpdateCustomerAction = (userData,token) => async (dispatch) => {
     }
 
 }
-export const ShowNotificationAction = (userData,token) => async (dispatch) => {
+export const ShowNotificationAction = (userData, token) => async (dispatch) => {
     const data = {
         data: {
             error: "Please check your network connection",
@@ -565,7 +576,7 @@ export const ShowNotificationAction = (userData,token) => async (dispatch) => {
                 'Content-Type': 'application/json'
             }
         });
-        const response = await axiosInstance.post(`/setNotification`, {notificationId: userData}, {
+        const response = await axiosInstance.post(`/setNotification`, { notificationId: userData }, {
             validateStatus: function (status) {
                 return status < 600
             }
@@ -583,7 +594,7 @@ export const ShowNotificationAction = (userData,token) => async (dispatch) => {
     }
 
 }
-export const ApproveAuctionAction = (userData,token) => async (dispatch) => {
+export const ApproveAuctionAction = (userData, token) => async (dispatch) => {
     const data = {
         data: {
             error: "Please check your network connection",
@@ -601,7 +612,7 @@ export const ApproveAuctionAction = (userData,token) => async (dispatch) => {
                 'Content-Type': 'application/json'
             }
         });
-        const response = await axiosInstance.put(`/approveAuction`, {auctionId: userData}, {
+        const response = await axiosInstance.put(`/approveAuction`, { auctionId: userData }, {
             validateStatus: function (status) {
                 return status < 600
             }
@@ -861,7 +872,7 @@ export const FeedbackCleanUpAction = () => async (dispatch) => {
         payload: data,
     })
 }
-export const GetFeedbackAction = ( token) => async (dispatch) => {
+export const GetFeedbackAction = (token) => async (dispatch) => {
     const data = {
         data: {
             error: "Please check your network connection",
@@ -884,7 +895,6 @@ export const GetFeedbackAction = ( token) => async (dispatch) => {
             }
         },
         );
-        console.log(response);
         dispatch({
             type: Constant.GETFEEDBACK,
             payload: response,
@@ -896,4 +906,19 @@ export const GetFeedbackAction = ( token) => async (dispatch) => {
             payload: data,
         })
     }
+}
+export const SetCookieAction = (userData) => async (dispatch) => {
+
+    const data = {
+        data: {
+            user: userData.user,
+            token: userData.token
+        },
+        status: 200,
+        statusText: "Ok"
+    }
+    dispatch({
+        type: Constant.GETCOOKIE,
+        payload: data,
+    })
 }

@@ -77,7 +77,6 @@ export default function User() {
                 array.push(n.participants.filter(p=>p.isRead===false))
             })
         }
-        console.log(array);
         return array;
     }
 

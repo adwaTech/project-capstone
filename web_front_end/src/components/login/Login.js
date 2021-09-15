@@ -19,6 +19,7 @@ import './login.css';
 import { strings } from '../../language/language';
 import { useSelector, useDispatch } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(3),
@@ -84,7 +85,6 @@ function Login({ match, history }) {
     emaile: false,
   });
   const [errorMessagepass, setErrorMessagepass] = React.useState({
-
     password: '',
     passe: false,
   });
@@ -110,12 +110,20 @@ function Login({ match, history }) {
       }, 3000);
     }
   }
+  const [ones,setOnes]=React.useState(1)
+  const [cookiesUser, setCookieUser] = useCookies(['user']);
+  const [cookiesToken, setCookieToken] = useCookies(['token']);
   React.useEffect(()=>{
     if(error){
       setProgress(false);
     }
     if(token){
       setProgress(false);
+      if(ones===1){
+        setCookieUser('user', user, { path: '/' });
+        setCookieToken('token', token, { path: '/' });
+        setOnes(2)
+      }
     }
   },[error,token])
   return (
@@ -144,10 +152,10 @@ function Login({ match, history }) {
         }
         {
           token
-            ? (user.userType === "customer"
-              ? <Redirect to='/profile' />
-              : user.userType === "admin"
-                ? <Redirect to="/admin" />
+            ? (user?user.userType === "customer"
+              ? <Redirect to='/profile' />:null
+              :user? user.userType === "admin"
+                ? <Redirect to="/admin" />:null
                 : null)
             : null
         }

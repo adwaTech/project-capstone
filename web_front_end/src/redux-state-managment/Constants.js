@@ -36,6 +36,7 @@ export const SETWINNERCLEAR="SETWINNERCLEAR";
 export const SENDFEEDBACK="SENDFEEDBACK";
 export const CLEANFEEDBACK="CLEANFEEDBACK";
 export const GETFEEDBACK="GETFEEDBACK";
+export const GETCOOKIE="GETCOOKIE";
 
 
 export const BACKENDURL="http://localhost:5000";

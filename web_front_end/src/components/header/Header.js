@@ -29,6 +29,7 @@ import {
 } from 'react-router-dom';
 import ArrowDownward from '@material-ui/icons/ExpandMore';
 import { useSelector, useDispatch } from 'react-redux';
+import { useCookies } from "react-cookie";
 
 
 import Badge from '@material-ui/core/Badge';
@@ -115,7 +116,9 @@ const useStyles1 = makeStyles(styles);
 export default function Header() {
     const classes1 = useStyles1();
     const [openNotification, setOpenNotification] = React.useState(null);
-
+    // const [cookies, setCookie, ] = useCookies(["user"]);
+    const [cookiesUser, setCookieUser,removeCookieUser] = useCookies(['user']);
+    const [cookiesToken, setCookieToken,removeCookieToken] = useCookies(['token']);
 
     const auctionCategory = [strings.Land, strings.House, strings.Car, strings.service, strings.rare, strings.oldies];
     const dispatch = useDispatch();
@@ -226,9 +229,9 @@ export default function Header() {
                                                 vertical: 'bottom',
                                                 horizontal: 'right',
                                             }}
-                                            badgeContent={<SmallAvatar alt="" src={`${BACKENDURL}/users/${user.idPhoto}`} />}
+                                            badgeContent={<SmallAvatar alt="" src={`${BACKENDURL}/users/${user?user.idPhoto:null}`} />}
                                         >
-                                            <Avatar alt="" src={`${BACKENDURL}/users/${user.profileImage}`} />
+                                            <Avatar alt="" src={`${BACKENDURL}/users/${user?user.profileImage:null}`} />
                                         </Badge>
                                     </Link>
                                     : null
@@ -239,6 +242,8 @@ export default function Header() {
                                     onClick={() => {
                                         if (token) {
                                             dispatch(LogoutAction());
+                                            removeCookieUser("user");
+                                            removeCookieToken("token")
                                         }
                                     }}
                                     className="loginbtn" to="/login">
@@ -282,9 +287,9 @@ export default function Header() {
                                                         vertical: 'bottom',
                                                         horizontal: 'right',
                                                     }}
-                                                    badgeContent={<SmallAvatar alt="" src={`${BACKENDURL}/users/${user.idPhoto}`} />}
+                                                    badgeContent={<SmallAvatar alt="" src={`${BACKENDURL}/users/${user?user.idPhoto:null}`} />}
                                                 >
-                                                    <Avatar alt="" src={`${BACKENDURL}/users/${user.profileImage}`} />
+                                                    <Avatar alt="" src={`${BACKENDURL}/users/${user?user.profileImage:null}`} />
                                                 </Badge>
                                             </Link>
                                             : null
@@ -312,12 +317,15 @@ export default function Header() {
                                             <MenuItem value="so">Somali</MenuItem>
                                         </Select>
                                     </FormControl>
+                                
                                 </li>
                                 <li className="scoll-screen">
                                     <NavLink
                                         onClick={() => {
                                             if (token) {
                                                 dispatch(LogoutAction());
+                                                removeCookieUser("user");
+                                                removeCookieToken("token");
                                             }
                                         }}
                                         to="/login"><Button color="primary" variant="outlined">{token ? strings.Logout : strings.Login}</Button></NavLink>

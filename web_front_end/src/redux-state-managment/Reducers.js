@@ -154,6 +154,21 @@ export const AccountReducer = (state = initialState, action) => {
                     statusText: action.payload.statusText
                 }
             }
+        case Constant.GETCOOKIE:
+            if (action.payload.status === 200) {
+                return {
+                    ...state,
+                    user: action.payload.data.user,
+                    token: action.payload.data.token
+                }
+            } else {
+                return {
+                    ...state,
+                    error: action.payload.data.error,
+                    status: action.payload.status,
+                    statusText: action.payload.statusText
+                }
+            }
         case Constant.LOGOUT:
             return {
                 ...state,

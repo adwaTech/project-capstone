@@ -1,12 +1,9 @@
 
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import AddAlert from "@material-ui/icons/AddAlert";
 import GridItem from "./main_dashbaord/Grid/GridItem.js";
 import GridContainer from "./main_dashbaord/Grid/GridContainer.js";
-import Button from "./components/CustomButtons/Button.js";
 import SnackbarContent from "./components/Snackbar/SnackbarContent.js";
-import Snackbar from "./components/Snackbar/Snackbar.js";
 import { Feedback } from "@material-ui/icons";
 import Info from "./components/Typography/Info"
 import {
@@ -16,14 +13,13 @@ import {
 } from '../../../redux-state-managment/Actions'
 import { CircularProgress } from "@material-ui/core";
 import { useDispatch, useSelector } from 'react-redux';
-import moment from 'moment'
+
 
 import {
   Card,
   CardHeader,
   CardFooter,
   CardBody,
-  CardIcon
 } from './Cards';
 import styles1 from "./main_dashbaord/dashboardStyle";
 
@@ -85,60 +81,7 @@ export default function Notifications() {
       }
     };
   });
-  const showNotification = (place) => {
-    switch (place) {
-      case "tl":
-        if (!tl) {
-          setTL(true);
-          setTimeout(function () {
-            setTL(false);
-          }, 6000);
-        }
-        break;
-      case "tc":
-        if (!tc) {
-          setTC(true);
-          setTimeout(function () {
-            setTC(false);
-          }, 6000);
-        }
-        break;
-      case "tr":
-        if (!tr) {
-          setTR(true);
-          setTimeout(function () {
-            setTR(false);
-          }, 6000);
-        }
-        break;
-      case "bl":
-        if (!bl) {
-          setBL(true);
-          setTimeout(function () {
-            setBL(false);
-          }, 6000);
-        }
-        break;
-      case "bc":
-        if (!bc) {
-          setBC(true);
-          setTimeout(function () {
-            setBC(false);
-          }, 6000);
-        }
-        break;
-      case "br":
-        if (!br) {
-          setBR(true);
-          setTimeout(function () {
-            setBR(false);
-          }, 6000);
-        }
-        break;
-      default:
-        break;
-    }
-  };
+  
   return (
     <Card>
       {console.log(feedbacks)}
@@ -153,22 +96,21 @@ export default function Notifications() {
             {
               feedbacks ?
                 feedbacks.filter(f => f.userId === null).map(feedback => (
-                  <Card>
+                  <Card >
                     <CardHeader stats icon>
-                      <CardIcon color="info">
-                        From :{feedback.email}
-                      </CardIcon>
-                      <p className={classes1.cardCategory}> </p>
                       <h3 className={classes1.cardTitle}>
                         <small>{feedback.date}</small>
                       </h3>
+                      <p className={classes1.cardCategory} style={{
+                        color:"black",
+                        }}>From :{feedback.email} </p>
                     </CardHeader>
                     <CardFooter stats>
                       <div className={classes1.stats}>
                         <Info>
                           <Feedback />
                         </Info>
-                        <p>
+                        <p style={{color:"black"}}>
                           {feedback.feedback}
                         </p>
                       </div>
@@ -197,26 +139,23 @@ export default function Notifications() {
                 feedbacks.filter(f => f.userId !== null).map(feedback => (
                   <Card>
                     <CardHeader stats icon>
-                      <CardIcon color="info">
-                        From :{feedback.email}
-                      </CardIcon>
-                      <p className={classes1.cardCategory}> </p>
                       <h3 className={classes1.cardTitle}>
                         <small>{feedback.date}</small>
                       </h3>
+                      <p className={classes1.cardCategory} style={{color:"black"}}>From :{feedback.email} </p>
                     </CardHeader>
                     <CardFooter stats>
                       <div className={classes1.stats}>
                         <Info>
                           <Feedback />
                         </Info>
-                        <p>
+                        <p style={{color:"black"}}>
                           {feedback.feedback}
                         </p>
                       </div>
                     </CardFooter>
                   </Card>
-            )):
+                )) :
                 <SnackbarContent
                   message={
                     `there is no registered user feedback yet`
@@ -224,7 +163,7 @@ export default function Notifications() {
                   close
                   color="info"
                 />
-                }
+            }
           </GridItem>
         </GridContainer>
         <br />

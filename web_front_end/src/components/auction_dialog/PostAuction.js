@@ -181,7 +181,7 @@ export default function Register({ match, history }) {
     owner: '',
     auctionType: 'live',
     auctionCategory: 'land',
-    images: '',
+    images: [],
     condition: 'new',
     extendedDescription: null,
     deadline: new Date(),
@@ -389,23 +389,29 @@ export default function Register({ match, history }) {
         return <React.Fragment>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6} >
-              {/* <div >
+              <div >
                 <p>upload image of item</p>
                 <FileUploader
+
                   maxSize={100}
                   multiline
                   handleChange={(e) => {
-                    setState({ ...state, images: state.images});
+                    const temp = [...state.images];
+                    temp.push(e)
+                    setState({ ...state, images: temp});
                   }}
                   name="file" types={fileTypes} />
-                <div>{state.images.length > 0 ? <div>
-                  {state.images.name}
+                <div>{state.images.length>0
+                ? <div>
+                  {state.images.map((name,i)=>(
+                    <div key={i}>{name.name}</div>
+                  ))}
                 </div> : "no files uploaded yet"}</div>
                 <p style={{ color: "red" }}>
                   {images.haveError ? images.message : null}
                 </p>
-              </div> */}
-              <div >
+              </div>
+              {/* <div >
                 <p>upload image of item</p>
                 <FileUploader
                   maxSize={50}
@@ -419,7 +425,7 @@ export default function Register({ match, history }) {
                     {images.haveError ? images.message : null}
                   </p>
                 </p>
-              </div>
+              </div> */}
             </Grid>
 
             <Grid item xs={12} sm={6}>
@@ -595,7 +601,10 @@ export default function Register({ match, history }) {
                         formData.append('minCpo', state.minCPO);
                         formData.append('auctionType', state.auctionType);
                         formData.append('auctionCategory', state.auctionCategory);
-                        formData.append('images', state.images);
+                        state.images.map((image)=>{
+                          formData.append('images',image);
+                        })
+                        // formData.append('images', state.images);
                         formData.append('extendedDescription', state.extendedDescription);
                         formData.append('deadline', state.deadline);
                         formData.append('condition', state.condition);
@@ -603,7 +612,7 @@ export default function Register({ match, history }) {
                         formData.append("latitude", state.latitute);
                         formData.append("longtude", state.longitute);
                         dispatch(PostAuctionAction(formData, token));
-                        setState(initialState);
+                        // setState(initialState);
                         setTimeout(function () {
                           dispatch(PostCleanUpAction());
                         }, 5000);
