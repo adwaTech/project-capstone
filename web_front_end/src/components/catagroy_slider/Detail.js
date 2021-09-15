@@ -13,11 +13,16 @@ import CloseIcon from '@material-ui/icons/Close';
 import BidAuctionForm from '../auction_dialog/BidAuctionForm';
 import { BACKENDURL } from '../../redux-state-managment/Constants';
 import SetWinner from '../customer/SetWinnder';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { createStyles, Theme } from "@material-ui/core/styles";
 import { Paper } from "@material-ui/core";
 import { TextInput } from "./TextInput.js";
 import { MessageLeft, MessageRight } from "./Message";
+import {
+  BidAuctionAction,
+  BidCleanUpAction,
+  IdAuctionAction
+} from '../../redux-state-managment/Actions';
 
 
 const useStyles1 = makeStyles((theme: Theme) =>
@@ -100,13 +105,33 @@ const DialogTitle = withStyles(styles)((props) => {
 });
 
 export default function DetailDialog(props) {
+
+  const dispatch = useDispatch();
   const classes = useStyles();
   const classes1 = useStyles1();
   const [open_bid_dialog, setOpen_bid_dialog] = React.useState(false);
   const [winnerDialog, setWinnerDialog] = React.useState(false);
   const user = useSelector((state) => state.AccountReducer.user);
+  const token = useSelector((state) => state.AccountReducer.token);
+
+  const auctionbyid = useSelector((state) => state.AuctionsReducer.idAuction);
+
+  const [state, setState] = React.useState({
+    proposalType: "live",
+    amount: "",
+    cpo: 0,
+    ownerId: "",
+    auctionId: "",
+  });
+  React.useEffect(()=>{
+    if(props.data)
+    {
+      dispatch(IdAuctionAction(props.data._id))
+    }
+  },[auctionbyid])
   return (
     <div>
+      {console.log(auctionbyid)}
       <SetWinner open={winnerDialog} setOpen={setWinnerDialog} data={props.data} />
       <Dialog
         open={props.open}
@@ -199,7 +224,7 @@ export default function DetailDialog(props) {
                 </div>
                 : props.admin
                   ? null
-                  : props.map === "map" && props.data.auctionType!=="live"
+                  : props.map === "map" && props.data.auctionType !== "live"
                     ? <div className={classes.controls}>
                       <Button
                         onClick={
@@ -225,90 +250,119 @@ export default function DetailDialog(props) {
                 :
                 user ? user.userType === "admin"
                   ? null
-                  :props.data.auctionType!=="live"?
-                  <div className={classes.controls}>
-                    <Button
-                      onClick={
-                        () => {
-                          setOpen_bid_dialog(true);
-                          props.setOpen(false)
+                  : props.data.auctionType !== "live" ?
+                    <div className={classes.controls}>
+                      <Button
+                        onClick={
+                          () => {
+                            setOpen_bid_dialog(true);
+                            props.setOpen(false)
+                          }
                         }
-                      }
-                      fullWidth variant="contained" color="primary">Bid</Button>
-                  </div>
-                  : null :null}
-                {
-                  props.data
-                  ?props.data.auctionType==='live'
-                  ?props.data.proposals
-                  ?props.data.proposals.length>=0  
-                  ?props.data.proposals.filter(m => {
-                    if(m.ownerId)
-                    return m.ownerId._id === user._id
-                    else{
-                      return false
-                    }
-                  }).length===0
-                  ?
-                  <div className={classes.controls}>
-                    <Button
-                      onClick={
-                        () => {
-                          setOpen_bid_dialog(true);
-                          props.setOpen(false)
-                        }
-                      }
-                      fullWidth variant="contained" color="primary">Bid</Button>
-                  </div>
-                  :null:null:null:null:null
-                }
+                        fullWidth variant="contained" color="primary">Bid</Button>
+                    </div>
+                    : null : null}
+              {
+                props.data
+                  ? props.data.auctionType === 'live'
+                    ? props.data.proposals
+                      ? props.data.proposals.length >= 0
+                        ? props.data.proposals.filter(m => {
+                          if (m.ownerId)
+                            return m.ownerId._id === user._id
+                          else {
+                            return false
+                          }
+                        }).length === 0
+                          ?
+                          <div className={classes.controls}>
+                            <Button
+                              onClick={
+                                () => {
+                                  setOpen_bid_dialog(true);
+                                  props.setOpen(false)
+                                }
+                              }
+                              fullWidth variant="contained" color="primary">Bid</Button>
+                          </div>
+                          : null : null : null : null : null
+              }
             </div>
             <CardContent>
-              {props.data 
-              ? props.data.auctionType === "live" 
-                ?props.data.proposals
-                ?props.data.proposals.length>0
-                ? props.data.proposals.filter(m => {
-                  if(m.ownerId)
-                    return m.ownerId._id === user._id
-                    else{
-                      return false
-                    }
-                }).length>0
-                  ?
-                  <div className={classes1.container}>
-                    <Paper className={classes1.paper} zDepth={2}>
-                      <Paper id="style-1" className={classes1.messagesBody}>
-                        {
-                          props.data.proposals.length > 0
-                            ? props.data.proposals.map((p, i) => (
-                             i % 2 == 0? 
-                              <MessageLeft
-                                message={`${p.amount} birr`}
-                                timestamp={`${moment(p.submittedOn).format()}`}
-                                photoURL={`${BACKENDURL}/users/${p.ownerId.profileImage}`}
-                                displayName={`${p.ownerId.firstName + " " + p.ownerId.lastName}`}
-                                avatarDisp={true}
-                              />
-                              :<MessageRight
-                                message={`${p.amount} birr`}
-                                timestamp={`${moment(p.submittedOn).format()}`}
-                                photoURL={`${BACKENDURL}/users/${p.ownerId.profileImage}`}
-                                displayName={`${p.ownerId.firstName + " " + p.ownerId.lastName}`}
-                                avatarDisp={true}
-                            />
-                            ))
-                            : <div>no bid yet</div>
+              {props.data
+                ? props.data.auctionType === "live"
+                  ? props.data.proposals
+                    ? props.data.proposals.length > 0
+                      ? props.data.proposals.filter(m => {
+                        if (m.ownerId)
+                          return m.ownerId._id === user._id
+                        else {
+                          return false
                         }
-                      </Paper>
-                      <TextInput 
-                      onChange={()=>{
+                      }).length > 0
+                        ?
+                        <div className={classes1.container}>
+                          <Paper className={classes1.paper} zDepth={2}>
+                            <Paper id="style-1" className={classes1.messagesBody}>
+                              {
+                                props.data.proposals.length > 0
+                                  ? props.data.proposals.map((p, i) => (
+                                    i % 2 == 0 ?
+                                      <MessageLeft
+                                        message={`${p.amount} birr`}
+                                        timestamp={`${moment(p.submittedOn).format()}`}
+                                        photoURL={`${BACKENDURL}/users/${p.ownerId.profileImage}`}
+                                        displayName={`${p.ownerId.firstName + " " + p.ownerId.lastName}`}
+                                        avatarDisp={true}
+                                      />
+                                      : <MessageRight
+                                        message={`${p.amount} birr`}
+                                        timestamp={`${moment(p.submittedOn).format()}`}
+                                        photoURL={`${BACKENDURL}/users/${p.ownerId.profileImage}`}
+                                        displayName={`${p.ownerId.firstName + " " + p.ownerId.lastName}`}
+                                        avatarDisp={true}
+                                      />
+                                  ))
+                                  : <div>no bid yet</div>
+                              }
+                            </Paper>
+                            <TextInput
+                              onClick={async () => {
+                                if (state.amount) {
+                                  const formData = new FormData();
+                                  formData.append('amount', state.amount);
+                                  formData.append('auctionId', props.data._id);
+                                  formData.append('cpo', 0);
+                                  formData.append('ownerId', props.data.owner);
+                                  formData.append('proposalType', 'live');
+                                  await dispatch(BidAuctionAction(formData, token));
+                                  setTimeout(function () {
+                                    dispatch(BidCleanUpAction());
+                                    setState({
+                                      proposalType: "live",
+                                      amount: "",
+                                      cpo: 0,
+                                      ownerId: "",
+                                      auctionId: "",
+                                    });
+                                  }, 5000);
+                                }
+                              }}
+                              value={state.amount}
+                              onChange={(e) => {
+                                setState({
+                                  ...state,
+                                  amount: e.target.value,
+                                  ownerId: props.data ? props.data.owner : null,
+                                  auctionId: props.data ? props.data._id : null,
+                                  cpo: 0
+                                })
 
-                      }}/>
-                    </Paper>
-                  </div>
-                  : null:null:null
-                : null
+                              }} />
+                          </Paper>
+                        </div>
+                        : null : null : null
+                  : null
                 : null}
 
             </CardContent>

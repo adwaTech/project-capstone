@@ -88,10 +88,7 @@ export const LogoutAction = () => async (dispatch) => {
     })
 }
 export const PostAuctionAction = (userData, token) => async (dispatch) => {
-    for (var pair of userData.entries())
-{
- console.log(pair[0]+ ', '+ pair[1]); 
-}
+
     const data = {
         data: {
             error: "Please check your network connection",
@@ -260,6 +257,7 @@ export const LatestAuctionAction = () => async (dispatch) => {
     })
 }
 export const BidAuctionAction = (userData, token) => async (dispatch) => {
+
     const data = {
         data: {
             error: "Please check your network connection",

@@ -37,7 +37,9 @@ export const TextInput = (props) => {
                 className={classes.wrapText}
                 //margin="normal"
             />
-            <Button variant="contained" color="primary" className={classes.button}>
+            <Button 
+            onClick={props.onClick}
+            variant="contained" color="primary" className={classes.button}>
                 {/* <SendIcon /> */}
                 Bid
             </Button>

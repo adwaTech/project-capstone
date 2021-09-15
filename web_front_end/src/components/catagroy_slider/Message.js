@@ -130,12 +130,12 @@ export const MessageLeft = (props) => {
         ></Avatar>
         <div>
           <div className={classes.displayName}>{displayName}</div>
-          <div className={classes.messageBlue} 
-          style={{
-            paddingLeft:"10px",
-            paddingTop:"10px",
-            paddingBottom:"15px"
-          }}>
+          <div className={classes.messageBlue}
+            style={{
+              paddingLeft: "10px",
+              paddingTop: "10px",
+              paddingBottom: "15px"
+            }}>
             <div >
               <p className={classes.messageContent}>{message}</p>
             </div>
@@ -154,23 +154,24 @@ export const MessageRight = (props) => {
   const displayName = props.displayName ? props.displayName : "";
   return (
     <div className={classes.messageRowRight}>
-      
+
       <div className={classes.messageOrange}>
+        <div className={classes.displayName}>{displayName}</div>
         <p className={classes.messageContent}
-        style={{
-          paddingLeft:"10px",
-          paddingTop:"10px",
-          paddingBottom:"15px"
-        }}
+          style={{
+            paddingLeft: "10px",
+            paddingTop: "10px",
+            paddingBottom: "15px"
+          }}
         >{message}</p>
         <div className={classes.messageTimeStampRight}>{timestamp}</div>
-        
+
       </div>
       <Avatar
-          alt={displayName}
-          className={classes.orange}
-          src={photoURL}
-        ></Avatar>
+        alt={displayName}
+        className={classes.orange}
+        src={photoURL}
+      ></Avatar>
     </div>
   );
 };
