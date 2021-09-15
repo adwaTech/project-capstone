@@ -126,7 +126,7 @@ export default function DetailDialog(props) {
   React.useEffect(()=>{
     if(props.data)
     {
-      dispatch(IdAuctionAction(props.data._id))
+      
     }
   },[auctionbyid])
   return (
@@ -337,6 +337,7 @@ export default function DetailDialog(props) {
                                   formData.append('proposalType', 'live');
                                   await dispatch(BidAuctionAction(formData, token));
                                   setTimeout(function () {
+                                    dispatch(IdAuctionAction(props.data._id));
                                     dispatch(BidCleanUpAction());
                                     setState({
                                       proposalType: "live",
