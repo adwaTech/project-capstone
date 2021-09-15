@@ -2,6 +2,7 @@
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 module.exports = LoginRoute = (req, res) => {
+    console.log('New client ')
     passport.authenticate('local', { session: false }, (err, user, info) => {
         if (err || !user) {
             return res.status(400).send({
