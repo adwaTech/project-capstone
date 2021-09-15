@@ -230,17 +230,21 @@ export const CatagoryAuctionAction = (category) => async (dispatch) => {
 }
 export const IdAuctionAction = (id) => async (dispatch) => {
 
-    const response = await axios.get(`http://localhost:5000/getAuctions`, {
+    try{
+        const response = await axios.get(`http://localhost:5000/getAuctions`, {
         params: { type: "id", id: id }
-    }, {
-        validateStatus: function (status) {
-            return status < 600
-        }
-    })
-    dispatch({
-        type: Constant.AUCTION_BY_ID,
-        payload: response.data,
-    })
+        }, {
+            validateStatus: function (status) {
+                return status < 600
+            }
+        })
+        dispatch({
+            type: Constant.AUCTION_BY_ID,
+            payload: response.data,
+        })
+    }catch(error){
+        
+    }
 }
 export const LatestAuctionAction = () => async (dispatch) => {
 
@@ -919,4 +923,39 @@ export const SetCookieAction = (userData) => async (dispatch) => {
         type: Constant.GETCOOKIE,
         payload: data,
     })
+}
+export const generateTokenAction = (userData, token) => async (dispatch) => {
+    const data = {
+        data: {
+            error: "Please check your network connection",
+        },
+        status: 404,
+        statusText: "Network Error"
+    }
+    try {
+        const axiosInstance = axios.create({
+            baseURL: "http://localhost:5000",
+            timeout: 5000,
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        const response = await axiosInstance.get(`/generateToken`, userData, {
+            validateStatus: function (status) {
+                return status < 600
+            }
+        },
+        );
+        dispatch({
+            type: Constant.DEPOSIT,
+            payload: response,
+        })
+    }
+    catch (error) {
+        dispatch({
+            type: Constant.DEPOSIT,
+            payload: data,
+        })
+    }
 }

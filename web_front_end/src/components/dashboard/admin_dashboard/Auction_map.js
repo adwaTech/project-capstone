@@ -3,7 +3,8 @@ import { Map, InfoWindow, Marker, GoogleApiWrapper, Polyline } from 'google-maps
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
-  GetAllAuctionAction
+  GetAllAuctionAction,
+  IdAuctionAction
 } from '../../../redux-state-managment/Actions';
 import {
   BACKENDURL
@@ -177,6 +178,7 @@ export function MapContainer(props) {
                 onClick={() => {
                   setState({ ...state, data: user });
                   setOpen(true);
+                  dispatch(IdAuctionAction(user._id));
                 }}
                 title={user.auctionName}
                 name={user.auctionCategory}

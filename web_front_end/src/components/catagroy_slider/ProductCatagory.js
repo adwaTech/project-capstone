@@ -17,7 +17,8 @@ import { BACKENDURL } from '../../redux-state-managment/Constants';
 import {
     AllAuctionAction,
     LatestAuctionAction,
-    AllExceptAuctionAction
+    AllExceptAuctionAction,
+    IdAuctionAction
 } from '../../redux-state-managment/Actions';
 import DetailDialog from './Detail';
 
@@ -166,6 +167,7 @@ export default function Products() {
                                     onClick={
                                         () => {
                                             setOpen(!open);
+                                            dispatch(IdAuctionAction(product[i]._id));
                                             setData(product[i]);
                                         }
                                     }
@@ -175,6 +177,7 @@ export default function Products() {
                                         () => {
                                             setOpen_bid_dialog(!open_bid_dialog);
                                             setData(product[i]);
+                                            dispatch(IdAuctionAction(product[i]._id));
                                         }
                                     }
                                     // className="cartbtn"

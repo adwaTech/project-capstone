@@ -13,7 +13,8 @@ import BidAuctionForm from '../auction_dialog/BidAuctionForm';
 
 import {
     AllAuctionAction,
-    AllExceptAuctionAction
+    AllExceptAuctionAction,
+    IdAuctionAction
 } from '../../redux-state-managment/Actions';
 import DetailDialog from '../catagroy_slider/Detail';
 import {BACKENDURL} from '../../redux-state-managment/Constants'
@@ -155,6 +156,7 @@ export default function Catagory(props) {
                                         () => {
                                             setOpen(!open);
                                             setData(catagoryauction[i]);
+                                            dispatch(IdAuctionAction(catagoryauction[i]._id));
                                         }
                                     }
                                     color="primary" variant="contained">See More</Button>
@@ -163,6 +165,7 @@ export default function Catagory(props) {
                                         () => {
                                             setOpen_bid_dialog(true);
                                             setData(catagoryauction[i]);
+                                            dispatch(IdAuctionAction(catagoryauction[i]._id));
                                         }
                                     }
                                     // className="cartbtn" 

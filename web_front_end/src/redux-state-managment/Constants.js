@@ -37,6 +37,7 @@ export const SENDFEEDBACK="SENDFEEDBACK";
 export const CLEANFEEDBACK="CLEANFEEDBACK";
 export const GETFEEDBACK="GETFEEDBACK";
 export const GETCOOKIE="GETCOOKIE";
+export const GENERATEROUTE="GENERATEROUTE";
 
 
 export const BACKENDURL="http://localhost:5000";

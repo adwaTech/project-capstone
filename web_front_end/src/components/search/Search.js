@@ -3,7 +3,7 @@ import {
     withStyles
 } from '@material-ui/core'
 import './search.css';
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
 import BidAuctionForm from '../auction_dialog/BidAuctionForm';
 import GoogleMapReact from 'google-map-react';
 import Marker from './Marker';
@@ -11,6 +11,9 @@ import Marker from './Marker';
 import Timer from 'react-compound-timer';
 
 import Badge from '@material-ui/core/Badge';
+import {
+    IdAuctionAction
+} from '../../redux-state-managment/Actions'
 
 const defaultProps = {
     center: {
@@ -33,7 +36,7 @@ const defaultLocation = { lat: 8.9806, lng: 38.7578 };
 // const DefaultZoom = 13;
 export default function Search(props) {
    
-    
+    const dispatch=useDispatch();
     // type
     const auctionsWithName = useSelector((state) => state.SearchAuctionReducer.auctionsWithName);
     const auctionsWithCategory = useSelector((state) => state.SearchAuctionReducer.auctionsWithCategory);
@@ -207,6 +210,7 @@ export default function Search(props) {
                             onClick={
                                 () => {
                                     setOpen_bid_dialog(!open_bid_dialog);
+                                    dispatch(IdAuctionAction(auction._id));
                                 }
                             }
                             class="recipe-save" type="button">
@@ -227,8 +231,8 @@ export default function Search(props) {
                             defaultZoom={defaultProps.zoom}
                         >
                             <Marker
-                                lat={defaultLocation.lat}
-                                lng={defaultLocation.lng}
+                                lat={auction.latitude}
+                                lng={auction.longtude}
                                 text="auction location"
                             />
                         </GoogleMapReact>

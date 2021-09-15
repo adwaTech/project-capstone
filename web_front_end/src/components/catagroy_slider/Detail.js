@@ -37,6 +37,8 @@ const useStyles1 = makeStyles((theme: Theme) =>
     paper2: {
       width: "80vw",
       maxWidth: "500px",
+      height:"60vh",
+      overflow:" auto",
       display: "flex",
       alignItems: "center",
       flexDirection: "column",
@@ -123,15 +125,22 @@ export default function DetailDialog(props) {
     ownerId: "",
     auctionId: "",
   });
+  const [num,setNum]=React.useState(5)
   React.useEffect(()=>{
-    if(props.data)
-    {
-      
-    }
-  },[auctionbyid])
+    // dispatch(IdAuctionAction(props.data._id));
+      if(num===1){
+        dispatch(IdAuctionAction(props.data._id));
+        setNum(num++)
+      }
+      if(props.data?props.open:null){
+        setTimeout(() => {
+          dispatch(IdAuctionAction(props.data._id));
+        }, 1000);
+
+      }
+  },[auctionbyid,num])
   return (
     <div>
-      {console.log(auctionbyid)}
       <SetWinner open={winnerDialog} setOpen={setWinnerDialog} data={props.data} />
       <Dialog
         open={props.open}
@@ -193,9 +202,34 @@ export default function DetailDialog(props) {
               <div >
                 <h5>Condition:</h5> <Typography variant="subtitle2">{props.data ? props.data.condition : null}</Typography>
               </div>
-              <div >
-                <h5>Number of Bids:</h5> <Typography variant="subtitle2">{props.data ? (props.data.proposals ? props.data.proposals.length : 0) : null}</Typography>
+                <div >
+                <h5>Number of Bids:</h5> 
+                {props.data?
+                props.data.auctionType==='live'?<Typography variant="subtitle2">{
+                  auctionbyid
+                  ?auctionbyid.proposals
+                  ?auctionbyid.proposals.length
+                  ?auctionbyid.proposals.length
+                  :null
+                  :null
+                  :null
+                }
+                </Typography>
+                :<Typography variant="subtitle2">{
+                  
+                  props.data
+                  ?props.data.proposals
+                  ?props.data.proposals.length
+                  ?props.data.proposals.length
+                  :null
+                  :null
+                  :null
+                }
+                </Typography>
+                :null
+              }
               </div>
+              
               <Typography  >
                 <h5>Approval:</h5> <Typography variant="subtitle2">{props.data ? toString(props.data.approval) : null}</Typography>
               </Typography>
@@ -306,7 +340,9 @@ export default function DetailDialog(props) {
                             <Paper id="style-1" className={classes1.messagesBody}>
                               {
                                 props.data.proposals.length > 0
-                                  ? props.data.proposals.map((p, i) => (
+                                  ?auctionbyid?auctionbyid.proposals
+                                  ?auctionbyid.proposals.length
+                                  ? auctionbyid.proposals.map((p, i) => (
                                     i % 2 == 0 ?
                                       <MessageLeft
                                         message={`${p.amount} birr`}
@@ -323,7 +359,7 @@ export default function DetailDialog(props) {
                                         avatarDisp={true}
                                       />
                                   ))
-                                  : <div>no bid yet</div>
+                                  :null:null:null: <div>no bid yet</div>
                               }
                             </Paper>
                             <TextInput
@@ -336,8 +372,8 @@ export default function DetailDialog(props) {
                                   formData.append('ownerId', props.data.owner);
                                   formData.append('proposalType', 'live');
                                   await dispatch(BidAuctionAction(formData, token));
+                                  dispatch(IdAuctionAction(props.data._id));
                                   setTimeout(function () {
-                                    dispatch(IdAuctionAction(props.data._id));
                                     dispatch(BidCleanUpAction());
                                     setState({
                                       proposalType: "live",
@@ -346,7 +382,7 @@ export default function DetailDialog(props) {
                                       ownerId: "",
                                       auctionId: "",
                                     });
-                                  }, 5000);
+                                  }, 1000);
                                 }
                               }}
                               value={state.amount}
