@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: "10px",
       padding: "10px",
       backgroundColor: "#A8DDFD",
-      width: "150%",
+      width: "180%",
       //height: "50px",
       textAlign: "left",
       font: "400 .9em 'Open Sans', sans-serif",
@@ -133,8 +133,8 @@ export const MessageLeft = (props) => {
           <div className={classes.messageBlue}
             style={{
               paddingLeft: "10px",
-              paddingTop: "10px",
-              paddingBottom: "15px"
+              paddingTop: "20px",
+              paddingBottom: "20px"
             }}>
             <div >
               <p className={classes.messageContent}>{message}</p>

@@ -59,7 +59,7 @@ export default function SimpleDialog() {
           </Link>
         ))}
 
-        <ListItem autoFocus button onClick={() =>{}}>
+        {/* <ListItem autoFocus button onClick={() =>{}}>
           <ListItemAvatar>
             <Avatar>
               <Search />
@@ -70,7 +70,7 @@ export default function SimpleDialog() {
 
           }}
            variant="outlined" fullWidth placeholder="search" label="search"></TextField>
-        </ListItem>
+        </ListItem> */}
       </List>
     </div>
   );

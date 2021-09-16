@@ -92,12 +92,12 @@ export default function BidAuctionForm(props) {
     // const [propDoc, setPropDoc] = React.useState({ message: "", haveError: false });
     const [CPO, setCPO] = React.useState({ message: "", haveError: false });
     function validation() {
-        if (state.description === '') {
-            setDes({ message: "this field is required", haveError: true })
-        }
-        if (state.description) {
-            setDes({ message: "", haveError: false })
-        }
+        // if (state.description === '') {
+        //     setDes({ message: "this field is required", haveError: true })
+        // }
+        // if (state.description) {
+        //     setDes({ message: "", haveError: false })
+        // }
         if (state.amount === '') {
             setAmount({ message: "this field is required", haveError: true })
         }
@@ -233,14 +233,14 @@ export default function BidAuctionForm(props) {
                             variant="contained"
                             onClick={async () => {
                                 validation();
-                                if (state.amount && state.cpo && state.description) {
+                                if (state.amount && state.cpo) {
                                     if (props.data) {
                                         setProgress(true);
                                         const formData = new FormData();
                                         formData.append('amount', state.amount);
                                         formData.append('auctionId', props.data._id);
                                         formData.append('cpo', state.cpo);
-                                        formData.append('description', state.description);
+                                        if(state.description) formData.append('description', state.description);
                                         formData.append('ownerId', props.data.owner);
                                         if (state.proposalDocument) {
                                             formData.append('proposalDocument', state.proposalDocument);

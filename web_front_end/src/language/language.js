@@ -121,7 +121,7 @@ export let strings = new LocalizedStrings({
     service: "አገልግሎት",
     rare: "አልፎ አልፎ",
     oldies: "አሮጌዎች",
-    singin: "ስግን እን",
+    singin: "ግባ",
     statustext: "የሁኔታ ጽሑፍ",
     fortgotpassword: "የይለፍ ቃል ረስተዋል",
     lorem: "lorem@ipsum.com",

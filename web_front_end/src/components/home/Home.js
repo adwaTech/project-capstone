@@ -105,13 +105,13 @@ export default function Home() {
                             <span className="bubble"></span>
                             <span className="bubble"></span>
                             <span className="bubble"></span>
+                            {/* <span className="bubble"></span>
                             <span className="bubble"></span>
                             <span className="bubble"></span>
                             <span className="bubble"></span>
                             <span className="bubble"></span>
                             <span className="bubble"></span>
-                            <span className="bubble"></span>
-                            <span className="bubble"></span>
+                            <span className="bubble"></span> */}
                         </span>
                     </Link>
                     <div style={{
@@ -130,13 +130,13 @@ export default function Home() {
                                             <span className="bubble"></span>
                                             <span className="bubble"></span>
                                             <span className="bubble"></span>
+                                            {/* <span className="bubble"></span>
                                             <span className="bubble"></span>
                                             <span className="bubble"></span>
                                             <span className="bubble"></span>
                                             <span className="bubble"></span>
                                             <span className="bubble"></span>
-                                            <span className="bubble"></span>
-                                            <span className="bubble"></span>
+                                            <span className="bubble"></span> */}
                                         </span>
                                     </div>
                                     <div style={{
@@ -152,13 +152,13 @@ export default function Home() {
                                             <span className="bubble"></span>
                                             <span className="bubble"></span>
                                             <span className="bubble"></span>
-                                            <span className="bubble"></span>
-                                            <span className="bubble"></span>
-                                            <span className="bubble"></span>
-                                            <span className="bubble"></span>
-                                            <span className="bubble"></span>
-                                            <span className="bubble"></span>
-                                            <span className="bubble"></span>
+                                                {/* <span className="bubble"></span>
+                                                <span className="bubble"></span>
+                                                <span className="bubble"></span>
+                                                <span className="bubble"></span>
+                                                <span className="bubble"></span>
+                                                <span className="bubble"></span>
+                                                <span className="bubble"></span> */}
                                         </span>
                                     </div>
                                 </div>
