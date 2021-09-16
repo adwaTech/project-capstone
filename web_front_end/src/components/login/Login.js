@@ -70,8 +70,8 @@ function Login({ match, history }) {
   const dispatch = useDispatch();
   const classes = useStyles();
   const initialState = {
-    email: 'mesi@g.com',
-    password: 'M3k@g.com',
+    email: '',
+    password: '',
   };
   const [progress, setProgress] = React.useState(false);
   const [state, setState] = React.useState(initialState)
@@ -196,10 +196,10 @@ function Login({ match, history }) {
               setState({ ...state, password: e.target.value });
             }}
           />
-          <FormControlLabel
+          {/* <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
-          />
+          /> */}
           <Button
             disabled={progress}
             fullWidth

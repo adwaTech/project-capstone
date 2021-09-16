@@ -18,6 +18,7 @@ import {
 } from '../../redux-state-managment/Actions';
 import DetailDialog from '../catagroy_slider/Detail';
 import {BACKENDURL} from '../../redux-state-managment/Constants'
+import ScrollToTop from '../../scrollTop/ScrollToTop'
 
 
 
@@ -228,7 +229,7 @@ export default function Catagory(props) {
     }
     return (
         <div>
-            
+            <ScrollToTop/>
             <DetailDialog open={open} data={data} setOpen={setOpen} />
             <BidAuctionForm open={open_bid_dialog} data={data} setOpen={setOpen_bid_dialog} />
 
