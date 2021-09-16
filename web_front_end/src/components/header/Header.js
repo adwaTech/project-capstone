@@ -192,10 +192,17 @@ export default function Header() {
                         </div>
                         <div className={loc === '/' ? "right-top-header" : "right-top-header2"}>
                             <span>
-                                <a href="http://localhost:3000/">
+                                <div onMouseOver={()=>{
+
+                                }}
+                                className="customerSupport"
+                                >
                                     <PhoneIcon color="#000" />
-                                    <p>{strings.CustomerSupport}</p>
-                                </a>
+                                    <p>
+                                        {/* {strings.CustomerSupport} */}
+                                        +251917897592
+                                    </p>
+                                </div>
                             </span>
                             <div>
 

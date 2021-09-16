@@ -161,13 +161,13 @@ export default function User() {
                             <span >My Auctions</span>
                         </Badge>
                         </a>
-                    <a href="#notification"  >
-                        <Badge onClick={() => ul(2)} color="primary" badgeContent={note().length}>
+                    <a href="#notification" onClick={() => ul(2)} >
+                        <Badge  color="primary" badgeContent={note().length}>
                             <span >Notifications</span>
                         </Badge>
                     </a>
-                    <a href="#update"  >
-                        <span onClick={() => ul(3)}>update profile</span>
+                    <a href="#update" onClick={() => ul(3)} >
+                        <span >update profile</span>
                     </a>
                     {/* <a href="#lost"  >
                         <span onClick={() => ul(4)}>lost</span>

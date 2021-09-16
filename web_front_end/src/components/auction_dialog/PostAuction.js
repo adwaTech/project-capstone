@@ -505,6 +505,7 @@ export default function Register({ match, history }) {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={12}>
                 <div style={{ width: "450px", height: "250px" }}>
+                {window.navigator.onLine ?
                   <MapPicker
                     defaultLocation={defaultLocation}
                     zoom={zoom}
@@ -513,6 +514,9 @@ export default function Register({ match, history }) {
                     onChangeZoom={handleChangeZoom}
                     apiKey="AIzaSyD07E1VvpsN_0FvsmKAj4nK9GnLq-9jtj8"
                   />
+                  :
+                  <Alert severity="info">please check your connection you are offline </Alert>
+                  }
                 </div>
               </Grid>
               <Grid>

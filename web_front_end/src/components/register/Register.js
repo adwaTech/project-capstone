@@ -19,7 +19,6 @@ import {
   FormLabel,
   TextField,
   FormControlLabel,
-  Checkbox,
   Input,
   InputAdornment,
   Grid,
@@ -35,7 +34,9 @@ import { RegisterAction, AccountCheckoutAction } from '../../redux-state-managme
 import { Alert } from '@material-ui/lab'
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import ScrollToTop from '../../scrollTop/ScrollToTop';
-import MyGoogleMap from "./map/MyGoogleMap";
+import {Link } from 'react-router-dom';
+
+
 
 
 
@@ -361,7 +362,7 @@ export default function Register() {
     formData.append("latitude", state.latitute);
     formData.append("longtude", state.longitute);
     formData.append("userType", state.usertype);
-    if(state.adminToken && state.usertype == 'admin')formData.append("adminToken", state.adminToken);
+    if (state.adminToken && state.usertype == 'admin') formData.append("adminToken", state.adminToken);
     formData.append("phone", state.phone);
     formData.append("email", state.email);
     formData.append("password", state.password);
@@ -380,6 +381,7 @@ export default function Register() {
       case 0:
         return (
           <React.Fragment>
+            <ScrollToTop/>
             <Typography variant="h6" gutterBottom>
               {strings.personalinfo}
             </Typography>
@@ -524,6 +526,9 @@ export default function Register() {
                 </FormControl>
               </Grid>
               <Grid item xs={12}>
+                <Link to="/login" className={classes.donthaveaccount} variant="body2">
+                  {"I have an account?"}<Button>login</Button>
+                </Link>
                 {/* <FormControlLabel
                   control={
                     <Checkbox
@@ -541,6 +546,7 @@ export default function Register() {
       case 1:
         return (
           <React.Fragment>
+            <ScrollToTop/>
             <Typography variant="h6" gutterBottom>
               {strings.userdetail}
             </Typography>
@@ -569,11 +575,11 @@ export default function Register() {
                   error={IdNumMessage.haveError}
                   helperText={IdNumMessage.message}
                   id="idNumber"
-                  name="idNumber"
+                  name="ID"
                   label={strings.label7}
                   value={state.idNumber}
                   fullWidth
-                  autoComplete="id number"
+                  autoComplete="ID"
                   onChange={(e) => {
                     setState({ ...state, idNumber: e.target.value });
                   }}
@@ -686,12 +692,12 @@ export default function Register() {
                 />
               </Grid>
               <Grid item xs={12}>
-                <FormControlLabel
+                {/* <FormControlLabel
                   control={
                     <Checkbox color="secondary" name="saveCard" value="yes" />
                   }
                   label={strings.label8}
-                />
+                /> */}
               </Grid>
             </Grid>
           </React.Fragment>
@@ -699,6 +705,7 @@ export default function Register() {
       case 2:
         return (
           <React.Fragment>
+            <ScrollToTop/>
             <Typography variant="h6" gutterBottom>
               {strings.location}
             </Typography>
@@ -706,17 +713,17 @@ export default function Register() {
               <Grid item xs={12} sm={12}>
                 <div style={{ width: "80vh", height: "70vh" }}>
                   {window.navigator.onLine ?
-                  <MapPicker
-                    defaultLocation={defaultLocation}
-                    zoom={zoom}
-                    mapTypeId="roadmap"
-                    style={{ width: "100%", height: "100%" }}
-                    onChangeLocation={handleChangeLocation}
-                    onChangeZoom={handleChangeZoom}
-                    apiKey="AIzaSyD07E1VvpsN_0FvsmKAj4nK9GnLq-9jtj8"
-                  />
-                  :
-                  <div>you are offline</div>
+                    <MapPicker
+                      defaultLocation={defaultLocation}
+                      zoom={zoom}
+                      mapTypeId="roadmap"
+                      style={{ width: "100%", height: "100%" }}
+                      onChangeLocation={handleChangeLocation}
+                      onChangeZoom={handleChangeZoom}
+                      apiKey="AIzaSyD07E1VvpsN_0FvsmKAj4nK9GnLq-9jtj8"
+                    />
+                    :
+                    <Alert severity="info">please check your connection you are offline </Alert>
                   }
                   {/* <MyGoogleMap/> */}
 
@@ -734,7 +741,7 @@ export default function Register() {
         throw new Error("Unknown step");
     }
   }
-  const [connection,setConnection]=React.useState('offline')
+  const [connection, setConnection] = React.useState('offline')
   React.useEffect(() => {
     if (error) {
       setProgress(false);
@@ -748,7 +755,7 @@ export default function Register() {
       setConnection("offline")
       console.log("yes")
     });
-    
+
     window.addEventListener("online", (event) => {
       // const statusDisplay = document.getElementById("status");
       // statusDisplay.textContent = "Online";
@@ -757,13 +764,13 @@ export default function Register() {
     });
     // console.log('Initially ' + (window.navigator.onLine ? 'on' : 'off') + 'line');
     // document.getElementById('statusCheck').addEventListener('click', () => console.log('window.navigator.onLine is ' + window.navigator.onLine));
-  
+
   }, [lang, error, token]);
 
-  
 
-window.addEventListener('online', () => console.log('Became online'));
-window.addEventListener('offline', () => console.log('Became offline'));
+
+  window.addEventListener('online', () => console.log('Became online'));
+  window.addEventListener('offline', () => console.log('Became offline'));
 
 
   return (

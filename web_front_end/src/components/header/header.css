@@ -643,11 +643,16 @@
     transition: all 1s ease;
   }
 
+  /* customer support  */
+
+  .customerSupport:hover{
+    cursor: pointer;
+  }
 
   /* login button */
   :root {
     --color-red: #ec1840;
-    --color-purple: #7a18ec;
+    --color-purple: #3ca0e7;
     --color-white: #fff;
     --color-black-1: #111;
     --color-black-2: #222;
@@ -669,6 +674,8 @@
     display: inline;
     margin-top: -20px;
     color: black;
+    font-weight: bold;
+    font-size: 15px;
     border-radius: 20px;
     transition: var(--speed-normal);
     border: 1px solid var(--color-red);
@@ -682,8 +689,10 @@
     top:-10px
   }
   .loginbtn:hover {
+    font-size: 20px;
+    color: white;
     border: 1px solid transparent;
-    background: var(--color-red) url(https://i.postimg.cc/wBXGXbWN/pixel.png);
+    background: #3ca0e7 url(https://i.postimg.cc/wBXGXbWN/pixel.png);
     transition-delay: 0.0005s;
     background-size: 180px;
     -webkit-animation: animate var(--speed-fast) steps(8) forwards;
@@ -693,7 +702,7 @@
     border: 1px solid var(--color-purple);
   }
   .loginbtn:last-of-type:hover {
-    background: var(--color-purple) url(https://i.postimg.cc/FzBWFtKM/pixel2.png);
+    background: #3ca0e7 url(https://i.postimg.cc/FzBWFtKM/pixel2.png);
   }
   
   @-webkit-keyframes animate {

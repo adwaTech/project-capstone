@@ -11,11 +11,11 @@ import { useSelector, useDispatch } from "react-redux";
 import Button1 from '@material-ui/core/Button'
 import {
   UpdateCustomerAction,
-  AccountCheckoutAction,DeleteCustomerAction,
+  AccountCheckoutAction, DeleteCustomerAction,
   DeleteAccountCleanUpAction
 } from '../../../redux-state-managment/Actions';
-import {Alert } from '@material-ui/lab'
-import { CircularProgress,DialogTitle } from "@material-ui/core";
+import { Alert } from '@material-ui/lab'
+import { CircularProgress, DialogTitle } from "@material-ui/core";
 import IconButton from '@material-ui/core/IconButton';
 import {
   BACKENDURL
@@ -57,8 +57,8 @@ export default function UserProfile(props) {
   const user = useSelector((state) => state.AccountReducer.user);
 
   const dispatch = useDispatch();
-  const data=props.location.state
-  ?props.location.state.customer:user;
+  const data = props.location.state
+    ? props.location.state.customer : user;
   const classes = useStyles();
   const [state, setState] = React.useState({
     usertype: data.userType,
@@ -75,7 +75,7 @@ export default function UserProfile(props) {
     city: data.city,
     latitute: data.latitude,
     longitute: data.longtude,
-    userId:data._id
+    userId: data._id
   })
   const [open, setOpen] = React.useState(false);
   const [zoom, setZoom] = React.useState(10);
@@ -88,10 +88,10 @@ export default function UserProfile(props) {
   const error = useSelector((state) => state.AccountReducer.error);
   const delete_status = useSelector((state) => state.DeletAccountReducer.delete_status);
   const delete_error = useSelector((state) => state.DeletAccountReducer.delete_error);
-  
+
 
   const [progress, setProgress] = React.useState(false);
-  const [opend,setOpend]= React.useState(false)
+  const [opend, setOpend] = React.useState(false)
 
   return (
     <div>
@@ -266,13 +266,13 @@ export default function UserProfile(props) {
                 </GridItem>
               </GridContainer>
             </CardBody>
-            
+
             <CardFooter>
               <Button
-              onClick={async () => {
-                console.log("is clicked")
-                if (state.firstname && state.lastname  && state.city && state.profileImage) {
-                  
+                onClick={async () => {
+                  console.log("is clicked")
+                  if (state.firstname && state.lastname && state.city && state.profileImage) {
+
                     setProgress(true);
                     const formData = new FormData();
                     formData.append("firstName", state.firstname);
@@ -287,9 +287,9 @@ export default function UserProfile(props) {
                     formData.append("city", state.city);
                     formData.append("idPhoto", state.idPhoto);
                     formData.append("idNo", state.idNumber);
-                    formData.append("userId",state.userId);
-                    if(state.password){
-                      if(state.conpassword===state.password){
+                    formData.append("userId", state.userId);
+                    if (state.password) {
+                      if (state.conpassword === state.password) {
                         formData.append("password", state.password);
                       }
                     }
@@ -298,9 +298,9 @@ export default function UserProfile(props) {
                     setTimeout(function () {
                       dispatch(AccountCheckoutAction());
                     }, 10000);
-                }
-              }}
-               color="info">Update Profile</Button>
+                  }
+                }}
+                color="info">Update Profile</Button>
             </CardFooter>
           </Card>
         </GridItem>
@@ -318,14 +318,14 @@ export default function UserProfile(props) {
               <h6 className={classes.cardCategory}>{state.phone}</h6>
               <h6 className={classes.cardCategory}>{state.city}</h6>
               <h6 className={classes.cardCategory}>{state.sex}</h6>
-              <Button 
-              onClick={async ()=>{
-                setOpend(true);
-                
-              }}
-              color="danger" 
-              round
-              
+              <Button
+                onClick={async () => {
+                  setOpend(true);
+
+                }}
+                color="danger"
+                round
+
               >
                 Delete Account
               </Button>
@@ -336,46 +336,50 @@ export default function UserProfile(props) {
       <Dialog open={open}>
         <Button1 onClick={() => setOpen(false)} variant="contained" color="primary">Select</Button1>
         <div style={{ width: "80vh", height: "70vh" }}>
-          <MapPicker
-            defaultLocation={{ lat: state.latitute, lng: state.longitute }}
-            zoom={zoom}
-            style={{ width: "100%", height: "100%" }}
-            onChangeLocation={(lat, lng) => {
-              setState({ ...state, latitute: lat, longitute: lng })
-            }}
-            onChangeZoom={handleChangeZoom}
-            apiKey="AIzaSyD07E1VvpsN_0FvsmKAj4nK9GnLq-9jtj8"
-          />
+          {window.navigator.onLine ?
+            <MapPicker
+              defaultLocation={{ lat: state.latitute, lng: state.longitute }}
+              zoom={zoom}
+              style={{ width: "100%", height: "100%" }}
+              onChangeLocation={(lat, lng) => {
+                setState({ ...state, latitute: lat, longitute: lng })
+              }}
+              onChangeZoom={handleChangeZoom}
+              apiKey="AIzaSyD07E1VvpsN_0FvsmKAj4nK9GnLq-9jtj8"
+            />
+            :
+            <Alert severity="info">please check your connection you are offline </Alert>
+          }
         </div>
       </Dialog>
       <Dialog open={opend}>
         <DialogTitle>
-          <IconButton onClick={()=>setOpend(false)}>X</IconButton>
+          <IconButton onClick={() => setOpend(false)}>X</IconButton>
         </DialogTitle>
         {
-            delete_error
-                ? <Alert severity="error">{delete_error}</Alert>
-                : null
+          delete_error
+            ? <Alert severity="error">{delete_error}</Alert>
+            : null
         }
         {
-            delete_status === 200
-                ? <Alert severity="success">user is successfuly deleted</Alert>
-                : null
+          delete_status === 200
+            ? <Alert severity="success">user is successfuly deleted</Alert>
+            : null
         }
-        <Alert severity='warning'>are you sure? <Button 
-        variant="contained"
-        onClick={async ()=>{
-          setProgress(true);
-          await dispatch(DeleteCustomerAction({userId: data._id},token));
-          setTimeout(function () {
-            dispatch(DeleteAccountCleanUpAction());
-            setOpen(false);
-            props.history.push('/admin/customer');
-        }, 6000);
-        }}
-        color="danger">{progress?<span><CircularProgress color="primary"/>loading</span>:"Delete"}</Button></Alert>
+        <Alert severity='warning'>are you sure? <Button
+          variant="contained"
+          onClick={async () => {
+            setProgress(true);
+            await dispatch(DeleteCustomerAction({ userId: data._id }, token));
+            setTimeout(function () {
+              dispatch(DeleteAccountCleanUpAction());
+              setOpen(false);
+              props.history.push('/admin/customer');
+            }, 6000);
+          }}
+          color="danger">{progress ? <span><CircularProgress color="primary" />loading</span> : "Delete"}</Button></Alert>
       </Dialog>
-    
+
     </div>
   );
 }
