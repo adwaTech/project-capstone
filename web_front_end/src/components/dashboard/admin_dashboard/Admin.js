@@ -18,6 +18,7 @@ import styles from "./adminStyle";
 
 import bgImage from "../../../assets/images/bird-wallpaper-1366x768-002.jpg";
 import logo from "../../../assets/images/bird-wallpaper-1366x768-002.jpg";
+import { strings } from "../../../language/language";
 
 let ps;
 
@@ -76,6 +77,9 @@ export default function Admin({ ...rest }) {
       window.removeEventListener("resize", resizeFunction);
     };
   }, [mainPanel]);
+  React.useEffect(()=>{
+
+  },[strings])
   return (
     <div className={classes.wrapper}>
       <Sidebar

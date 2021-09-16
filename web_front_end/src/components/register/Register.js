@@ -753,7 +753,6 @@ export default function Register() {
       // const statusDisplay = document.getElementById("status");
       // statusDisplay.textContent = "OFFline";
       setConnection("offline")
-      console.log("yes")
     });
 
     window.addEventListener("online", (event) => {

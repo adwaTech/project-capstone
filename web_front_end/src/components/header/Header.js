@@ -120,7 +120,7 @@ export default function Header() {
     const [cookiesUser, setCookieUser,removeCookieUser] = useCookies(['user']);
     const [cookiesToken, setCookieToken,removeCookieToken] = useCookies(['token']);
 
-    const auctionCategory = [strings.Land, strings.House, strings.Car, strings.service, strings.rare, strings.oldies];
+    const auctionCategory = [strings.Land, strings.House, strings.Car, strings.service, strings.rare, strings.oldies,"electronics"];
     const dispatch = useDispatch();
     const classes = useStyles();
     const location = useLocation();

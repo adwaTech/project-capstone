@@ -3,6 +3,7 @@ import React from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import { NavLink, useLocation } from "react-router-dom";
+import {useSelector} from 'react-redux'
 
 import {
 
@@ -14,6 +15,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Icon from "@material-ui/core/Icon";
+import { strings } from "../../../../../language/language.js";
 // core components
 import AdminNavbarLinks from "../../components/Navbars/AdminNavbarLinks.js";
 
@@ -22,7 +24,17 @@ import styles from "../../assets/jss/material-dashboard-react/components/sidebar
 const useStyles = makeStyles(styles);
 
 export default function Sidebar(props) {
-  const names=[]
+  const [names,setNames]=React.useState([
+    {name:strings.Dashboard},
+    {name:strings.Aprovements},
+    {name:strings.customer},
+    {name:strings.FeedBacks},
+    {name:strings.profile},
+    {name:strings.GenerateToken},
+    {name:strings.TotalAuctionInfo},
+    {name:strings.CustomerLocation},
+    {name:strings.Auctionslocation}
+  ])
   const classes = useStyles();
   let location = useLocation();
   // verifies if routeName is the one active (in browser input)
@@ -30,6 +42,20 @@ export default function Sidebar(props) {
     return location.pathname === routeName;
   }
   const { color, logo, image, logoText, routes } = props;
+  const lang = useSelector((state) => state.LanguageReducer.language);
+  React.useEffect(()=>{
+    setNames([
+      {name:strings.Dashboard},
+      {name:strings.Aprovements},
+      {name:strings.customer},
+      {name:strings.FeedBacks},
+      {name:strings.profile},
+      {name:strings.GenerateToken},
+      {name:strings.TotalAuctionInfo},
+      {name:strings.CustomerLocation},
+      {name:strings.Auctionslocation}
+    ])
+  },[lang])
   var links = (
     <List className={classes.list}>
       {routes.map((prop, key) => {
@@ -72,7 +98,7 @@ export default function Sidebar(props) {
                 />
               )}
               <ListItemText
-                primary={props.rtlActive ? prop.rtlName : prop.name}
+                primary={props.rtlActive ? prop.rtlName : names.filter(n=>n.name===prop.name)?names[key].name:null}
                 className={classNames(classes.itemText, whiteFontClasses, {
                   [classes.itemTextRTL]: props.rtlActive,
                 })}

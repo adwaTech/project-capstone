@@ -424,7 +424,16 @@ wax ku ool ah, xalalka caadada ah.`,
     label6: "iimayl",
     label7: "Lambarka id",
     label8: "kala beddel emailkaaga",
-
+    
+    Dashboard:"Dashboard",
+    Aprovements:"Ansixinta",
+    Customer:"Macmiil",
+    FeedBacks:"Macmiil",
+    profile:"profile",
+    GenerateToken:"GenerateToken",
+    TotalAuctionInfo:"TotalAuctionInfo",
+    CustomerLocation:"CustomerLocation",
+    Auctionslocation:"Auctionslocation"
   },
   ti: {
     Home: "ቤት",
