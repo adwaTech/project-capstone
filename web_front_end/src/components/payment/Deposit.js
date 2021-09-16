@@ -141,7 +141,7 @@ export default function Deposite(props) {
                 <Grid >
                     <Grid item xs={12} sm={12}>
                         <FormControl className={classes.formControl} fullWidth >
-                            <InputLabel id="user type">choose Deposite provider</InputLabel>
+                            <InputLabel id="user type">choose Deposit provider</InputLabel>
                             <Select
                                 labelId="user type"
                                 id="user-type"
@@ -194,7 +194,7 @@ export default function Deposite(props) {
                                 }
 
                             }}
-                        >{progress ? <span><CircularProgress color="#ffffff" /> Loading</span> : "Submite Bid"}</Button>
+                        >{progress ? <span><CircularProgress color="#ffffff" /> Loading</span> : "Deposit"}</Button>
                     </Grid>
                 </Grid>
             </DialogContent >

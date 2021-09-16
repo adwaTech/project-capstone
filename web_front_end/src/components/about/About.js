@@ -2,7 +2,10 @@
 import React,{useEffect} from 'react'
 import './about.css'
 import Backgorundd from '../../assets/images/shape.png'
-import Theman from '../../assets/images/jacket.jpg'
+import kira from '../../assets/images/kira.jpg'
+import mesi from '../../assets/images/mesi.jpg'
+import miki from '../../assets/images/miki.jpg'
+import mengie from '../../assets/images/mengie.jpg'
 import Header from '../header/Header'
 import Footer from '../footer/Footer'
 import Aos from 'aos'
@@ -46,26 +49,26 @@ export default function About() {
                             <div className="grids">
                                 <div className='twogrids'>
                                     <div data-aos='fade-up' className="gridItems">
-                                        <img alt="" className="image" src={Theman}/>
-                                        <p className="nameof">{strings.mesi}</p>
-                                        <p className="expertize">{strings.softwareengineer}</p>
+                                        <img style={{borderRadius:'50px'}} alt="" className="image" src={kira}/>
+                                        <p className="nameof">Kirubel Adamu</p>
+                                        <p className="expertize">BackEnd Developer</p>
                                     </div> 
                                     <div data-aos='fade-down' className="gridItems">
-                                        <img alt="" className="image" src={Theman}/>
-                                        <p className="nameof">{strings.miki}</p>
-                                        <p className="expertize">{strings.softwareengineer}</p>
+                                        <img style={{borderRadius:'50px'}} alt="" className="image" src={mesi}/>
+                                        <p className="nameof">Meseret Kifie</p>
+                                        <p className="expertize">FrontEnd Developer</p>
                                     </div> 
                                 </div>
                                 <div className='twogrids'>
                                     <div data-aos='fade-up' className="gridItems">
-                                        <img alt="" className="image" src={Theman}/>
-                                        <p className="nameof">{strings.menge}</p>
-                                        <p className="expertize">{strings.softwareengineer}</p>
+                                        <img style={{borderRadius:'50px'}} alt="" className="image" src={miki}/>
+                                        <p className="nameof">Michael Mamaye</p>
+                                        <p className="expertize">UI Designer</p>
                                     </div> 
                                     <div data-aos='fade-down' className="gridItems">
-                                        <img alt="" className="image" src={Theman}/>
-                                        <p className="nameof">{strings.kira}</p>
-                                        <p className="expertize">{strings.softwareengineer}</p>
+                                        <img style={{borderRadius:'50px'}} alt="" className="image" src={mengie}/>
+                                        <p className="nameof">Mengistu Birhie</p>
+                                        <p className="expertize">Translation Leader</p>
                                     </div> 
                                 </div>
                             </div>  
