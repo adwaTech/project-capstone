@@ -7,11 +7,10 @@ import {
   Person,
   CheckOutlined,
   Feedback,
-  Money,
-  PermDeviceInformation,
   Lock
   
 } from '@material-ui/icons'
+import { strings } from "../../../language/language";
 import  DashboardPage from './main_dashbaord/Dashboard';
 import UserProfile  from './UserProfile.js';
 import TableList from "./TableList.js";
@@ -22,13 +21,14 @@ import CustomerInfo from "./CustomerInfo/CustomerInfo";
 import Customer from './Customer';
 import Auction_map from './Auction_map';
 import {Gavel} from '@material-ui/icons'
-import { GenerateTokenReducer } from '../../../redux-state-managment/Reducers';
+// import { GenerateTokenReducer } from '../../../redux-state-managment/Reducers';
+
 
 
 const dashboardRoutes = [
   {
     path: "/dashboard",
-    name: "Dashboard",
+    name: strings.Dashboard,
     icon: Dashboard,
     component: DashboardPage,
     layout: "/admin",
@@ -36,14 +36,14 @@ const dashboardRoutes = [
   
   {
     path: "/aprovements",
-    name: "Aprovements",
+    name: strings.Aprovements,
     icon: CheckOutlined,
     component: TableList,
     layout: "/admin",
   },
   {
     path: "/customer",
-    name: "Customer",
+    name: strings.Customer,
     icon: LibraryBooks,
     component: Customer,
     layout: "/admin",
@@ -51,42 +51,42 @@ const dashboardRoutes = [
 
   {
     path: "/feedback",
-    name: "FeedBacks",
+    name: strings.FeedBacks,
     icon: Feedback,
     component: NotificationsPage,
     layout: "/admin",
   },
   {
     path: "/customer_location",
-    name: "Customer Location",
+    name: strings.CustomerLocation,
     icon: LocationOn,
     component:Maps,
     layout: "/admin",
   },
   {
     path: "/auction_location",
-    name: "Auctions location",
+    name: strings.Auctionslocation,
     icon: Notifications,
     component: Auction_map,
     layout: "/admin",
   },
   {
     path: "/total-auction-info",
-    name: "Total Auction Info",
+    name: strings.TotalAuctionInfo,
     icon: Gavel,
     component: CustomerInfo,
     layout: "/admin",
   },
   {
     path: "/generateToken",
-    name: "Generate Token",
+    name: strings.GenerateToken,
     icon: Lock,
     component: Icons,
     layout: "/admin",
   },
   {
     path: "/profile",
-    name: "profile",
+    name: strings.profile,
     icon: Person,
     component: UserProfile,
     layout: "/admin",

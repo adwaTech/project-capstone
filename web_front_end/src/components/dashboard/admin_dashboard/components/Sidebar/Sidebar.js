@@ -22,6 +22,7 @@ import styles from "../../assets/jss/material-dashboard-react/components/sidebar
 const useStyles = makeStyles(styles);
 
 export default function Sidebar(props) {
+  const names=[]
   const classes = useStyles();
   let location = useLocation();
   // verifies if routeName is the one active (in browser input)

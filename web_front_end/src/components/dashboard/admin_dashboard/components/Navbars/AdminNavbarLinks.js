@@ -30,44 +30,44 @@ import {
 } from '../../../../../redux-state-managment/Constants';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { withStyles,InputBase } from '@material-ui/core';
+import { withStyles, InputBase } from '@material-ui/core';
 import { useCookies } from "react-cookie";
 
 const useStyles = makeStyles(styles);
 
 const BootstrapInput = withStyles((theme) => ({
   root: {
-      'label + &': {
-          marginTop: theme.spacing(3),
-      },
+    'label + &': {
+      marginTop: theme.spacing(3),
+    },
   },
   input: {
+    borderRadius: 4,
+    color: "black",
+    position: 'relative',
+    backgroundColor: theme.palette.background.paper,
+    border: '1px solid #ced4da',
+    fontSize: 16,
+    padding: '5px 26px 2px 22px',
+    transition: theme.transitions.create(['border-color', 'box-shadow']),
+    // Use the system font instead of the default Roboto font.
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+    '&:focus': {
       borderRadius: 4,
-      color: "black",
-      position: 'relative',
-      backgroundColor: theme.palette.background.paper,
-      border: '1px solid #ced4da',
-      fontSize: 16,
-      padding: '5px 26px 2px 22px',
-      transition: theme.transitions.create(['border-color', 'box-shadow']),
-      // Use the system font instead of the default Roboto font.
-      fontFamily: [
-          '-apple-system',
-          'BlinkMacSystemFont',
-          '"Segoe UI"',
-          'Roboto',
-          '"Helvetica Neue"',
-          'Arial',
-          'sans-serif',
-          '"Apple Color Emoji"',
-          '"Segoe UI Emoji"',
-          '"Segoe UI Symbol"',
-      ].join(','),
-      '&:focus': {
-          borderRadius: 4,
-          borderColor: '#80bdff',
-          boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
-      },
+      borderColor: '#80bdff',
+      boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
+    },
   },
 }))(InputBase);
 
@@ -101,34 +101,39 @@ export default function AdminNavbarLinks() {
   const feedbacks = useSelector((state) => state.SendFeedBackReducer.feedbacks);
   const token = useSelector(state => state.AccountReducer.token);
   const user = useSelector((state) => state.AccountReducer.user);
-  const [cookiesUser, setCookieUser,removeCookieUser] = useCookies(['user']);
-  const [cookiesToken, setCookieToken,removeCookieToken] = useCookies(['token']);
+  const [cookiesUser, setCookieUser, removeCookieUser] = useCookies(['user']);
+  const [cookiesToken, setCookieToken, removeCookieToken] = useCookies(['token']);
   React.useEffect(async () => {
     dispatch(GetFeedbackAction(token));
   }, [])
+  const lang = useSelector((state) => state.LanguageReducer.language);
+  
+  React.useEffect(()=>{
+    
+  },Lang)
   return (
     <div>
       <div className={classes.manager}>
-      <FormControl >
-        <Select
-          labelId="demo-customized-select-label"
-          id="demo-customized-select"
-          value={Lang}
-          color="primary"
-          onChange={(e) => {
-            strings.setLanguage(e.target.value);
-            dispatch(LanguageAction(e.target.value))
-            setLang(e.target.value)
-          }}
-          input={<BootstrapInput />}
-        >
-          <MenuItem value="en">English</MenuItem>
-          <MenuItem value="am">አማርኛ</MenuItem>
-          <MenuItem value="or">Oromifa</MenuItem>
-          <MenuItem value="ti">ትግርኛ</MenuItem>
-          <MenuItem value="so">Somali</MenuItem>
-        </Select>
-      </FormControl>
+        <FormControl >
+          <Select
+            labelId="demo-customized-select-label"
+            id="demo-customized-select"
+            value={Lang}
+            color="primary"
+            onChange={(e) => {
+              strings.setLanguage(e.target.value);
+              dispatch(LanguageAction(e.target.value))
+              setLang(e.target.value)
+            }}
+            input={<BootstrapInput />}
+          >
+            <MenuItem value="en">English</MenuItem>
+            <MenuItem value="am">አማርኛ</MenuItem>
+            <MenuItem value="or">Oromifa</MenuItem>
+            <MenuItem value="ti">ትግርኛ</MenuItem>
+            <MenuItem value="so">Somali</MenuItem>
+          </Select>
+        </FormControl>
       </div>
       {/* <div className={classes.searchWrapper}>
         <CustomInput
@@ -230,7 +235,10 @@ export default function AdminNavbarLinks() {
           onClick={handleClickProfile}
           className={classes.buttonLink}
         >
-          <Person className={classes.icons} />
+          {/* <Person className={classes.icons} /> */}
+          {/* <span>Admin</span> */}
+          <Avatar src={`${BACKENDURL}/users/${user.profileImage}`}>
+          </Avatar>
           <Hidden mdUp implementation="css">
             <p className={classes.linkText}>Profile</p>
           </Hidden>
@@ -296,13 +304,13 @@ export default function AdminNavbarLinks() {
 
       </div>
 
-      <span className={classes.manager}>
+      {/* <span className={classes.manager}>
         Admin
-      </span>
-      <div className={classes.manager}>
+      </span> */}
+      {/* <div className={classes.manager}>
         <Avatar src={`${BACKENDURL}/users/${user.profileImage}`}>
         </Avatar>
-      </div>
+      </div> */}
     </div>
   );
 }
