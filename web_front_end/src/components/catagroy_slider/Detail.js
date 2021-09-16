@@ -29,14 +29,16 @@ const useStyles1 = makeStyles((theme: Theme) =>
   createStyles({
     paper: {
       marginTop: "40px",
+      width:"30vw",
+      height:"300px",
       display: "flex",
       alignItems: "center",
       flexDirection: "column",
-      position: "relative"
+      position: "fixed"
     },
     paper2: {
-      width: "80vw",
-      maxWidth: "500px",
+      width: "100vw",
+      // maxWidth: "500px",
       height:"60vh",
       overflow:" auto",
       display: "flex",
@@ -238,6 +240,87 @@ export default function DetailDialog(props) {
               </div>
 
             </CardContent>
+            <CardContent>
+              {props.data
+                ? props.data.auctionType === "live"
+                  ? props.data.proposals
+                    ? props.data.proposals.length > 0
+                      ? props.data.proposals.filter(m => {
+                        if (m.ownerId)
+                          return m.ownerId._id === user._id
+                        else {
+                          return false
+                        }
+                      }).length > 0
+                        ?
+                        <div className={classes1.container}>
+                          <Paper className={classes1.paper} zDepth={2}>
+                            <Paper id="style-1" className={classes1.messagesBody}>
+                              {
+                                props.data.proposals.length > 0
+                                  ?auctionbyid?auctionbyid.proposals
+                                  ?auctionbyid.proposals.length
+                                  ? auctionbyid.proposals.map((p, i) => (
+                                    i % 2 == 0 ?
+                                      p.ownerId?<MessageLeft
+                                      message={`${p.amount} birr`}
+                                      timestamp={`${moment(p.submittedOn).format()}`}
+                                      photoURL={`${BACKENDURL}/users/${p.ownerId?p.ownerId.profileImage:null}`}
+                                      displayName={`${p.ownerId.firstName?p.ownerId.firstName:null + " " + p.ownerId.lastName?p.ownerId.lastName:null}`}
+                                      avatarDisp={true}
+                                      />
+                                      : <MessageRight
+                                      message={`${p.amount} birr`}
+                                      timestamp={`${moment(p.submittedOn).format()}`}
+                                      photoURL={`${BACKENDURL}/users/${p.ownerId?p.ownerId.profileImage:null}`}
+                                      // displayName={`${p.ownerId.firstName?p.ownerId.firstName:null + " " + p.ownerId.lastName?p.ownerId.lastName:null}`}
+                                      avatarDisp={true}
+                                      />:null
+                                  ))
+                                  :null:null:null: <div>no bid yet</div>
+                              }
+                            </Paper>
+                            <TextInput
+                              onClick={async () => {
+                                if (state.amount) {
+                                  const formData = new FormData();
+                                  formData.append('amount', state.amount);
+                                  formData.append('auctionId', props.data._id);
+                                  formData.append('cpo', 0);
+                                  formData.append('ownerId', props.data.owner);
+                                  formData.append('proposalType', 'live');
+                                  await dispatch(BidAuctionAction(formData, token));
+                                  dispatch(IdAuctionAction(props.data._id));
+                                  setTimeout(function () {
+                                    dispatch(BidCleanUpAction());
+                                    setState({
+                                      proposalType: "live",
+                                      amount: "",
+                                      cpo: 0,
+                                      ownerId: "",
+                                      auctionId: "",
+                                    });
+                                  }, 1000);
+                                }
+                              }}
+                              value={state.amount}
+                              onChange={(e) => {
+                                setState({
+                                  ...state,
+                                  amount: e.target.value,
+                                  ownerId: props.data ? props.data.owner : null,
+                                  auctionId: props.data ? props.data._id : null,
+                                  cpo: 0
+                                })
+
+                              }} />
+                          </Paper>
+                        </div>
+                        : null : null : null
+                  : null
+                : null}
+
+            </CardContent>
 
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               <img
@@ -322,88 +405,7 @@ export default function DetailDialog(props) {
                           : null : null : null : null : null
               }
             </div>
-            <CardContent>
-              {props.data
-                ? props.data.auctionType === "live"
-                  ? props.data.proposals
-                    ? props.data.proposals.length > 0
-                      ? props.data.proposals.filter(m => {
-                        if (m.ownerId)
-                          return m.ownerId._id === user._id
-                        else {
-                          return false
-                        }
-                      }).length > 0
-                        ?
-                        <div className={classes1.container}>
-                          <Paper className={classes1.paper} zDepth={2}>
-                            <Paper id="style-1" className={classes1.messagesBody}>
-                              {
-                                props.data.proposals.length > 0
-                                  ?auctionbyid?auctionbyid.proposals
-                                  ?auctionbyid.proposals.length
-                                  ? auctionbyid.proposals.map((p, i) => (
-                                    i % 2 == 0 ?
-                                      <MessageLeft
-                                        message={`${p.amount} birr`}
-                                        timestamp={`${moment(p.submittedOn).format()}`}
-                                        photoURL={`${BACKENDURL}/users/${p.ownerId.profileImage}`}
-                                        displayName={`${p.ownerId.firstName + " " + p.ownerId.lastName}`}
-                                        avatarDisp={true}
-                                      />
-                                      : <MessageRight
-                                        message={`${p.amount} birr`}
-                                        timestamp={`${moment(p.submittedOn).format()}`}
-                                        photoURL={`${BACKENDURL}/users/${p.ownerId.profileImage}`}
-                                        displayName={`${p.ownerId.firstName + " " + p.ownerId.lastName}`}
-                                        avatarDisp={true}
-                                      />
-                                  ))
-                                  :null:null:null: <div>no bid yet</div>
-                              }
-                            </Paper>
-                            <TextInput
-                              onClick={async () => {
-                                if (state.amount) {
-                                  const formData = new FormData();
-                                  formData.append('amount', state.amount);
-                                  formData.append('auctionId', props.data._id);
-                                  formData.append('cpo', 0);
-                                  formData.append('ownerId', props.data.owner);
-                                  formData.append('proposalType', 'live');
-                                  await dispatch(BidAuctionAction(formData, token));
-                                  dispatch(IdAuctionAction(props.data._id));
-                                  setTimeout(function () {
-                                    dispatch(BidCleanUpAction());
-                                    setState({
-                                      proposalType: "live",
-                                      amount: "",
-                                      cpo: 0,
-                                      ownerId: "",
-                                      auctionId: "",
-                                    });
-                                  }, 1000);
-                                }
-                              }}
-                              value={state.amount}
-                              onChange={(e) => {
-                                setState({
-                                  ...state,
-                                  amount: e.target.value,
-                                  ownerId: props.data ? props.data.owner : null,
-                                  auctionId: props.data ? props.data._id : null,
-                                  cpo: 0
-                                })
-
-                              }} />
-                          </Paper>
-                        </div>
-                        : null : null : null
-                  : null
-                : null}
-
-            </CardContent>
-
+            
 
           </Card>
 

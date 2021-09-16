@@ -93,9 +93,12 @@ export default function Catagory(props) {
             setNum(2)
         }
         if(token){
-              dispatch(AllExceptAuctionAction(user._id));
+              dispatch(AllExceptAuctionAction(user?user._id:null));
         }
-    }, [allAuction,lang,dispatch,num,token,user._id]);
+        else{
+            dispatch(AllAuctionAction());
+        }
+    }, [allAuction,lang,dispatch,num,token,user]);
     var loading = true;
     if (allAuction.length > 0) {
 

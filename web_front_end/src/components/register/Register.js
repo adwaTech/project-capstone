@@ -35,6 +35,9 @@ import { RegisterAction, AccountCheckoutAction } from '../../redux-state-managme
 import { Alert } from '@material-ui/lab'
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import ScrollToTop from '../../scrollTop/ScrollToTop';
+import MyGoogleMap from "./map/MyGoogleMap";
+
+
 
 const DefaultLocation = { lat: 8.9806, lng: 38.7578 };
 const DefaultZoom = 13;
@@ -521,7 +524,7 @@ export default function Register() {
                 </FormControl>
               </Grid>
               <Grid item xs={12}>
-                <FormControlLabel
+                {/* <FormControlLabel
                   control={
                     <Checkbox
                       color="secondary"
@@ -530,7 +533,7 @@ export default function Register() {
                     />
                   }
                   label={strings.label5}
-                />
+                /> */}
               </Grid>
             </Grid>
           </React.Fragment>
@@ -711,14 +714,16 @@ export default function Register() {
                     onChangeZoom={handleChangeZoom}
                     apiKey="AIzaSyD07E1VvpsN_0FvsmKAj4nK9GnLq-9jtj8"
                   />
-                
-              </div>
+                  {/* <MyGoogleMap/> */}
+
+
+                </div>
+              </Grid>
+              <Grid>
+                lat:{state.latitute}
+                Log:{state.longitute}
+              </Grid>
             </Grid>
-            <Grid>
-              lat:{state.latitute}
-              Log:{state.longitute}
-            </Grid>
-          </Grid>
           </React.Fragment >
         );
       default:
@@ -746,13 +751,17 @@ export default function Register() {
           {error ? (
             <Alert severity="error">{error}</Alert>
           ) : null}
-          {token ? (
-            user.userType === "customer" ? (
-              <Redirect to="/profile" />
-            ) : user.userType === "admin" ? (
-              <Redirect to="/admin" />
-            ) : null
-          ) : null}
+          {
+            token
+              ?
+              user ? user.userType === "customer"
+                ? <Redirect to='/profile' /> : null
+                : null : null
+          }
+          {
+            token ? user ? user.userType === "admin"
+              ? <Redirect to="/admin" /> : null : null : null
+          }
 
           <Stepper activeStep={activeStep} className={classes.stepper}>
             {steps.map((label) => (

@@ -211,11 +211,11 @@ function Login({ match, history }) {
             {progress?<div><CircularProgress/>Loading</div>:strings.singin}
           </Button>
           <Grid container>
-            <Grid item xs>
+            {/* <Grid item xs>
               <Link to="/forgetpassword" className={classes.donthaveaccount} variant="body2">
                 {strings.fortgotpassword}
               </Link>
-            </Grid>
+            </Grid> */}
             <Grid item>
               <Link to="/register" className={classes.donthaveaccount} variant="body2">
                 {"Don't have an account? Sign Up"}

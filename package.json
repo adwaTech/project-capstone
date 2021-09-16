@@ -1,11 +1,13 @@
 {
   "dependencies": {
     "chart.js": "^3.5.1",
+    "google-map-react": "^2.1.10",
     "google-maps-react": "^2.0.6",
     "react": "^16.14.0",
     "react-chartjs-2": "^3.0.4",
     "react-copy-to-clipboard": "^5.0.4",
     "react-location-picker": "^1.5.0",
-    "react-material-ui-carousel": "^2.3.1"
+    "react-material-ui-carousel": "^2.3.1",
+    "styled-components": "^5.3.1"
   }
 }

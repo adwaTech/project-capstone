@@ -13,6 +13,9 @@ import { strings } from '../../language/language';
 import Timer from 'react-compound-timer';
 import BidAuctionForm from '../auction_dialog/BidAuctionForm';
 import { BACKENDURL } from '../../redux-state-managment/Constants';
+import Carousel from 'react-material-ui-carousel'
+import { Paper } from '@material-ui/core'
+
 
 import {
     AllAuctionAction,
@@ -105,7 +108,7 @@ export default function Products() {
     }
     const [open, setOpen] = React.useState(false);
     const [open_bid_dialog, setOpen_bid_dialog] = React.useState(false);
-    const [data, setData] = React.useState({ });
+    const [data, setData] = React.useState({});
     function timer(end) {
         const date = new Date(end.toString()).getTime();
         const now = new Date().getTime();
@@ -137,13 +140,20 @@ export default function Products() {
                 if (i < product.length)
                     array.push(<div className="product-item" key={product[i]._id}>
 
-                        <img src={`${BACKENDURL}/auctions/${product[i].images ? product[i].images[0] : null}`} alt="" />
-                        {/* <div className="rate">
-                            {rate.map((rate, i) => (
-                                // rate <= product[i].rating ? <RateIcon key={i} style={{ color: "orange" }} /> :
-                                <RateIcon key={i} />
-                            ))}
-                        </div> */}
+                        {/* <Carousel
+                        >
+                            {
+                                product[i].images ?
+                                    product[i].images.map((img, i) => (
+                                        <img src={`${BACKENDURL}/auctions/${img}`} alt="" />
+                                        )): null
+                            }
+                        </Carousel> */}
+
+                        
+
+
+                        <img src={`${BACKENDURL}/auctions/${product[i].images[0]}`} alt="" />
                         <div className="product-discription">
                             <p>{product[i].auctionName}</p>
                             <Timer
@@ -172,7 +182,7 @@ export default function Products() {
                                         }
                                     }
                                     color="primary" variant="contained">See More</Button>
-                                <Button 
+                                <Button
                                     onClick={
                                         () => {
                                             setOpen_bid_dialog(!open_bid_dialog);
@@ -195,46 +205,46 @@ export default function Products() {
             }
 
         }
-        if(product)
-        return <div
-            className="products-item-section"
-        >
-            {array}
-            {(product.length > 0 && product.length > 6)
-                ? <div style={{
-                    display: "flex",
-                }}>
-                    <Button style={{
-                        width: "100px",
-                        height: "40px",
-                        justifyContent: "center",
-                        alignItem: "center",
-                        textAlign: "center"
-                    }}
-                        disabled={startindex === 0}
-                        onClick={() => {
-                            if (numTodesplay > 0)
-                                setNumTodesplay(numTodesplay - 6);
-                        }}
-                        color="primary" variant="outlined">Prev</Button>
-                    <Button
-                        disabled={startindex + 6 >= product.length}
-                        style={{
+        if (product)
+            return <div
+                className="products-item-section"
+            >
+                {array}
+                {(product.length > 0 && product.length > 6)
+                    ? <div style={{
+                        display: "flex",
+                    }}>
+                        <Button style={{
                             width: "100px",
                             height: "40px",
                             justifyContent: "center",
                             alignItem: "center",
-                            textAlign: "center",
-                            marginLeft: '10px'
+                            textAlign: "center"
                         }}
-                        onClick={() => {
-                            if (numTodesplay < Auctions[index].length - 1)
-                                setNumTodesplay(numTodesplay + 6);
-                        }}
-                        color="primary" variant="outlined">Next</Button>
-                </div> : null}
-        </div>
-        else{
+                            disabled={startindex === 0}
+                            onClick={() => {
+                                if (numTodesplay > 0)
+                                    setNumTodesplay(numTodesplay - 6);
+                            }}
+                            color="primary" variant="outlined">Prev</Button>
+                        <Button
+                            disabled={startindex + 6 >= product.length}
+                            style={{
+                                width: "100px",
+                                height: "40px",
+                                justifyContent: "center",
+                                alignItem: "center",
+                                textAlign: "center",
+                                marginLeft: '10px'
+                            }}
+                            onClick={() => {
+                                if (numTodesplay < Auctions[index].length - 1)
+                                    setNumTodesplay(numTodesplay + 6);
+                            }}
+                            color="primary" variant="outlined">Next</Button>
+                    </div> : null}
+            </div>
+        else {
             return null;
         }
     }

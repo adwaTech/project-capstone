@@ -14,10 +14,10 @@ export default function Slider() {
         <div className="slider">
             <main>
                 <div className="text">
-                    <h1>{strings.catagories}</h1>
-                    <p>
-                        {strings.catagorydescription}
-                    </p>
+                    {/* <h1>{strings.catagories}</h1> */}
+                    <h1>
+                        {/* {strings.catagorydescription} */}
+                    </h1>
                 </div>
                 <CardSlider/>
             </main>

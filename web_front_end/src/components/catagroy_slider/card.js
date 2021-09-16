@@ -40,13 +40,13 @@ function MediaCard(props) {
         <CardMedia className={classes.media} image={image} title={headline} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            {headline}
+            {description}
           </Typography>
-          <Typography component="p">{description}</Typography>
+          <Typography variant="h5" component="h2">Best Catagories of all</Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-            <div className="btn">
+            {/* <div className="btn">
                 <p className="star">
                     <Star/>
                     <Star/>
@@ -54,7 +54,7 @@ function MediaCard(props) {
                     <Star/>
                 </p>
                 <a href="#star">{strings.seeMore}</a>
-            </div>
+            </div> */}
       </CardActions>
     </Card>
   </Link>

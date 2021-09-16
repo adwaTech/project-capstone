@@ -55,7 +55,7 @@ export default function Home() {
                 type={dialogComp}
                 openforPost={openforPost}
                 setOpen={setOpen}
-                component={dialogComp === 'Post' ? <PostAuction /> : <BidAuction />} />
+                component={dialogComp === 'Post' ? <PostAuction />:dialogComp==='Bid'? <BidAuction />:null} />
             <ScrollToTop />
             <Header />
             <div className="svgimage">
@@ -100,7 +100,8 @@ export default function Home() {
                     <h4>{strings.description1}</h4>
                     <Link id="gooey-button" to={token ? '/profile' : '/register'}>
                         {token ? "profile" : strings.CreateAccount}
-                        <span className="bubbles">
+                        <span className="bubbles"
+                        >
                             <span className="bubble"></span>
                             <span className="bubble"></span>
                             <span className="bubble"></span>

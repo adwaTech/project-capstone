@@ -171,7 +171,8 @@ export const AllAuctionAction = () => async (dispatch) => {
 }
 export const AllExceptAuctionAction = (auctioner) => async (dispatch) => {
 
-    const response = await axios.get(`http://localhost:5000/getAuctions`, {
+    try{
+        const response = await axios.get(`http://localhost:5000/getAuctions`, {
 
         params: {
             type: "all-e", auctioneer: auctioner
@@ -185,6 +186,10 @@ export const AllExceptAuctionAction = (auctioner) => async (dispatch) => {
         type: Constant.ALL_EXCEPT_AUCTIONER,
         payload: response.data,
     })
+    }
+    catch(error){
+        
+    }
 }
 export const AuctionerAuctionAction = (auctioner) => async (dispatch) => {
 
@@ -955,6 +960,41 @@ export const generateTokenAction = (token) => async (dispatch) => {
     catch (error) {
         dispatch({
             type: Constant.GENERATEROUTE,
+            payload: data,
+        })
+    }
+}
+export const PayAction = (token) => async (dispatch) => {
+    const data = {
+        data: {
+            error: "Please check your network connection",
+        },
+        status: 404,
+        statusText: "Network Error"
+    }
+    try {
+        const axiosInstance = axios.create({
+            baseURL: "http://localhost:5000",
+            timeout: 5000,
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        const response = await axiosInstance.post(`/pay`,{
+            validateStatus: function (status) {
+                return status < 600
+            }
+        },
+        );
+        dispatch({
+            type: Constant.PAY,
+            payload: response,
+        })
+    }
+    catch (error) {
+        dispatch({
+            type: Constant.PAY,
             payload: data,
         })
     }

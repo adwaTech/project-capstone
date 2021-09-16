@@ -1,5 +1,5 @@
 import { Dialog, DialogTitle, IconButton, DialogContent, Backdrop, Button, WithStyles } from '@material-ui/core';
-import { Map, InfoWindow, Marker, GoogleApiWrapper, Polyline } from 'google-maps-react';
+import { Map, InfoWindow, Marker, GoogleApiWrapper, Polyline, } from 'google-maps-react';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {

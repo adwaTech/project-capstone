@@ -43,9 +43,9 @@ export default function Footer() {
                             <h4>{strings.popularcategory}</h4>
                             <ul>
                                 <li><Link to="/auction/Land" >{strings.farmland}</Link></li>
-                                <li><Link to="auction/Vehicle">{strings.Car}</Link></li>
-                                <li><Link to="auction/House" >{strings.House}</Link></li>
-                                <li><Link to="auction/service">{strings.govproject}</Link></li>
+                                <li><Link to="/auction/Vehicle">{strings.Car}</Link></li>
+                                <li><Link to="/auction/House" >{strings.House}</Link></li>
+                                <li><Link to="/auction/service">{strings.govproject}</Link></li>
                             </ul>
                         </div>
                         <div className="footer-col">
