@@ -15,7 +15,7 @@ import {
     IdAuctionAction
 } from '../../redux-state-managment/Actions';
 import {ThumbUp} from '@material-ui/icons'
-
+import {BACKENDURL} from '../../redux-state-managment/Constants'
 const defaultProps = {
     center: {
         lat: 8.9806,
@@ -95,14 +95,13 @@ export default function Search(props) {
             <div class="big">
                 <article class="recipe">
                     <div class="pizza-box">
-                        <img src={auctiontype === 'first_name' || auctiontype === 'last_name' || auctiontype === 'city'
-                            ? `http://localhost:5000/users/${auction.profileImage}` :
-                            auction.images ? `http://localhost:5000/auctions/${auction.images[0]}` : ''}
+                        <img src={
+                            auction.images ? `${BACKENDURL}/auctions/${auction.images[0]}`:''}
                             width="1500" height="100%" alt="" />
                     </div>
                     <div class="recipe-content">
                         <p class="recipe-tags">
-                            <span class="recipe-tag">
+                            {/* <span class="recipe-tag">
                                 {auctiontype === 'first_name' || auctiontype === 'last_name' || auctiontype === 'city' ?
                                     '' :
                                     date ? <Timer
@@ -127,6 +126,7 @@ export default function Search(props) {
                                     </Timer> : ''
                                 }
                             </span>
+                             */}
                             <span class="recipe-tag">
                                 {auction.status === "ended"
                                     ? <StyledBadge badgeContent="ended" color="secondary">

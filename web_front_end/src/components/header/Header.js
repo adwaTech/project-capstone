@@ -120,7 +120,7 @@ export default function Header() {
     const [cookiesUser, setCookieUser,removeCookieUser] = useCookies(['user']);
     const [cookiesToken, setCookieToken,removeCookieToken] = useCookies(['token']);
 
-    const auctionCategory = [strings.Land, strings.House, strings.Car, strings.service, strings.rare, strings.oldies];
+    const auctionCategory = [strings.Land, strings.House, strings.Car, strings.service, strings.rare, strings.oldies,'electronics'];
     const dispatch = useDispatch();
     const classes = useStyles();
     const location = useLocation();
@@ -144,15 +144,15 @@ export default function Header() {
 
     const auctionsWithName = useSelector((state) => state.SearchAuctionReducer.auctionsWithName);
     const auctionsWithCategory = useSelector((state) => state.SearchAuctionReducer.auctionsWithCategory);
-    const cities = useSelector((state) => state.SearchAuctionReducer.cities);
-    const usersWithFirstName = useSelector((state) => state.SearchAuctionReducer.usersWithFirstName);
-    const usersWithLastName = useSelector((state) => state.SearchAuctionReducer.usersWithLastName);
+   //const cities = useSelector((state) => state.SearchAuctionReducer.cities);
+    // const usersWithFirstName = useSelector((state) => state.SearchAuctionReducer.usersWithFirstName);
+    // const usersWithLastName = useSelector((state) => state.SearchAuctionReducer.usersWithLastName);
 
     let searchItem = auctionsWithCategory.length
-        + auctionsWithName.length
-        + cities.length
-        + usersWithFirstName.length
-        + usersWithLastName.length;
+        + auctionsWithName.length;
+       // + cities.length;
+        // + usersWithFirstName.length
+        // + usersWithLastName.length;
 
     const [Lang, setLang] = React.useState('en');
     const [searchitem, setSearchitem] = React.useState('')
@@ -397,7 +397,7 @@ export default function Header() {
                                                                                     alignItems: "center",
                                                                                     textAlign: "center"
                                                                                 }}>
-                                                                                {auction.images ? <Avatar alt="" src={`${BACKENDURL}/${auction.images[0]}`} className={classes.large} /> : null}
+                                                                                {auction.images ? <Avatar alt="" src={`${BACKENDURL}/auctions/${auction.images[0]}`} className={classes.large} /> : null}
                                                                                 <span>{auction.auctionName}</span>
                                                                                 <span>{auction.auctionType}</span>
                                                                             </div>
@@ -444,7 +444,7 @@ export default function Header() {
                                                                         className={classes1.dropdownItem}
                                                                     >
                                                                         <div className="searched-auction">
-                                                                            {auction.images ? <Avatar alt="" src={`${BACKENDURL}/${auction.images[0]}`} className={classes.large} /> : null}
+                                                                            {auction.images ? <Avatar alt="" src={`${BACKENDURL}/auctions/${auction.images[0]}`} className={classes.large} /> : null}
                                                                             <span>{auction.auctionName}</span>
                                                                             <span>{auction.auctionType}</span>
                                                                             <div style={{
@@ -481,54 +481,54 @@ export default function Header() {
                                                             ))
                                                         }
                                                         {
-                                                            cities.map(auction => (
-                                                                <Link to={`/search/city/${auction._id}`}>
-                                                                    <MenuItem
-                                                                        key={auction._id}
-                                                                        onClick={handleCloseNotification}
-                                                                        className={classes1.dropdownItem}
-                                                                    >
-                                                                        <div className="searched-auction">
-                                                                            <Avatar alt="" src={`${BACKENDURL}/${auction.profileImage}`} className={classes.large} />
-                                                                            <span>{auction.city}</span>
-                                                                        </div>
-                                                                    </MenuItem>
+                                                            // cities.map(auction => (
+                                                            //     <Link to={`/search/city/${auction._id}`}>
+                                                            //         <MenuItem
+                                                            //             key={auction._id}
+                                                            //             onClick={handleCloseNotification}
+                                                            //             className={classes1.dropdownItem}
+                                                            //         >
+                                                            //             <div className="searched-auction">
+                                                            //                 <Avatar alt="" src={`${BACKENDURL}/${auction.profileImage}`} className={classes.large} />
+                                                            //                 <span>{auction.city}</span>
+                                                            //             </div>
+                                                            //         </MenuItem>
 
-                                                                </Link>
-                                                            ))
+                                                            //     </Link>
+                                                            // ))
                                                         }
                                                         {
-                                                            usersWithFirstName.map(auction => (
-                                                                <Link to={`/search/first_name/${auction._id}`}>
-                                                                    <MenuItem
-                                                                        key={auction._id}
-                                                                        onClick={handleCloseNotification}
-                                                                        className={classes1.dropdownItem}
-                                                                    >
-                                                                        <div className="searched-auction">
-                                                                            <Avatar alt="" src={`${BACKENDURL}/${auction.profileImage}`} className={classes.large} />
-                                                                            <span>{auction.firstName}&nbsp;{auction.lastName}</span>
-                                                                        </div>
-                                                                    </MenuItem>
+                                                        //     usersWithFirstName.map(auction => (
+                                                        //         <Link to={`/search/first_name/${auction._id}`}>
+                                                        //             <MenuItem
+                                                        //                 key={auction._id}
+                                                        //                 onClick={handleCloseNotification}
+                                                        //                 className={classes1.dropdownItem}
+                                                        //             >
+                                                        //                 <div className="searched-auction">
+                                                        //                     <Avatar alt="" src={`${BACKENDURL}/${auction.profileImage}`} className={classes.large} />
+                                                        //                     <span>{auction.firstName}&nbsp;{auction.lastName}</span>
+                                                        //                 </div>
+                                                        //             </MenuItem>
 
-                                                                </Link>
-                                                            ))
-                                                        }
-                                                        {
-                                                            usersWithLastName.map(auction => (
-                                                                <Link to={`/search/last_name/${auction._id}`}>
-                                                                    <MenuItem
-                                                                        key={auction._id}
-                                                                        onClick={handleCloseNotification}
-                                                                        className={classes1.dropdownItem}
-                                                                    >
-                                                                        <div className="searched-auction">
-                                                                            <Avatar alt="" src={`${BACKENDURL}/${auction.profileImage}`} className={classes.large} />
-                                                                            <span>{auction.firstName}&nbsp;{auction.lastName}</span>
-                                                                        </div>
-                                                                    </MenuItem>
-                                                                </Link>
-                                                            ))
+                                                        //         </Link>
+                                                        //     ))
+                                                        // }
+                                                        // {
+                                                        //     usersWithLastName.map(auction => (
+                                                        //         <Link to={`/search/last_name/${auction._id}`}>
+                                                        //             <MenuItem
+                                                        //                 key={auction._id}
+                                                        //                 onClick={handleCloseNotification}
+                                                        //                 className={classes1.dropdownItem}
+                                                        //             >
+                                                        //                 <div className="searched-auction">
+                                                        //                     <Avatar alt="" src={`${BACKENDURL}/${auction.profileImage}`} className={classes.large} />
+                                                        //                     <span>{auction.firstName}&nbsp;{auction.lastName}</span>
+                                                        //                 </div>
+                                                        //             </MenuItem>
+                                                        //         </Link>
+                                                        //     ))
                                                         }
                                                     </MenuList>
                                                 </ClickAwayListener>
