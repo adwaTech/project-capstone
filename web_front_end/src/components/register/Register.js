@@ -705,7 +705,8 @@ export default function Register() {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={12}>
                 <div style={{ width: "80vh", height: "70vh" }}>
-                  {/* <MapPicker
+                  {window.navigator.onLine ?
+                  <MapPicker
                     defaultLocation={defaultLocation}
                     zoom={zoom}
                     mapTypeId="roadmap"
@@ -713,8 +714,11 @@ export default function Register() {
                     onChangeLocation={handleChangeLocation}
                     onChangeZoom={handleChangeZoom}
                     apiKey="AIzaSyD07E1VvpsN_0FvsmKAj4nK9GnLq-9jtj8"
-                  /> */}
-                  <MyGoogleMap/>
+                  />
+                  :
+                  <div>you are offline</div>
+                  }
+                  {/* <MyGoogleMap/> */}
 
 
                 </div>
@@ -730,6 +734,7 @@ export default function Register() {
         throw new Error("Unknown step");
     }
   }
+  const [connection,setConnection]=React.useState('offline')
   React.useEffect(() => {
     if (error) {
       setProgress(false);
@@ -737,7 +742,30 @@ export default function Register() {
     if (token) {
       setProgress(false);
     }
+    window.addEventListener("offline", (event) => {
+      // const statusDisplay = document.getElementById("status");
+      // statusDisplay.textContent = "OFFline";
+      setConnection("offline")
+      console.log("yes")
+    });
+    
+    window.addEventListener("online", (event) => {
+      // const statusDisplay = document.getElementById("status");
+      // statusDisplay.textContent = "Online";
+      setConnection('online')
+      console.log("no")
+    });
+    // console.log('Initially ' + (window.navigator.onLine ? 'on' : 'off') + 'line');
+    // document.getElementById('statusCheck').addEventListener('click', () => console.log('window.navigator.onLine is ' + window.navigator.onLine));
+  
   }, [lang, error, token]);
+
+  
+
+window.addEventListener('online', () => console.log('Became online'));
+window.addEventListener('offline', () => console.log('Became offline'));
+
+
   return (
     <React.Fragment>
       <ScrollToTop />
