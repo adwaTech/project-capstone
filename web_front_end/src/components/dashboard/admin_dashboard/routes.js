@@ -9,18 +9,20 @@ import {
   Feedback,
   Money,
   PermDeviceInformation,
+  Lock
   
 } from '@material-ui/icons'
 import  DashboardPage from './main_dashbaord/Dashboard';
 import UserProfile  from './UserProfile.js';
 import TableList from "./TableList.js";
-import Icons from "./Icons.js";
+import Icons from "./GenerateTokens.js";
 import Maps from "./Maps.js";
 import NotificationsPage from "./Notifications.js";
 import CustomerInfo from "./CustomerInfo/CustomerInfo";
 import Customer from './Customer';
 import Auction_map from './Auction_map';
 import {Gavel} from '@material-ui/icons'
+import { GenerateTokenReducer } from '../../../redux-state-managment/Reducers';
 
 
 const dashboardRoutes = [
@@ -46,13 +48,7 @@ const dashboardRoutes = [
     component: Customer,
     layout: "/admin",
   },
-  // {
-  //   path: "/payment",
-  //   name: "Payment",
-  //   icon: Money,
-  //   component: Icons,
-  //   layout: "/admin",
-  // },
+
   {
     path: "/feedback",
     name: "FeedBacks",
@@ -79,6 +75,13 @@ const dashboardRoutes = [
     name: "Total Auction Info",
     icon: Gavel,
     component: CustomerInfo,
+    layout: "/admin",
+  },
+  {
+    path: "/generateToken",
+    name: "Generate Token",
+    icon: Lock,
+    component: Icons,
     layout: "/admin",
   },
   {

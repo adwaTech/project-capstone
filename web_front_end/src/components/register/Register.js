@@ -87,7 +87,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const fileTypes = ["jpg", "png", "gif",'jpeg'];
+const fileTypes = ["jpg", "png", "gif", 'jpeg'];
 
 const steps = [strings.personalinfo, strings.detail, strings.location];
 
@@ -162,6 +162,7 @@ export default function Register() {
     city: "",
     latitute: location.lat,
     longitute: location.lng,
+    adminToken: ''
   };
 
   const [state, setState] = React.useState(initialState);
@@ -357,6 +358,7 @@ export default function Register() {
     formData.append("latitude", state.latitute);
     formData.append("longtude", state.longitute);
     formData.append("userType", state.usertype);
+    formData.append("adminToken", state.adminToken);
     formData.append("phone", state.phone);
     formData.append("email", state.email);
     formData.append("password", state.password);
@@ -430,6 +432,26 @@ export default function Register() {
                   <FormHelperText>{Usertypemessage.message}</FormHelperText>
                 </FormControl>
               </Grid>
+              {
+                state.usertype === "admin" ?
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      required
+                      // error={fnameerror.haveError}
+                      // helperText={fnameerror.message}
+                      id="token"
+                      name="token"
+                      label="admin Token"
+                      value={state.adminToken}
+                      fullWidth
+                      // autoComplete={strings.token}
+                      onChange={(e) => {
+                        setState({ ...state, adminToken: e.target.value });
+                      }}
+                    />
+                  </Grid>
+                  : null
+              }
               <Grid item xs={12} sm={6}>
                 <div >
                   <p>Profile Pic</p>
@@ -441,14 +463,14 @@ export default function Register() {
                     name="file" types={fileTypes} />
                   <p>{state.profileImage ? `File name: ${state.profileImage.name}` : "no files uploaded yet"}</p>
                   <p>
-                  {ProfilePicMessage.haveError
-                    ? <span style={{ color: "red" }}>
-                      {ProfilePicMessage.message}
-                    </span>
-                    : ""}
+                    {ProfilePicMessage.haveError
+                      ? <span style={{ color: "red" }}>
+                        {ProfilePicMessage.message}
+                      </span>
+                      : ""}
                   </p>
                 </div>
-                
+
               </Grid>
               <Grid item xs={12} sm={6}>
                 <FormControl component="fieldset" fullWidth error={sexMessage.haveError}>
@@ -626,7 +648,7 @@ export default function Register() {
                 </FormControl>
               </Grid>
               <Grid item xs={12} sm={6}>
-              <div >
+                <div >
                   <p>Profile Pic</p>
                   <FileUploader
                     maxSize={30}
@@ -635,15 +657,15 @@ export default function Register() {
                     }}
                     name="file" types={fileTypes} />
                   <p>{state.idPhoto ? `File name: ${state.idPhoto.name}` : "no files uploaded yet"}</p>
-                  
+
                   <p>
-                  {IdPhotoMessage.haveError
-                    ? <span style={{ color: "red" }}>
-                      {IdPhotoMessage.message}
-                    </span>
-                    : ""}</p>
+                    {IdPhotoMessage.haveError
+                      ? <span style={{ color: "red" }}>
+                        {IdPhotoMessage.message}
+                      </span>
+                      : ""}</p>
                 </div>
-                
+
               </Grid>
               <Grid item xs={12} md={6}>
                 <TextField
@@ -683,19 +705,21 @@ export default function Register() {
                   <MapPicker
                     defaultLocation={defaultLocation}
                     zoom={zoom}
+                    mapTypeId="roadmap"
                     style={{ width: "100%", height: "100%" }}
                     onChangeLocation={handleChangeLocation}
                     onChangeZoom={handleChangeZoom}
                     apiKey="AIzaSyD07E1VvpsN_0FvsmKAj4nK9GnLq-9jtj8"
                   />
-                </div>
-              </Grid>
-              <Grid>
-                lat:{state.latitute}
-                Log:{state.longitute}
-              </Grid>
+                
+              </div>
             </Grid>
-          </React.Fragment>
+            <Grid>
+              lat:{state.latitute}
+              Log:{state.longitute}
+            </Grid>
+          </Grid>
+          </React.Fragment >
         );
       default:
         throw new Error("Unknown step");

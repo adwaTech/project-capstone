@@ -152,12 +152,14 @@ function Login({ match, history }) {
         }
         {
           token
-            ? (user?user.userType === "customer"
+            ? 
+              user?user.userType === "customer"
               ? <Redirect to='/profile' />:null
-              :user? user.userType === "admin"
-                ? <Redirect to="/admin" />:null
-                : null)
-            : null
+              :null:null
+        }
+        {
+          token?user?user.userType === "admin"
+          ? <Redirect to="/admin" />:null:null:null
         }
         <div className={classes.form} noValidate>
           <TextField

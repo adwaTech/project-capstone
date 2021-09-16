@@ -17,7 +17,8 @@ import {
     SetWinnerReducer,
     DeletAccountReducer,
     DeletAuctionReducer,
-    SendFeedBackReducer
+    SendFeedBackReducer,
+    GenerateTokenReducer
 } from './Reducers';
 
 
@@ -39,7 +40,8 @@ const reducer = combineReducers({
     SetWinnerReducer,
     DeletAccountReducer,
     DeletAuctionReducer,
-    SendFeedBackReducer
+    SendFeedBackReducer,
+    GenerateTokenReducer
 });
 
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(...middleware)));

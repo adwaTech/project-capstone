@@ -49,6 +49,9 @@ let initialState = {
     Notification_status: '',
     Notification_statusText: '',
 
+    // generate token
+    generate_token:[],
+
     // deposite
     deposit: '',
     deposit_error: '',
@@ -705,6 +708,22 @@ export const SendFeedBackReducer = (state = initialState, action) => {
             return {
                 ...state,
                 feedbacks: action.payload.data,
+            }
+        default:
+            return {
+                ...state
+            }
+    }
+
+}
+export const GenerateTokenReducer = (state = initialState, action) => {
+    switch (action.type) {
+        case Constant.GENERATEROUTE:
+            if (action.payload.status === 200) {
+                return {
+                    ...state,
+                    generate_token:action.payload.data
+                }
             }
         default:
             return {

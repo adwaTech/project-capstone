@@ -31,6 +31,8 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 
 import { withStyles,InputBase } from '@material-ui/core';
+import { useCookies } from "react-cookie";
+
 const useStyles = makeStyles(styles);
 
 const BootstrapInput = withStyles((theme) => ({
@@ -99,6 +101,8 @@ export default function AdminNavbarLinks() {
   const feedbacks = useSelector((state) => state.SendFeedBackReducer.feedbacks);
   const token = useSelector(state => state.AccountReducer.token);
   const user = useSelector((state) => state.AccountReducer.user);
+  const [cookiesUser, setCookieUser,removeCookieUser] = useCookies(['user']);
+  const [cookiesToken, setCookieToken,removeCookieToken] = useCookies(['token']);
   React.useEffect(async () => {
     dispatch(GetFeedbackAction(token));
   }, [])
@@ -274,6 +278,8 @@ export default function AdminNavbarLinks() {
                       onClick={() => {
                         if (token) {
                           dispatch(LogoutAction());
+                          removeCookieToken('token');
+                          removeCookieUser('user');
                         }
                       }}
                       className={classes.dropdownItem}

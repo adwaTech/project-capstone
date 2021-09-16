@@ -924,7 +924,7 @@ export const SetCookieAction = (userData) => async (dispatch) => {
         payload: data,
     })
 }
-export const generateTokenAction = (userData, token) => async (dispatch) => {
+export const generateTokenAction = (token) => async (dispatch) => {
     const data = {
         data: {
             error: "Please check your network connection",
@@ -941,20 +941,20 @@ export const generateTokenAction = (userData, token) => async (dispatch) => {
                 'Content-Type': 'application/json'
             }
         });
-        const response = await axiosInstance.get(`/generateToken`, userData, {
+        const response = await axiosInstance.get(`/generateToken`,{
             validateStatus: function (status) {
                 return status < 600
             }
         },
         );
         dispatch({
-            type: Constant.DEPOSIT,
+            type: Constant.GENERATEROUTE,
             payload: response,
         })
     }
     catch (error) {
         dispatch({
-            type: Constant.DEPOSIT,
+            type: Constant.GENERATEROUTE,
             payload: data,
         })
     }
