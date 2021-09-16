@@ -66,7 +66,7 @@ export default function Admin({ ...rest }) {
         suppressScrollX: true,
         suppressScrollY: false,
       });
-      document.body.style.overflow = "hidden";
+      // document.body.style.overflow = "hidden";
     }
     window.addEventListener("resize", resizeFunction);
     return function cleanup() {

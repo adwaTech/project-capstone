@@ -8,6 +8,7 @@ body{
   height: 100vh;
   background-color: #eee;
   font-family: 'Roboto', sans-serif;
+  overflow: scroll;
 }
 p h1 h2 h3 h4 h5 h6 span a {
   font-family: 'Roboto', sans-serif;

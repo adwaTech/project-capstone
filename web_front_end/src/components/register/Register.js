@@ -459,7 +459,7 @@ export default function Register() {
               }
               <Grid item xs={12} sm={6}>
                 <div >
-                  <p>Profile Pic</p>
+                  <p>Profile Image</p>
                   <FileUploader
                     maxSize={50}
                     handleChange={(e) => {
@@ -658,7 +658,7 @@ export default function Register() {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <div >
-                  <p>Profile Pic</p>
+                  <p>Photo of Id</p>
                   <FileUploader
                     maxSize={30}
                     handleChange={(e) => {
