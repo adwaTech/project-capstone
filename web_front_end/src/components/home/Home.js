@@ -126,7 +126,7 @@ export default function Home() {
                                         setDialogComp('Post')
                                     }}>
                                         Post Auction
-                                        <span className="bubbles">
+                                        <span style={{cursor:'pointer'}} className="bubbles">
                                             <span className="bubble"></span>
                                             <span className="bubble"></span>
                                             <span className="bubble"></span>
@@ -148,7 +148,7 @@ export default function Home() {
                                         }}
                                     >
                                         Catagories List
-                                        <span className="bubbles">
+                                        <span style={{cursor:'pointer'}} className="bubbles">
                                             <span className="bubble"></span>
                                             <span className="bubble"></span>
                                             <span className="bubble"></span>
