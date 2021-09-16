@@ -76,7 +76,6 @@ module.exports = async (req, res) => {
                     return res.send(await findAuctions({ auctionType: 'live', status: 'open' }));
                 
             case 'id':
-                console.log(req.query.id)
                 if (req.query.id) {
                     const auction = await AuctionModel.findById(req.query.id).populate({
                             path: 'owner',

@@ -705,7 +705,7 @@ export default function Register() {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={12}>
                 <div style={{ width: "80vh", height: "70vh" }}>
-                  <MapPicker
+                  {/* <MapPicker
                     defaultLocation={defaultLocation}
                     zoom={zoom}
                     mapTypeId="roadmap"
@@ -713,8 +713,8 @@ export default function Register() {
                     onChangeLocation={handleChangeLocation}
                     onChangeZoom={handleChangeZoom}
                     apiKey="AIzaSyD07E1VvpsN_0FvsmKAj4nK9GnLq-9jtj8"
-                  />
-                  {/* <MyGoogleMap/> */}
+                  /> */}
+                  <MyGoogleMap/>
 
 
                 </div>
@@ -773,12 +773,12 @@ export default function Register() {
           <React.Fragment>
             {activeStep === steps.length ? (
               <React.Fragment>
-                <Typography variant="h5" gutterBottom>
+                {/* <Typography variant="h5" gutterBottom>
                   {strings.tanks}
                 </Typography>
                 <Typography variant="subtitle1">
                   {strings.pleaseverify}
-                </Typography>
+                </Typography> */}
               </React.Fragment>
             ) : (
               <React.Fragment>

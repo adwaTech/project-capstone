@@ -7,8 +7,7 @@ const { pay } = require('./pay');
 const { UserModel } = require('../models/Users');
 module.exports = async (req, res) => {
     // based on auction type encrypt amount
-    // OPEN OR CLOSED
-    console.log(req.body);
+    // OPEN OR CLOSED=
     req.body.ownerId = req.user._id;
     const err = validateBody(req.body, proposalSchema, ['proposalType']);
     if (err)

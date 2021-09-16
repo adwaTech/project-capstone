@@ -32,7 +32,7 @@ module.exports = async (req, res) => {
         })
     }
     else if (user.userType === types.userType[0]) { // can only edit his own data
-        console.log(req.body);
+        
         updateModel(req.body, user, UserSchema, [
             'firstName',
             'lastName',

@@ -42,7 +42,9 @@ function MediaCard(props) {
           <Typography gutterBottom variant="h5" component="h2">
             {description}
           </Typography>
-          <Typography variant="h5" component="h2">Best Catagories of all</Typography>
+          <Typography style={{
+            width:"250px"
+          }} variant="h5" component="h2"></Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>

@@ -21,7 +21,6 @@ module.exports = async (req, res) => {
             const token = await tokenModel.findOne({
                 token: req.body.adminToken,
             });
-            console.log(token);
             if (token) {
                 if (token.createdOn < Date.now() - 86400000) return res.status(403).send({
                     error: 'this token is expired'
@@ -43,7 +42,6 @@ module.exports = async (req, res) => {
                 errorMessage: "Duplicated unique key was detected. This is because you have send a duplicated value for a uniqe attribute"
             });
         else {
-            console.log(err);
             res.status(500).send({
                 error: 'Internal Server Error'
             })

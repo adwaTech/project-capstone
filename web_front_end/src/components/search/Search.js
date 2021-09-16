@@ -13,7 +13,8 @@ import Timer from 'react-compound-timer';
 import Badge from '@material-ui/core/Badge';
 import {
     IdAuctionAction
-} from '../../redux-state-managment/Actions'
+} from '../../redux-state-managment/Actions';
+import {ThumbUp} from '@material-ui/icons'
 
 const defaultProps = {
     center: {
@@ -142,8 +143,9 @@ export default function Search(props) {
                         </h1>
 
                         <p class="recipe-metadata">
-                            <span class="recipe-rating">★★★★<span>☆</span></span>
+                            {/* <span class="recipe-rating">★★★★<span>☆</span></span> */}
                             <span class="recipe-votes">
+                                Number of Bid:
                                 ({auctiontype === 'first_name' || auctiontype === 'last_name' || auctiontype === 'city' ?
                                     ''
                                     : auction.proposals ? auction.proposals.length : ''
@@ -152,15 +154,17 @@ export default function Search(props) {
                         </p>
 
                         <p class="recipe-desc">
+                            Brief Description :
                             {auctiontype === 'first_name' || auctiontype === 'last_name' || auctiontype === 'city' ?
                                 ''
                                 : auction.briefDescription
                             }
                         </p>
                         <p class="recipe-desc">
+                            Appoval :
                             {auctiontype === 'first_name' || auctiontype === 'last_name' || auctiontype === 'city' ?
                                 ''
-                                : 'aproval :' + auction.approval
+                                : 'aproval :' + auction.approval===true?<ThumbUp color="primary"/>:"not approved yet"
                             }
                         </p>
                         <p class="recipe-desc">
@@ -178,7 +182,7 @@ export default function Search(props) {
                         <p class="recipe-desc">
                             {auctiontype === 'first_name' || auctiontype === 'last_name' || auctiontype === 'city' ?
                                 ''
-                                : 'Min CPO : ' + auction.minCPO
+                                : 'Min CPO : ' + auction.minCpo
                             }
                         </p>
                         <p class="recipe-desc">
