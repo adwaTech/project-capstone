@@ -16,7 +16,7 @@ import Electronics from '../../assets/images/daniel-korpai-r73OFSry5AI-unsplash.
 import Service from '../../assets/images/lode-lagrainge-45cr4wHWTIw-unsplash.jpg';
 import Rare from '../../assets/images/annie-spratt-JMjNnQ2xFoY-unsplash.jpg';
 import Old from '../../assets/images/dan-gold-N7RiDzfF2iw-unsplash.jpg';
-
+import ScrollToTop from '../../scrollTop/ScrollToTop';
 class Index extends Component {
   static getInitialProps({ req }) {
     let userAgent;
@@ -87,7 +87,7 @@ class Index extends Component {
     };
     return (
       <div className={classes.root}>
-
+        <ScrollToTop/>
         <Carousel
 
           swipeable={false}

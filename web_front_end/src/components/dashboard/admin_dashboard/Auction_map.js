@@ -194,7 +194,7 @@ export function MapContainer(props) {
             <h1>{state.selectedPlace.name}</h1>
           </div>
         </InfoWindow>
-        <FormControl className={classes.margin} variant="filled">
+        {/* <FormControl className={classes.margin} variant="filled">
           <InputLabel id="demo-simple-select-filled-label">Provences</InputLabel>
           <Select
             labelId="demo-customized-select-label"
@@ -218,7 +218,7 @@ export function MapContainer(props) {
               ))
             }
           </Select>
-        </FormControl>
+        </FormControl> */}
 
       </Map>
 
