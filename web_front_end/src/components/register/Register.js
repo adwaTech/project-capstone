@@ -114,7 +114,7 @@ export default function Register() {
   const handleNext = () => {
     if (activeStep === 0) {
       validate1step();
-      if (state.firstname && state.lastname && state.profileImage && state.phone.length === 13 && state.usertype && state.sex)
+      if (state.firstname && state.lastname && state.profileImage && (state.phone.length === 13 || state.phone.length === 14) && state.usertype && state.sex)
         setActiveStep(activeStep + 1);
     }
 
@@ -265,7 +265,7 @@ export default function Register() {
       setPhoneMessage({ message: "this field is required", haveError: true })
     }
     if (state.phone.length > 4) {
-      if (state.phone.length === 13) {
+      if (state.phone.length === 13 || state.phone.length === 14) {
         setPhoneMessage({ message: "", haveError: false })
       }
       else {
@@ -361,7 +361,7 @@ export default function Register() {
     formData.append("latitude", state.latitute);
     formData.append("longtude", state.longitute);
     formData.append("userType", state.usertype);
-    formData.append("adminToken", state.adminToken);
+    if(state.adminToken && state.usertype == 'admin')formData.append("adminToken", state.adminToken);
     formData.append("phone", state.phone);
     formData.append("email", state.email);
     formData.append("password", state.password);
