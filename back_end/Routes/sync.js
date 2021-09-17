@@ -36,11 +36,11 @@ async function sendMail(auctioneers) {
         }
     });
 }
-module.exports = (req, res, next) => {
+module.exports = async (req, res, next) => {
     let auctioneers = [];
-    AuctionModel.find({
+    const auctions = await AuctionModel.find({
         status: 'open'
-    }).then(async (auctions) => {
+    })
         //console.log(auctions);
         for (auction of auctions) {
             if (auction.deadline < Date.now().toString()) {
@@ -58,12 +58,15 @@ module.exports = (req, res, next) => {
                 let participants = [];
                 for (proposal of auction.proposals) {
                     let id = (await proposalModel.findById(proposal)).ownerId;
-                    if (!participants.every((element)=>element.ownerId!=id))
+					console.log	(id);
+                    if (participants.every((element)=>element.ownerId!=id))
                         participants.push({
                             userId: id
                         })
                 }
-                participants.push(auction.owner);
+                participants.push({
+                            userId: auction.owner
+                        });
                 const notification = createModel({
                     notificationType: types.notificationType.auctionDueDate,
                     auctionId: auction._id,
@@ -76,6 +79,6 @@ module.exports = (req, res, next) => {
         }
         // send emails
         // sendMail(auctioneers);
-    })
+    
     next();
 }

@@ -256,7 +256,8 @@ export default function Products() {
                 <img src={Image8} alt="" />
                 <div className="description1-area">
                     <h3>{strings.FindhTBestProduct}</h3>
-                    <Button className={classes.shopNow} variant="contained" color="primary">Bid Now</Button>
+                    {/* <Button className={classes.shopNow} variant="contained" color="primary">Bid Now</Button>
+                 */}
                 </div>
                 <img src={Image7} alt="" width="40px" height="40px" />
             </div>

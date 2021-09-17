@@ -99,16 +99,16 @@ export default function TableList() {
   }, [delete_auction_error, delete_auction_status])
   const handleSearchChange=(searchText)=>{
     if (searchText !== null) {
-      searchText=searchText.length>0?searchText.toLowerCase():'';
+      
       const filteredItems = allAuction.filter((item) =>
       (
         
-          item.firstName.toLowerCase().includes(searchText)||
-          item.lastName.toLowerCase().includes(searchText) ||
-          item.city.toLowerCase().includes(searchText) ||
-          item.sex.toLowerCase().includes(searchText) ||
-          item.phone.toLowerCase().includes(searchText)||
-          item.email.toLowerCase().includes(searchText) 
+          item.auctonName.includes(searchText)
+          // item.bidFee.includes(searchText) ||
+          // item.city.includes(searchText) ||
+          // item.sex.includes(searchText) ||
+          // item.phone.includes(searchText)||
+          // item.email.includes(searchText) 
       ));
       console.log('this are the processTypes',filteredItems)
       setFiltered(filteredItems);
@@ -132,10 +132,10 @@ export default function TableList() {
                     Approve Auction
                   </p>
              </div>
-              <div style={{display:'flex',flexDirection:'row',justifyContent:'space-between',marginRight:'20px'}}>
+              {/* <div style={{display:'flex',flexDirection:'row',justifyContent:'space-between',marginRight:'20px'}}>
                   <Input type='text' style={{color:'white'}} onChange={(e)=>handleSearchChange(e.target.value)}></Input>
                   <SearchIcon/>
-              </div>
+              </div> */}
             </CardHeader>
             
             <CardBody>

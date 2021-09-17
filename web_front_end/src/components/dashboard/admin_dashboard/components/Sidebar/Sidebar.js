@@ -49,11 +49,16 @@ export default function Sidebar(props) {
       {name:strings.Aprovements},
       {name:strings.customer},
       {name:strings.FeedBacks},
-      {name:strings.profile},
-      {name:strings.GenerateToken},
-      {name:strings.TotalAuctionInfo},
+      
+      
+
       {name:strings.CustomerLocation},
-      {name:strings.Auctionslocation}
+      {name:strings.Auctionslocation},
+      
+      {name:strings.TotalAuctionInfo},
+      {name:strings.GenerateToken},
+      {name:strings.profile},
+      
     ])
   },[lang])
   var links = (
