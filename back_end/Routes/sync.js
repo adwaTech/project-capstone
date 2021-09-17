@@ -49,7 +49,7 @@ module.exports = async (req, res, next) => {
                 for (proposalId of auction.proposals) {
                     proposal = await proposalModel.findById(proposalId);
                     proposal.status = 'waitingresult';
-                    if (proposal.type == types.proposalType[1])
+                    if (proposal.proposalType == types.proposalType[1])
                         proposal.amount = decrypt(proposal.amount);
                     await proposal.save();
                 }
