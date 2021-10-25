@@ -1,14 +1,8 @@
 import React from 'react';
 import './mybid.css';
-import moment from 'moment';
-import {
-    GetAuctionAuctionAction,
-} from '../../redux-state-managment/Actions';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Badge from '@material-ui/core/Badge';
 import { withStyles } from '@material-ui/core/styles';
-import HorzMore from '@material-ui/icons/MoreHoriz';
-import DetailDialog from '../catagroy_slider/Detail';
 import MoreHoriz from '@material-ui/icons/MoreHoriz';
 
 import IconButton from '@material-ui/core/IconButton';
@@ -24,12 +18,12 @@ const StyledBadge = withStyles((theme) => ({
 
 export default function MyBid() {
 
-    const token = useSelector((state) => state.AccountReducer.token);
+    // const token = useSelector((state) => state.AccountReducer.token);
     const myauction = useSelector((state) => state.getBidReducer.getbid_auctions);
     
 
 
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
     function RenderBadge(color,letter) {
         return (

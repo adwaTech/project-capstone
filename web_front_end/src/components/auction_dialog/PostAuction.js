@@ -24,11 +24,17 @@ import {
 } from '@material-ui/core'
 import { FileUploader } from "react-drag-drop-files";
 import { useDispatch, useSelector } from 'react-redux';
-import { PostAuctionAction, PostCleanUpAction } from '../../redux-state-managment/Actions'
+import { PostAuctionAction,
+          PostCleanUpAction,
+          GetAuctionAuctionAction,
+          AuctionerAuctionAction,
+} from '../../redux-state-managment/Actions'
 import { Alert } from '@material-ui/lab'
 import InputBase from '@material-ui/core/InputBase';
 import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
+import { strings } from "../../language/language";
+import MapPicker from 'react-google-map-picker';
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
@@ -112,29 +118,48 @@ const BootstrapInput = withStyles((theme) => ({
   },
 }))(InputBase);
 
+const defaultLocation = { lat: 8.9806, lng: 38.7578 };
+const DefaultZoom = 13;
+
+
 
 export default function Register({ match, history }) {
   const dispatch = useDispatch();
   const classes = useStyles();
+
+  function handleChangeLocation(lat, lng) {
+    setLocation({ lat: lat, lng: lng });
+    setState({ ...state, latitute: lat, longitute: lng });
+  }
+
+  function handleChangeZoom(newZoom) {
+    setZoom(newZoom);
+    setState({ ...state, zoom: newZoom });
+  }
+
+
+  const [zoom, setZoom] = React.useState(DefaultZoom);
+  const [location, setLocation] = React.useState(defaultLocation);
+
   // global states
   const error = useSelector((state) => state.PostAuctionReducer.error);
   const status = useSelector((state) => state.PostAuctionReducer.status);
-  const statusText = useSelector((state) => state.PostAuctionReducer.statusText);
+
   const token = useSelector((state) => state.AccountReducer.token);
-  const postedauction = useSelector((state) => state.PostAuctionReducer.postedauction);
+  const user = useSelector((state) => state.AccountReducer.user);
 
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleNext = () => {
     if (activeStep === 0) {
       validation1();
-      if (state.auctionName && state.briefDescription) {
+      if (state.auctionName && state.briefDescription && state.minCPO && state.bidFee && state.minAmount) {
         setActiveStep(activeStep + 1);
       }
     }
     if (activeStep === 1) {
       validation2();
-      if (state.images && state.bidFee) {
+      if (state.images) {
         setActiveStep(activeStep + 1);
       }
     }
@@ -156,11 +181,13 @@ export default function Register({ match, history }) {
     owner: '',
     auctionType: 'live',
     auctionCategory: 'land',
-    images: '',
+    images: [],
     condition: 'new',
     extendedDescription: null,
     deadline: new Date(),
     startDate: new Date(),
+    latitute: location.lat,
+    longitute: location.lng,
   }
   const [auctionName, setAuctionName] = React.useState({ message: '', haveError: '' })
   const [briefDescription, setbriefDescription] = React.useState({ message: '', haveError: '' })
@@ -168,22 +195,7 @@ export default function Register({ match, history }) {
   const [minAmount, setminAmount] = React.useState({ message: '', haveError: '' })
   const [minCPO, setminCPO] = React.useState({ message: '', haveError: '' })
   const [images, setimages] = React.useState({ message: '', haveError: '' })
-  function validation3() {
 
-    if (state.minAmount === '') {
-      setminAmount({ message: "this field is required", haveError: true });
-    }
-    if (state.minAmount) {
-      setminAmount({ message: "", haveError: false });
-    }
-    if (state.minCPO === '') {
-      setminCPO({ message: "this field is required", haveError: true });
-    }
-    if (state.minCPO) {
-      setminCPO({ message: "", haveError: false });
-    }
-
-  }
   function validation1() {
     if (state.auctionName === '') {
       setAuctionName({ message: "this field is required", haveError: true });
@@ -197,20 +209,33 @@ export default function Register({ match, history }) {
     if (state.briefDescription) {
       setbriefDescription({ message: "", haveError: false });
     }
-  }
-  function validation2() {
-    if (state.images==='') {
-      setimages({ message: "this field is required", haveError: true });
-    }
-    if (state.images) {
-      setimages({ message: "", haveError: false });
-    }
     if (state.bidFee === '') {
       setbidFee({ message: "this field is required", haveError: true });
     }
     if (state.bidFee) {
       setbidFee({ message: "", haveError: false });
     }
+    if (state.minCPO === '') {
+      setminCPO({ message: "this field is required", haveError: true });
+    }
+    if (state.minCPO) {
+      setminCPO({ message: "", haveError: false });
+    }
+    if (state.minAmount === '') {
+      setminAmount({ message: "this field is required", haveError: true });
+    }
+    if (state.minAmount) {
+      setminAmount({ message: "", haveError: false });
+    }
+  }
+  function validation2() {
+    if (state.images === '') {
+      setimages({ message: "this field is required", haveError: true });
+    }
+    if (state.images) {
+      setimages({ message: "", haveError: false });
+    }
+
   }
 
   const [state, setState] = React.useState(initialState);
@@ -218,6 +243,9 @@ export default function Register({ match, history }) {
   const handleDateChange = (date) => {
     setState({ ...state, startDate: date });
   };
+
+
+
 
   const auctionCategory = ['land', 'house', 'vehicle', 'electronics', 'service', 'rare', 'oldies'];
   function getStepContent(step) {
@@ -260,19 +288,6 @@ export default function Register({ match, history }) {
                 }}
               />
             </Grid>
-            {/* <Grid item xs={12} sm={6}>
-              <FormControl component="fieldset" fullWidth>
-                <FormLabel component="legend">all pay</FormLabel>
-                <RadioGroup aria-label="gender" name="gender1" value={state.allPay} onChange={
-                  (e) => {
-                    setState({ ...state, allPay: e.target.value })
-                  }
-                }>
-                  <FormControlLabel value="true" control={<Radio />} label="yes" />
-                  <FormControlLabel value="false" control={<Radio />} label="no" />
-                </RadioGroup>
-              </FormControl>
-            </Grid> */}
             <Grid item xs={12} sm={6} >
               <p>condition</p>
               <FormControl fullWidth >
@@ -292,6 +307,27 @@ export default function Register({ match, history }) {
                 </Select>
               </FormControl>
             </Grid>
+            <Grid item xs={12} sm={6} >
+              <label>Auction Catagory</label>
+              <FormControl fullWidth >
+                <Select
+                  labelId="demo-customized-select-label"
+                  id="demo-customized-select"
+                  value={state.auctionCategory}
+                  color="primary"
+                  onChange={(e) => {
+                    setState({ ...state, auctionCategory: e.target.value })
+                  }}
+                  input={<BootstrapInput />}
+                >
+                  {
+                    auctionCategory.map((auction, index) => (
+                      <MenuItem value={auction} key={index}>{auction}</MenuItem>
+                    ))
+                  }
+                </Select>
+              </FormControl>
+            </Grid>
 
             <Grid item xs={12} sm={6} >
               <TextField
@@ -307,46 +343,30 @@ export default function Register({ match, history }) {
                 }}
               />
             </Grid>
-              
-
-          </Grid>
-
-        </React.Fragment>;
-      case 1:
-        return <React.Fragment>
-          <Grid container spacing={3}>
             <Grid item xs={12} sm={6} >
-              {/* <div >
-                <p>upload image of item</p>
-                <FileUploader
-                  maxSize={100}
-                  multiline
-                  handleChange={(e) => {
-                    setState({ ...state, images: state.images});
-                  }}
-                  name="file" types={fileTypes} />
-                <div>{state.images.length > 0 ? <div>
-                  {state.images.name}
-                </div> : "no files uploaded yet"}</div>
-                <p style={{ color: "red" }}>
-                  {images.haveError ? images.message : null}
-                </p>
-              </div> */}
-              <div >
-                  <p>upload image of item</p>
-                  <FileUploader
-                    maxSize={50}
-                    handleChange={(e) => {
-                      setState({ ...state, images: e });
-                    }}
-                    name="file" types={fileTypes} />
-                  <p>{state.images ? `File name: ${state.images.name}` : "no files uploaded yet"}</p>
-                  <p>
-                  <p style={{ color: "red" }}>
-                    {images.haveError ? images.message : null}
-                  </p>
-                  </p>
-                </div>
+              <FormControl className={classes.margin} error={minAmount.haveError}>
+                <InputLabel htmlFor="input-with-icon-adornment">Min Amount</InputLabel>
+                <Input
+                  type="number"
+                  id="input-with-icon-adornment"
+                  required
+                  value={state.minAmount}
+                  onChange={(e) => setState({ ...state, minAmount: e.target.value })}
+                />
+                <FormHelperText>{minAmount.message}</FormHelperText>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} sm={6} >
+              <FormControl className={classes.margin} error={minCPO.haveError}>
+                <InputLabel htmlFor="input-with-icon-adornment">CPO</InputLabel>
+                <Input
+                  type="number"
+                  id="input-with-icon-adornment"
+                  value={state.minCPO}
+                  onChange={(e) => setState({ ...state, minCPO: e.target.value })}
+                />
+                <FormHelperText>{minCPO.message}</FormHelperText>
+              </FormControl>
             </Grid>
             <Grid item xs={12} sm={6}>
               <FormControl className={classes.margin} error={bidFee.haveError} >
@@ -362,6 +382,52 @@ export default function Register({ match, history }) {
                 <FormHelperText>{bidFee.message}</FormHelperText>
               </FormControl>
             </Grid>
+          </Grid>
+
+        </React.Fragment>;
+      case 1:
+        return <React.Fragment>
+          <Grid container spacing={3}>
+            <Grid item xs={12} sm={6} >
+              <div >
+                <p>upload image of item</p>
+                <FileUploader
+
+                  maxSize={100}
+                  multiline
+                  handleChange={(e) => {
+                    const temp = [...state.images];
+                    temp.push(e)
+                    setState({ ...state, images: temp});
+                  }}
+                  name="file" types={fileTypes} />
+                <div>{state.images.length>0
+                ? <div>
+                  {state.images.map((name,i)=>(
+                    <div key={i}>{name.name}</div>
+                  ))}
+                </div> : "no files uploaded yet"}</div>
+                <p style={{ color: "red" }}>
+                  {images.haveError ? images.message : null}
+                </p>
+              </div>
+              {/* <div >
+                <p>upload image of item</p>
+                <FileUploader
+                  maxSize={50}
+                  handleChange={(e) => {
+                    setState({ ...state, images: e });
+                  }}
+                  name="file" types={fileTypes} />
+                <p>{state.images ? `File name: ${state.images.name}` : "no files uploaded yet"}</p>
+                <p>
+                  <p style={{ color: "red" }}>
+                    {images.haveError ? images.message : null}
+                  </p>
+                </p>
+              </div> */}
+            </Grid>
+
             <Grid item xs={12} sm={6}>
               <FormControl component="fieldset" fullWidth >
                 <FormLabel component="legend">Auction Type</FormLabel>
@@ -400,60 +466,7 @@ export default function Register({ match, history }) {
                 />
               </MuiPickersUtilsProvider>
             </Grid> : null}
-            
-          </Grid>
-        </React.Fragment>;
-      case 2:
-        return <React.Fragment>
 
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6} >
-              <FormControl className={classes.margin} error={minAmount.haveError}>
-                <InputLabel htmlFor="input-with-icon-adornment">Min Amount</InputLabel>
-                <Input
-                  type="number"
-                  id="input-with-icon-adornment"
-                  required
-                  value={state.minAmount}
-                  onChange={(e) => setState({ ...state, minAmount: e.target.value })}
-                />
-                <FormHelperText>{minAmount.message}</FormHelperText>
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={12} sm={6} >
-              <FormControl className={classes.margin} error={minCPO.haveError}>
-                <InputLabel htmlFor="input-with-icon-adornment">CPO</InputLabel>
-                <Input
-                  type="number"
-                  id="input-with-icon-adornment"
-                  value={state.minCPO}
-                  onChange={(e) => setState({ ...state, minCPO: e.target.value })}
-                />
-                <FormHelperText>{minCPO.message}</FormHelperText>
-              </FormControl>
-            </Grid>
-            <Grid item xs={12} sm={6} >
-              <label>Auction Catagory</label>
-              <FormControl fullWidth >
-                <Select
-                  labelId="demo-customized-select-label"
-                  id="demo-customized-select"
-                  value={state.auctionCategory}
-                  color="primary"
-                  onChange={(e) => {
-                    setState({ ...state, auctionCategory: e.target.value })
-                  }}
-                  input={<BootstrapInput />}
-                >
-                  {
-                    auctionCategory.map((auction, index) => (
-                      <MenuItem value={auction} key={index}>{auction}</MenuItem>
-                    ))
-                  }
-                </Select>
-              </FormControl>
-            </Grid>
             <Grid item xs={12} sm={6} >
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <KeyboardDatePicker
@@ -479,9 +492,41 @@ export default function Register({ match, history }) {
                 />
               </MuiPickersUtilsProvider>
             </Grid>
+
           </Grid>
         </React.Fragment>;
 
+      case 2:
+        return (
+          <React.Fragment>
+            <Typography variant="h6" gutterBottom>
+              {strings.location}
+            </Typography>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={12}>
+                <div style={{ width: "450px", height: "250px" }}>
+                {window.navigator.onLine ?
+                  <MapPicker
+                    defaultLocation={defaultLocation}
+                    zoom={zoom}
+                    style={{ width: "100%", height: "100%" }}
+                    onChangeLocation={handleChangeLocation}
+                    onChangeZoom={handleChangeZoom}
+                    apiKey="AIzaSyD07E1VvpsN_0FvsmKAj4nK9GnLq-9jtj8"
+                  />
+                  :
+                  <Alert severity="info">please check your connection you are offline </Alert>
+                  }
+                </div>
+              </Grid>
+              <Grid>
+                lat:{state.latitute}
+                Log:{state.longitute}
+
+              </Grid>
+            </Grid>
+          </React.Fragment>
+        );
       default:
         throw new Error('Unknown step');
     }
@@ -494,7 +539,7 @@ export default function Register({ match, history }) {
     if (token) {
       setProgress(false);
     }
-  }, [error, token])
+  }, [error, token, progress])
 
   return (
     <React.Fragment >
@@ -547,34 +592,39 @@ export default function Register({ match, history }) {
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={handleNext}
+
                       className={classes.button}
                       onClick={async () => {
-                        validation3();
-                        if (state.minCPO && state.minAmount) {
-                          setProgress(true)
-                          const formData = new FormData();
-                          formData.append('auctionName', state.auctionName);
-                          formData.append('briefDescription', state.briefDescription);
-                          formData.append('allPay', state.allPay);
-                          formData.append('bidFee', state.bidFee);
-                          formData.append('minAmount', state.minAmount);
-                          formData.append('minCPO', state.minCPO);
-                          formData.append('auctionType', state.auctionType);
-                          formData.append('auctionCategory', state.auctionCategory);
-                          formData.append('images', state.images);
-                          formData.append('extendedDescription', state.extendedDescription);
-                          formData.append('deadline', state.deadline);
-                          formData.append('condition', state.condition);
-                          formData.append('startDate', state.startDate)
-                          dispatch(PostAuctionAction(formData, token));
-                          setState(initialState);
-                          setTimeout(function () {
-                            dispatch(PostCleanUpAction());
-                          }, 5000);
-                        }
+                        setProgress(true)
+                        const formData = new FormData();
+                        formData.append('auctionName', state.auctionName);
+                        formData.append('briefDescription', state.briefDescription);
+                        formData.append('allPay', state.allPay);
+                        formData.append('bidFee', state.bidFee);
+                        formData.append('minAmount', state.minAmount);
+                        formData.append('minCpo', state.minCPO);
+                        formData.append('auctionType', state.auctionType);
+                        formData.append('auctionCategory', state.auctionCategory);
+                        state.images.map((image)=>{
+                          formData.append('images',image);
+                        })
+                        // formData.append('images', state.images);
+                        formData.append('extendedDescription', state.extendedDescription);
+                        formData.append('deadline', state.deadline);
+                        formData.append('condition', state.condition);
+                        formData.append('startDate', state.startDate);
+                        formData.append("latitude", state.latitute);
+                        formData.append("longtude", state.longitute);
+                        dispatch(PostAuctionAction(formData, token));
+                        // setState(initialState);
+                        setTimeout(function () {
+                          dispatch(PostCleanUpAction());
+                        }, 5000);
+                        dispatch(GetAuctionAuctionAction(token));
+                        dispatch(AuctionerAuctionAction(user._id));   
+                      }
 
-                      }}
+                      }
                     >
                       Post
                     </Button> :

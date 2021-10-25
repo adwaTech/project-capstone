@@ -25,7 +25,7 @@ function paymentOptions() {
                 <div className='paymentGrids'>
                    <div className='paymentWrapperDiv'>
                         <div className='cbeDiv'>
-                                <img src={CbeMobile} className='PaymentImages'/>
+                                <img alt="" src={CbeMobile} className='PaymentImages'/>
                         </div>
                         <h3 style={{ opacity:'0.8',color: 'purple'}}>CBE BIRR</h3>
                         <div className='paymentMethodDescription'>
@@ -37,8 +37,8 @@ function paymentOptions() {
                    </div>
                    <div className='paymentWrapperDiv'>
                         <div className='amoleDiv'>
-                                <img src={amole} className='top_image_payment'/>
-                                <img src={AmoleMobile} className='PaymentImages'/>
+                                <img alt="" src={amole} className='top_image_payment'/>
+                                <img alt="" src={AmoleMobile} className='PaymentImages'/>
                         </div>
                         <h3 style={{ opacity:'0.8',color: 'blue'}}>AMOLE DASHEN</h3>
                         <div className='paymentMethodDescription'>
@@ -58,18 +58,18 @@ function paymentOptions() {
                 <div className='futurePaymentGrids'>
                        <div className='futurePaymentGrids1'>
                             <div className='cbeDiv2'>
-                                    <img src={HelloCash} className='PaymentImages'/>
+                                    <img alt="" src={HelloCash} className='PaymentImages'/>
                             </div>
                             <div className='cbeDiv1'>
-                                    <img src={PayPal} className='PaymentImages'/>
+                                    <img alt="" src={PayPal} className='PaymentImages'/>
                             </div>
                         </div>
                         <div className='futurePaymentGrids1'>
                             <div className='cbeDiv2'>
-                                    <img src={Telebirr} className='PaymentImages'/>
+                                    <img alt="" src={Telebirr} className='PaymentImages'/>
                             </div>
                             <div className='cbeDiv1'>
-                                    <img src={Paytm} className='PaymentImages'/>
+                                    <img alt="" src={Paytm} className='PaymentImages'/>
                             </div>
                         </div>
                 </div>

@@ -3,7 +3,7 @@ import {
     withStyles
 } from '@material-ui/core'
 import './search.css';
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
 import BidAuctionForm from '../auction_dialog/BidAuctionForm';
 import GoogleMapReact from 'google-map-react';
 import Marker from './Marker';
@@ -11,7 +11,11 @@ import Marker from './Marker';
 import Timer from 'react-compound-timer';
 
 import Badge from '@material-ui/core/Badge';
-
+import {
+    IdAuctionAction
+} from '../../redux-state-managment/Actions';
+import {ThumbUp} from '@material-ui/icons'
+import {BACKENDURL} from '../../redux-state-managment/Constants'
 const defaultProps = {
     center: {
         lat: 8.9806,
@@ -30,16 +34,14 @@ const StyledBadge = withStyles((theme) => ({
 }))(Badge);
 
 const defaultLocation = { lat: 8.9806, lng: 38.7578 };
-const DefaultZoom = 13;
+// const DefaultZoom = 13;
 export default function Search(props) {
-    // location
-    const [location, setLocation] = React.useState(defaultLocation);
-    const [zoom, setZoom] = React.useState(DefaultZoom);
-    
+   
+    const dispatch=useDispatch();
     // type
     const auctionsWithName = useSelector((state) => state.SearchAuctionReducer.auctionsWithName);
     const auctionsWithCategory = useSelector((state) => state.SearchAuctionReducer.auctionsWithCategory);
-    const cities = useSelector((state) => state.SearchAuctionReducer.cities);
+    // const cities = useSelector((state) => state.SearchAuctionReducer.cities);
     const usersWithFirstName = useSelector((state) => state.SearchAuctionReducer.usersWithFirstName);
     const usersWithLastName = useSelector((state) => state.SearchAuctionReducer.usersWithLastName);
 
@@ -51,39 +53,40 @@ export default function Search(props) {
     const [date, setDate] = React.useState('');
     React.useEffect(() => {
         if (type === 'name') {
-            const au = auctionsWithName.filter(auction => auction._id == id);
+            const au = auctionsWithName.filter(auction => auction._id === id);
             setAuction(au[0]);
             timer(au[0].deadline)
             setAuctionType('name')
         }
         if (type === 'first_name') {
-            const au = usersWithFirstName.filter(auction => auction._id == id);
+            const au = usersWithFirstName.filter(auction => auction._id === id);
             setAuction(au[0]);
             setAuctionType('first_name')
         }
         if (type === 'last_name') {
-            const au = usersWithLastName.filter(auction => auction._id == id);
+            const au = usersWithLastName.filter(auction => auction._id === id);
             setAuction(au[0]);
             setAuctionType('last_name')
         }
         if (type === 'catagory') {
-            const au = auctionsWithCategory.filter(auction => auction._id == id);
+            const au = auctionsWithCategory.filter(auction => auction._id === id);
             setAuction(au[0]);
             setAuctionType('catagory')
         }
         if (type === 'city') {
-            const au = auctionsWithName.filter(auction => auction._id == id);
+            const au = auctionsWithName.filter(auction => auction._id === id);
             setAuction(au[0]);
             setAuctionType('city')
         }
 
 
-    }, id);
+    }, [id,auctionsWithCategory,auctionsWithName,usersWithFirstName,usersWithLastName,type]);
     function timer(end) {
         let date;
         date = new Date(end.toString()).getTime();
         const now = new Date().getTime();
         const d = date - now;
+        setDate(d);
         return d;
     }
     const [open_bid_dialog, setOpen_bid_dialog] = React.useState(false);
@@ -92,14 +95,13 @@ export default function Search(props) {
             <div class="big">
                 <article class="recipe">
                     <div class="pizza-box">
-                        <img src={auctiontype === 'first_name' || auctiontype === 'last_name' || auctiontype === 'city'
-                            ? `http://localhost:5000/users/${auction.profileImage}` :
-                            auction.images ? `http://localhost:5000/auctions/${auction.images[0]}` : ''}
+                        <img src={
+                            auction.images ? `${BACKENDURL}/auctions/${auction.images[0]}`:''}
                             width="1500" height="100%" alt="" />
                     </div>
                     <div class="recipe-content">
                         <p class="recipe-tags">
-                            <span class="recipe-tag">
+                            {/* <span class="recipe-tag">
                                 {auctiontype === 'first_name' || auctiontype === 'last_name' || auctiontype === 'city' ?
                                     '' :
                                     date ? <Timer
@@ -124,6 +126,7 @@ export default function Search(props) {
                                     </Timer> : ''
                                 }
                             </span>
+                             */}
                             <span class="recipe-tag">
                                 {auction.status === "ended"
                                     ? <StyledBadge badgeContent="ended" color="secondary">
@@ -133,15 +136,16 @@ export default function Search(props) {
                             </span>
                         </p>
 
-                        <h1 class="recipe-title"><a href="#">
+                        <h1 class="recipe-title">
                             {auctiontype === 'first_name' || auctiontype === 'last_name' || auctiontype === 'city' ?
                                 '' : auction.auctionName
                             }
-                        </a></h1>
+                        </h1>
 
                         <p class="recipe-metadata">
-                            <span class="recipe-rating">★★★★<span>☆</span></span>
+                            {/* <span class="recipe-rating">★★★★<span>☆</span></span> */}
                             <span class="recipe-votes">
+                                Number of Bid:
                                 ({auctiontype === 'first_name' || auctiontype === 'last_name' || auctiontype === 'city' ?
                                     ''
                                     : auction.proposals ? auction.proposals.length : ''
@@ -150,15 +154,17 @@ export default function Search(props) {
                         </p>
 
                         <p class="recipe-desc">
+                            Brief Description :
                             {auctiontype === 'first_name' || auctiontype === 'last_name' || auctiontype === 'city' ?
                                 ''
                                 : auction.briefDescription
                             }
                         </p>
                         <p class="recipe-desc">
+                            Appoval :
                             {auctiontype === 'first_name' || auctiontype === 'last_name' || auctiontype === 'city' ?
                                 ''
-                                : 'aproval :' + auction.approval
+                                : 'aproval :' + auction.approval===true?<ThumbUp color="primary"/>:"not approved yet"
                             }
                         </p>
                         <p class="recipe-desc">
@@ -176,7 +182,7 @@ export default function Search(props) {
                         <p class="recipe-desc">
                             {auctiontype === 'first_name' || auctiontype === 'last_name' || auctiontype === 'city' ?
                                 ''
-                                : 'Min CPO : ' + auction.minCPO
+                                : 'Min CPO : ' + auction.minCpo
                             }
                         </p>
                         <p class="recipe-desc">
@@ -208,6 +214,7 @@ export default function Search(props) {
                             onClick={
                                 () => {
                                     setOpen_bid_dialog(!open_bid_dialog);
+                                    dispatch(IdAuctionAction(auction._id));
                                 }
                             }
                             class="recipe-save" type="button">
@@ -228,8 +235,8 @@ export default function Search(props) {
                             defaultZoom={defaultProps.zoom}
                         >
                             <Marker
-                                lat={defaultLocation.lat}
-                                lng={defaultLocation.lng}
+                                lat={auction.latitude}
+                                lng={auction.longtude}
                                 text="auction location"
                             />
                         </GoogleMapReact>

@@ -4,7 +4,7 @@ const types = require("../models/types")
 
 module.exports = async (req, res) => {
     // get auction reference
-    // set auction approval to true
+    // set auction approval to truezz
     let error = '';
     if (req.user.userType === types.userType[1])
         if (req.body.auctionId) {

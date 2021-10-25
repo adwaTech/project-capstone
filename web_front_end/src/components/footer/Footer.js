@@ -2,7 +2,6 @@ import React from 'react';
 import './footer.css';
 import { Twitter, Instagram, Facebook, GitHub, YouTube } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { strings } from '../../language/language';
 import { useSelector } from 'react-redux'
 
@@ -13,11 +12,12 @@ export default function Footer() {
     }, [lang]);
     return (
         <div 
+        
         // className="footer-page"
         >
-            {/* <div class="ocean">
-                <div class="wave"></div>
-                <div class="wave"></div>
+            {/* <div className="ocean">
+                <div className="wave"></div>
+                <div className="wave"></div>
             </div> */}
             <footer className="footer">
                 <div className="container">
@@ -43,38 +43,38 @@ export default function Footer() {
                         <div className="footer-col">
                             <h4>{strings.popularcategory}</h4>
                             <ul>
-                                <li><Link>{strings.farmland}</Link></li>
-                                <li><Link>{strings.Car}</Link></li>
-                                <li><Link>{strings.House}</Link></li>
-                                <li><Link>{strings.govproject}</Link></li>
+                                <li><Link to="/auction/Land" >{strings.farmland}</Link></li>
+                                <li><Link to="/auction/Vehicle">{strings.Car}</Link></li>
+                                <li><Link to="/auction/House" >{strings.House}</Link></li>
+                                <li><Link to="/auction/service">{strings.govproject}</Link></li>
                             </ul>
                         </div>
                         <div className="footer-col">
                             <h4>{strings.followus}</h4>
                             <div >
-                                <div class="wrapper">
-                                    <div class="icon facebook">
-                                        <div class="tooltip">{strings.facebook}</div>
+                                <div className="wrapper">
+                                    <div className="icon facebook">
+                                        <div className="tooltip">{strings.facebook}</div>
                                         <span>
                                             <Facebook />
                                         </span>
                                     </div>
-                                    <div class="icon twitter">
-                                        <div class="tooltip">{strings.twitter}</div>
+                                    <div className="icon twitter">
+                                        <div className="tooltip">{strings.twitter}</div>
                                         <span><Twitter /></span>
                                     </div>
-                                    <div class="icon instagram">
-                                        <div class="tooltip">{strings.instagram}</div>
+                                    <div className="icon instagram">
+                                        <div className="tooltip">{strings.instagram}</div>
                                         <span><Instagram /></span>
                                     </div>
-                                    <div class="icon github">
-                                        <div class="tooltip">{strings.github}</div>
+                                    <div className="icon github">
+                                        <div className="tooltip">{strings.github}</div>
                                         <span>
                                             <GitHub />
                                         </span>
                                     </div>
-                                    <div class="icon youtube">
-                                        <div class="tooltip">{strings.youtube}</div>
+                                    <div className="icon youtube">
+                                        <div className="tooltip">{strings.youtube}</div>
                                         <span><YouTube /></span>
                                     </div>
                                 </div>

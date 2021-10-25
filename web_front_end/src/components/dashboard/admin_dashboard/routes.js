@@ -1,90 +1,92 @@
 
 import {
   LibraryBooks,
-  BubbleChart,
   LocationOn,
   Notifications,
-  Unarchive,
-  Language,
   Dashboard,
   Person,
   CheckOutlined,
   Feedback,
-  Money,
-  PermDeviceInformation,
+  Lock
   
 } from '@material-ui/icons'
+import { strings } from "../../../language/language";
 import  DashboardPage from './main_dashbaord/Dashboard';
 import UserProfile  from './UserProfile.js';
 import TableList from "./TableList.js";
-import Typography from "./Typography/Typography.js";
-import Icons from "./Icons.js";
+import Icons from "./GenerateTokens.js";
 import Maps from "./Maps.js";
 import NotificationsPage from "./Notifications.js";
 import CustomerInfo from "./CustomerInfo/CustomerInfo";
+import Customer from './Customer';
+import Auction_map from './Auction_map';
+import {Gavel} from '@material-ui/icons'
+// import { GenerateTokenReducer } from '../../../redux-state-managment/Reducers';
+
 
 
 const dashboardRoutes = [
   {
     path: "/dashboard",
-    name: "Dashboard",
+    name: strings.Dashboard,
     icon: Dashboard,
     component: DashboardPage,
     layout: "/admin",
   },
   
   {
-    path: "/table",
-    name: "Aprovements",
+    path: "/aprovements",
+    name: strings.Aprovements,
     icon: CheckOutlined,
     component: TableList,
     layout: "/admin",
   },
   {
-    path: "/typography",
-    name: "Managment",
+    path: "/customer",
+    name: strings.Customer,
     icon: LibraryBooks,
-    component: Typography,
+    component: Customer,
     layout: "/admin",
   },
-  {
-    path: "/icons",
-    name: "Payment",
-    icon: Money,
-    component: Icons,
-    layout: "/admin",
-  },
+
   {
     path: "/feedback",
-    name: "FeedBacks",
+    name: strings.FeedBacks,
     icon: Feedback,
-    component: Dashboard,
-    layout: "/admin",
-  },
-  {
-    path: "/maps",
-    name: "Maps",
-    icon: LocationOn,
-    component: Maps,
-    layout: "/admin",
-  },
-  {
-    path: "/notifications",
-    name: "Notifications",
-    icon: Notifications,
     component: NotificationsPage,
     layout: "/admin",
   },
   {
-    path: "/customer-info",
-    name: "Customer Info",
-    icon: PermDeviceInformation,
+    path: "/customer_location",
+    name: strings.CustomerLocation,
+    icon: LocationOn,
+    component:Maps,
+    layout: "/admin",
+  },
+  {
+    path: "/auction_location",
+    name: strings.Auctionslocation,
+    icon: Notifications,
+    component: Auction_map,
+    layout: "/admin",
+  },
+  {
+    path: "/total-auction-info",
+    name: strings.TotalAuctionInfo,
+    icon: Gavel,
     component: CustomerInfo,
     layout: "/admin",
   },
   {
-    path: "/user",
-    name: "profile",
+    path: "/generateToken",
+    name: strings.GenerateToken,
+    icon: Lock,
+    component: Icons,
+    layout: "/admin",
+  },
+  {
+    path: "/profile",
+    name: strings.profile,
     icon: Person,
     component: UserProfile,
     layout: "/admin",

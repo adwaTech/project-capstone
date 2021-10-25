@@ -1,12 +1,9 @@
 import React from 'react';
 import CloseIcon from '@material-ui/icons/Close';
-import { withStyles } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import { useSelector, useDispatch } from 'react-redux';
-import { Dialog, DialogContent, TextField, Grid, Slide, CircularProgress } from '@material-ui/core';
+import { Dialog, DialogContent, TextField, Grid, CircularProgress } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import Alert from '@material-ui/lab/Alert';
 import { Link } from 'react-router-dom';
@@ -18,18 +15,7 @@ import { FileUploader } from "react-drag-drop-files";
 
 
 
-const styles = (theme) => ({
-    root: {
-        margin: 0,
-        padding: theme.spacing(2),
-    },
-    closeButton: {
-        position: 'absolute',
-        right: theme.spacing(1),
-        top: theme.spacing(1),
-        color: theme.palette.grey[500],
-    },
-});
+
 const useStyles = makeStyles({
     addCartBtn: {
         borderRadius: "20px"
@@ -75,9 +61,7 @@ const useStyles = makeStyles({
         textAlign: "center"
     }
 })
-const Transition = React.forwardRef(function Transition(props, ref) {
-    return <Slide direction="up" ref={ref} {...props} />;
-});
+
 
 const fileTypes = ["jpg", "png", "gif", 'jpeg', 'svg', 'pdf'];
 
@@ -105,30 +89,30 @@ export default function BidAuctionForm(props) {
     const user = useSelector((state) => state.AccountReducer.user);
     const [des, setDes] = React.useState({ message: "", haveError: false });
     const [amount, setAmount] = React.useState({ message: "", haveError: false });
-    const [propDoc, setPropDoc] = React.useState({ message: "", haveError: false });
+    // const [propDoc, setPropDoc] = React.useState({ message: "", haveError: false });
     const [CPO, setCPO] = React.useState({ message: "", haveError: false });
     function validation() {
-        if (state.description === '') {
-            setDes({ message: "this field is required", haveError: true })
-        }
-        if (state.description) {
-            setDes({ message: "", haveError: false })
-        }
+        // if (state.description === '') {
+        //     setDes({ message: "this field is required", haveError: true })
+        // }
+        // if (state.description) {
+        //     setDes({ message: "", haveError: false })
+        // }
         if (state.amount === '') {
             setAmount({ message: "this field is required", haveError: true })
         }
         if (state.amount) {
             setAmount({ message: "", haveError: false })
         }
-        if (state.proposalDocument === '') {
-            setPropDoc({ message: "this field is required", haveError: true })
-        }
-        if (state.proposalDocument) {
-            setPropDoc({ message: "", haveError: false })
-        }
-        if (state.proposalDocument === '') {
-            setPropDoc({ message: "this field is required", haveError: true })
-        }
+        // if (state.proposalDocument === '') {
+        //     setPropDoc({ message: "this field is required", haveError: true })
+        // }
+        // if (state.proposalDocument) {
+        //     setPropDoc({ message: "", haveError: false })
+        // }
+        // if (state.proposalDocument === '') {
+        //     setPropDoc({ message: "this field is required", haveError: true })
+        // }
         if (state.cpo) {
             setCPO({ message: "", haveError: false })
         }
@@ -141,10 +125,10 @@ export default function BidAuctionForm(props) {
         if (biderror) {
             setProgress(false);
         }
-        if (token) {
+        if (bidstatus) {
             setProgress(false);
         }
-    }, [biderror, token])
+    }, [biderror, bidstatus])
     return (
         <Dialog
             open={props.open}
@@ -162,7 +146,7 @@ export default function BidAuctionForm(props) {
             {
                 biderror
                     ? <Alert severity="error">
-                        {biderror===`bidder '${user._id}' is the owner of auction of id '${props.data._id}'`
+                        {biderror===`bidder '${user?user._id:null}' is the owner of auction of id '${props.data._id}'`
                         ?"you are the owner of this auction so you cannot bid.":biderror }
                         {biderror === "Unauthorized" ? "you must have an account to bid item" : null} &nbsp;{biderror === "Unauthorized"
                         ? <Link to="/login"><Button variant="contained" color="primary">Login</Button></Link>
@@ -175,7 +159,7 @@ export default function BidAuctionForm(props) {
                     : null
             }
             <DialogContent >
-                <Grid spacing={3}>
+                <Grid >
                     <Grid item xs={12} sm={12}>
                         <TextField
                             required
@@ -249,14 +233,14 @@ export default function BidAuctionForm(props) {
                             variant="contained"
                             onClick={async () => {
                                 validation();
-                                if (state.amount && state.cpo && state.description) {
+                                if (state.amount && state.cpo) {
                                     if (props.data) {
                                         setProgress(true);
                                         const formData = new FormData();
                                         formData.append('amount', state.amount);
                                         formData.append('auctionId', props.data._id);
                                         formData.append('cpo', state.cpo);
-                                        formData.append('description', state.description);
+                                        if(state.description) formData.append('description', state.description);
                                         formData.append('ownerId', props.data.owner);
                                         if (state.proposalDocument) {
                                             formData.append('proposalDocument', state.proposalDocument);

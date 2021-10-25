@@ -1,14 +1,17 @@
 import React from 'react';
 import './myauction.css';
 import moment from 'moment';
-import {
-    AuctionerAuctionAction,
-} from '../../redux-state-managment/Actions';
-import { useDispatch, useSelector } from 'react-redux';
+// import {
+//     AuctionerAuctionAction,
+// } from '../../redux-state-managment/Actions';
+import {  useSelector } from 'react-redux';
 import Badge from '@material-ui/core/Badge';
 import { withStyles } from '@material-ui/core/styles';
 import HorzMore from '@material-ui/icons/MoreHoriz';
 import DetailDialog from '../catagroy_slider/Detail';
+import IconButton from '@material-ui/core/IconButton'
+import Input from '@material-ui/core/Input';
+import SearchIcon from '@material-ui/icons/Search'
 
 const StyledBadge = withStyles(theme => ({
     badge: {
@@ -22,22 +25,40 @@ const StyledBadge = withStyles(theme => ({
 
 
 export default function MyAuction() {
-    const dispatch = useDispatch();
 
     const AuctioneerAuction = useSelector((state) => state.AuctionsReducer.AuctioneerAuction);
-    const user = useSelector((state) => state.AccountReducer.user);
+    // const user = useSelector((state) => state.AccountReducer.user);
     const [open,setOpen]=React.useState(false);
     const [data,setData]=React.useState(null)
-
-    const [num, setNum] = React.useState(1);
-    
+    const [filtered,setFiltered]=React.useState(null)
+    // const [num, setNum] = React.useState(1);
+    const handleSearchChange=(searchText)=>{
+        if (searchText !== null) {
+          searchText=searchText.toLowerCase();
+          const filteredItems = AuctioneerAuction.filter((item) =>
+          (
+            
+              item.auctionName.toLowerCase().includes(searchText)||
+              item.auctionType.toLowerCase().includes(searchText) ||
+              item.auctionCategory.toLowerCase().includes(searchText) 
+          ));
+          console.log('this are the processTypes',filteredItems)
+          setFiltered(filteredItems);
+       }}
+      const filteredList = () => (filtered !== null ? filtered : AuctioneerAuction);
 
     return (
         <div className="auctionTable">
             {data?<DetailDialog open={open} setOpen={setOpen} data={data?data:null} detail={true}/>:null}
             {console.log(data)}
             <section>
-                <h1>My Auction</h1>
+                <div style={{display:'flex',flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
+                    <h1 style={{margin:"10px"}}>My Auction</h1>
+                    <div style={{display:'flex',flexDirection:'row',justifyContent:'center',marginRight:'20px'}}>
+                        <Input type='text' style={{color:'black'}} onChange={(e)=>handleSearchChange(e.target.value)}></Input>
+                        <SearchIcon/>
+                    </div>
+                </div>
                 <div className="tbl-header">
                     <table cellpadding="0" cellspacing="0" border="0">
                         <thead>
@@ -59,7 +80,7 @@ export default function MyAuction() {
                         <tbody>
                             {
                                 AuctioneerAuction.length>0
-                                ?AuctioneerAuction.map((auction, index) => (
+                                ?filteredList().map((auction, index) => (
                                     <tr key={index}>
                                         <td>{auction.auctionName}</td>
                                         <td>{auction.minAmount}</td>
@@ -76,7 +97,7 @@ export default function MyAuction() {
                                             setData(auction)
                                             setOpen(true);
                                         }}
-                                        ><HorzMore/></td>
+                                        ><IconButton><HorzMore/></IconButton></td>
                                     </tr>
                                 ))
                                 :<tr>you have no auction yet</tr>

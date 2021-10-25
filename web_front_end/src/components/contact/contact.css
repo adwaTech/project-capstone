@@ -10,7 +10,9 @@
   z-index: 1;
 }
 
-
+.contact input::placeholder, textarea::placeholder{
+  color: white;
+}
 
 .contact .container {
   position: relative;

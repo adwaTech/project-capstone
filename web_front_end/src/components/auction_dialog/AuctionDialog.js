@@ -42,11 +42,10 @@ const DialogContent = withStyles((theme) => ({
 
 
 export default function CustomizedDialogs(props) {
-  console.log(props);
   return (
       <Dialog  aria-labelledby="customized-dialog-title" open={props.openforPost}>
         <DialogTitle id="customized-dialog-title" onClose={()=>props.setOpen(!props.openforPost)}>
-            Insert Auction Information
+            {props.type==="Post"?"Insert Auction Information":"Auction Catagory"}
         </DialogTitle>
         <DialogContent dividers>
           {props.component}

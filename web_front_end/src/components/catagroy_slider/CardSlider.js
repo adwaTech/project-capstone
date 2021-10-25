@@ -6,7 +6,7 @@ import MobileDetect from "mobile-detect";
 
 import Card from "./card";
 import Carousel from "react-multi-carousel";
-import"./carousel-with-custom-dots.css";
+import "./carousel-with-custom-dots.css";
 import "./style.css";
 import "react-multi-carousel/lib/styles.css";
 import Land from '../../assets/images/gozha-net-xDrxJCdedcI-unsplash.jpg';
@@ -16,7 +16,7 @@ import Electronics from '../../assets/images/daniel-korpai-r73OFSry5AI-unsplash.
 import Service from '../../assets/images/lode-lagrainge-45cr4wHWTIw-unsplash.jpg';
 import Rare from '../../assets/images/annie-spratt-JMjNnQ2xFoY-unsplash.jpg';
 import Old from '../../assets/images/dan-gold-N7RiDzfF2iw-unsplash.jpg';
-
+import ScrollToTop from '../../scrollTop/ScrollToTop';
 class Index extends Component {
   static getInitialProps({ req }) {
     let userAgent;
@@ -42,13 +42,13 @@ class Index extends Component {
   render() {
     const { classes } = this.props;
     const images = [
-        Land,
-        House,
-        Vehicle,
-        Electronics,
-        Service,
-        Rare,
-        Old,
+      Land,
+      House,
+      Vehicle,
+      Electronics,
+      Service,
+      Rare,
+      Old,
     ];
     const texts = [
       "Land",
@@ -87,12 +87,12 @@ class Index extends Component {
     };
     return (
       <div className={classes.root}>
-        
+        <ScrollToTop/>
         <Carousel
-          
+
           swipeable={false}
           draggable={false}
-          
+
           responsive={responsive}
           ssr
           infinite={false}
@@ -101,8 +101,8 @@ class Index extends Component {
           containerClass="first-carousel-container container"
           deviceType={this.props.deviceType}
         >
-          {fakerData.map(card => {
-            return <Card isMoving={this.state.isMoving} {...card} />;
+          {fakerData.map((card,index) => {
+            return <Card key={index} isMoving={this.state.isMoving} {...card} />;
           })}
         </Carousel>
       </div>

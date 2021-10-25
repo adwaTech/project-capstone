@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles, CircularProgress, Dialog } from '@material-ui/core';
+import { makeStyles, CircularProgress } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
@@ -19,6 +19,7 @@ import './login.css';
 import { strings } from '../../language/language';
 import { useSelector, useDispatch } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(3),
@@ -56,10 +57,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
   const lang = useSelector((state) => state.LanguageReducer.language)
-  React.useEffect(() => {
-
-  }, [lang]);
-  const classes = useStyles();
 
   return (
     <div className="main-login-page">
@@ -73,15 +70,13 @@ function Login({ match, history }) {
   const dispatch = useDispatch();
   const classes = useStyles();
   const initialState = {
-    email: 'menge',
-    password: '1234',
+    email: '',
+    password: '',
   };
   const [progress, setProgress] = React.useState(false);
-  const bool = false;
   const [state, setState] = React.useState(initialState)
   // global states
   const error = useSelector((state) => state.AccountReducer.error);
-  const status = useSelector((state) => state.AccountReducer.status);
   const statusText = useSelector((state) => state.AccountReducer.statusText);
   const token = useSelector((state) => state.AccountReducer.token);
   const user = useSelector((state) => state.AccountReducer.user);
@@ -90,7 +85,6 @@ function Login({ match, history }) {
     emaile: false,
   });
   const [errorMessagepass, setErrorMessagepass] = React.useState({
-
     password: '',
     passe: false,
   });
@@ -116,14 +110,22 @@ function Login({ match, history }) {
       }, 3000);
     }
   }
+  const [ones,setOnes]=React.useState(1)
+  const [cookiesUser, setCookieUser] = useCookies(['user']);
+  const [cookiesToken, setCookieToken] = useCookies(['token']);
   React.useEffect(()=>{
     if(error){
       setProgress(false);
     }
     if(token){
       setProgress(false);
+      if(ones===1){
+        setCookieUser('user', user, { path: '/' });
+        setCookieToken('token', token, { path: '/' });
+        setOnes(2)
+      }
     }
-  },[error])
+  },[error,token])
   return (
     <Container maxWidth="xs" className={classes.container} >
       <CssBaseline />
@@ -150,12 +152,14 @@ function Login({ match, history }) {
         }
         {
           token
-            ? (user.userType == "customer"
-              ? <Redirect to='/profile' />
-              : user.userType == "admin"
-                ? <Redirect to="/admin" />
-                : null)
-            : null
+            ? 
+              user?user.userType === "customer"
+              ? <Redirect to='/profile' />:null
+              :null:null
+        }
+        {
+          token?user?user.userType === "admin"
+          ? <Redirect to="/admin" />:null:null:null
         }
         <div className={classes.form} noValidate>
           <TextField
@@ -192,10 +196,10 @@ function Login({ match, history }) {
               setState({ ...state, password: e.target.value });
             }}
           />
-          <FormControlLabel
+          {/* <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
-          />
+          /> */}
           <Button
             disabled={progress}
             fullWidth
@@ -207,11 +211,11 @@ function Login({ match, history }) {
             {progress?<div><CircularProgress/>Loading</div>:strings.singin}
           </Button>
           <Grid container>
-            <Grid item xs>
+            {/* <Grid item xs>
               <Link to="/forgetpassword" className={classes.donthaveaccount} variant="body2">
                 {strings.fortgotpassword}
               </Link>
-            </Grid>
+            </Grid> */}
             <Grid item>
               <Link to="/register" className={classes.donthaveaccount} variant="body2">
                 {"Don't have an account? Sign Up"}
@@ -220,28 +224,6 @@ function Login({ match, history }) {
           </Grid>
         </div>
       </div>
-      {/* <Progress open={progress} setOpen={setProgress} /> */}
     </Container>
-  )
-}
-
-function Progress(props) {
-  const error = useSelector((state) => state.AccountReducer.error);
-  const token = useSelector((state) => state.AccountReducer.token);
-  function progresscheck() {
-    if (error.length > 0) {
-      props.setOpen(false);
-    }
-    if (token) {
-      props.setOpen(false);
-    }
-  }
-  return (
-    <Dialog open={props.open} >
-      {progresscheck()}
-      <div style={{ width: "100px", height: "100px", display: "flex", background: "black", opacity: 0.5, border: "none", boxShadow: 'none' }}>
-        <CircularProgress style={{ margin: "30px" }} />
-      </div>
-    </Dialog>
   )
 }

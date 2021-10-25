@@ -11,9 +11,11 @@ async function pay(payer, amount, payee, type) {
     payer.balance = payer.balance - amount;
     payee.balance = payee.balance + amount;
     if (type === types.paymentType.bidWon) {
-        const systemPayee = UserModel.findById(types.systemUserId);
+        const systemPayee = await UserModel.findById(types.systemUserId);
         const tax = amount * types.fee.winnerFeePercentage;
         payer.balance = payer.balance - tax
+		console.log(systemPayee.balance);
+		console.log(amount);
         systemPayee.balance = systemPayee.balance + tax
         await systemPayee.save();
         await Payment({

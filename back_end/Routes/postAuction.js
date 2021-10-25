@@ -4,6 +4,7 @@ const types = require('../models/types');
 const { UserModel } = require('../models/Users');
 const { pay } = require('./pay');
 module.exports = async (req, res) => {
+    
     if (req.files && req.files.length > 0) {
         req.body.images = [];
         req.files.map(image => req.body.images.push(image.filename));

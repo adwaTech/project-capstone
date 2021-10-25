@@ -11,17 +11,69 @@ import Poppers from "@material-ui/core/Popper";
 import Divider from "@material-ui/core/Divider";
 import Person from "@material-ui/icons/Person";
 import Notifications from "@material-ui/icons/Notifications";
-import Dashboard from "@material-ui/icons/Dashboard";
-import Search from "@material-ui/icons/Search";
-import CustomInput from "../../components/CustomInput/CustomInput.js";
 import Button from "../../components/CustomButtons/Button.js";
+import { Avatar } from "@material-ui/core";
+import { Link } from 'react-router-dom'
+import { strings } from '../../../../../language/language';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 import styles from "../../assets/jss/material-dashboard-react/components/headerLinksStyle.js";
 
+import {
+  LogoutAction,
+  GetFeedbackAction,
+  LanguageAction
+} from '../../../../../redux-state-managment/Actions';
+import {
+  BACKENDURL
+} from '../../../../../redux-state-managment/Constants';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { withStyles, InputBase } from '@material-ui/core';
+import { useCookies } from "react-cookie";
+
 const useStyles = makeStyles(styles);
+
+const BootstrapInput = withStyles((theme) => ({
+  root: {
+    'label + &': {
+      marginTop: theme.spacing(3),
+    },
+  },
+  input: {
+    borderRadius: 4,
+    color: "black",
+    position: 'relative',
+    backgroundColor: theme.palette.background.paper,
+    border: '1px solid #ced4da',
+    fontSize: 16,
+    padding: '5px 26px 2px 22px',
+    transition: theme.transitions.create(['border-color', 'box-shadow']),
+    // Use the system font instead of the default Roboto font.
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+    '&:focus': {
+      borderRadius: 4,
+      borderColor: '#80bdff',
+      boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
+    },
+  },
+}))(InputBase);
 
 export default function AdminNavbarLinks() {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const [openNotification, setOpenNotification] = React.useState(null);
   const [openProfile, setOpenProfile] = React.useState(null);
   const handleClickNotification = (event) => {
@@ -31,6 +83,7 @@ export default function AdminNavbarLinks() {
       setOpenNotification(event.currentTarget);
     }
   };
+  const [Lang, setLang] = React.useState('en');
   const handleCloseNotification = () => {
     setOpenNotification(null);
   };
@@ -44,9 +97,45 @@ export default function AdminNavbarLinks() {
   const handleCloseProfile = () => {
     setOpenProfile(null);
   };
+
+  const feedbacks = useSelector((state) => state.SendFeedBackReducer.feedbacks);
+  const token = useSelector(state => state.AccountReducer.token);
+  const user = useSelector((state) => state.AccountReducer.user);
+  const [cookiesUser, setCookieUser, removeCookieUser] = useCookies(['user']);
+  const [cookiesToken, setCookieToken, removeCookieToken] = useCookies(['token']);
+  React.useEffect(async () => {
+    dispatch(GetFeedbackAction(token));
+  }, [])
+  const lang = useSelector((state) => state.LanguageReducer.language);
+  
+  React.useEffect(()=>{
+    
+  },Lang)
   return (
     <div>
-      <div className={classes.searchWrapper}>
+      <div className={classes.manager}>
+        <FormControl >
+          <Select
+            labelId="demo-customized-select-label"
+            id="demo-customized-select"
+            value={Lang}
+            color="primary"
+            onChange={(e) => {
+              strings.setLanguage(e.target.value);
+              dispatch(LanguageAction(e.target.value))
+              setLang(e.target.value)
+            }}
+            input={<BootstrapInput />}
+          >
+            <MenuItem value="en">English</MenuItem>
+            <MenuItem value="am">አማርኛ</MenuItem>
+            <MenuItem value="or">Oromifa</MenuItem>
+            <MenuItem value="ti">ትግርኛ</MenuItem>
+            <MenuItem value="so">Somali</MenuItem>
+          </Select>
+        </FormControl>
+      </div>
+      {/* <div className={classes.searchWrapper}>
         <CustomInput
           formControlProps={{
             className: classes.margin + " " + classes.search,
@@ -61,8 +150,8 @@ export default function AdminNavbarLinks() {
         <Button color="white" aria-label="edit" justIcon round>
           <Search />
         </Button>
-      </div>
-      <Button
+      </div> */}
+      {/* <Button
         color={window.innerWidth > 959 ? "transparent" : "white"}
         justIcon={window.innerWidth > 959}
         simple={!(window.innerWidth > 959)}
@@ -74,6 +163,7 @@ export default function AdminNavbarLinks() {
           <p className={classes.linkText}>Dashboard</p>
         </Hidden>
       </Button>
+       */}
       <div className={classes.manager}>
         <Button
           color={window.innerWidth > 959 ? "transparent" : "white"}
@@ -85,10 +175,10 @@ export default function AdminNavbarLinks() {
           className={classes.buttonLink}
         >
           <Notifications className={classes.icons} />
-          <span className={classes.notifications}>5</span>
+          <span className={classes.notifications}>{feedbacks.length}</span>
           <Hidden mdUp implementation="css">
             <p onClick={handleCloseNotification} className={classes.linkText}>
-              Notification
+              Feedback
             </p>
           </Hidden>
         </Button>
@@ -115,36 +205,18 @@ export default function AdminNavbarLinks() {
               <Paper>
                 <ClickAwayListener onClickAway={handleCloseNotification}>
                   <MenuList role="menu">
-                    <MenuItem
-                      onClick={handleCloseNotification}
-                      className={classes.dropdownItem}
-                    >
-                      Mike John responded to your email
-                    </MenuItem>
-                    <MenuItem
-                      onClick={handleCloseNotification}
-                      className={classes.dropdownItem}
-                    >
-                      You have 5 new tasks
-                    </MenuItem>
-                    <MenuItem
-                      onClick={handleCloseNotification}
-                      className={classes.dropdownItem}
-                    >
-                      You{"'"}re now friend with Andrew
-                    </MenuItem>
-                    <MenuItem
-                      onClick={handleCloseNotification}
-                      className={classes.dropdownItem}
-                    >
-                      Another Notification
-                    </MenuItem>
-                    <MenuItem
-                      onClick={handleCloseNotification}
-                      className={classes.dropdownItem}
-                    >
-                      Another One
-                    </MenuItem>
+                    {
+                      feedbacks.map((feedback, i) => (
+                        <Link to="/admin/feedback">
+                          <MenuItem
+                            onClick={handleCloseNotification}
+                            className={classes.dropdownItem}
+                          >
+                            {feedback.feedback}
+                          </MenuItem>
+                        </Link>
+                      ))
+                    }
                   </MenuList>
                 </ClickAwayListener>
               </Paper>
@@ -152,7 +224,7 @@ export default function AdminNavbarLinks() {
           )}
         </Poppers>
       </div>
-      
+
       <div className={classes.manager}>
         <Button
           color={window.innerWidth > 959 ? "transparent" : "white"}
@@ -163,7 +235,10 @@ export default function AdminNavbarLinks() {
           onClick={handleClickProfile}
           className={classes.buttonLink}
         >
-          <Person className={classes.icons} />
+          {/* <Person className={classes.icons} /> */}
+          {/* <span>Admin</span> */}
+          <Avatar src={`${BACKENDURL}/users/${user.profileImage}`}>
+          </Avatar>
           <Hidden mdUp implementation="css">
             <p className={classes.linkText}>Profile</p>
           </Hidden>
@@ -191,22 +266,32 @@ export default function AdminNavbarLinks() {
               <Paper>
                 <ClickAwayListener onClickAway={handleCloseProfile}>
                   <MenuList role="menu">
-                    <MenuItem
-                      onClick={handleCloseProfile}
-                      className={classes.dropdownItem}
-                    >
-                      Profile
-                    </MenuItem>
-                    <MenuItem
+                    <Link to="/admin/profile">
+                      <MenuItem
+                        onClick={handleCloseProfile}
+                        className={classes.dropdownItem}
+                      >
+                        Profile
+                      </MenuItem>
+                    </Link>
+
+                    {/* <MenuItem
                       onClick={handleCloseProfile}
                       className={classes.dropdownItem}
                     >
                       Settings
-                    </MenuItem>
+                    </MenuItem> */}
                     <Divider light />
                     <MenuItem
-                      onClick={handleCloseProfile}
+                      onClick={() => {
+                        if (token) {
+                          dispatch(LogoutAction());
+                          removeCookieToken('token');
+                          removeCookieUser('user');
+                        }
+                      }}
                       className={classes.dropdownItem}
+
                     >
                       Logout
                     </MenuItem>
@@ -216,7 +301,16 @@ export default function AdminNavbarLinks() {
             </Grow>
           )}
         </Poppers>
+
       </div>
+
+      {/* <span className={classes.manager}>
+        Admin
+      </span> */}
+      {/* <div className={classes.manager}>
+        <Avatar src={`${BACKENDURL}/users/${user.profileImage}`}>
+        </Avatar>
+      </div> */}
     </div>
   );
 }

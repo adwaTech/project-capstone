@@ -201,7 +201,7 @@
     body,
     html {
       position: relative;
-      overflow-x: hidden;
+      /* overflow-x: hidden; */
     }
   
     #bodyClick {
@@ -214,7 +214,7 @@
       right: 260px;
       content: "";
       z-index: 9999;
-      overflow-x: hidden;
+      /* overflow-x: hidden; */
     }
   }
   .fixed-plugin {
@@ -409,7 +409,7 @@
     cursor: pointer;
     display: block;
     max-height: 100px;
-    overflow: hidden;
+    /* overflow: hidden; */
     padding: 0;
   }
   

@@ -1,7 +1,5 @@
 import React from 'react';
-import image from '../../assets/images/undraw_page_not_found_su7k.svg';
 import './error-route.css';
-import Warning from '@material-ui/icons/Warning'
 
 export default function ErrorRoute() {
     return (

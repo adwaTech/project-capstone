@@ -1,0 +1,35 @@
+approval: true
+auctionCategory: "land"
+auctionName: "Land"
+auctionType: "sealed"
+bidFee: 232121
+briefDescription: "The term land encompasses all physical elements, bestowed by nature, to a specific area or piece of property—the environment, fields, forests, minerals, climate, animals, and bodies or sources of water."
+condition: "used"
+deadline: "2021-09-20T12:47:00.000Z"
+extendedDescription: "The term land encompasses all physical elements, bestowed by nature, to a specific area or piece of property—the environment, fields, forests, minerals, climate, animals, and bodies or sources of water."
+images: ["1630328495944.jpg"]
+latitude: "9.068589381338814"
+longtude: "38.77101792602538"
+minAmount: 1200019
+minCpo: 1223322
+owner: null
+postedOn: "2021-08-30T11:50:54.291Z"
+proposals: Array(1)
+0:
+amount: "3M3DIENNb5f5rKbk1c3gVA==:43TVdrsZy30/NmgCDY0Glw=="
+auctionId: "612cd6b0453a0942c2b843e5"
+cpo: 100000000
+description: "1000"
+ownerId: {userType: "customer", _id: "612cc3fd88f97c2cfffb604a", firstName: "Meseret ", lastName: "Kifle", sex: "male", …}
+proposalType: "sealed"
+status: "pending"
+submittedOn: "2021-08-31T13:31:16.951Z"
+__v: 0
+_id: "612e41052158592ae4b59a8e"
+__proto__: Object
+length: 1
+__proto__: Array(0)
+startDate: "2021-08-30T12:47:58.000Z"
+status: "open"
+__v: 1
+_id: "612cd6b0453a0942c2b843e5"

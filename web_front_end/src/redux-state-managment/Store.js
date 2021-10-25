@@ -9,7 +9,16 @@ import {
     bidAuctionReducer,
     SearchAuctionReducer,
     getBidReducer,
-    getNotificationReducer
+    getNotificationReducer,
+    DepositReducer,
+    WithDrawReducer,
+    ApproveAuctionReducer,
+    getUsersReducer,
+    SetWinnerReducer,
+    DeletAccountReducer,
+    DeletAuctionReducer,
+    SendFeedBackReducer,
+    GenerateTokenReducer
 } from './Reducers';
 
 
@@ -23,7 +32,16 @@ const reducer = combineReducers({
     bidAuctionReducer,
     SearchAuctionReducer,
     getBidReducer,
-    getNotificationReducer
+    getNotificationReducer,
+    DepositReducer,
+    WithDrawReducer,
+    ApproveAuctionReducer,
+    getUsersReducer,
+    SetWinnerReducer,
+    DeletAccountReducer,
+    DeletAuctionReducer,
+    SendFeedBackReducer,
+    GenerateTokenReducer
 });
 
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(...middleware)));

@@ -59,7 +59,7 @@ const upload = multer({
 router.use(sync);
 // Customer routes
 router.post("/register", (req, res, next) => {
-    console.log(req.body)
+    
     upload.fields(
         [{
             name: 'profileImage',
@@ -121,5 +121,5 @@ router.get("/getUsers", passport.authenticate('jwt', { session: false }), upload
 router.put("/deleteAuction", passport.authenticate('jwt', { session: false }), upload.any(), deleteAuction);
 router.get("/generateToken", passport.authenticate('jwt', { session: false }), upload.any(), generateTokenRoute);
 // Common routes
-router.delete("/deleteCustomer", passport.authenticate('jwt', { session: false }), upload.any(), deleteCustomerRoute);
+router.put("/deleteCustomer", passport.authenticate('jwt', { session: false }),upload.any(), deleteCustomerRoute);
 module.exports = router;

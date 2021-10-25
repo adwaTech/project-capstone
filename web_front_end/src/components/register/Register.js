@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { strings } from "../../language/language";
 import { FileUploader } from "react-drag-drop-files";
 import {
@@ -19,7 +19,6 @@ import {
   FormLabel,
   TextField,
   FormControlLabel,
-  Checkbox,
   Input,
   InputAdornment,
   Grid,
@@ -35,6 +34,11 @@ import { RegisterAction, AccountCheckoutAction } from '../../redux-state-managme
 import { Alert } from '@material-ui/lab'
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import ScrollToTop from '../../scrollTop/ScrollToTop';
+import {Link } from 'react-router-dom';
+
+
+
+
 
 const DefaultLocation = { lat: 8.9806, lng: 38.7578 };
 const DefaultZoom = 13;
@@ -87,11 +91,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const fileTypes = ["jpg", "png", "gif",'jpeg'];
+const fileTypes = ["jpg", "png", "gif", 'jpeg'];
 
 const steps = [strings.personalinfo, strings.detail, strings.location];
 
-export default function Register({ match, history }) {
+export default function Register() {
   const lang = useSelector((state) => state.LanguageReducer.language);
   const [progress, setProgress] = React.useState(false);
 
@@ -99,8 +103,8 @@ export default function Register({ match, history }) {
   const classes = useStyles();
   // global states
   const error = useSelector((state) => state.AccountReducer.error);
-  const status = useSelector((state) => state.AccountReducer.status);
-  const statusText = useSelector((state) => state.AccountReducer.statusText);
+  // const status = useSelector((state) => state.AccountReducer.status);
+  // const statusText = useSelector((state) => state.AccountReducer.statusText);
   const token = useSelector((state) => state.AccountReducer.token);
   const user = useSelector((state) => state.AccountReducer.user);
 
@@ -111,7 +115,7 @@ export default function Register({ match, history }) {
   const handleNext = () => {
     if (activeStep === 0) {
       validate1step();
-      if (state.firstname && state.lastname && state.profileImage && state.phone.length === 13 && state.usertype && state.sex)
+      if (state.firstname && state.lastname && state.profileImage && (state.phone.length === 13 || state.phone.length === 14) && state.usertype && state.sex)
         setActiveStep(activeStep + 1);
     }
 
@@ -131,6 +135,7 @@ export default function Register({ match, history }) {
       validate3step();
       if (state.latitute && state.longitute) {
         setActiveStep(activeStep + 1)
+        setDefaultLocation({})
       }
     }
 
@@ -161,6 +166,7 @@ export default function Register({ match, history }) {
     city: "",
     latitute: location.lat,
     longitute: location.lng,
+    adminToken: ''
   };
 
   const [state, setState] = React.useState(initialState);
@@ -192,14 +198,7 @@ export default function Register({ match, history }) {
     message: '',
     haveError: false
   });
-  const [LatMessage, setLatMessage] = React.useState({
-    message: '',
-    haveError: false
-  });
-  const [LongMessage, setLongMessage] = React.useState({
-    message: '',
-    haveError: false
-  });
+
   const [Usertypemessage, setUsertypemessage] = React.useState({
     message: '',
     haveError: false
@@ -267,7 +266,7 @@ export default function Register({ match, history }) {
       setPhoneMessage({ message: "this field is required", haveError: true })
     }
     if (state.phone.length > 4) {
-      if (state.phone.length === 13) {
+      if (state.phone.length === 13 || state.phone.length === 14) {
         setPhoneMessage({ message: "", haveError: false })
       }
       else {
@@ -280,7 +279,7 @@ export default function Register({ match, history }) {
       setemailMessage({ message: "this field is required", haveError: true })
     }
     if (state.email) {
-      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      var re = /^(([^<>()[\]\\.,;:\s@"]+(.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       // return re.test(String(state.email).toLowerCase());
       if (re.test(state.email.toLowerCase())) {
         setemailMessage({ message: "", haveError: false })
@@ -306,12 +305,12 @@ export default function Register({ match, history }) {
       setConpasswordMessage({ message: "this field is required", haveError: true })
     }
     if (state.conpassword) {
-      if (state.conpassword != state.password) {
+      if (state.conpassword !== state.password) {
         setConpasswordMessage({ message: "password and conpassword must be the same", haveError: true })
       }
       if (state.conpassword === state.password) {
         if (state.password.length > 8) {
-          var format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+          var format = /[ `!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/;
           var bool = format.test(state.password);
           if (bool) {
             if (/\d/.test(state.password)) {
@@ -351,19 +350,6 @@ export default function Register({ match, history }) {
     }
   }
   const validate3step = () => {
-    if (state.latitute === '') {
-      setLatMessage({ message: "this field is required", haveError: true })
-    }
-    if (state.latitute) {
-      setLatMessage({ message: "", haveError: false })
-    }
-    if (state.longitute === '') {
-      setLongMessage({ message: "this field is required", haveError: true })
-    }
-    if (state.longitute) {
-      setLongMessage({ message: "", haveError: false })
-    }
-
   }
 
   const onClickHandler = async () => {
@@ -373,9 +359,10 @@ export default function Register({ match, history }) {
     formData.append("lastName", state.lastname);
     formData.append("sex", state.sex);
     formData.append("profileImage", state.profileImage);
-    formData.append("latitute", state.latitute);
-    formData.append("longitute", state.longitute);
+    formData.append("latitude", state.latitute);
+    formData.append("longtude", state.longitute);
     formData.append("userType", state.usertype);
+    if (state.adminToken && state.usertype == 'admin') formData.append("adminToken", state.adminToken);
     formData.append("phone", state.phone);
     formData.append("email", state.email);
     formData.append("password", state.password);
@@ -394,6 +381,7 @@ export default function Register({ match, history }) {
       case 0:
         return (
           <React.Fragment>
+            <ScrollToTop/>
             <Typography variant="h6" gutterBottom>
               {strings.personalinfo}
             </Typography>
@@ -449,9 +437,29 @@ export default function Register({ match, history }) {
                   <FormHelperText>{Usertypemessage.message}</FormHelperText>
                 </FormControl>
               </Grid>
+              {
+                state.usertype === "admin" ?
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      required
+                      // error={fnameerror.haveError}
+                      // helperText={fnameerror.message}
+                      id="token"
+                      name="token"
+                      label="admin Token"
+                      value={state.adminToken}
+                      fullWidth
+                      // autoComplete={strings.token}
+                      onChange={(e) => {
+                        setState({ ...state, adminToken: e.target.value });
+                      }}
+                    />
+                  </Grid>
+                  : null
+              }
               <Grid item xs={12} sm={6}>
                 <div >
-                  <p>Profile Pic</p>
+                  <p>Profile Image</p>
                   <FileUploader
                     maxSize={50}
                     handleChange={(e) => {
@@ -460,14 +468,14 @@ export default function Register({ match, history }) {
                     name="file" types={fileTypes} />
                   <p>{state.profileImage ? `File name: ${state.profileImage.name}` : "no files uploaded yet"}</p>
                   <p>
-                  {ProfilePicMessage.haveError
-                    ? <span style={{ color: "red" }}>
-                      {ProfilePicMessage.message}
-                    </span>
-                    : ""}
+                    {ProfilePicMessage.haveError
+                      ? <span style={{ color: "red" }}>
+                        {ProfilePicMessage.message}
+                      </span>
+                      : ""}
                   </p>
                 </div>
-                
+
               </Grid>
               <Grid item xs={12} sm={6}>
                 <FormControl component="fieldset" fullWidth error={sexMessage.haveError}>
@@ -518,7 +526,10 @@ export default function Register({ match, history }) {
                 </FormControl>
               </Grid>
               <Grid item xs={12}>
-                <FormControlLabel
+                <Link to="/login" className={classes.donthaveaccount} variant="body2">
+                  {"I have an account?"}<Button>login</Button>
+                </Link>
+                {/* <FormControlLabel
                   control={
                     <Checkbox
                       color="secondary"
@@ -527,7 +538,7 @@ export default function Register({ match, history }) {
                     />
                   }
                   label={strings.label5}
-                />
+                /> */}
               </Grid>
             </Grid>
           </React.Fragment>
@@ -535,6 +546,7 @@ export default function Register({ match, history }) {
       case 1:
         return (
           <React.Fragment>
+            <ScrollToTop/>
             <Typography variant="h6" gutterBottom>
               {strings.userdetail}
             </Typography>
@@ -563,11 +575,11 @@ export default function Register({ match, history }) {
                   error={IdNumMessage.haveError}
                   helperText={IdNumMessage.message}
                   id="idNumber"
-                  name="idNumber"
+                  name="ID"
                   label={strings.label7}
                   value={state.idNumber}
                   fullWidth
-                  autoComplete="id number"
+                  autoComplete="ID"
                   onChange={(e) => {
                     setState({ ...state, idNumber: e.target.value });
                   }}
@@ -645,8 +657,8 @@ export default function Register({ match, history }) {
                 </FormControl>
               </Grid>
               <Grid item xs={12} sm={6}>
-              <div >
-                  <p>Profile Pic</p>
+                <div >
+                  <p>Photo of Id</p>
                   <FileUploader
                     maxSize={30}
                     handleChange={(e) => {
@@ -654,15 +666,15 @@ export default function Register({ match, history }) {
                     }}
                     name="file" types={fileTypes} />
                   <p>{state.idPhoto ? `File name: ${state.idPhoto.name}` : "no files uploaded yet"}</p>
-                  
+
                   <p>
-                  {IdPhotoMessage.haveError
-                    ? <span style={{ color: "red" }}>
-                      {IdPhotoMessage.message}
-                    </span>
-                    : ""}</p>
+                    {IdPhotoMessage.haveError
+                      ? <span style={{ color: "red" }}>
+                        {IdPhotoMessage.message}
+                      </span>
+                      : ""}</p>
                 </div>
-                
+
               </Grid>
               <Grid item xs={12} md={6}>
                 <TextField
@@ -675,18 +687,17 @@ export default function Register({ match, history }) {
                   onChange={(e) => {
                     setState({ ...state, city: e.target.value });
                   }}
-                  helperText="please white your city"
                   fullWidth
                   autoComplete="adiss abeba"
                 />
               </Grid>
               <Grid item xs={12}>
-                <FormControlLabel
+                {/* <FormControlLabel
                   control={
                     <Checkbox color="secondary" name="saveCard" value="yes" />
                   }
                   label={strings.label8}
-                />
+                /> */}
               </Grid>
             </Grid>
           </React.Fragment>
@@ -694,20 +705,29 @@ export default function Register({ match, history }) {
       case 2:
         return (
           <React.Fragment>
+            <ScrollToTop/>
             <Typography variant="h6" gutterBottom>
               {strings.location}
             </Typography>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={12}>
                 <div style={{ width: "80vh", height: "70vh" }}>
-                  <MapPicker
-                    defaultLocation={defaultLocation}
-                    zoom={zoom}
-                    style={{ width: "100%", height: "100%" }}
-                    onChangeLocation={handleChangeLocation}
-                    onChangeZoom={handleChangeZoom}
-                    apiKey="AIzaSyD07E1VvpsN_0FvsmKAj4nK9GnLq-9jtj8"
-                  />
+                  {window.navigator.onLine ?
+                    <MapPicker
+                      defaultLocation={defaultLocation}
+                      zoom={zoom}
+                      mapTypeId="roadmap"
+                      style={{ width: "100%", height: "100%" }}
+                      onChangeLocation={handleChangeLocation}
+                      onChangeZoom={handleChangeZoom}
+                      apiKey="AIzaSyD07E1VvpsN_0FvsmKAj4nK9GnLq-9jtj8"
+                    />
+                    :
+                    <Alert severity="info">please check your connection you are offline </Alert>
+                  }
+                  {/* <MyGoogleMap/> */}
+
+
                 </div>
               </Grid>
               <Grid>
@@ -715,12 +735,13 @@ export default function Register({ match, history }) {
                 Log:{state.longitute}
               </Grid>
             </Grid>
-          </React.Fragment>
+          </React.Fragment >
         );
       default:
         throw new Error("Unknown step");
     }
   }
+  const [connection, setConnection] = React.useState('offline')
   React.useEffect(() => {
     if (error) {
       setProgress(false);
@@ -728,7 +749,29 @@ export default function Register({ match, history }) {
     if (token) {
       setProgress(false);
     }
+    window.addEventListener("offline", (event) => {
+      // const statusDisplay = document.getElementById("status");
+      // statusDisplay.textContent = "OFFline";
+      setConnection("offline")
+    });
+
+    window.addEventListener("online", (event) => {
+      // const statusDisplay = document.getElementById("status");
+      // statusDisplay.textContent = "Online";
+      setConnection('online')
+      console.log("no")
+    });
+    // console.log('Initially ' + (window.navigator.onLine ? 'on' : 'off') + 'line');
+    // document.getElementById('statusCheck').addEventListener('click', () => console.log('window.navigator.onLine is ' + window.navigator.onLine));
+
   }, [lang, error, token]);
+
+
+
+  window.addEventListener('online', () => console.log('Became online'));
+  window.addEventListener('offline', () => console.log('Became offline'));
+
+
   return (
     <React.Fragment>
       <ScrollToTop />
@@ -742,13 +785,17 @@ export default function Register({ match, history }) {
           {error ? (
             <Alert severity="error">{error}</Alert>
           ) : null}
-          {token ? (
-            user.userType == "customer" ? (
-              <Redirect to="/profile" />
-            ) : user.userType == "admin" ? (
-              <Redirect to="/admin" />
-            ) : null
-          ) : null}
+          {
+            token
+              ?
+              user ? user.userType === "customer"
+                ? <Redirect to='/profile' /> : null
+                : null : null
+          }
+          {
+            token ? user ? user.userType === "admin"
+              ? <Redirect to="/admin" /> : null : null : null
+          }
 
           <Stepper activeStep={activeStep} className={classes.stepper}>
             {steps.map((label) => (
@@ -760,12 +807,12 @@ export default function Register({ match, history }) {
           <React.Fragment>
             {activeStep === steps.length ? (
               <React.Fragment>
-                <Typography variant="h5" gutterBottom>
+                {/* <Typography variant="h5" gutterBottom>
                   {strings.tanks}
                 </Typography>
                 <Typography variant="subtitle1">
                   {strings.pleaseverify}
-                </Typography>
+                </Typography> */}
               </React.Fragment>
             ) : (
               <React.Fragment>
@@ -784,7 +831,7 @@ export default function Register({ match, history }) {
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={handleNext}
+                      // onClick={handleNext}
                       className={classes.button}
                       onClick={onClickHandler}
                     >

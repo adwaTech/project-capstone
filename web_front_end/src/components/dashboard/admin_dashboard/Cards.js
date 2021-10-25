@@ -158,6 +158,7 @@ export  function CardIcon(props) {
       "info",
       "primary",
       "rose",
+      "white"
     ]),
     children: PropTypes.node,
   };
@@ -191,6 +192,7 @@ export  function CardIcon(props) {
       "info",
       "primary",
       "rose",
+      "color"
     ]),
     plain: PropTypes.bool,
     stats: PropTypes.bool,

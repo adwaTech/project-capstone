@@ -8,9 +8,9 @@ import PerfectScrollbar from "perfect-scrollbar";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
 import { makeStyles } from "@material-ui/core/styles";
 import Navbar from "./components/Navbars/Navbar";
-import Footer from "./components/Footer/Footer";
+// import Footer from "./components/Footer/Footer";
 import Sidebar from "./components/Sidebar/Sidebar";
-import FixedPlugin from "./components/FixedPlugin/FixedPlugin";
+// import FixedPlugin from "./components/FixedPlugin/FixedPlugin";
 
 import routes from "./routes";
 
@@ -18,6 +18,7 @@ import styles from "./adminStyle";
 
 import bgImage from "../../../assets/images/bird-wallpaper-1366x768-002.jpg";
 import logo from "../../../assets/images/bird-wallpaper-1366x768-002.jpg";
+import { strings } from "../../../language/language";
 
 let ps;
 
@@ -48,19 +49,7 @@ export default function Admin({ ...rest }) {
   const [color, setColor] = React.useState("blue");
   const [fixedClasses, setFixedClasses] = React.useState("dropdown show");
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const handleImageClick = (image) => {
-    setImage(image);
-  };
-  const handleColorClick = (color) => {
-    setColor(color);
-  };
-  const handleFixedClick = () => {
-    if (fixedClasses === "dropdown") {
-      setFixedClasses("dropdown show");
-    } else {
-      setFixedClasses("dropdown");
-    }
-  };
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -78,7 +67,7 @@ export default function Admin({ ...rest }) {
         suppressScrollX: true,
         suppressScrollY: false,
       });
-      document.body.style.overflow = "hidden";
+      // document.body.style.overflow = "hidden";
     }
     window.addEventListener("resize", resizeFunction);
     return function cleanup() {
@@ -88,6 +77,9 @@ export default function Admin({ ...rest }) {
       window.removeEventListener("resize", resizeFunction);
     };
   }, [mainPanel]);
+  React.useEffect(()=>{
+
+  },[strings])
   return (
     <div className={classes.wrapper}>
       <Sidebar
@@ -104,7 +96,7 @@ export default function Admin({ ...rest }) {
         <Navbar
           routes={routes}
           handleDrawerToggle={handleDrawerToggle}
-          {...rest}
+          {...rest} 
         />
         
         {getRoute() ? (
@@ -113,17 +105,7 @@ export default function Admin({ ...rest }) {
           </div>
         ) : (
           <div></div>
-          // <div className={classes.map}>{switchRoutes}</div>
         )}
-        {getRoute() ? <Footer /> : null}
-        {/* <FixedPlugin
-          handleImageClick={handleImageClick}
-          handleColorClick={handleColorClick}
-          bgColor={color}
-          bgImage={image}
-          handleFixedClick={handleFixedClick}
-          fixedClasses={fixedClasses}
-        /> */}
       </div>
     </div>
   );
